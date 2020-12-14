@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.edu.ntu.common.api.autoconfiguration.SwaggerAutoConfiguration

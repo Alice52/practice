@@ -1,0 +1,16 @@
+swagger3:
+  enable: true
+  author: alice52
+  email: zzhang_xz@163.com
+  groupName: ${spring.application.name}
+  tryHost: http://localhost:${server.port}
+  applicationName: ${spring.application.name}
+  version: 1.0
+  applicationDescription: api doc
+
+spring:
+  application:
+    name: swagger-starter-test
+
+server:
+  port: 8080
