@@ -1,7 +1,6 @@
 package cn.edu.ntu.common.api.autoconfiguration;
 
 import cn.edu.ntu.common.api.properties.SwaggerProperties;
-import io.swagger.annotations.Api;
 import io.swagger.models.auth.In;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -9,12 +8,15 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.oas.configuration.OpenApiDocumentationConfiguration;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -28,42 +30,43 @@ import java.util.*;
  * @create 2020-05-17 16:36 <br>
  * @project springboot <br>
  */
-@EnableOpenApi
+@EnableConfigurationProperties(SwaggerProperties.class)
 @Configuration
 @ConditionalOnProperty(
     prefix = "swagger3",
-    value = {"enable"},
-    havingValue = "true")
-@EnableConfigurationProperties(SwaggerProperties.class)
+    value = {"enabled"},
+    havingValue = "true",
+    matchIfMissing = true)
+@Import(OpenApiDocumentationConfiguration.class)
 @ComponentScan(basePackages = {"cn.edu.ntu.common.api"})
 public class SwaggerAutoConfiguration implements WebMvcConfigurer {
 
-  @Resource SwaggerProperties swaggerProperties;
-
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    // release swagger
     registry
-        .addResourceHandler("/swagger**/**")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/v3/**").addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
-    // release relevant js
-    registry
-        .addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        .addResourceHandler("/swagger-ui/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+        .resourceChain(false);
+    registry.addResourceHandler("/v3/**").addResourceLocations("classpath:/META-INF/resources/**");
   }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addViewController("/swagger-ui/").setViewName("forward:" + "/swagger-ui/index.html");
+  }
+
+  @Resource SwaggerProperties swaggerProperties;
 
   @Bean
   public Docket createRestApi() {
     return new Docket(DocumentationType.OAS_30)
         .pathMapping("/")
         .groupName(swaggerProperties.getGroupName())
-        .enable(swaggerProperties.getEnable())
+        .enable(swaggerProperties.getEnabled())
         .apiInfo(apiInfo())
         .host(swaggerProperties.getTryHost())
         .select()
-        .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+        .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
         // .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.any())
         .build()
@@ -78,15 +81,12 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
         .description(swaggerProperties.getApplicationDescription())
         .contact(new Contact(swaggerProperties.getAuthor(), null, swaggerProperties.getEmail()))
         .version(
-            "Application Version: "
-                + swaggerProperties.getVersion()
-                + ", Spring Boot Version: "
-                + SpringBootVersion.getVersion())
+            swaggerProperties.getVersion() + ", Boot Version: " + SpringBootVersion.getVersion())
         .build();
   }
 
   private List<SecurityScheme> securitySchemes() {
-    ApiKey apiKey = new ApiKey("BASE_TOKEN", "token", In.HEADER.toValue());
+    ApiKey apiKey = new ApiKey(swaggerProperties.getTokenName(), "token", In.HEADER.toValue());
     return Collections.singletonList(apiKey);
   }
 
@@ -96,7 +96,7 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
             .securityReferences(
                 Collections.singletonList(
                     new SecurityReference(
-                        "BASE_TOKEN",
+                        swaggerProperties.getTokenName(),
                         new AuthorizationScope[] {new AuthorizationScope("global", "")})))
             .build());
   }

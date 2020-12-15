@@ -9,14 +9,32 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "swagger3")
 public class SwaggerProperties {
-  private Boolean enable;
-  private String author;
-  private String email;
-  private String groupName;
+  private Boolean enabled = true;
+  private String author = "";
+  private String email = "";
+  private String groupName = "default";
   private String tryHost;
-  private String applicationName;
-  private String version;
-  private String applicationDescription;
+  private String applicationName = "";
+  private String version = "V1.0.0";
+  private String applicationDescription = "";
+  private String tokenName = "BASE_TOKEN";
+  private Boolean ping = true;
+
+  public Boolean getPing() {
+    return ping;
+  }
+
+  public void setPing(Boolean ping) {
+    this.ping = ping;
+  }
+
+  public Boolean getEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(Boolean enabled) {
+    this.enabled = enabled;
+  }
 
   public String getAuthor() {
     return author;
@@ -40,14 +58,6 @@ public class SwaggerProperties {
 
   public void setGroupName(String groupName) {
     this.groupName = groupName;
-  }
-
-  public Boolean getEnable() {
-    return enable;
-  }
-
-  public void setEnable(Boolean enable) {
-    this.enable = enable;
   }
 
   public String getTryHost() {
@@ -80,5 +90,13 @@ public class SwaggerProperties {
 
   public void setApplicationDescription(String applicationDescription) {
     this.applicationDescription = applicationDescription;
+  }
+
+  public String getTokenName() {
+    return tokenName;
+  }
+
+  public void setTokenName(String tokenName) {
+    this.tokenName = tokenName;
   }
 }

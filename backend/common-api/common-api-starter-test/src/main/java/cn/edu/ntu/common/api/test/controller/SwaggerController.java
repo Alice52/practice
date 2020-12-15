@@ -1,6 +1,5 @@
 package cn.edu.ntu.common.api.test.controller;
 
-import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @create 2020/12/15 <br>
  * @project common-api <br>
  */
-@Api
 @RestController
 public class SwaggerController {
 
