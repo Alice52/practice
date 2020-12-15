@@ -10,39 +10,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common-api-starter</artifactId>
+
     <properties>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
     </properties>
 
     <dependencies>
-        <!-- use spring-boot-starter: all starter need it-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <scope>compile</scope>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-swagger-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-oas</artifactId>
-            <scope>compile</scope>
-            <version>${swagger.verion}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <scope>compile</scope>
-            <version>${swagger.verion}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <scope>compile</scope>
-            <version>${swagger.verion}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <scope>compile</scope>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-response-starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

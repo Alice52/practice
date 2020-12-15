@@ -8,6 +8,10 @@
     <artifactId>common-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <module>common-response-starter</module>
+        <module>common-response-starter-test</module>
+        <module>common-swagger-starter</module>
+        <module>common-swagger-starter-test</module>
         <module>common-api-starter</module>
         <module>common-api-starter-test</module>
     </modules>
@@ -62,11 +66,6 @@
             </dependency>
 
             <!-- swagger3 -->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger.verion}</version>
-            </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-oas</artifactId>

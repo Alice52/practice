@@ -9,13 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common-api-starter-test</artifactId>
+    <artifactId>common-swagger-starter-test</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-api-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>common-swagger-starter</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 </project>
