@@ -3,12 +3,15 @@ package cn.edu.ntu.common.api.autoconfiguration;
 import cn.edu.ntu.common.api.properties.SwaggerProperties;
 import io.swagger.models.auth.In;
 import org.springframework.boot.SpringBootVersion;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.oas.configuration.OpenApiDocumentationConfiguration;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
@@ -26,6 +30,8 @@ import javax.annotation.Resource;
 import java.util.*;
 
 /**
+ * // TODO: need to research for specified response.
+ *
  * @author zack <br>
  * @create 2020-05-17 16:36 <br>
  * @project springboot <br>
@@ -39,7 +45,18 @@ import java.util.*;
     matchIfMissing = true)
 @Import(OpenApiDocumentationConfiguration.class)
 @ComponentScan(basePackages = {"cn.edu.ntu.common.api"})
+@AutoConfigureAfter(ValidationAutoConfiguration.class)
 public class SwaggerAutoConfiguration implements WebMvcConfigurer {
+
+  private final List<Response> responseMessageList = new ArrayList<>();
+
+  public SwaggerAutoConfiguration() {
+    responseMessageList.add(new ResponseBuilder().code("404").description("Not Found").build());
+    responseMessageList.add(new ResponseBuilder().code("400").description("Bad Request").build());
+    responseMessageList.add(new ResponseBuilder().code("401").description("Unauthorized").build());
+    responseMessageList.add(
+        new ResponseBuilder().code("500").description("Internal Error").build());
+  }
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -64,6 +81,7 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
         .groupName(swaggerProperties.getGroupName())
         .enable(swaggerProperties.getEnabled())
         .apiInfo(apiInfo())
+        .globalResponses(HttpMethod.GET, responseMessageList)
         .host(swaggerProperties.getTryHost())
         .select()
         .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
