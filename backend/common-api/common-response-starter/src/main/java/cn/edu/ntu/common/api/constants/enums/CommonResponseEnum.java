@@ -14,6 +14,7 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 public enum CommonResponseEnum implements IBaseExceptionAssert {
+  CUSTOM(-1, "Internal Error"),
   SUCCESS(0, "SUCCESS"),
   SERVER_ERROR(99999, "Internal Error"),
   SERVER_BUSY(99998, "Network Error"),

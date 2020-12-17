@@ -15,28 +15,36 @@ import java.util.function.Supplier;
 public interface IBaseAssert {
 
   /**
-   * @param args
+   * This method must be Override by sub-class, which can create specified exception.
+   * @param args this is for error message[enum message value] palceholder
    * @return
    */
   BaseException newException(Object... args);
 
-  BaseException newException(Throwable t, Object... args);
   /**
-   * 创建异常.
+   * This method must be Override by sub-class, which can create specified exception.
+   * @param t
+   * @param args this is for error message[enum message value] palceholder
+   * @return
+   */
+  BaseException newException(Throwable t, Object... args);
+
+  /**
+   * Create exception for specified IXxAssert and put the errMsg to exception[log].
    *
-   * @param errMsg 自定义的错误信息
-   * @param args
+   * @param errMsg Error message, which can contain placeholder.
+   * @param args real args for error message place-holder.
    * @return
    */
   default BaseException newExceptionWithMsg(String errMsg, Object... args) {
-    throw newException(errMsg, args);
+    throw newException(new RuntimeException(errMsg), args);
   }
 
   /**
-   * 创建异常.
+   * Create exception for specified IXxAssert and put the errMsg to exception[log].
    *
-   * @param errMsg 自定义的错误信息
-   * @param args
+   * @param errMsg Error message, which can contain placeholder.
+   * @param args real args for error message place-holder.
    * @return
    */
   default BaseException newExceptionWithMsg(String errMsg, Throwable t, Object... args) {
@@ -44,13 +52,15 @@ public interface IBaseAssert {
       errMsg = MessageFormat.format(errMsg, args);
     }
 
-    throw newException(t, errMsg, args);
+    throw newException(new RuntimeException(errMsg, t), args);
   }
 
+
   /**
-   * 断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
+   * Assert <code>obj</code> whether not null. <br/>
+   * If <code>obj</code> is null, thows exception.
    *
-   * @param obj 待判断对象
+   * @param obj: Object to be judged
    */
   default void assertNotNull(Object obj) {
     if (obj == null) {
@@ -59,12 +69,12 @@ public interface IBaseAssert {
   }
 
   /**
-   * 断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
+   * Assert <code>obj</code> whether not null. <br/>
    *
-   * <p>异常信息<code>message</code>支持传递参数方式，避免在判断之前进行字符串拼接操作
+   * If <code>obj</code> is null, thows exception.
    *
-   * @param obj 待判断对象
-   * @param args message占位符对应的参数列表
+   * @param obj Object to be judged
+   * @param args this is for error message[enum message value] palceholder
    */
   default void assertNotNull(Object obj, Object... args) {
     if (obj == null) {
@@ -73,10 +83,11 @@ public interface IBaseAssert {
   }
 
   /**
-   * 断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
+   * Assert <code>obj</code> whether not null. <br/>
+   * If <code>obj</code> is null, thows exception. And should avoid to join string before.
    *
-   * @param obj 待判断对象
-   * @param errMsg 自定义的错误信息
+   * @param obj Object to be judged
+   * @param errMsg error message, which will be show in exception[log], and not in response.
    */
   default void assertNotNullWithMsg(Object obj, String errMsg) {
     if (obj == null) {
@@ -85,13 +96,12 @@ public interface IBaseAssert {
   }
 
   /**
-   * 断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
+   * Assert <code>obj</code> whether not null. <br/>
+   * If <code>obj</code> is null, thows exception. And should avoid to join string before.
    *
-   * <p>异常信息<code>message</code>支持传递参数方式，避免在判断之前进行字符串拼接操作
-   *
-   * @param obj 待判断对象
-   * @param errMsg 自定义的错误信息. 支持 {index} 形式的占位符, 比如: errMsg-用户[{0}]不存在, args-1001, 最后打印-用户[1001]不存在
-   * @param args message占位符对应的参数列表
+   * @param obj Object to be judged
+   * @param errMsg error message, containing placeholder.
+   * @param args this is for errMsg palceholder, show in exception[log]
    */
   default void assertNotNullWithMsg(Object obj, String errMsg, Object... args) {
     if (obj == null) {
@@ -100,10 +110,11 @@ public interface IBaseAssert {
   }
 
   /**
-   * 断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
+   * Assert <code>obj</code> whether not null. <br/>
+   * If <code>obj</code> is null, thows exception.
    *
-   * @param obj 待判断对象
-   * @param errMsg 自定义的错误信息
+   * @param obj Object to be judged
+   * @param errMsg error message supplier function, which is show in exception.
    */
   default void assertNotNullWithMsg(Object obj, Supplier<String> errMsg) {
     if (obj == null) {
@@ -112,13 +123,12 @@ public interface IBaseAssert {
   }
 
   /**
-   * 断言对象<code>obj</code>非空。如果对象<code>obj</code>为空，则抛出异常
+   * Assert <code>obj</code> whether not null. <br/>
+   * If <code>obj</code> is null, thows exception.
    *
-   * <p>异常信息<code>message</code>支持传递参数方式，避免在判断之前进行字符串拼接操作
-   *
-   * @param obj 待判断对象
-   * @param errMsg 自定义的错误信息. 支持 {index} 形式的占位符, 比如: errMsg-用户[{0}]不存在, args-1001, 最后打印-用户[1001]不存在
-   * @param args message占位符对应的参数列表
+   * @param obj Object to be judged
+   * @param errMsg error message function containing placeholder, and show in exception
+   * @param args this is for errMsg palceholder, show in exception[log]
    */
   default void assertNotNullWithMsg(Object obj, Supplier<String> errMsg, Object... args) {
     if (obj == null) {
@@ -843,4 +853,8 @@ public interface IBaseAssert {
   default void assertFailWithMsg(Supplier<String> errMsg, Throwable t, Object... args) {
     throw newExceptionWithMsg(errMsg.get(), t, args);
   }
+
+  // TODO: please privide custom response method, and default error code is SERVER_ERROR
+  // but it can changed by setXx
+  // TODO: view hutool assert source code definition.
 }
