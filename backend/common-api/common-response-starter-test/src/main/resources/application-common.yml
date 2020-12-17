@@ -1,0 +1,77 @@
+common:
+  response:
+    # this can disable handler, advice, request feature
+    enabled: true
+    handler:
+      # this can disable handler feature
+      enabled: true
+    advice: # if advice is disabled, it means request-id feature is disable too.
+      # this can disable advice feature
+      enabled: true
+      code-name: code
+      message-name: message
+      data-name: R
+      failed-api-status: 9202
+    request-id:
+      # this can disable request feature
+      enabled: true
+      key: requ-id
+
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}
+
+server:
+  port: 8080
+  tomcat:
+    accept-count: 500
+    max-threads: 100
+    min-spare-threads: 50
+    max-connections: 5000
+
+druid:
+  spring:
+    monitor:
+      enable: false
+      locations: com.sample.*
+
+### mybaits-plus配置，修改主键类型，mapper.xml、type 别名等
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  global-config:
+    db-config:
+      # 主键类型
+      id-type: auto
+      # 字段策略
+      field-strategy: not_null
+      # 驼峰下划线转换
+      table-underline: true
+      # 逻辑删除全局值（默认 1、表示已删除）
+      logic-delete-value: 1
+      # 逻辑未删除全局值（默认 0、表示未删除）
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+logging:
+  level:
+    ec.*: debug
+
+
+spring:
+  application:
+    name: common-response-starter-test
+  # jackson时间格式化
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 45MB
+      enabled: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false

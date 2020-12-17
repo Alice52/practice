@@ -28,7 +28,9 @@ public class LicenceController {
   public SimpleLicenceDTO getLicence(@PathVariable("licenceId") Long licenceId) {
     // CommonResponseEnum.CUSTOM.assertFail2Response("failed anyway");
 
-    CommonResponseEnum.CUSTOM.assertFail2Response(9005, "error");
+    if (licenceId == 1) {
+      CommonResponseEnum.CUSTOM.assertFail2Response(9005, "error");
+    }
 
     return licenceService.queryDetail(licenceId);
   }
