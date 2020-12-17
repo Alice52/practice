@@ -51,21 +51,21 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: common-api-starter-1.0-SNAPSHOT.jar
-          path: ${{ github.workspace }}/backend/**/*.jar
+          path: ${{ github.workspace }}/backend/common-api/common-api-starter/target/
           retention-days: 7
 
       - name: Upload common-response-starter Artifact
         uses: actions/upload-artifact@v2
         with:
           name: common-response-starter-1.0-SNAPSHOT.jar
-          path: ${{ github.workspace }}/backend/**/*.jar
+          path: ${{ github.workspace }}/backend/common-api/common-response-starter/target/
           retention-days: 7
 
       - name: Upload common-swagger-starter Artifact
         uses: actions/upload-artifact@v2
         with:
           name: common-swagger-starter-1.0-SNAPSHOT.jar
-          path: ${{ github.workspace }}/backend/**/*.jar
+          path: ${{ github.workspace }}/backend/common-api/common-swagger-starter/target/
           retention-days: 7
 
       - name: Push common-swagger Image
