@@ -2,6 +2,9 @@ package cn.edu.ntu.common.api.response.configure;
 
 import cn.edu.ntu.common.api.constants.enums.CommonResponseEnum;
 import cn.edu.ntu.common.api.exception.assertion.IBaseErrorResponse;
+import cn.edu.ntu.common.api.properties.ResponseProperties;
+import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -11,7 +14,11 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zack <br>
@@ -19,14 +26,41 @@ import java.util.HashMap;
  * @project common-api <br>
  */
 @ConditionalOnProperty(
-    prefix = "common.response",
-    value = {"noHttpStatus"},
+    prefix = "common.response.advice",
+    value = {"enabled"},
     havingValue = "true",
     matchIfMissing = true)
 @ControllerAdvice
 public class NoStatusResponseBodyAdvice implements ResponseBodyAdvice {
 
-  String[] ignores = new String[] {"/swagger-resources", "/v3/**", "/swagger-ui/**"};
+  private final List<Integer> statuses;
+
+  public NoStatusResponseBodyAdvice() {
+    statuses =
+        Arrays.asList(HttpStatus.values()).stream()
+            .map(x -> x.value())
+            .collect(Collectors.toList());
+  }
+
+  @Resource ResponseProperties responseProperties;
+
+  /** if use responseProperties, will throw exception due to responseProperties is null now. */
+  @Value("${common.response.request-id.key:req-id}")
+  private String requestIdKey;
+
+  @Value("${common.response.advice.code-name:code}")
+  private String codeName;
+
+  @Value("${common.response.advice.message-name:message}")
+  private String messageName;
+
+  @Value("${common.response.advice.data-name:data}")
+  private String dataName;
+
+  @Value("${common.response.advice.failed-api-status:400}")
+  private int failedHttpCode;
+
+  String[] ignores = new String[] {"/error", "/swagger-resources", "/v3/**", "/swagger-ui/**"};
 
   boolean ignoring(String uri) {
     for (String string : ignores) {
@@ -67,22 +101,35 @@ public class NoStatusResponseBodyAdvice implements ResponseBodyAdvice {
     }
 
     if (body != null && body instanceof IBaseErrorResponse) {
-      response.setStatusCode(HttpStatus.BAD_REQUEST);
+
+      if (!statuses.contains(failedHttpCode)) {
+        failedHttpCode = 400;
+      }
+
+      response.setStatusCode(HttpStatus.valueOf(failedHttpCode));
       IBaseErrorResponse errorResponse = (IBaseErrorResponse) body;
-      return new HashMap<String, Object>(3) {
+      return new HashMap<String, Object>(4) {
         {
-          put("code", errorResponse.getErrorCode());
-          put("message", errorResponse.getErrorMsg());
-          put("data", errorResponse.getParameters());
+          if (responseProperties.getRequestId().getEnabled()) {
+            put(requestIdKey, MDC.get(requestIdKey));
+          }
+
+          put(codeName, errorResponse.getErrorCode());
+          put(messageName, errorResponse.getErrorMsg());
+          put(dataName, errorResponse.getParameters());
         }
       };
     }
 
-    return new HashMap<String, Object>(3) {
+    return new HashMap<String, Object>(4) {
       {
-        put("code", CommonResponseEnum.SUCCESS.getErrorCode());
-        put("message", CommonResponseEnum.SUCCESS.getErrorMsg());
-        put("data", body);
+        if (responseProperties.getRequestId().getEnabled()) {
+          put(requestIdKey, MDC.get(requestIdKey));
+        }
+
+        put(codeName, CommonResponseEnum.SUCCESS.getErrorCode());
+        put(messageName, CommonResponseEnum.SUCCESS.getErrorMsg());
+        put(dataName, body);
       }
     };
   }

@@ -1,9 +1,6 @@
 package cn.edu.ntu.common.api.response.model;
 
 import cn.edu.ntu.common.api.exception.assertion.IBaseErrorResponse;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
@@ -12,9 +9,6 @@ import java.util.Map;
  * @create 2020/12/16 <br>
  * @project common-api <br>
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ErrorResponse implements IBaseErrorResponse {
   private Integer errorCode;
   private String errorMsg;
@@ -31,5 +25,41 @@ public class ErrorResponse implements IBaseErrorResponse {
   public ErrorResponse(Integer code, String message) {
     this.errorCode = code;
     this.errorMsg = message;
+  }
+
+  public ErrorResponse() {}
+
+  public ErrorResponse(Integer errorCode, String errorMsg, Map<String, Object> parameters) {
+    this.errorCode = errorCode;
+    this.errorMsg = errorMsg;
+    this.parameters = parameters;
+  }
+
+  @Override
+  public Integer getErrorCode() {
+    return errorCode;
+  }
+
+  public void setErrorCode(Integer errorCode) {
+    this.errorCode = errorCode;
+  }
+
+  @Override
+  public String getErrorMsg() {
+    return errorMsg;
+  }
+
+  public void setErrorMsg(String errorMsg) {
+    this.errorMsg = errorMsg;
+  }
+
+  @Override
+  public Map<String, Object> getParameters() {
+    return parameters;
+  }
+
+  @Override
+  public void setParameters(Map<String, Object> parameters) {
+    this.parameters = parameters;
   }
 }

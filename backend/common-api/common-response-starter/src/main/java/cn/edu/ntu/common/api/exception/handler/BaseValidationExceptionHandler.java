@@ -4,7 +4,9 @@ import cn.edu.ntu.common.api.constants.enums.CommonResponseEnum;
 import cn.edu.ntu.common.api.exception.ListValidException;
 import cn.edu.ntu.common.api.exception.assertion.IBaseErrorResponse;
 import cn.edu.ntu.common.api.response.model.ErrorResponse;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -31,14 +33,20 @@ import static org.springframework.util.StringUtils.isEmpty;
  * @create 2020/12/16 <br>
  * @project common-api <br>
  */
-@Slf4j
 @ControllerAdvice
 @Order(1000)
+@ConditionalOnProperty(
+    prefix = "common.response.handler",
+    value = {"enabled"},
+    havingValue = "true",
+    matchIfMissing = true)
 public class BaseValidationExceptionHandler {
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(BaseValidationExceptionHandler.class);
 
   @ExceptionHandler(ValidationException.class)
   public IBaseErrorResponse handleValidationException(ValidationException ex) throws Exception {
-    log.error(
+    LOGGER.error(
         "validation bean error: type {}, params {}, message {}, detail {}",
         ex.getClass().getTypeName(),
         ex.getClass().getTypeParameters(),
@@ -111,7 +119,7 @@ public class BaseValidationExceptionHandler {
 
   private IBaseErrorResponse getErrorResults(BindingResult bindingResult, Exception ex) {
 
-    log.error(
+    LOGGER.error(
         "validation bean error: type {}, params {}, message {}, detail {}",
         ex.getClass().getTypeName(),
         ex.getClass().getTypeParameters(),

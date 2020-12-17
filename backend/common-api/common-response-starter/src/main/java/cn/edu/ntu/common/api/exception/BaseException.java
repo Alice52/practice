@@ -1,9 +1,6 @@
 package cn.edu.ntu.common.api.exception;
 
 import cn.edu.ntu.common.api.exception.assertion.IBaseErrorResponse;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
@@ -14,15 +11,14 @@ import java.util.Map;
  * @create 2020/12/16 <br>
  * @project common-api <br>
  */
-@Data
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
 public class BaseException extends RuntimeException {
   private static final long serialVersionUID = 1L;
 
   @NotNull private IBaseErrorResponse responseEnum;
   /** Notice this property maybe null. */
   private Object[] args;
+
+  public BaseException() {}
 
   public BaseException(IBaseErrorResponse responseEnum) {
     super(responseEnum.getErrorMsg());
@@ -60,6 +56,22 @@ public class BaseException extends RuntimeException {
       IBaseErrorResponse responseEnum, Object[] args, String message, Throwable cause) {
     super(message, cause);
     this.responseEnum = responseEnum;
+    this.args = args;
+  }
+
+  public IBaseErrorResponse getResponseEnum() {
+    return responseEnum;
+  }
+
+  public void setResponseEnum(IBaseErrorResponse responseEnum) {
+    this.responseEnum = responseEnum;
+  }
+
+  public Object[] getArgs() {
+    return args;
+  }
+
+  public void setArgs(Object[] args) {
     this.args = args;
   }
 }

@@ -1,5 +1,6 @@
 package cn.edu.ntu.common.api.exception.assertion;
 
+import cn.edu.ntu.common.api.constants.enums.CommonResponseEnum;
 import cn.edu.ntu.common.api.exception.BaseException;
 
 import java.text.MessageFormat;
@@ -16,6 +17,7 @@ public interface IBaseAssert {
 
   /**
    * This method must be Override by sub-class, which can create specified exception.
+   *
    * @param args this is for error message[enum message value] palceholder
    * @return
    */
@@ -23,6 +25,7 @@ public interface IBaseAssert {
 
   /**
    * This method must be Override by sub-class, which can create specified exception.
+   *
    * @param t
    * @param args this is for error message[enum message value] palceholder
    * @return
@@ -55,9 +58,8 @@ public interface IBaseAssert {
     throw newException(new RuntimeException(errMsg, t), args);
   }
 
-
   /**
-   * Assert <code>obj</code> whether not null. <br/>
+   * Assert <code>obj</code> whether not null. <br>
    * If <code>obj</code> is null, thows exception.
    *
    * @param obj: Object to be judged
@@ -69,8 +71,7 @@ public interface IBaseAssert {
   }
 
   /**
-   * Assert <code>obj</code> whether not null. <br/>
-   *
+   * Assert <code>obj</code> whether not null. <br>
    * If <code>obj</code> is null, thows exception.
    *
    * @param obj Object to be judged
@@ -83,7 +84,7 @@ public interface IBaseAssert {
   }
 
   /**
-   * Assert <code>obj</code> whether not null. <br/>
+   * Assert <code>obj</code> whether not null. <br>
    * If <code>obj</code> is null, thows exception. And should avoid to join string before.
    *
    * @param obj Object to be judged
@@ -96,7 +97,7 @@ public interface IBaseAssert {
   }
 
   /**
-   * Assert <code>obj</code> whether not null. <br/>
+   * Assert <code>obj</code> whether not null. <br>
    * If <code>obj</code> is null, thows exception. And should avoid to join string before.
    *
    * @param obj Object to be judged
@@ -110,7 +111,7 @@ public interface IBaseAssert {
   }
 
   /**
-   * Assert <code>obj</code> whether not null. <br/>
+   * Assert <code>obj</code> whether not null. <br>
    * If <code>obj</code> is null, thows exception.
    *
    * @param obj Object to be judged
@@ -123,7 +124,7 @@ public interface IBaseAssert {
   }
 
   /**
-   * Assert <code>obj</code> whether not null. <br/>
+   * Assert <code>obj</code> whether not null. <br>
    * If <code>obj</code> is null, thows exception.
    *
    * @param obj Object to be judged
@@ -854,7 +855,45 @@ public interface IBaseAssert {
     throw newExceptionWithMsg(errMsg.get(), t, args);
   }
 
-  // TODO: please privide custom response method, and default error code is SERVER_ERROR
-  // but it can changed by setXx
+  /**
+   * change response body. <br>
+   * default code is 999999999 and message is Unknown Error.
+   */
+  default void assertFail2Response() {
+    throw new BaseException(CommonResponseEnum.CUSTOM);
+  }
+
+  /**
+   * change response body using errMsg and default code is 999999999.
+   *
+   * @param errMsg
+   * @param args
+   */
+  default void assertFail2Response(String errMsg, Object... args) {
+    throw new BaseException(
+        CommonResponseEnum.CUSTOM.getErrorCode(), MessageFormat.format(errMsg, args));
+  }
+
+  /**
+   * change response body using errMsg and errCode.
+   *
+   * @param errCode
+   * @param errMsg
+   */
+  default void assertFail2Response(Integer errCode, String errMsg) {
+    throw new BaseException(errCode, errMsg);
+  }
+
+  /**
+   * change response body using errMsg[args] and errCode
+   *
+   * @param errCode
+   * @param errMsg
+   * @param args
+   */
+  default void assertFail2Response(Integer errCode, String errMsg, Object... args) {
+    throw new BaseException(errCode, MessageFormat.format(errMsg, args));
+  }
+
   // TODO: view hutool assert source code definition.
 }

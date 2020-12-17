@@ -1,5 +1,6 @@
 package cn.edu.ntu.common.api.test.controller;
 
+import cn.edu.ntu.common.api.constants.enums.CommonResponseEnum;
 import cn.edu.ntu.common.api.test.common.QueryData;
 import cn.edu.ntu.common.api.test.model.SimpleLicenceDTO;
 import cn.edu.ntu.common.api.test.model.param.LicenceParam;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author zack <br>
@@ -26,6 +26,10 @@ public class LicenceController {
 
   @GetMapping(value = "/{licenceId}")
   public SimpleLicenceDTO getLicence(@PathVariable("licenceId") Long licenceId) {
+    // CommonResponseEnum.CUSTOM.assertFail2Response("failed anyway");
+
+    CommonResponseEnum.CUSTOM.assertFail2Response(9005, "error");
+
     return licenceService.queryDetail(licenceId);
   }
 
@@ -36,7 +40,7 @@ public class LicenceController {
    * @return
    */
   @GetMapping(value = "/list")
-  public QueryData<SimpleLicenceDTO> getLicences(@Validated @NotNull LicenceParam licenceParam) {
+  public QueryData<SimpleLicenceDTO> getLicences(@Validated LicenceParam licenceParam) {
     return licenceService.getLicences(licenceParam);
   }
 }

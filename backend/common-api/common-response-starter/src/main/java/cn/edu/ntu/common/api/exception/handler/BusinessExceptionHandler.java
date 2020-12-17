@@ -3,7 +3,9 @@ package cn.edu.ntu.common.api.exception.handler;
 import cn.edu.ntu.common.api.exception.BaseException;
 import cn.edu.ntu.common.api.response.model.ErrorResponse;
 import cn.edu.ntu.common.api.service.UnifiedMessageSource;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,14 +21,19 @@ import javax.annotation.Resource;
 @Order(999)
 @ControllerAdvice
 @ResponseBody
-@Slf4j
+@ConditionalOnProperty(
+    prefix = "common.response.handler",
+    value = {"enabled"},
+    havingValue = "true",
+    matchIfMissing = true)
 public class BusinessExceptionHandler {
+  private static final Logger LOGGER = LoggerFactory.getLogger(BusinessExceptionHandler.class);
   @Resource private UnifiedMessageSource unifiedMessageSource;
 
   @ExceptionHandler(value = {BaseException.class})
   @ResponseBody
   public ErrorResponse handleBusinessException(BaseException e) {
-    log.error(e.getMessage(), e);
+    LOGGER.error(e.getMessage(), e);
 
     return new ErrorResponse(e.getResponseEnum().getErrorCode(), getMessage(e));
   }

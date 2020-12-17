@@ -1,0 +1,21 @@
+# These value is no means, just show properties.
+# And default value is set in xxProperties class.
+common:
+  response:
+    # this can disable handler, advice, request feature
+    enabled: true
+    handler:
+      # this can disable handler feature
+      enabled: true
+    advice:
+      # this can disable advice feature
+      enabled: true
+      code-name: code
+      message-name: message
+      data-name: data
+      failed-api-status: 400
+    request-id:
+      # this can disable request feature
+      enabled: true
+      key: req-id
+

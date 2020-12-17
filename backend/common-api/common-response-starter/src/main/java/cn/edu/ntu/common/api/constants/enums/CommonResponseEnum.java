@@ -1,8 +1,6 @@
 package cn.edu.ntu.common.api.constants.enums;
 
 import cn.edu.ntu.common.api.exception.assertion.IBaseExceptionAssert;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 import java.util.Map;
 
@@ -11,10 +9,8 @@ import java.util.Map;
  * @create 2020/12/16 <br>
  * @project common-api <br>
  */
-@Getter
-@AllArgsConstructor
 public enum CommonResponseEnum implements IBaseExceptionAssert {
-  CUSTOM(-1, "Internal Error"),
+  CUSTOM(99999999, "Unknown Error"),
   SUCCESS(0, "SUCCESS"),
   SERVER_ERROR(99999, "Internal Error"),
   SERVER_BUSY(99998, "Network Error"),
@@ -35,6 +31,35 @@ public enum CommonResponseEnum implements IBaseExceptionAssert {
   CommonResponseEnum(Integer errorCode, String errorMsg) {
     this.errorCode = errorCode;
     this.errorMsg = errorMsg;
+  }
+
+  CommonResponseEnum(Integer errorCode, String errorMsg, Map<String, Object> parameters) {
+    this.errorCode = errorCode;
+    this.errorMsg = errorMsg;
+    this.parameters = parameters;
+  }
+
+  @Override
+  public Integer getErrorCode() {
+    return errorCode;
+  }
+
+  public void setErrorCode(Integer errorCode) {
+    this.errorCode = errorCode;
+  }
+
+  @Override
+  public String getErrorMsg() {
+    return errorMsg;
+  }
+
+  public void setErrorMsg(String errorMsg) {
+    this.errorMsg = errorMsg;
+  }
+
+  @Override
+  public Map<String, Object> getParameters() {
+    return parameters;
   }
 
   @Override
