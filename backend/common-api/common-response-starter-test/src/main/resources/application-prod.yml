@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: common
+    include: common
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:

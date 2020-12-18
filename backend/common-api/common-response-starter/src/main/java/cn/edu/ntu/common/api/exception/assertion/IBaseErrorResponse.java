@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface IBaseErrorResponse {
   /**
-   * Error Code.
+   * Error Code. And this value cannot changed anyway.
    *
    * @return
    */
@@ -23,6 +23,13 @@ public interface IBaseErrorResponse {
    * @return
    */
   String getErrorMsg();
+
+  /**
+   * Set Error message.
+   *
+   * @param errorMsg
+   */
+  default void setErrorMsg(String errorMsg) {}
 
   /**
    * Error parameters.

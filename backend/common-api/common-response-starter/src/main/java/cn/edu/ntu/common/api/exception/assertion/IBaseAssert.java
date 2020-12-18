@@ -2,6 +2,7 @@ package cn.edu.ntu.common.api.exception.assertion;
 
 import cn.edu.ntu.common.api.constants.enums.CommonResponseEnum;
 import cn.edu.ntu.common.api.exception.BaseException;
+import cn.edu.ntu.common.api.exception.WrapMessageException;
 
 import java.text.MessageFormat;
 import java.util.Collection;
@@ -40,7 +41,11 @@ public interface IBaseAssert {
    * @return
    */
   default BaseException newExceptionWithMsg(String errMsg, Object... args) {
-    throw newException(new RuntimeException(errMsg), args);
+    if (args != null && args.length > 0) {
+      errMsg = MessageFormat.format(errMsg, args);
+    }
+
+    throw newException(new WrapMessageException(errMsg), args);
   }
 
   /**
@@ -55,7 +60,7 @@ public interface IBaseAssert {
       errMsg = MessageFormat.format(errMsg, args);
     }
 
-    throw newException(new RuntimeException(errMsg, t), args);
+    throw newException(new WrapMessageException(errMsg, t), args);
   }
 
   /**

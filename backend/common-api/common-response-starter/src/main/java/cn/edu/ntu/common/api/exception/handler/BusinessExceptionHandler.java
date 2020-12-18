@@ -1,6 +1,7 @@
 package cn.edu.ntu.common.api.exception.handler;
 
 import cn.edu.ntu.common.api.exception.BaseException;
+import cn.edu.ntu.common.api.exception.assertion.IBaseErrorResponse;
 import cn.edu.ntu.common.api.response.model.ErrorResponse;
 import cn.edu.ntu.common.api.service.UnifiedMessageSource;
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class BusinessExceptionHandler {
 
   @ExceptionHandler(value = {BaseException.class})
   @ResponseBody
-  public ErrorResponse handleBusinessException(BaseException e) {
+  public IBaseErrorResponse handleBusinessException(BaseException e) {
     LOGGER.error(e.getMessage(), e);
 
     return new ErrorResponse(e.getResponseEnum().getErrorCode(), getMessage(e));

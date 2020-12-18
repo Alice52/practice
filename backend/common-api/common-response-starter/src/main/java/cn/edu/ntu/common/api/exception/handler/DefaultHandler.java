@@ -1,6 +1,7 @@
 package cn.edu.ntu.common.api.exception.handler;
 
 import cn.edu.ntu.common.api.constants.enums.CommonResponseEnum;
+import cn.edu.ntu.common.api.exception.assertion.IBaseErrorResponse;
 import cn.edu.ntu.common.api.response.model.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class DefaultHandler {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHandler.class);
 
   @ExceptionHandler({Exception.class})
-  public ErrorResponse handleException(Exception ex) {
+  public IBaseErrorResponse handleException(Exception ex) {
     LOGGER.error(ex.getMessage(), ex);
 
     return new ErrorResponse(CommonResponseEnum.SERVER_ERROR.getErrorCode(), ex.getMessage());
