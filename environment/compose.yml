@@ -1,0 +1,39 @@
+services:
+  practice-common-swagger:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-common-swagger-starter-test:20201217.1d443c6
+    container_name: dev-practice-common-swagger
+    restart: always
+    environment:
+      - spring.profiles.active=prod
+      - TZ=Asia/Shanghai
+    volumes:
+      # this is for nginx look up
+      - /root/nginx/www/project-ec/ec-product:/log
+    ports:
+      - '8090:8080'
+
+  practice-common-response:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-common-response-starter-test:20201217.1d443c6
+    container_name: dev-practice-common-response
+    restart: always
+    environment:
+      - spring.profiles.active=prod
+      - TZ=Asia/Shanghai
+    volumes:
+      # this is for nginx look up
+      - /root/nginx/www/project-ec/ec-product:/log
+    ports:
+      - '8091:8080'
+
+  practice-common-api:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-common-api-starter-test:20201217.1d443c6
+    container_name: dev-practice-common-api
+    restart: always
+    environment:
+      - spring.profiles.active=prod
+      - TZ=Asia/Shanghai
+    volumes:
+      # this is for nginx look up
+      - /root/nginx/www/project-ec/ec-product:/log
+    ports:
+      - '8092:8080'
