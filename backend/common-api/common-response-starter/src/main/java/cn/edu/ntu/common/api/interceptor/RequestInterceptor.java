@@ -1,5 +1,6 @@
 package cn.edu.ntu.common.api.interceptor;
 
+import cn.edu.ntu.common.api.utils.RequestUtil;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,9 +11,20 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
 
 /**
+ * This class cannot interceptor 404.
+ *
+ * <p>It can't really send every single incoming request to the interceptors before determining if
+ * there's a mapping.<br>
+ * Notice that one of the arguments to the interceptor is the Controller itself! <br>
+ *
+ * <p>If the URL that's coming in is one that's not mapped anywhere, how is it supposed to know what
+ * handler that would be to pass in as a method argument?
+ *
+ * <p>URL rewriting needs to be done further up the stack, before the request hits the dispatcher
+ * servlet.
+ *
  * @author zack <br>
  * @create 2020/12/17 <br>
  * @project common-api <br>
@@ -37,7 +49,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter implements Web
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
       throws Exception {
-    MDC.put(REQUEST_ID_KEY, getRequestId(request));
+    MDC.put(REQUEST_ID_KEY, RequestUtil.getRequestId(request, REQUEST_ID_KEY));
     return super.preHandle(request, response, handler);
   }
 
@@ -65,17 +77,5 @@ public class RequestInterceptor extends HandlerInterceptorAdapter implements Web
       HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
     response.addHeader(REQUEST_ID_KEY, MDC.get(REQUEST_ID_KEY));
     MDC.remove(REQUEST_ID_KEY);
-  }
-
-  private String getRequestId(HttpServletRequest request) {
-    String requestId;
-    String parameterRequestId = request.getParameter(REQUEST_ID_KEY);
-    String headerRequestId = request.getHeader(REQUEST_ID_KEY);
-    if (parameterRequestId == null && headerRequestId == null) {
-      requestId = UUID.randomUUID().toString();
-    } else {
-      requestId = parameterRequestId != null ? parameterRequestId : headerRequestId;
-    }
-    return requestId;
   }
 }
