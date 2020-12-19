@@ -60,7 +60,7 @@ public class NoStatusResponseBodyAdvice implements ResponseBodyAdvice {
   @Value("${common.response.advice.failed-api-status:400}")
   private int failedHttpCode;
 
-  String[] ignores = new String[] {"/error", "/swagger-resources", "/v3/**", "/swagger-ui/**"};
+  String[] ignores = new String[] {"/error", "/swagger-resources", "/v3/api-docs", "/swagger-ui"};
 
   boolean ignoring(String uri) {
     for (String string : ignores) {
