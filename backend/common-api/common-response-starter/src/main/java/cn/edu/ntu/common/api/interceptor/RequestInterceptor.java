@@ -41,6 +41,25 @@ public class RequestInterceptor extends HandlerInterceptorAdapter implements Web
     return super.preHandle(request, response, handler);
   }
 
+  /**
+   * link:
+   * https://stackoverflow.com/questions/48823794/spring-interceptor-doesnt-add-header-to-restcontroller-services
+   *
+   * <p>This addHeader will not work due to annotation of @RestController. <br>
+   * But it can work by using @Controller<br>
+   *
+   * <p>HandlerInterceptorAdapters can not working with @ResponseBody and ResponseEntity methods,
+   * <br>
+   * because those are handled by HttpMessageConverter which writes to response <br>
+   * before postHandle is called which makes it difficult to change the response.<br>
+   *
+   * <p>@RestController can use ResponseBodyAdvice to make addHeader worked.
+   *
+   * @param request
+   * @param response
+   * @param handler
+   * @param ex
+   */
   @Override
   public void afterCompletion(
       HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {

@@ -96,12 +96,12 @@ public class NoStatusResponseBodyAdvice implements ResponseBodyAdvice {
       Class aClass,
       ServerHttpRequest request,
       ServerHttpResponse response) {
+
     if (this.ignoring(request.getURI().toString())) {
       return body;
     }
 
     if (body != null && body instanceof IBaseErrorResponse) {
-
       if (!statuses.contains(failedHttpCode)) {
         failedHttpCode = 400;
       }

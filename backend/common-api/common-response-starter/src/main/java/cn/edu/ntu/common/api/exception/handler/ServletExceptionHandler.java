@@ -43,32 +43,36 @@ public class ServletExceptionHandler {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHandler.class);
 
-      @ExceptionHandler({
-            NoHandlerFoundException.class,
-            HttpRequestMethodNotSupportedException.class,
-            HttpMediaTypeNotSupportedException.class,
-            HttpMediaTypeNotAcceptableException.class,
-            MissingPathVariableException.class,
-            MissingServletRequestParameterException.class,
-            TypeMismatchException.class,
-            HttpMessageNotReadableException.class,
-            HttpMessageNotWritableException.class,
-            // BindException.class,
-            // MethodArgumentNotValidException.class
-            ServletRequestBindingException.class,
-            ConversionNotSupportedException.class,
-            MissingServletRequestPartException.class,
-            AsyncRequestTimeoutException.class
-    })
+  @ExceptionHandler({
+    NoHandlerFoundException.class,
+    HttpRequestMethodNotSupportedException.class,
+    HttpMediaTypeNotSupportedException.class,
+    HttpMediaTypeNotAcceptableException.class,
+    MissingPathVariableException.class,
+    MissingServletRequestParameterException.class,
+    TypeMismatchException.class,
+    HttpMessageNotReadableException.class,
+    HttpMessageNotWritableException.class,
+    // BindException.class,
+    // MethodArgumentNotValidException.class
+    ServletRequestBindingException.class,
+    ConversionNotSupportedException.class,
+    MissingServletRequestPartException.class,
+    AsyncRequestTimeoutException.class
+  })
   public IBaseErrorResponse handleException(Exception e) {
     LOGGER.error(e.getMessage(), e);
 
     int code = CommonResponseEnum.SERVER_ERROR.getErrorCode();
     try {
-        ServletResponseEnum servletExceptionEnum = ServletResponseEnum.valueOf(e.getClass().getSimpleName());
-        code = servletExceptionEnum.getCode();
+      ServletResponseEnum servletExceptionEnum =
+          ServletResponseEnum.valueOf(e.getClass().getSimpleName());
+      code = servletExceptionEnum.getCode();
     } catch (IllegalArgumentException e1) {
-        LOGGER.error("class [{}] not defined in enum {}", e.getClass().getName(), ServletResponseEnum.class.getName());
+      LOGGER.error(
+          "class [{}] not defined in enum {}",
+          e.getClass().getName(),
+          ServletResponseEnum.class.getName());
     }
 
     // if (ENV_PROD.equals(profile)) {

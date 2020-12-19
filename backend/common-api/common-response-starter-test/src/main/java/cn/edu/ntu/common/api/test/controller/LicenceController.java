@@ -2,6 +2,7 @@ package cn.edu.ntu.common.api.test.controller;
 
 import cn.edu.ntu.common.api.constants.enums.CommonResponseEnum;
 import cn.edu.ntu.common.api.test.common.QueryData;
+import cn.edu.ntu.common.api.test.enums.BusinessResponseEnum;
 import cn.edu.ntu.common.api.test.model.SimpleLicenceDTO;
 import cn.edu.ntu.common.api.test.model.param.LicenceParam;
 import cn.edu.ntu.common.api.test.service.impl.LicenceService;
@@ -28,16 +29,21 @@ public class LicenceController {
   public SimpleLicenceDTO getLicence(@PathVariable("licenceId") Long licenceId) {
     // CommonResponseEnum.CUSTOM.assertFail2Response("failed anyway");
 
+    if (licenceId == 2) {
+      CommonResponseEnum.BEAN_VALIDATION.assertFailWithMsg("in response");
+    }
+
     if (licenceId == 1) {
       CommonResponseEnum.CUSTOM.assertFail2Response(9005, "error");
     }
 
+    if (licenceId == 3) {
+      BusinessResponseEnum.BAD_LICENCE_TYPE.assertFailWithMsg("not in response");
+    }
     return licenceService.queryDetail(licenceId);
   }
 
   /**
-   * // TODO: @Validation not work.
-   *
    * @param licenceParam
    * @return
    */

@@ -36,7 +36,7 @@ public interface IBaseExceptionAssert extends IBaseErrorResponse, IBaseAssert {
   default BaseException newException(Throwable t, Object... args) {
     // This overrided method will lead assert message to replace response message, <br/>
     // and assert message will just in exception log defaultly.
-    if(t instanceof WrapMessageException) {
+    if (t instanceof WrapMessageException) {
       this.setErrorMsg(t.getMessage());
     }
 
@@ -45,11 +45,8 @@ public interface IBaseExceptionAssert extends IBaseErrorResponse, IBaseAssert {
   }
 
   /**
-   *
-   *
    * @param errMsg
    * @param args
    * @return
    */
-
 }
