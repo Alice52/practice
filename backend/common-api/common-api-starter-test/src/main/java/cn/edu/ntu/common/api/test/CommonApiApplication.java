@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @project common-api <br>
  */
 @SpringBootApplication
-public class CommonResponseApplication {
+public class CommonApiApplication {
   public static void main(String[] args) {
-    SpringApplication.run(CommonResponseApplication.class, args);
+    SpringApplication.run(CommonApiApplication.class, args);
   }
 }

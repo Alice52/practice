@@ -1,21 +1,21 @@
-common:
-  response:
-    # this can disable handler, advice, request feature
-    enabled: true
-    handler:
-      # this can disable handler feature
-      enabled: true
-    advice: # if advice is disabled, it means request-id feature is disable too.
-      # this can disable advice feature
-      enabled: true
-      code-name: code
-      message-name: message
-      data-name: R
-      failed-api-status: 9202
-    request-id:
-      # this can disable request feature
-      enabled: true
-      key: requ-id
+#common:
+#  response:
+#    # this can disable handler, advice, request feature
+#    enabled: true
+#    handler:
+#      # this can disable handler feature
+#      enabled: true
+#    advice: # if advice is disabled, it means request-id feature is disable too.
+#      # this can disable advice feature
+#      enabled: true
+#      code-name: code
+#      message-name: message
+#      data-name: R
+#      failed-api-status: 9202
+#    request-id:
+#      # this can disable request feature
+#      enabled: true
+#      key: requ-id
 
 jasypt:
   encryptor:

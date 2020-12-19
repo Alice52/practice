@@ -8,12 +8,12 @@
     <artifactId>common-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>common-response-starter</module>
-        <module>common-response-starter-test</module>
         <module>common-swagger-starter</module>
         <module>common-swagger-starter-test</module>
         <module>common-api-starter</module>
         <module>common-api-starter-test</module>
+        <module>common-response-starter</module>
+        <module>common-api-util</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -35,7 +35,12 @@
         <hutool.all.version>5.2.0</hutool.all.version>
         <jasypt.encrtpy.version>3.0.2</jasypt.encrtpy.version>
         <mapstruct_version>1.3.0.Final</mapstruct_version>
+
+        <mysql.version>8.0.17</mysql.version>
         <mybatis.plus.version>3.1.0</mybatis.plus.version>
+        <druid.starter.version>1.1.16</druid.starter.version>
+        <jasypt.starter.version>3.0.2</jasypt.starter.version>
+
     </properties>
 
     <dependencyManagement>
@@ -111,6 +116,21 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

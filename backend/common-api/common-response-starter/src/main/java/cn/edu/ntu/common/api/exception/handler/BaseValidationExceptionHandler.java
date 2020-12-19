@@ -34,7 +34,7 @@ import static org.springframework.util.StringUtils.isEmpty;
  * @project common-api <br>
  */
 @ControllerAdvice
-@Order(1000)
+@Order(101)
 @ConditionalOnProperty(
     prefix = "common.response.handler",
     value = {"enabled"},

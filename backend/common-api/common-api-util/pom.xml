@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common-api-starter</artifactId>
+    <artifactId>common-api-util</artifactId>
 
     <properties>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
@@ -17,19 +17,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-swagger-starter</artifactId>
-            <version>${version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-response-starter</artifactId>
-            <version>${version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-api-util</artifactId>
-            <version>${version}</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
         </dependency>
     </dependencies>
 </project>
