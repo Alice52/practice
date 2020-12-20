@@ -9,3 +9,7 @@
    - spring boot 2.3.0
    - exceptin handler
    - base exception
+
+2. common-generator
+   - generate backend/java
+   - generate vue
