@@ -1,0 +1,53 @@
+package ${package}.${moduleName}.converter;
+
+import ${package}.${moduleName}.model.entity.${className}Entity;
+import ${package}.${moduleName}.model.vo.${className}VO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+import java.util.List;
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author} <br>
+ * @create ${datetime} <br>
+ * @project ${moduleName} <br>
+ */
+@Mapper
+public interface ${className}Converter {
+        ${className}Converter INSTANCE = Mappers.getMapper(${className}Converter.class);
+
+    /**
+     * Convert vo to po.
+     *
+     * @param vo
+     * @return
+     */
+        ${className}Entity vo2po(${className}VO vo);
+
+    /**
+     * Convert po to vo.
+     *
+     * @param po
+     * @return
+     */
+        ${className}VO po2vo(${className}Entity po);
+
+    /**
+     * Convert pos to vos.
+     *
+     * @param pos
+     * @return
+     */
+    List<${className}VO> pos2vos(List<${className}Entity> pos);
+
+    /**
+     * Convert vos to pos.
+     *
+     * @param vos
+     * @return
+     */
+    List<${className}Entity> vos2pos(List<${className}VO> vos);
+}

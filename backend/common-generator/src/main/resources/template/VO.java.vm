@@ -1,0 +1,38 @@
+package ${package}.${moduleName}.model.vo;
+
+    #if(${hasBigDecimal})
+    import java.math.BigDecimal;
+    #end
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+/**
+ * ${comments}
+ *
+ * @author ${author} <br>
+ * @create ${datetime} <br>
+ * @project ${moduleName} <br>
+ */
+@Data
+@JsonIgnoreProperties(value = {"createdDate", "updatedDate", "isDeleted"}, allowGetters = true)
+public class ${className}VO implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    #foreach ($column in $columns)
+        #if($column.columnName == $pk.columnName)
+        @ApiModelProperty(hidden = true)
+        #elseif ($column.columnName =="is_deleted")
+        @ApiModelProperty(hidden = true)
+        #elseif ($column.columnName =="created_date")
+        @ApiModelProperty(hidden = true)
+        #elseif ($column.columnName =="updated_date")
+        @ApiModelProperty(hidden = true)
+        #end
+    private $column.attrType $column.attrname;
+    #end
+}

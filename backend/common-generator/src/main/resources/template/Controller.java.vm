@@ -1,0 +1,67 @@
+package ${package}.${moduleName}.controller;
+
+import java.util.Arrays;
+import java.util.Map;
+
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+
+import ${package}.${moduleName}.model.entity.${className}Entity;
+import ${package}.${moduleName}.model.vo.${className}VO;
+import ${package}.${moduleName}.service.${className}Service;
+import ec.common.utils.PageUtils;
+
+import static ${package}.${moduleName}.converter.${className}Converter.INSTANCE;
+
+/**
+ * ${comments}
+ *
+ * @author ${author} <br>
+ * @create ${datetime} <br>
+ * @project ${moduleName} <br>
+ */
+@RestController
+@RequestMapping("/${moduleName}")
+public class ${className}Controller {
+    @Resource
+    private ${className}Service ${classname}Service;
+
+    @GetMapping("/${pathName}s")
+    public PageUtils list(@RequestParam Map<String, Object> params) {
+
+        return ${classname}Service.queryPage(params);
+    }
+
+    @GetMapping("/${pathName}/{${pk.attrname}}")
+    public ${className}VO detail(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}) {
+            ${className}Entity po = ${classname}Service.getById(${pk.attrname});
+
+        return INSTANCE.po2vo(po);
+    }
+
+    @PostMapping(value = {"/${pathName}", "/${pathName}s"})
+    public void save(@RequestBody ${className}VO ${classname}VO) {
+
+            ${classname}Service.save(INSTANCE.vo2po(${classname}VO));
+    }
+
+    @PutMapping("/${pathName}/{${pk.attrname}}")
+    public void update(@PathVariable("${pk.attrname}")  ${pk.attrType} ${pk.attrname}, @RequestBody ${className}VO ${classname}VO) {
+
+            ${classname}VO.set${pk.attrName}(${pk.attrname});
+            ${classname}Service.updateById(INSTANCE.vo2po(${classname}VO));
+    }
+
+    @DeleteMapping("/${pathName}s")
+    public void delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s) {
+
+            ${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+    }
+
+    @DeleteMapping("/${pathName}/{${pk.attrname}}")
+    public void deleteById(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}) {
+
+            ${classname}Service.removeById(${pk.attrname});
+    }
+}
