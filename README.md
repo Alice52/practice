@@ -1,15 +1,7 @@
 ## Practice
 
-- This repo is my best practice code.
+1. This branch is for coding style practice
 
-## branch
+### detail
 
-1. common-api
-   - swagger 3.0
-   - spring boot 2.3.0
-   - exceptin handler
-   - base exception
-
-2. common-generator
-   - generate backend/java
-   - generate vue
+1. if-else

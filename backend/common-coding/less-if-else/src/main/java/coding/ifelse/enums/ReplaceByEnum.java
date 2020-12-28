@@ -1,0 +1,44 @@
+package coding.ifelse.enums;
+
+import coding.ifelse.enums.constants.TypeEnum;
+import coding.ifelse.enums.constants.TypeImplEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * @author zack <br>
+ * @create 2020-12-28<br>
+ * @project common-coding <br>
+ */
+public class ReplaceByEnum {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ReplaceByEnum.class);
+
+  public static Integer getTypeId(String type) {
+
+    Integer typeId = 0;
+    if ("Name".equals(type)) {
+      typeId = 1;
+    } else if ("Age".equals(type)) {
+      typeId = 2;
+    } else if ("Address".equals(type)) {
+      typeId = 3;
+    }
+
+    return typeId;
+  }
+
+  public static Integer getTypeIdAfter(String type) {
+    return TypeEnum.valueOf(type.toUpperCase()).getTypeId();
+  }
+
+  public static Integer getTypeIdAfter2(String type) {
+    return TypeImplEnum.valueOf(type.toUpperCase()).getTypeId();
+  }
+
+  public static void main(String[] args) {
+    LOG.info("{}", getTypeId("Name"));
+    LOG.info("{}", getTypeIdAfter("Name"));
+    LOG.info("{}", getTypeIdAfter2("Name"));
+  }
+}
