@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.edu.ntu</groupId>
@@ -39,8 +38,6 @@
         <mysql.version>8.0.17</mysql.version>
         <mybatis.plus.version>3.1.0</mybatis.plus.version>
         <druid.starter.version>1.1.16</druid.starter.version>
-        <jasypt.starter.version>3.0.2</jasypt.starter.version>
-
     </properties>
 
     <dependencyManagement>
@@ -126,11 +123,6 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-spring-boot-starter</artifactId>
-                <version>${jasypt.starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
