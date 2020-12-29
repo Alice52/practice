@@ -12,10 +12,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * core thinking: get map, which key is handler-type and value is XxOrderHandler.<br/>
  * Init order handlers context to spring ioc:
  *
  * <pre>
  *    1. get all class marked by {@link HandlerType}
+ *    2. create {@link OrderHandlerContext } and put to ioc.
+ * </pre>
+ *
+ * <pre>
+ *    1. this class can be replaced by follow code in {@ link OrderHandlerContext }
+ *    
+ *     private Map<String, AbstractOrderHandler> orderHandleMap;
+ *     @Autowired
+ *     public void setOrderHandleMap(List<AbstractOrderHandler> orderHandlers) {
+ *         orderHandleMap = orderHandlers.stream().collect(
+ *                 Collectors.toMap(orderHandler -> AnnotationUtils.findAnnotation(orderHandler.getClass(), HandlerType.class).source(),
+ *                      v -> v, (v1, v2) -> v1));
+ *     }
  * </pre>
  *
  * @author zack <br>
