@@ -1,6 +1,6 @@
 package coding.ifelse.strategy.service.impl;
 
-import coding.ifelse.strategy.constants.OrderTypeConstants;
+import coding.ifelse.strategy.constants.OrderConstants;
 import coding.ifelse.strategy.model.to.OrderDTO;
 import coding.ifelse.strategy.service.IOrderService;
 
@@ -16,12 +16,12 @@ public class BeforeOrderService implements IOrderService {
 
     String type = order.getType();
 
-    if (type == OrderTypeConstants.NORMAL_ORDER) {
-      return OrderTypeConstants.NORMAL_ORDER;
-    } else if (type == OrderTypeConstants.GROUP_ORDER) {
-      return OrderTypeConstants.GROUP_ORDER;
-    } else if (type == OrderTypeConstants.PROMOTION_ORDER) {
-      return OrderTypeConstants.PROMOTION_ORDER;
+    if (type == OrderConstants.TYPE_NORMAL_ORDER) {
+      return OrderConstants.TYPE_NORMAL_ORDER;
+    } else if (type == OrderConstants.TYPE_GROUP_ORDER) {
+      return OrderConstants.TYPE_GROUP_ORDER;
+    } else if (type == OrderConstants.TYPE_PROMOTION_ORDER) {
+      return OrderConstants.TYPE_PROMOTION_ORDER;
     }
 
     return null;

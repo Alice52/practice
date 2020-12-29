@@ -1,7 +1,7 @@
 package coding.ifelse.strategy.handler;
 
 import coding.ifelse.strategy.annotation.HandlerType;
-import coding.ifelse.strategy.constants.OrderTypeConstants;
+import coding.ifelse.strategy.constants.OrderConstants;
 import coding.ifelse.strategy.model.to.OrderDTO;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
  * @project common-coding <br>
  */
 @Component
-@HandlerType(OrderTypeConstants.GROUP_ORDER)
+@HandlerType(source = OrderConstants.TYPE_GROUP_ORDER)
 public class GroupOrderHandler extends AbstractOrderHandler {
   @Override
   public String handle(OrderDTO order) {
-    return OrderTypeConstants.GROUP_ORDER;
+    return OrderConstants.TYPE_GROUP_ORDER;
   }
 }

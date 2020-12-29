@@ -20,4 +20,9 @@ public class OrderDTO {
    * 3. Promotion Order
    */
   private String type;
+  /**
+   * Ali Pay<br>
+   * Wechat Pay<br>
+   */
+  private String pay;
 }

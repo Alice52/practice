@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * core thinking: get map, which key is handler-type and value is XxOrderHandler.<br/>
+ * core thinking: get map, which key is handler-type and value is XxOrderHandler.<br>
  * Init order handlers context to spring ioc:
  *
  * <pre>
@@ -22,7 +22,7 @@ import java.util.Map;
  *
  * <pre>
  *    1. this class can be replaced by follow code in {@ link OrderHandlerContext }
- *    
+ *
  *     private Map<String, AbstractOrderHandler> orderHandleMap;
  *     @Autowired
  *     public void setOrderHandleMap(List<AbstractOrderHandler> orderHandlers) {
@@ -47,7 +47,7 @@ public class OrderHandlerProcessor implements BeanFactoryPostProcessor {
 
     Map<String, Class> handlerMap = new HashMap<>(3);
     ClassScanner.scanPackageByAnnotation(HANDLER_PACKAGE, HandlerType.class).stream()
-        .forEach(x -> handlerMap.put(x.getAnnotation(HandlerType.class).value(), x));
+        .forEach(x -> handlerMap.put(x.getAnnotation(HandlerType.class).source(), x));
 
     OrderHandlerContext context = new OrderHandlerContext(handlerMap);
     factory.registerSingleton(OrderHandlerContext.class.getName(), context);

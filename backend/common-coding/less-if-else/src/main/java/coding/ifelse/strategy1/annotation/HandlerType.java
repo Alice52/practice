@@ -1,4 +1,4 @@
-package coding.ifelse.strategy.annotation;
+package coding.ifelse.strategy1.annotation;
 
 import java.lang.annotation.*;
 
@@ -12,4 +12,6 @@ import java.lang.annotation.*;
 @Inherited
 public @interface HandlerType {
   String source();
+
+  String pay() default "";
 }
