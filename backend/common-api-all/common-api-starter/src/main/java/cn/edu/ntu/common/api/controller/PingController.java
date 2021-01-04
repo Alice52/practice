@@ -39,4 +39,9 @@ public class PingController {
       }
     };
   }
+
+  @GetMapping(value = "/string")
+  public String string() {
+    return "string";
+  }
 }

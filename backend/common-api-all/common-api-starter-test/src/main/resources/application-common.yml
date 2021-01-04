@@ -7,6 +7,7 @@
 #      enabled: true
 #    advice: # if advice is disabled, it means request-id feature is disable too.
 #      # this can disable advice feature
+#      allow-string: false
 #      enabled: true
 #      code-name: code
 #      message-name: message

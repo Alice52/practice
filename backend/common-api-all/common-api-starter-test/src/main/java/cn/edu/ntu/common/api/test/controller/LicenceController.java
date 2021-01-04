@@ -51,4 +51,9 @@ public class LicenceController {
   public QueryData<SimpleLicenceDTO> getLicences(@Validated LicenceParam licenceParam) {
     return licenceService.getLicences(licenceParam);
   }
+
+  @GetMapping(value = "/string")
+  public String string() {
+    return "string";
+  }
 }

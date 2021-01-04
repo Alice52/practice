@@ -34,6 +34,15 @@ public class ResponseProperties {
     private String messageName = "message";
     private String dataName = "data";
     private Integer failedApiStatus = 400;
+    private boolean allowString = true;
+
+    public boolean isAllowString() {
+      return allowString;
+    }
+
+    public void setAllowString(boolean allowString) {
+      this.allowString = allowString;
+    }
 
     public String getCodeName() {
       return codeName;

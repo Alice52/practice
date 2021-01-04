@@ -9,6 +9,7 @@ common:
       enabled: true
     advice:
       # this can disable advice feature
+      allow-string: true
       enabled: true
       code-name: code
       message-name: message
