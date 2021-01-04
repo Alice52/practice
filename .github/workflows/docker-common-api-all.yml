@@ -1,11 +1,11 @@
-name: Build common-api Project
+name: Build common-api-all Project
 
 on:
   push:
     branches:
       - common-api
     paths:
-      - 'backend/common-api/**'
+      - 'backend/common-api-all/**'
       - '.github/**'
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     env: # define constant
-      PROJECT_NAME: common-api
+      PROJECT_NAME: common-api-all
       IMAGE_PREFIX: practice
 
     steps:
@@ -47,39 +47,14 @@ jobs:
           cd $PROJECT_HOME/backend/$PROJECT_NAME/
           mvn clean package -DskipTests=true
 
-      - name: Upload common-api-starter Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: common-api-starter-1.0-SNAPSHOT.jar
-          path: ${{ github.workspace }}/backend/common-api/common-api-starter/target/
-          retention-days: 7
-
-      - name: Upload common-response-starter Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: common-response-starter-1.0-SNAPSHOT.jar
-          path: ${{ github.workspace }}/backend/common-api/common-response-starter/target/
-          retention-days: 7
-
       - name: Upload common-swagger-starter Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: common-swagger-starter-1.0-SNAPSHOT.jar
-          path: ${{ github.workspace }}/backend/common-api/common-swagger-starter/target/
+          name: common-api-starter-1.0-SNAPSHOT.jar
+          path: ${{ github.workspace }}/backend/common-api-all/common-api-starter/**/target/common-api-starter-1.0-SNAPSHOT.jar
           retention-days: 7
 
       - name: Push common-swagger Image
-        run: |
-          MODULE_NAME=common-swagger-starter-test
-          cd $PROJECT_HOME/backend/$PROJECT_NAME/$MODULE_NAME/
-          image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
-          docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
-          docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD $ALI_DOCKER_REGISTRY
-          docker tag $image $ALI_DOCKER_REGISTRY/alice52/$image
-          docker push $ALI_DOCKER_REGISTRY/alice52/$image
-          echo "image:" ${image}
-
-      - name: Push common-api Image
         run: |
           MODULE_NAME=common-api-starter-test
           cd $PROJECT_HOME/backend/$PROJECT_NAME/$MODULE_NAME/
@@ -89,4 +64,3 @@ jobs:
           docker tag $image $ALI_DOCKER_REGISTRY/alice52/$image
           docker push $ALI_DOCKER_REGISTRY/alice52/$image
           echo "image:" ${image}
-
