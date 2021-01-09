@@ -8,7 +8,7 @@
         <version>1.0</version>
     </parent>
     <packaging>jar</packaging>
-    <name>common-api-all</name>
+    <name>common-api-starter</name>
     <description>The common api jar, including global handler, common response and swagger3.0.</description>
     <url>https://github.com/Alice52/practice</url>
     <modelVersion>4.0.0</modelVersion>
