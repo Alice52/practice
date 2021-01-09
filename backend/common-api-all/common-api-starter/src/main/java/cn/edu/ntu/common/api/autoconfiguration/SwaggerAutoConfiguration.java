@@ -27,7 +27,6 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.annotation.Resource;
-import java.util.*;
 
 /**
  * // TODO: need to research for specified response.
@@ -49,6 +48,7 @@ import java.util.*;
 public class SwaggerAutoConfiguration implements WebMvcConfigurer {
 
   private final List<Response> responseMessageList = new ArrayList<>();
+  @Resource SwaggerProperties swaggerProperties;
 
   public SwaggerAutoConfiguration() {
     responseMessageList.add(new ResponseBuilder().code("404").description("Not Found").build());
@@ -71,8 +71,6 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/swagger-ui/").setViewName("forward:" + "/swagger-ui/index.html");
   }
-
-  @Resource SwaggerProperties swaggerProperties;
 
   @Bean
   public Docket createRestApi() {

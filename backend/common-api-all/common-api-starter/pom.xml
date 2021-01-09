@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>common-api-all</artifactId>
-        <groupId>cn.edu.ntu</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>com.github.alice52</groupId>
+        <version>1.0</version>
     </parent>
+    <packaging>jar</packaging>
+    <name>common-api-all</name>
+    <description>The common api jar, including global handler, common response and swagger3.0.</description>
+    <url>https://github.com/Alice52/practice</url>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>common-api-starter</artifactId>
-
-    <properties>
-        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
-    </properties>
 
     <dependencies>
         <!-- tools -->
