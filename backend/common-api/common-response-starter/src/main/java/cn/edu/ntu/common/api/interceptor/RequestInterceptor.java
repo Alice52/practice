@@ -37,14 +37,14 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter implements WebMvcConfigurer {
 
+  /** if use responseProperties, will throw exception due to responseProperties is null now. */
+  @Value("${common.response.request-id.key:req-id}")
+  private String REQUEST_ID_KEY;
+
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(this).order(1);
   }
-
-  /** if use responseProperties, will throw exception due to responseProperties is null now. */
-  @Value("${common.response.request-id.key:req-id}")
-  private String REQUEST_ID_KEY;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

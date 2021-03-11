@@ -44,6 +44,23 @@ public class BaseValidationExceptionHandler {
   private static final Logger LOGGER =
       LoggerFactory.getLogger(BaseValidationExceptionHandler.class);
 
+  private static String subAfter(
+      CharSequence string, CharSequence separator, boolean isLastSeparator) {
+    if (isEmpty(string)) {
+      return null == string ? null : string.toString();
+    }
+    if (separator == null) {
+      return "";
+    }
+    final String str = string.toString();
+    final String sep = separator.toString();
+    final int pos = isLastSeparator ? str.lastIndexOf(sep) : str.indexOf(sep);
+    if (-1 == pos || (string.length() - 1) == pos) {
+      return "";
+    }
+    return str.substring(pos + separator.length());
+  }
+
   @ExceptionHandler(ValidationException.class)
   public IBaseErrorResponse handleValidationException(ValidationException ex) throws Exception {
     LOGGER.error(
@@ -142,22 +159,5 @@ public class BaseValidationExceptionHandler {
                     (s, a) -> Arrays.asList(s, a)));
 
     return new ErrorResponse(CommonResponseEnum.BEAN_VALIDATION, collect);
-  }
-
-  private static String subAfter(
-      CharSequence string, CharSequence separator, boolean isLastSeparator) {
-    if (isEmpty(string)) {
-      return null == string ? null : string.toString();
-    }
-    if (separator == null) {
-      return "";
-    }
-    final String str = string.toString();
-    final String sep = separator.toString();
-    final int pos = isLastSeparator ? str.lastIndexOf(sep) : str.indexOf(sep);
-    if (-1 == pos || (string.length() - 1) == pos) {
-      return "";
-    }
-    return str.substring(pos + separator.length());
   }
 }

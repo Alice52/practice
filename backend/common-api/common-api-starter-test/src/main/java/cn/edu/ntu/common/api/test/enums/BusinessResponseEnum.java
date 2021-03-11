@@ -17,14 +17,13 @@ public enum BusinessResponseEnum implements IBusinessExceptionAssert {
   BAD_LICENCE_TYPE(7001, "Bad licence type."),
   LICENCE_NOT_FOUND(7002, "Licence not found.");
 
+  private Integer errorCode;
+  private String errorMsg;
+  private Map<String, Object> parameters;
   BusinessResponseEnum(Integer errorCode, String errorMsg) {
     this.errorCode = errorCode;
     this.errorMsg = errorMsg;
   }
-
-  private Integer errorCode;
-  private String errorMsg;
-  private Map<String, Object> parameters;
 
   @Override
   public void setParameters(Map<String, Object> parameters) {

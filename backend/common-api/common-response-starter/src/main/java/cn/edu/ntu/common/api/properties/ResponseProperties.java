@@ -17,6 +17,38 @@ public class ResponseProperties {
   private ResponseAdvice advice = new ResponseAdvice();
   private HandlerEnabled handler = new HandlerEnabled();
 
+  public Boolean getEnabled() {
+    return enabled;
+  }
+
+  public void setEnabled(Boolean enabled) {
+    this.enabled = enabled;
+  }
+
+  public RequestProperties getRequestId() {
+    return requestId;
+  }
+
+  public void setRequestId(RequestProperties requestId) {
+    this.requestId = requestId;
+  }
+
+  public ResponseAdvice getAdvice() {
+    return advice;
+  }
+
+  public void setAdvice(ResponseAdvice advice) {
+    this.advice = advice;
+  }
+
+  public HandlerEnabled getHandler() {
+    return handler;
+  }
+
+  public void setHandler(HandlerEnabled handler) {
+    this.handler = handler;
+  }
+
   public class HandlerEnabled {
     private Boolean enabled = true;
 
@@ -87,37 +119,5 @@ public class ResponseProperties {
     public void setRequestId(String requestId) {
       this.requestId = requestId;
     }
-  }
-
-  public Boolean getEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
-
-  public RequestProperties getRequestId() {
-    return requestId;
-  }
-
-  public void setRequestId(RequestProperties requestId) {
-    this.requestId = requestId;
-  }
-
-  public ResponseAdvice getAdvice() {
-    return advice;
-  }
-
-  public void setAdvice(ResponseAdvice advice) {
-    this.advice = advice;
-  }
-
-  public HandlerEnabled getHandler() {
-    return handler;
-  }
-
-  public void setHandler(HandlerEnabled handler) {
-    this.handler = handler;
   }
 }

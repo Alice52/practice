@@ -34,16 +34,8 @@ import java.util.stream.Collectors;
 public class NoStatusResponseBodyAdvice implements ResponseBodyAdvice {
 
   private final List<Integer> statuses;
-
-  public NoStatusResponseBodyAdvice() {
-    statuses =
-        Arrays.asList(HttpStatus.values()).stream()
-            .map(x -> x.value())
-            .collect(Collectors.toList());
-  }
-
   @Resource ResponseProperties responseProperties;
-
+  String[] ignores = new String[] {"/error", "/swagger-resources", "/v3/api-docs", "/swagger-ui"};
   /** if use responseProperties, will throw exception due to responseProperties is null now. */
   @Value("${common.response.request-id.key:req-id}")
   private String requestIdKey;
@@ -60,7 +52,12 @@ public class NoStatusResponseBodyAdvice implements ResponseBodyAdvice {
   @Value("${common.response.advice.failed-api-status:400}")
   private int failedHttpCode;
 
-  String[] ignores = new String[] {"/error", "/swagger-resources", "/v3/api-docs", "/swagger-ui"};
+  public NoStatusResponseBodyAdvice() {
+    statuses =
+        Arrays.asList(HttpStatus.values()).stream()
+            .map(x -> x.value())
+            .collect(Collectors.toList());
+  }
 
   boolean ignoring(String uri) {
     for (String string : ignores) {
