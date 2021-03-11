@@ -13,7 +13,6 @@
         <module>common-api-starter</module>
         <module>common-api-starter-test</module>
         <module>common-response-starter</module>
-        <module>common-api-util</module>
         <module>common-api-utils</module>
     </modules>
     <packaging>pom</packaging>
