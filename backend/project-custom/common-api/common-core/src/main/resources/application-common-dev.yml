@@ -6,7 +6,7 @@ server:
       dir: logs/access/
       enabled: true
       pattern: '%h %l %u %t "%r" %s %b %D "%{i,Referer}" "%{i,User-Agent}"'
-      prefix: ${spring.application.name}_access
+      # prefix: ${spring.application.name}_access
       suffix: log
       rotate: true
 
@@ -23,14 +23,12 @@ management:
 
 # Spring 相关
 spring:
+  main:
+    allow-bean-definition-overriding: true
   jackson:
     default-property-inclusion: non_null
 
-http:
-  maxTotal: 2000
-  defaultMaxPerRoute: 2000
-
-
 logging:
   level:
-    custom.*: DEBUG
+    custom.*: debug
+    common.*: debug

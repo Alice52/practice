@@ -1,0 +1,8 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  common.core.configuration.JacksonConfig,\
+  common.core.configuration.RestTemplateConfig,\
+  common.core.component.SpringContextHolder,\
+  common.core.exception.handler.DefaultHandler,\
+  common.core.exception.handler.ServletExceptionHandler,\
+  common.core.exception.handler.ValidationExceptionHandler,\
+  common.core.exception.handler.BusinessExceptionHandler

@@ -1,32 +1,22 @@
 package common.core.exception;
 
+import common.core.exception.assertion.IBaseErrorResponse;
+
 /**
  * @author zack <br>
  * @create 2021-06-01 18:31 <br>
  * @project custom-test <br>
  */
-public class BusinessException extends RuntimeException {
+public class BusinessException extends BaseException {
 
-    private int code = 1;
+    private static final long serialVersionUID = 1L;
 
-    public BusinessException(String message) {
-        super(message);
+    public BusinessException(IBaseErrorResponse responseEnum, Object[] args, String message) {
+        super(responseEnum, args, message);
     }
 
-    public BusinessException(int code) {
-        this.code = code;
-    }
-
-    public BusinessException(String message, int code) {
-        super(message);
-        this.code = code;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
+    public BusinessException(
+            IBaseErrorResponse responseEnum, Object[] args, String message, Throwable cause) {
+        super(responseEnum, args, message, cause);
     }
 }

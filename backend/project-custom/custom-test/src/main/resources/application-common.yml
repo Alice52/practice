@@ -1,0 +1,6 @@
+spring:
+  config:
+    name: custom-test
+
+logging:
+  config: classpath:logback-spring.xml

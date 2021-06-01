@@ -15,7 +15,15 @@
     <modules>
         <module>common-swagger</module>
         <module>common-core</module>
+        <module>common-database</module>
+        <module>common-redis</module>
+        <module>common-security</module>
+        <module>common-log</module>
     </modules>
+
+    <properties>
+        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
+    </properties>
 
     <dependencies>
         <!-- jackson -->
@@ -41,6 +49,11 @@
             <groupId>com.github.ulisesbocchio</groupId>
             <artifactId>jasypt-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+
 
         <!-- lombok -->
         <dependency>
@@ -84,6 +97,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- validator -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
         </dependency>
     </dependencies>
 </project>

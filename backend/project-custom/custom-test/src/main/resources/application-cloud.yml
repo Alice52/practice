@@ -2,7 +2,6 @@ spring:
   profiles:
     include: common-dev,common
 
-
 swagger:
   enabled: true
   # host: mc-gateway:9999
@@ -16,7 +15,7 @@ swagger:
       - scope: server
         description: server all
     token-url-list:
-      - http://mc-gateway:9999/auth/oauth/token
+      - http://oauth-server:port/auth/oauth/token
   base-path: /**
   path-mapping: /
   exclude-path:

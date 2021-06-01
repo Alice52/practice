@@ -1,10 +1,16 @@
 package common.core.util;
 
 import common.core.constant.CommonConstants;
-import common.core.exception.BusinessException;
-import lombok.*;
+import common.core.exception.BaseException;
+import common.core.exception.assertion.IBaseErrorResponse;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.springframework.lang.Nullable;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -16,14 +22,13 @@ import java.io.Serializable;
 @ToString
 @Accessors(chain = true)
 @AllArgsConstructor
+@Data
 public class R<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Getter @Setter private int code = CommonConstants.SUCCESS;
-
-    @Getter @Setter private String msg = "success";
-
-    @Getter @Setter private T data;
+    private int code = CommonConstants.SUCCESS;
+    private String msg = "success";
+    private T data;
 
     public R() {
         super();
@@ -46,9 +51,40 @@ public class R<T> implements Serializable {
         this.code = CommonConstants.FAIL;
     }
 
-    public R(BusinessException e) {
+    public R(BaseException e) {
         super();
         this.msg = e.getMessage();
-        this.code = e.getCode();
+        this.code = e.getResponseEnum().getErrorCode();
+    }
+
+    public R(IBaseErrorResponse response) {
+        super();
+        this.msg = response.getErrorMsg();
+        this.code = response.getErrorCode();
+    }
+
+    @NotNull
+    public static <T> R error(@Nullable IBaseErrorResponse errorResponse) {
+
+        return R.builder()
+                .msg(errorResponse.getErrorMsg())
+                .code(errorResponse.getErrorCode())
+                .build();
+    }
+
+    @NotNull
+    public static <T> R error(@Nullable IBaseErrorResponse errorResponse, @Nullable T data) {
+
+        return R.builder()
+                .data(data)
+                .msg(errorResponse.getErrorMsg())
+                .code(errorResponse.getErrorCode())
+                .build();
+    }
+
+    @NotNull
+    public static <T> R success(@Nullable T data) {
+
+        return R.builder().data(data).build();
     }
 }

@@ -2,11 +2,11 @@ package common.swagger.configuratioon;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.ulisesbocchio.jasyptspringboot.annotation.ConditionalOnMissingBean;
 import common.swagger.configuratioon.properties.SwaggerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,9 +19,11 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +37,7 @@ import java.util.stream.Collectors;
 @EnableAutoConfiguration
 @Profile({"dev"})
 @ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
+@EnableConfigurationProperties(SwaggerProperties.class)
 public class SwaggerAutoConfiguration {
     /** 默认的排除路径，排除Spring Boot默认的错误处理路径和端点 */
     private static final List<String> DEFAULT_EXCLUDE_PATH =
@@ -43,11 +46,7 @@ public class SwaggerAutoConfiguration {
     private static final String BASE_PATH = "/**";
     private static final String LOCALHOST = "localhost";
 
-    @Bean
-    @ConditionalOnMissingBean
-    public SwaggerProperties swaggerProperties() {
-        return new SwaggerProperties();
-    }
+    @Resource private SwaggerProperties swaggerProperties;
 
     @Bean
     public Docket api(SwaggerProperties swaggerProperties) {
@@ -68,7 +67,7 @@ public class SwaggerAutoConfiguration {
                         .collect(Collectors.toList());
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .host(swaggerProperties.getHost())
+                .host(Optional.ofNullable(swaggerProperties.getHost()).orElse(LOCALHOST))
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
@@ -91,8 +90,7 @@ public class SwaggerAutoConfiguration {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(
-                        PathSelectors.regex(swaggerProperties().getAuthorization().getAuthRegex()))
+                .forPaths(PathSelectors.regex(swaggerProperties.getAuthorization().getAuthRegex()))
                 .build();
     }
 
@@ -103,31 +101,29 @@ public class SwaggerAutoConfiguration {
      */
     private List<SecurityReference> defaultAuth() {
         List<AuthorizationScope> authorizationScopeList =
-                swaggerProperties().getAuthorization().getAuthorizationScopeList().stream()
+                swaggerProperties.getAuthorization().getAuthorizationScopeList().stream()
                         .map(x -> new AuthorizationScope(x.getScope(), x.getDescription()))
                         .collect(Collectors.toList());
 
         return Collections.singletonList(
                 SecurityReference.builder()
-                        .reference(swaggerProperties().getAuthorization().getName())
+                        .reference(swaggerProperties.getAuthorization().getName())
                         .scopes(authorizationScopeList.toArray(new AuthorizationScope[0]))
                         .build());
     }
 
     private OAuth securitySchema() {
         List<AuthorizationScope> authorizationScopeList =
-                swaggerProperties().getAuthorization().getAuthorizationScopeList().stream()
+                swaggerProperties.getAuthorization().getAuthorizationScopeList().stream()
                         .map(x -> new AuthorizationScope(x.getScope(), x.getDescription()))
                         .collect(Collectors.toList());
         List<GrantType> grantTypes =
-                swaggerProperties().getAuthorization().getTokenUrlList().stream()
+                swaggerProperties.getAuthorization().getTokenUrlList().stream()
                         .map(ResourceOwnerPasswordCredentialsGrant::new)
                         .collect(Collectors.toList());
 
         return new OAuth(
-                swaggerProperties().getAuthorization().getName(),
-                authorizationScopeList,
-                grantTypes);
+                swaggerProperties.getAuthorization().getName(), authorizationScopeList, grantTypes);
     }
 
     private ApiInfo apiInfo(SwaggerProperties swaggerProperties) {
