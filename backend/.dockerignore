@@ -1,0 +1,8 @@
+# Ignore everything
+**
+
+# Allow files and directories
+!/project-name-api/**
+!**/*.jar
+!**/*.war
+!Dockerfile
