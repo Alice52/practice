@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: common-dev,common
+    include: common-cloud,common,database-cloud
 
 swagger:
   enabled: true

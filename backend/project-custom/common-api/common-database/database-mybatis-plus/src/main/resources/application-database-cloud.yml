@@ -1,0 +1,26 @@
+# Spring 相关
+spring:
+  datasource:
+    username: ENC(3+5Pg+H9L0s1ATmg/xTWLbNt9OeMFguochuRyTl9a4BGbD4lL2SLM8351rdHYhC2)
+    password: ENC(MkGdNTchUL+OnF+nvm5YSSjWc7XeHLNab+KV9Wr3fqF1fAbEVLB2urZotLn8nAk1)
+    url: ENC(qYpoVw2Izmv2SmeWaOIaz4YNUrnm+ZZnVRhmMRo/W9+APjiNrPn7gK4VbQEJNdPepfPiJGVJPgt5KOeW3e+Q1CZa10lKC5O/zxd/JXsJVhNTPO0u/CSUNe18N7AYFBfX)
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 1000
+
+# mybatis-plus
+mybatis-plus:
+  # typeEnumsPackage: boot.mybatis.common.constants.enums
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: AUTO
+      field-strategy: NOT_NULL
+      table-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

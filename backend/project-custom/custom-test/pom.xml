@@ -28,6 +28,11 @@
             <artifactId>common-log</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>database-mybatis-plus</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- spring -->
         <dependency>

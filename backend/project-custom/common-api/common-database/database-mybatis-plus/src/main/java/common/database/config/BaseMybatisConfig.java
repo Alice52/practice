@@ -1,8 +1,16 @@
 package common.database.config;
 
+import cn.hutool.core.date.DatePattern;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import common.core.jackson.JavaTimeModule;
 import common.database.config.handler.MybatisMetaHandler;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
+
+import java.time.ZoneId;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @author zack <br>
@@ -15,5 +23,16 @@ public abstract class BaseMybatisConfig {
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setMetaObjectHandler(new MybatisMetaHandler());
         return globalConfig;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(Jackson2ObjectMapperBuilderCustomizer.class)
+    public Jackson2ObjectMapperBuilderCustomizer customizer() {
+        return builder -> {
+            builder.locale(Locale.CHINA);
+            builder.timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
+            builder.simpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
+            builder.modules(new JavaTimeModule());
+        };
     }
 }

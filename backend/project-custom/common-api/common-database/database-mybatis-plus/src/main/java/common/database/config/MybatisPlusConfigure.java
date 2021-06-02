@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
  */
 @Configuration
 public class MybatisPlusConfigure extends BaseMybatisConfig {
+
     /**
      * 分页插件
      *
@@ -53,7 +54,7 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
      * @return
      */
     @Bean
-    @Profile({"dev", "cloud"}) // 设置 dev 环境开启
+    @Profile({"dev", "cloud"})
     public PerformanceInterceptor performanceInterceptor() {
         return new PerformanceInterceptor();
     }
