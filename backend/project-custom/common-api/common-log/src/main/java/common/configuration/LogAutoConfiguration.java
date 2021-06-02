@@ -2,6 +2,7 @@ package common.configuration;
 
 import common.annotation.aspect.LogAnnoAspect;
 import common.annotation.aspect.WebRequestLogAspect;
+import common.event.SysLogListener;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,11 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 @ConditionalOnWebApplication
 public class LogAutoConfiguration {
+
+    @Bean
+    public SysLogListener sysLogListener() {
+        return new SysLogListener();
+    }
 
     @Bean
     public WebRequestLogAspect webRequestLogAspect() {
