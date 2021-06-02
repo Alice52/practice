@@ -11,5 +11,5 @@ common:
       handler:
         enabled: true
       request-id:
-        key: req-id
         enabled: true
+        key: req-id

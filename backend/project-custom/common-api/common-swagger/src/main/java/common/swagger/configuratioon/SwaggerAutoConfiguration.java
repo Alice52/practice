@@ -10,6 +10,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -38,15 +40,31 @@ import java.util.stream.Collectors;
 @Profile({"dev"})
 @ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(SwaggerProperties.class)
-public class SwaggerAutoConfiguration {
+public class SwaggerAutoConfiguration implements WebMvcConfigurer {
+
     /** 默认的排除路径，排除Spring Boot默认的错误处理路径和端点 */
     private static final List<String> DEFAULT_EXCLUDE_PATH =
             Arrays.asList("/error", "/actuator/**");
 
     private static final String BASE_PATH = "/**";
     private static final String LOCALHOST = "localhost";
-
     @Resource private SwaggerProperties swaggerProperties;
+
+    /**
+     * throw-exception-if-no-handler-found: true <br>
+     * will lead to no handler exception for static resources. <br>
+     *
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // release swagger
+        registry.addResourceHandler("/swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        // release relevant js
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 
     @Bean
     public Docket api(SwaggerProperties swaggerProperties) {
