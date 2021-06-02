@@ -8,6 +8,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.annotation.Resource;
+import java.lang.reflect.UndeclaredThrowableException;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
+
 /**
  * @author zack <br>
  * @create 2021-06-01<br>
@@ -23,10 +28,47 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class BusinessExceptionHandler {
 
+    @Resource private DefaultHandler defaultHandler;
+
     @ExceptionHandler(value = {BusinessException.class})
     public R handleBusinessException(BusinessException ex) {
         log.error(ex.getMessage(), ex);
 
         return R.error(ex.getResponseEnum(), ex);
+    }
+
+    @ExceptionHandler(UndeclaredThrowableException.class)
+    public R undeclaredThrowableException(UndeclaredThrowableException e) {
+        return tryConvert2ConcurrentException(e);
+    }
+
+    @ExceptionHandler(ExecutionException.class)
+    public R executionException(ExecutionException e) {
+        return tryConvert2BusinessException(e);
+    }
+
+    @ExceptionHandler(CompletionException.class)
+    public R completionException(CompletionException e) {
+        return tryConvert2BusinessException(e);
+    }
+
+    private R tryConvert2ConcurrentException(UndeclaredThrowableException e) {
+        if (e.getUndeclaredThrowable() instanceof ExecutionException) {
+            return executionException((ExecutionException) e.getUndeclaredThrowable());
+        }
+
+        if (e.getUndeclaredThrowable() instanceof CompletionException) {
+            return completionException((CompletionException) e.getUndeclaredThrowable());
+        }
+
+        return defaultHandler.handleException(e);
+    }
+
+    private R tryConvert2BusinessException(Exception e) {
+        if (e.getCause() instanceof BusinessException) {
+            return handleBusinessException((BusinessException) e.getCause());
+        }
+
+        return defaultHandler.handleException(e);
     }
 }

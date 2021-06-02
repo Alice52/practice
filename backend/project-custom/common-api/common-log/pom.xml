@@ -11,5 +11,22 @@
 
     <artifactId>common-log</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-core</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
+        <!-- aop -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+    </dependencies>
 </project>

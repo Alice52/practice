@@ -6,9 +6,19 @@ server:
       dir: logs/access/
       enabled: true
       pattern: '%h %l %u %t "%r" %s %b %D "%{i,Referer}" "%{i,User-Agent}"'
-      prefix: ${spring.application.name}_access
+      # prefix: ${spring.application.name}_access
       suffix: log
       rotate: true
+# Spring 相关
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    default-property-inclusion: non_null
 
 # 加解密根密码
 jasypt:
@@ -21,16 +31,7 @@ management:
       exposure:
         include: "*"
 
-# Spring 相关
-spring:
-  jackson:
-    default-property-inclusion: non_null
-
-http:
-  maxTotal: 2000
-  defaultMaxPerRoute: 2000
-
-
 logging:
   level:
-    custom.*: DEBUG
+    custom.*: debug
+    common.*: debug

@@ -2,7 +2,6 @@ spring:
   profiles:
     include: common-dev,common
 
-
 swagger:
   enabled: true
   # host: mc-gateway:9999

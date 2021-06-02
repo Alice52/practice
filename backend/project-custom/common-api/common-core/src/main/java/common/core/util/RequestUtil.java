@@ -1,11 +1,13 @@
 package common.core.util;
 
-import cn.hutool.core.lang.UUID;
+import common.core.configuration.SnowflakeConfig;
 import common.core.constant.enums.CommonResponseEnum;
 import common.core.constant.enums.ServletResponseEnum;
 import common.core.exception.assertion.IBaseErrorResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -14,19 +16,9 @@ import javax.servlet.http.HttpServletRequest;
  * @project project-custom <br>
  */
 @Slf4j
-public final class RequestUtil {
-
-    public static String getRequestId(HttpServletRequest request, String requestIdKey) {
-        String requestId;
-        String parameterRequestId = request.getParameter(requestIdKey);
-        String headerRequestId = request.getHeader(requestIdKey);
-        if (parameterRequestId == null && headerRequestId == null) {
-            requestId = UUID.randomUUID().toString();
-        } else {
-            requestId = parameterRequestId != null ? parameterRequestId : headerRequestId;
-        }
-        return requestId;
-    }
+@Component
+public class RequestUtil {
+    @Resource private SnowflakeConfig snowflake;
 
     public static R handleServletException(Exception e) {
         log.error(e.getMessage(), e);
@@ -49,5 +41,17 @@ public final class RequestUtil {
         //     return new ErrorResponse(code, message);
         // }
         return R.error(response, e);
+    }
+
+    public String getRequestId(HttpServletRequest request, String requestIdKey) {
+        String requestId;
+        String parameterRequestId = request.getParameter(requestIdKey);
+        String headerRequestId = request.getHeader(requestIdKey);
+        if (parameterRequestId == null && headerRequestId == null) {
+            requestId = String.valueOf(snowflake.snowflakeId());
+        } else {
+            requestId = parameterRequestId != null ? parameterRequestId : headerRequestId;
+        }
+        return requestId;
     }
 }

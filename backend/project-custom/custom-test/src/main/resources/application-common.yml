@@ -4,3 +4,12 @@ spring:
 
 logging:
   config: classpath:logback-spring.xml
+
+common:
+  core:
+    global:
+      handler:
+        enabled: true
+      request-id:
+        key: req-id
+        enabled: true

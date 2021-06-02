@@ -23,6 +23,11 @@
             <artifactId>common-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-log</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- spring -->
         <dependency>

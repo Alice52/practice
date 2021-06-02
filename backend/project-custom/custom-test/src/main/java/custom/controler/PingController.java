@@ -1,5 +1,6 @@
 package custom.controler;
 
+import common.annotation.LogAnno;
 import common.core.constant.enums.CommonResponseEnum;
 import common.core.util.R;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class PingController {
 
+    @LogAnno
     @GetMapping("/ping")
     public R<String> ping() {
         return R.<String>builder().data("pong").build();
     }
 
+    @LogAnno
     @GetMapping("/exception")
     public R<Void> exception() {
         CommonResponseEnum.INTERNAL_ERROR.assertFail2Response();
