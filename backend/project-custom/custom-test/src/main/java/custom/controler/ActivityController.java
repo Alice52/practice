@@ -18,7 +18,7 @@ import java.util.List;
  * @project integration <br>
  */
 @Slf4j
-@Api(tags = {"活动信息"})
+@Api(tags = {"Activity Manage Api"})
 @RestController
 @RequestMapping("/custom")
 public class ActivityController {

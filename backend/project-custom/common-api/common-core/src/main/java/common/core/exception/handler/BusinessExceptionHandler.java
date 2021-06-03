@@ -31,28 +31,28 @@ public class BusinessExceptionHandler {
     @Resource private DefaultHandler defaultHandler;
 
     @ExceptionHandler(value = {BusinessException.class})
-    public R handleBusinessException(BusinessException ex) {
+    public R<Void> handleBusinessException(BusinessException ex) {
         log.error(ex.getMessage(), ex);
 
-        return R.error(ex.getResponseEnum(), ex);
+        return R.error(ex.getResponseEnum());
     }
 
     @ExceptionHandler(UndeclaredThrowableException.class)
-    public R undeclaredThrowableException(UndeclaredThrowableException e) {
+    public R<Void> undeclaredThrowableException(UndeclaredThrowableException e) {
         return tryConvert2ConcurrentException(e);
     }
 
     @ExceptionHandler(ExecutionException.class)
-    public R executionException(ExecutionException e) {
+    public R<Void> executionException(ExecutionException e) {
         return tryConvert2BusinessException(e);
     }
 
     @ExceptionHandler(CompletionException.class)
-    public R completionException(CompletionException e) {
+    public R<Void> completionException(CompletionException e) {
         return tryConvert2BusinessException(e);
     }
 
-    private R tryConvert2ConcurrentException(UndeclaredThrowableException e) {
+    private R<Void> tryConvert2ConcurrentException(UndeclaredThrowableException e) {
         if (e.getUndeclaredThrowable() instanceof ExecutionException) {
             return executionException((ExecutionException) e.getUndeclaredThrowable());
         }
@@ -64,7 +64,7 @@ public class BusinessExceptionHandler {
         return defaultHandler.handleException(e);
     }
 
-    private R tryConvert2BusinessException(Exception e) {
+    private R<Void> tryConvert2BusinessException(Exception e) {
         if (e.getCause() instanceof BusinessException) {
             return handleBusinessException((BusinessException) e.getCause());
         }

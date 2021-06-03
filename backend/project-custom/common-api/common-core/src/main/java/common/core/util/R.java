@@ -1,6 +1,7 @@
 package common.core.util;
 
 import common.core.constant.CommonConstants;
+import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BaseException;
 import common.core.exception.assertion.IBaseErrorResponse;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * @author zack <br>
@@ -64,18 +66,24 @@ public class R<T> implements Serializable {
     }
 
     @NotNull
-    public static <T> R error(@Nullable IBaseErrorResponse errorResponse) {
+    public static <T> R<T> error(@Nullable IBaseErrorResponse errorResponse) {
 
-        return R.builder()
+        errorResponse =
+                Optional.ofNullable(errorResponse).orElse(CommonResponseEnum.INTERNAL_ERROR);
+
+        return R.<T>builder()
                 .msg(errorResponse.getErrorMsg())
                 .code(errorResponse.getErrorCode())
                 .build();
     }
 
     @NotNull
-    public static <T> R error(@Nullable IBaseErrorResponse errorResponse, @Nullable T data) {
+    public static <T> R<T> error(@Nullable IBaseErrorResponse errorResponse, @Nullable T data) {
 
-        return R.builder()
+        errorResponse =
+                Optional.ofNullable(errorResponse).orElse(CommonResponseEnum.INTERNAL_ERROR);
+
+        return R.<T>builder()
                 .data(data)
                 .msg(errorResponse.getErrorMsg())
                 .code(errorResponse.getErrorCode())
@@ -83,8 +91,14 @@ public class R<T> implements Serializable {
     }
 
     @NotNull
-    public static <T> R success(@Nullable T data) {
+    public static <T> R<T> success(@Nullable T data) {
 
-        return R.builder().data(data).build();
+        return R.<T>builder().data(data).build();
+    }
+
+    @NotNull
+    public static <T> R<T> success() {
+
+        return R.<T>builder().build();
     }
 }

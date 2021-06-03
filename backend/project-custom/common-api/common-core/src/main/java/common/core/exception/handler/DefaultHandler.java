@@ -1,6 +1,7 @@
 package common.core.exception.handler;
 
 import common.core.constant.enums.CommonResponseEnum;
+import common.core.exception.BaseException;
 import common.core.util.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,10 +24,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 public class DefaultHandler {
 
-    @ExceptionHandler({Exception.class})
-    public R handleException(Exception ex) {
+    @ExceptionHandler({BaseException.class})
+    public R<Void> handleException(BaseException ex) {
         log.error(ex.getMessage(), ex);
 
-        return R.error(CommonResponseEnum.INTERNAL_ERROR, ex);
+        return R.<Void>error(ex.getResponseEnum());
+    }
+
+    @ExceptionHandler({Exception.class})
+    public R<Void> handleException(Exception ex) {
+        log.error(ex.getMessage(), ex);
+
+        return R.<Void>error(CommonResponseEnum.INTERNAL_ERROR);
     }
 }

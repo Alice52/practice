@@ -1,12 +1,16 @@
 package custom.controler;
 
 import common.core.util.ValidatorUtil;
+import common.redis.constants.CommonCacheConstants;
 import custom.model.dto.PhaseDTO;
 import custom.model.vo.PhaseVO;
 import custom.service.PhaseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +24,17 @@ import java.util.List;
  * @project integration <br>
  */
 @Slf4j
-@Api(tags = {"活动阶段信息"})
+@Api(tags = {"Phase Manage Api"})
 @RestController
 @RequestMapping("/custom")
 public class PhaseController {
     @Resource private PhaseService phaseService;
 
     @GetMapping("/phases")
+    @Cacheable(
+            value = CommonCacheConstants.MODULE_PHASE_KEY,
+            key = "'list'",
+            unless = "#result.data.size() == 0")
     public List<PhaseVO> list(
             @RequestParam(value = "type", required = false) @ApiParam(value = "活动标识") String type) {
 
@@ -34,6 +42,10 @@ public class PhaseController {
     }
 
     @GetMapping("/phase/{id}")
+    @Cacheable(
+            value = CommonCacheConstants.MODULE_PHASE_KEY,
+            key = "#id",
+            unless = "#result.data.id == null")
     public PhaseVO get(
             @PathVariable("id") Long id,
             @RequestParam(value = "type", required = false) @ApiParam(value = "活动标识") String type) {
@@ -42,17 +54,28 @@ public class PhaseController {
     }
 
     @PutMapping("/phase/{id}")
+    @Caching(
+            evict = {
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
+            })
     public Boolean update(@PathVariable("id") Long id, @RequestBody PhaseDTO phase) {
         phase.setId(id);
         return phaseService.updatePhase(phase);
     }
 
     @DeleteMapping("/phase/{id}")
+    @Caching(
+            evict = {
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
+            })
     public Boolean delete(@PathVariable("id") Long id) {
         return phaseService.deletePhase(id);
     }
 
     @PostMapping("/phase")
+    @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
     public Boolean create(
             @RequestBody @Validated({ValidatorUtil.Add.class, Default.class}) PhaseDTO phase) {
         return phaseService.createPhase(phase);

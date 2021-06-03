@@ -17,6 +17,47 @@ import java.util.function.Supplier;
 public interface IBaseAssert {
 
     /**
+     * change response body. <br>
+     * default code is 999999999 and message is Unknown Error.
+     */
+    static void assertFail2Response() {
+        throw new BaseException(CommonResponseEnum.INTERNAL_ERROR);
+    }
+
+    /**
+     * change response body using errMsg and default code is 999999999.
+     *
+     * @param errMsg
+     * @param args
+     */
+    static void assertFail2Response(String errMsg, Object... args) {
+        throw new BaseException(
+                CommonResponseEnum.INTERNAL_ERROR.getErrorCode(),
+                MessageFormat.format(errMsg, args));
+    }
+
+    /**
+     * change response body using errMsg and errCode.
+     *
+     * @param errCode
+     * @param errMsg
+     */
+    static void assertFail2Response(Integer errCode, String errMsg) {
+        throw new BaseException(errCode, errMsg);
+    }
+
+    /**
+     * change response body using errMsg[args] and errCode
+     *
+     * @param errCode
+     * @param errMsg
+     * @param args
+     */
+    static void assertFail2Response(Integer errCode, String errMsg, Object... args) {
+        throw new BaseException(errCode, MessageFormat.format(errMsg, args));
+    }
+
+    /**
      * This method must be Override by sub-class, which can create specified exception.
      *
      * @param args this is for error message[enum message value] palceholder
@@ -859,46 +900,5 @@ public interface IBaseAssert {
      */
     default void assertFailWithMsg(Supplier<String> errMsg, Throwable t, Object... args) {
         throw newExceptionWithMsg(errMsg.get(), t, args);
-    }
-
-    /**
-     * change response body. <br>
-     * default code is 999999999 and message is Unknown Error.
-     */
-    default void assertFail2Response() {
-        throw new BaseException(CommonResponseEnum.INTERNAL_ERROR);
-    }
-
-    /**
-     * change response body using errMsg and default code is 999999999.
-     *
-     * @param errMsg
-     * @param args
-     */
-    default void assertFail2Response(String errMsg, Object... args) {
-        throw new BaseException(
-                CommonResponseEnum.INTERNAL_ERROR.getErrorCode(),
-                MessageFormat.format(errMsg, args));
-    }
-
-    /**
-     * change response body using errMsg and errCode.
-     *
-     * @param errCode
-     * @param errMsg
-     */
-    default void assertFail2Response(Integer errCode, String errMsg) {
-        throw new BaseException(errCode, errMsg);
-    }
-
-    /**
-     * change response body using errMsg[args] and errCode
-     *
-     * @param errCode
-     * @param errMsg
-     * @param args
-     */
-    default void assertFail2Response(Integer errCode, String errMsg, Object... args) {
-        throw new BaseException(errCode, MessageFormat.format(errMsg, args));
     }
 }

@@ -1,6 +1,9 @@
 package common.core.exception;
 
 import common.core.exception.assertion.IBaseErrorResponse;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotNull;
@@ -10,14 +13,15 @@ import javax.validation.constraints.NotNull;
  * @create 2021-06-01<br>
  * @project project-custom <br>
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     @NotNull private IBaseErrorResponse responseEnum;
 
     @Nullable private Object[] args;
-
-    public BaseException() {}
 
     public BaseException(IBaseErrorResponse responseEnum) {
         super(responseEnum.getErrorMsg());
@@ -50,22 +54,6 @@ public class BaseException extends RuntimeException {
             IBaseErrorResponse responseEnum, Object[] args, String message, Throwable cause) {
         super(message, cause);
         this.responseEnum = responseEnum;
-        this.args = args;
-    }
-
-    public IBaseErrorResponse getResponseEnum() {
-        return responseEnum;
-    }
-
-    public void setResponseEnum(IBaseErrorResponse responseEnum) {
-        this.responseEnum = responseEnum;
-    }
-
-    public Object[] getArgs() {
-        return args;
-    }
-
-    public void setArgs(Object[] args) {
         this.args = args;
     }
 }
