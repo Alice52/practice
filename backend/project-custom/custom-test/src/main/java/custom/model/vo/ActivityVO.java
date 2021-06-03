@@ -1,8 +1,6 @@
 package custom.model.vo;
 
-import cn.hutool.core.bean.BeanUtil;
 import custom.constants.enums.ActivityStatusEnum;
-import custom.model.entity.Activity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -30,8 +28,4 @@ public class ActivityVO implements Serializable {
     private LocalDateTime endTime;
 
     private ActivityStatusEnum status;
-
-    public ActivityVO(Activity allStarActivity) {
-        BeanUtil.copyProperties(allStarActivity, this, "status");
-    }
 }

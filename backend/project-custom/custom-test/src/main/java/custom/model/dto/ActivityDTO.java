@@ -1,12 +1,11 @@
-package custom.model.entity;
+package custom.model.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import common.database.model.entity.BaseEntity;
 import custom.constants.enums.ActivityStatusEnum;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,10 +14,10 @@ import java.time.LocalDateTime;
  * @project integration <br>
  */
 @Data
-@TableName("boot_cache_all_star_activity")
-public class Activity extends BaseEntity<Activity> {
+@NoArgsConstructor
+public class ActivityDTO implements Serializable {
 
-    @TableId(type = IdType.AUTO)
+    @ApiModelProperty(hidden = true)
     private Long id;
 
     private Long phaseId;

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static custom.converter.ActivityConverter.CONVERTER;
+
 /**
  * @author zack <br>
  * @create 2021-04-09 10:24 <br>
@@ -25,7 +27,7 @@ public class ActivityServiceImpl extends ServiceImpl<ActivityMapper, Activity>
 
         return this.list(Wrappers.<Activity>query().lambda().in(Activity::getPhaseId, phaseIds))
                 .stream()
-                .map(ActivityVO::new)
+                .map(CONVERTER::po2vo)
                 .collect(Collectors.toList());
     }
 }

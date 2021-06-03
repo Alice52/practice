@@ -25,6 +25,11 @@ public abstract class BaseMybatisConfig {
         return globalConfig;
     }
 
+    /**
+     * This will help to java8 time standard.
+     *
+     * @return
+     */
     @Bean
     @ConditionalOnMissingBean(Jackson2ObjectMapperBuilderCustomizer.class)
     public Jackson2ObjectMapperBuilderCustomizer customizer() {

@@ -2,7 +2,7 @@ spring:
   datasource:
     username: ENC(3+5Pg+H9L0s1ATmg/xTWLbNt9OeMFguochuRyTl9a4BGbD4lL2SLM8351rdHYhC2)
     password: ENC(MkGdNTchUL+OnF+nvm5YSSjWc7XeHLNab+KV9Wr3fqF1fAbEVLB2urZotLn8nAk1)
-    url: ENC(qYpoVw2Izmv2SmeWaOIaz4YNUrnm+ZZnVRhmMRo/W9+APjiNrPn7gK4VbQEJNdPepfPiJGVJPgt5KOeW3e+Q1CZa10lKC5O/zxd/JXsJVhNTPO0u/CSUNe18N7AYFBfX)
+    url: ENC(JABHdXtIKuN4LIpBObwGx2F+SohjmW8NYTX9zviOIfWk5bTaSDPsIKoMiuUSBzO0zA4jyaZY1TLaoPAsL0Wqs1xCigDmwx/BmdDlqKIiCO08I8egr+AMfLlLNsZMX83wmU6nfqzPqFPndLhgtr+r4xR8AkpcsNNLbjcnrL4tgmvtLsOT69m6eLfiBp3EDNcjU9ohQHJae+NZylword1vx+XkuR4zuu+49zZp5OpnmHLecFVQnTzWCdQrf05FdsmIEZOMOvPNchyCBuT0QjR/wQeYLgkemXS8nwCWdRsP4B22WP+OKDSwwlSWhfdi7AT++gpxwICqHy0eIq21DN2p0XuOn9rkCeXxD8hm5ybdcAOWOmpxVGA25h37mr53N0wrS50Q47dea1rGTQt6iPNBY0zk8ZKfg5RfDT8wYBSALzQ=)
     driver-class-name: com.mysql.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:

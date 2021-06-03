@@ -1,9 +1,7 @@
 package custom.model.vo;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import custom.constants.enums.PhaseStatusEnum;
-import custom.model.entity.Phase;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,9 +50,5 @@ public class PhaseVO implements Serializable {
     public PhaseVO(String phaseCode, String phaseName) {
         this.phaseCode = phaseCode;
         this.phaseName = phaseName;
-    }
-
-    public PhaseVO(Phase po) {
-        BeanUtil.copyProperties(po, this, "status");
     }
 }

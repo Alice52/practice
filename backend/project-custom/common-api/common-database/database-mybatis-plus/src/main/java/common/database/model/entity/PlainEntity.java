@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/** 基础数据 */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class PlainEntity<T extends Model> extends Model<T> implements Serializable {

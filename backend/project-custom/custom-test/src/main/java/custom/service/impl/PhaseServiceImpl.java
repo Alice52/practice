@@ -1,6 +1,5 @@
 package custom.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -8,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import custom.constants.enums.ActivityPhaseEnum;
+import custom.converter.PhaseConverter;
 import custom.mapper.PhaseMapper;
 import custom.model.dto.PhaseDTO;
 import custom.model.entity.Phase;
@@ -47,20 +47,15 @@ public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements
     public PhaseVO getPhase(Long id, String type) {
 
         Phase phase = getByCondition(new PhaseDTO(id, type));
-        PhaseVO phaseVO = new PhaseVO();
-        BeanUtil.copyProperties(phase, phaseVO, "status");
 
-        return phaseVO;
+        return PhaseConverter.CONVERTER.po2vo(phase);
     }
 
     @Override
     public Boolean updatePhase(PhaseDTO dto) {
         validateDuplicateByCodeOrName(dto);
 
-        Phase phase = new Phase();
-        BeanUtil.copyProperties(dto, phase, "status");
-
-        return retBool(baseMapper.updateById(phase));
+        return retBool(baseMapper.updateById(PhaseConverter.CONVERTER.dto2po(dto)));
     }
 
     @Override
@@ -79,9 +74,8 @@ public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements
         validateDuplicateByCodeOrName(dto);
 
         Phase phase = new Phase();
-        BeanUtil.copyProperties(dto, phase, "status");
 
-        return retBool(baseMapper.insert(phase));
+        return retBool(baseMapper.insert(PhaseConverter.CONVERTER.dto2po(dto)));
     }
 
     @Override
@@ -101,7 +95,7 @@ public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements
         LambdaQueryWrapper<Phase> queryWrapper = buildQueryWrapper(type);
         List<Phase> phases = this.list(queryWrapper);
 
-        return phases.stream().map(PhaseVO::new).collect(Collectors.toList());
+        return phases.stream().map(PhaseConverter.CONVERTER::po2vo).collect(Collectors.toList());
     }
 
     private void validateDuplicateByCodeOrName(PhaseDTO dto) {

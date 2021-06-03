@@ -10,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/** 基础数据 */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class BaseEntity<T extends Model> extends Model<T> implements Serializable {
@@ -18,6 +17,14 @@ public class BaseEntity<T extends Model> extends Model<T> implements Serializabl
 
     @TableLogic private Boolean isDeleted;
 
+    /**
+     * FieldFill.INSERT will work in create:
+     *
+     * <pre>
+     *     Preparing:   INSERT INTO boot_cache_all_star_phase ( phase_code, phase_name, start_time, end_time, inserted_time, inserted_by ) VALUES ( ?, ?, ?, ?, ?, ? )
+     *     Parameters:  WARM_UP(String), 活动(String), 2021-04-25 14:30:30.0(Timestamp), 2021-04-25 14:35:30.0(Timestamp), 2021-04-25 23:15:07.267(Timestamp), null
+     * </pre>
+     */
     @TableField(value = "inserted_time", fill = FieldFill.INSERT)
     private LocalDateTime insertedTime;
 
