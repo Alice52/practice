@@ -1,10 +1,10 @@
 package common.redis.aspect;
 
 import cn.hutool.core.util.StrUtil;
-import common.core.util.RequestUtil;
 import common.core.util.UserUtil;
+import common.core.util.WebUtil;
 import common.redis.annotation.RedisIdempotentRequest;
-import common.redis.key.RedisKeyCommonEnum;
+import common.redis.constants.enums.RedisKeyCommonEnum;
 import common.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,8 +42,8 @@ public class IdempotentRequestAspect {
     public Object doPoint(ProceedingJoinPoint point, RedisIdempotentRequest redisIdempotentRequest)
             throws Throwable {
 
-        HttpServletRequest request = RequestUtil.getCurrentRequest();
-        String token = RequestUtil.getCurrentToken();
+        HttpServletRequest request = WebUtil.getCurrentRequest();
+        String token = WebUtil.getCurrentToken();
         // if token is null, will not do any limit.
         if (StrUtil.isEmpty(token)) {
             return point.proceed();
@@ -58,15 +58,13 @@ public class IdempotentRequestAspect {
                         UserUtil.getCurrentMemberId(),
                         request.getRequestURI());
 
-        if (currentRequestCount == 0) {
+        if (currentRequestCount == 1) {
             return point.proceed();
         }
 
         // 超过次数，不执行目标方法
         log.error(
-                "接口请求太过频繁, PATH: {}, IP: {}",
-                request.getRequestURI(),
-                RequestUtil.getIpAddr(request));
+                "接口请求太过频繁, PATH: {}, IP: {}", request.getRequestURI(), WebUtil.getIpAddr(request));
         return null;
     }
 }

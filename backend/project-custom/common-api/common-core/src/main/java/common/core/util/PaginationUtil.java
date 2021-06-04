@@ -10,6 +10,7 @@ import java.util.Optional;
  * @create 2020-08-16 22:36 <br>
  * @project common-core <br>
  */
+@Deprecated
 public final class PaginationUtil {
     public static Pagination buildPagination(Integer total, Integer pageSize, Integer currentPage) {
         pageSize = Optional.ofNullable(pageSize).orElse(20);

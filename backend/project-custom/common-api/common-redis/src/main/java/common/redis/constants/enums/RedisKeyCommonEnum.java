@@ -1,5 +1,6 @@
-package common.redis.key;
+package common.redis.constants.enums;
 
+import common.redis.key.KeyPrefix;
 import lombok.NoArgsConstructor;
 
 /**

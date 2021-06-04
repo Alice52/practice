@@ -1,22 +1,27 @@
 package common.redis.aspect;
 
-import cn.hutool.core.util.NumberUtil;
-import com.google.common.util.concurrent.RateLimiter;
-import common.core.annotation.LocalLimitRequest;
+import cn.hutool.core.util.StrUtil;
 import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BaseException;
-import common.core.util.RequestUtil;
+import common.redis.annotation.RedisLimitRequest;
+import common.redis.constants.enums.RedisKeyCommonEnum;
+import common.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Resource;
+import java.lang.reflect.Method;
+import java.time.Instant;
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zack <br>
@@ -28,48 +33,66 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @AllArgsConstructor
 public class LimitRequestAspect {
+    /** this will be autowire */
+    @Resource private RedisScript<Long> limitRedisScript;
 
-    /** 根据请求地址保存不同的令牌桶 */
-    private static final Map<String, RateLimiter> map = new ConcurrentHashMap<>(16);
+    @Resource private StringRedisTemplate stringRedisTemplate;
+
+    @Pointcut("@annotation(redisLimitRequest)")
+    public void pointCut(RedisLimitRequest redisLimitRequest) {}
 
     /**
-     * 切入去点拦截
+     * full class name and method name will become redis limit key.
      *
-     * @see LocalLimitRequest
+     * @param point
+     * @param redisLimitRequest
+     * @return
+     * @throws Throwable
      */
-    @Pointcut("@annotation(localLimitRequest)")
-    public void pointCut(LocalLimitRequest localLimitRequest) {}
-
-    @Around("pointCut(localLimitRequest)")
-    public Object doPoint(ProceedingJoinPoint joinPoint, LocalLimitRequest limitRequest)
+    @Around("pointCut(redisLimitRequest)")
+    public Object doPoint(ProceedingJoinPoint point, RedisLimitRequest redisLimitRequest)
             throws Throwable {
+        MethodSignature signature = (MethodSignature) point.getSignature();
+        Method method = signature.getMethod();
+        String key = method.getDeclaringClass().getName() + StrUtil.DOT + method.getName();
 
-        if (limitRequest.count() == 0 || limitRequest.time() == 0) {
-            return joinPoint.proceed();
+        if (shouldLimited(key, redisLimitRequest)) {
+            throw new BaseException(CommonResponseEnum.REQUEST_LIMIT_ERROR);
         }
 
-        // 获取 request
-        HttpServletRequest request = RequestUtil.getCurrentRequest();
-        // 获取请求 uri
-        String uri = request.getRequestURI();
-        if (!map.containsKey(uri)) {
-            // 为当前请求创建令牌桶
-            map.put(
-                    uri,
-                    RateLimiter.create(NumberUtil.div(limitRequest.count(), limitRequest.time())));
-        }
-        // 根据请求 uri 获取令牌桶
-        RateLimiter rateLimiter = map.get(uri);
+        return point.proceed();
+    }
 
-        boolean acquire =
-                rateLimiter.tryAcquire(
-                        limitRequest.acquireTokenTimeout(), limitRequest.acquireTokenTimeUnit());
-        if (acquire) {
-            // 调用目标方法
-            return joinPoint.proceed();
+    private boolean shouldLimited(String key, RedisLimitRequest redisLimitRequest) {
+
+        int count = redisLimitRequest.count();
+        long time = redisLimitRequest.time();
+        TimeUnit timeUnit = redisLimitRequest.timeUnit();
+
+        if (time <= 0) {
+            return false;
         }
 
-        // 获取不到令牌抛出异常
-        throw new BaseException(CommonResponseEnum.REQUEST_LIMIT_ERROR);
+        key = RedisUtil.buildKey(RedisKeyCommonEnum.CACHE_LIMIT) + StrUtil.COLON + key;
+
+        // 统一使用单位毫秒, 当前时间毫秒数
+        long ttl = timeUnit.toMillis(time);
+        long now = Instant.now().toEpochMilli();
+
+        Long executeTimes =
+                stringRedisTemplate.execute(
+                        limitRedisScript,
+                        Collections.singletonList(key),
+                        String.valueOf(now),
+                        String.valueOf(ttl),
+                        String.valueOf(now - ttl),
+                        String.valueOf(count));
+        if (executeTimes != null && executeTimes == 0) {
+            log.debug("【{}】在单位时间 {} 毫秒内已达到访问上限，当前接口上限 {}", key, ttl, count);
+            return true;
+        }
+
+        log.debug("【{}】在单位时间 {} 毫秒内访问 {} 次", key, ttl, executeTimes);
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package common.redis.constants.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -8,17 +9,10 @@ import lombok.Getter;
  * @project custom-test <br>
  */
 @Getter
+@AllArgsConstructor
 public enum LockLevel {
     GLOBAL(0),
     MEMBER(1);
 
     private final int code;
-
-    LockLevel(int code) {
-        this.code = code;
-    }
-
-    public int getCode() {
-        return code;
-    }
 }

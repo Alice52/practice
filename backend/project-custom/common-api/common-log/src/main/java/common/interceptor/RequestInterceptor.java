@@ -1,6 +1,6 @@
 package common.interceptor;
 
-import common.core.util.RequestUtil;
+import common.core.util.WebUtil;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter implements WebMvcConfigurer {
 
-    @Resource private RequestUtil requestUtil;
+    @Resource private WebUtil requestUtil;
 
     /** if use responseProperties, will throw exception due to responseProperties is null now. */
     @Value("${common.core.global.request-id.key:req-id}")

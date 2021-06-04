@@ -12,6 +12,8 @@ public interface CommonConstants {
     /** 失败标记 */
     Integer FAIL = 1;
 
-    // log
+    String SUCCESS_MSG = "success";
+
+    /** log */
     String APP_CONTEXT_LOG = "app_context_log";
 }

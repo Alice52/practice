@@ -1,7 +1,5 @@
 package common.redis.key;
 
-import cn.hutool.core.util.StrUtil;
-
 /**
  * @author zack <br>
  * @create 2021-06-03 14:28 <br>
@@ -18,6 +16,6 @@ public interface KeyPrefix {
      */
     default String getPrefix() {
         String className = getClass().getSimpleName();
-        return className + StrUtil.COLON + prefix;
+        return prefix + className;
     }
 }

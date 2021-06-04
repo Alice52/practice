@@ -18,8 +18,7 @@ public class AppContextHolder {
     private static ThreadLocal<Map<String, Object>> CONTEXT_HOLDER = new ThreadLocal<>();
 
     public static void upsertByKey(String prefix, String key, Object value) {
-        key = prefix + key;
-        getContextHolder().put(key, value);
+        getContextHolder().put(prefix + key, value);
     }
 
     @Deprecated
@@ -44,7 +43,14 @@ public class AppContextHolder {
             return null;
         }
 
-        return (T) value;
+        T t = null;
+        try {
+            t = clazz.cast(value);
+        } catch (ClassCastException ex) {
+            log.warn("cast object: {} to type: {} error: {}", value, clazz, ex);
+        }
+
+        return t;
     }
 
     public static void removeByKey(String prefix, String key) {

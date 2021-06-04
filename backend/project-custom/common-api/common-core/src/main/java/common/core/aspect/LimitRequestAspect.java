@@ -5,7 +5,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import common.core.annotation.LocalLimitRequest;
 import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BaseException;
-import common.core.util.RequestUtil;
+import common.core.util.WebUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -41,29 +41,36 @@ public class LimitRequestAspect {
     public void pointCut(LocalLimitRequest localLimitRequest) {}
 
     @Around("pointCut(localLimitRequest)")
-    public Object doPoint(ProceedingJoinPoint joinPoint, LocalLimitRequest limitRequest)
+    public Object doPoint(ProceedingJoinPoint joinPoint, LocalLimitRequest localLimitRequest)
             throws Throwable {
 
-        if (limitRequest.count() == 0 || limitRequest.time() == 0) {
+        int count = localLimitRequest.count();
+        long time = localLimitRequest.time();
+
+        if (count == 0 || time == 0) {
             return joinPoint.proceed();
         }
 
         // 获取 request
-        HttpServletRequest request = RequestUtil.getCurrentRequest();
+        HttpServletRequest request = WebUtil.getCurrentRequest();
         // 获取请求 uri
         String uri = request.getRequestURI();
         if (!map.containsKey(uri)) {
             // 为当前请求创建令牌桶
-            map.put(
-                    uri,
-                    RateLimiter.create(NumberUtil.div(limitRequest.count(), limitRequest.time())));
+            double per = NumberUtil.div(count, localLimitRequest.timeUnit().toSeconds(time));
+            map.put(uri, RateLimiter.create(per));
         }
         // 根据请求 uri 获取令牌桶
         RateLimiter rateLimiter = map.get(uri);
+        if (localLimitRequest.acquireTokenTimeout() <= 0) {
+            double acquire = rateLimiter.acquire();
+            return joinPoint.proceed();
+        }
 
         boolean acquire =
                 rateLimiter.tryAcquire(
-                        limitRequest.acquireTokenTimeout(), limitRequest.acquireTokenTimeUnit());
+                        localLimitRequest.acquireTokenTimeout(),
+                        localLimitRequest.acquireTokenTimeUnit());
         if (acquire) {
             // 调用目标方法
             return joinPoint.proceed();

@@ -3,7 +3,7 @@ package common.core.annotation;
 /**
  * @author zack <br>
  * @create 2020-08-01 14:43 <br>
- * @project project-seckill <br>
+ * @project common-core <br>
  */
 import common.core.annotation.discriptor.MobileDescriptor;
 

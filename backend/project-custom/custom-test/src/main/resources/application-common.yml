@@ -5,6 +5,7 @@ spring:
 mybatis-plus:
   typeEnumsPackage: custom.constants.enums
 
+
 logging:
   config: classpath:logback-spring.xml
 

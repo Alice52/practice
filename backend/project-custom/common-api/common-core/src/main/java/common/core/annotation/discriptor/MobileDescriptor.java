@@ -2,7 +2,7 @@ package common.core.annotation.discriptor;
 
 import cn.hutool.core.util.StrUtil;
 import common.core.annotation.Mobile;
-import common.core.util.ValidatorUtils;
+import common.core.util.ValidatorUtil;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -28,6 +28,6 @@ public class MobileDescriptor implements ConstraintValidator<Mobile, String> {
             return true;
         }
 
-        return ValidatorUtils.validateMobile(obj);
+        return ValidatorUtil.validateMobile(obj);
     }
 }

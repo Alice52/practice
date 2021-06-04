@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * @author zack <br>
  * @create 2020-08-02 10:22 <br>
- * @project validation <br>
+ * @project common-core <br>
  */
 @Documented
 @Retention(RUNTIME)

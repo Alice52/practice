@@ -48,7 +48,6 @@ public class RedisLockAspect {
         RLock lock = redissonClient.getLock(key);
         try {
             if (redisLock.timeOut() > 0) {
-
                 if (!lock.tryLock(redisLock.timeOut(), redisLock.timeUnit())) {
                     BusinessResponseEnum.LOCK_ERROR.assertFail();
                 }
@@ -57,7 +56,7 @@ public class RedisLockAspect {
             }
             object = joinPoint.proceed();
         } finally {
-            // IllegalMonitorStateException: attemp to unlock lock, not locked by currentId
+            // IllegalMonitorStateException: attempt to unlock lock, not locked by currentId
             if (lock.isLocked() && lock.isHeldByCurrentThread()) {
                 lock.unlock();
             }

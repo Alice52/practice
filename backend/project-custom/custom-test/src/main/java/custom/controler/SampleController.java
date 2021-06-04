@@ -1,8 +1,12 @@
 package custom.controler;
 
 import common.annotation.LogAnno;
+import common.core.annotation.LocalIdempotentRequest;
+import common.core.annotation.LocalLimitRequest;
 import common.core.exception.assertion.IBaseAssert;
 import common.core.util.R;
+import common.redis.annotation.RedisIdempotentRequest;
+import common.redis.annotation.RedisLimitRequest;
 import common.redis.annotation.RedisLock;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +47,38 @@ public class SampleController {
     public @NotNull R<Void> lock() {
 
         TimeUnit.MINUTES.sleep(1);
+
+        return R.success();
+    }
+
+    @LocalLimitRequest(count = 10, time = 1, timeUnit = TimeUnit.MINUTES)
+    @GetMapping("/local-limit")
+    @ApiOperation("@LocalLimitRequest Sample")
+    public @NotNull R<Void> localLimitRequest() {
+
+        return R.success();
+    }
+
+    @RedisLimitRequest(count = 10, time = 1, timeUnit = TimeUnit.MINUTES)
+    @GetMapping("/redis-limit")
+    @ApiOperation("@RedisLimitRequest Sample")
+    public @NotNull R<Void> redisLimitRequest() {
+
+        return R.success();
+    }
+
+    @LocalIdempotentRequest(time = 1, timeUnit = TimeUnit.MINUTES)
+    @GetMapping("/local-idempotent")
+    @ApiOperation("@LocalIdempotentRequest Sample")
+    public @NotNull R<Void> localIdempotentRequest() {
+
+        return R.success();
+    }
+
+    @RedisIdempotentRequest(time = 1, timeUnit = TimeUnit.MINUTES)
+    @GetMapping("/redis-idempotent")
+    @ApiOperation("@RedisIdempotentRequest Sample")
+    public @NotNull R<Void> redisIdempotentRequest() {
 
         return R.success();
     }

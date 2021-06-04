@@ -22,4 +22,7 @@ swagger:
     - /actuator/**
     - /error
 
-
+common:
+  core:
+    redis:
+      module: common

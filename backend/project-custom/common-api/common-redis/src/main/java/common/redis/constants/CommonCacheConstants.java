@@ -7,12 +7,14 @@ package common.redis.constants;
  */
 public interface CommonCacheConstants {
 
-    // common
+    /** common */
     String PROJECT_PREFIX = "custom";
 
-    // lock relative
+    /** lock relative */
     String GLOBAL_LOCK_KEY = "DISTRIBUTE_LOCK";
+
     String MEMBER_LOCK_KEY_PLACE_HOLDER = "{}-MEMBER-ID-{}";
 
     String MODULE_PHASE_KEY = PROJECT_PREFIX + ":module:phase";
+    String REQUEST_LIMIT = "limit";
 }

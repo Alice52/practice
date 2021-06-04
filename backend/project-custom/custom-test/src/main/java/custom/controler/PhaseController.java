@@ -1,6 +1,6 @@
 package custom.controler;
 
-import common.core.util.ValidatorUtil;
+import common.core.util.ValidatorGroupUtil;
 import common.redis.constants.CommonCacheConstants;
 import custom.model.dto.PhaseDTO;
 import custom.model.vo.PhaseVO;
@@ -77,7 +77,7 @@ public class PhaseController {
     @PostMapping("/phase")
     @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
     public Boolean create(
-            @RequestBody @Validated({ValidatorUtil.Add.class, Default.class}) PhaseDTO phase) {
+            @RequestBody @Validated({ValidatorGroupUtil.Add.class, Default.class}) PhaseDTO phase) {
         return phaseService.createPhase(phase);
     }
 }

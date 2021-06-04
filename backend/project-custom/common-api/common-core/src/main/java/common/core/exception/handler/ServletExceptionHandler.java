@@ -40,27 +40,6 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class ServletExceptionHandler {
 
-    @ExceptionHandler({
-        NoHandlerFoundException.class,
-        HttpRequestMethodNotSupportedException.class,
-        HttpMediaTypeNotSupportedException.class,
-        HttpMediaTypeNotAcceptableException.class,
-        MissingPathVariableException.class,
-        MissingServletRequestParameterException.class,
-        TypeMismatchException.class,
-        HttpMessageNotReadableException.class,
-        HttpMessageNotWritableException.class,
-        // BindException.class,
-        // MethodArgumentNotValidException.class
-        ServletRequestBindingException.class,
-        ConversionNotSupportedException.class,
-        MissingServletRequestPartException.class,
-        AsyncRequestTimeoutException.class
-    })
-    public R<Void> handleException(HttpServletRequest request, Exception e) {
-        return handleServletException(e);
-    }
-
     protected static R<Void> handleServletException(Exception e) {
         log.error(e.getMessage(), e);
 
@@ -82,5 +61,26 @@ public class ServletExceptionHandler {
         //     return new ErrorResponse(code, message);
         // }
         return R.<Void>error(response);
+    }
+
+    @ExceptionHandler({
+        NoHandlerFoundException.class,
+        HttpRequestMethodNotSupportedException.class,
+        HttpMediaTypeNotSupportedException.class,
+        HttpMediaTypeNotAcceptableException.class,
+        MissingPathVariableException.class,
+        MissingServletRequestParameterException.class,
+        TypeMismatchException.class,
+        HttpMessageNotReadableException.class,
+        HttpMessageNotWritableException.class,
+        // BindException.class,
+        // MethodArgumentNotValidException.class
+        ServletRequestBindingException.class,
+        ConversionNotSupportedException.class,
+        MissingServletRequestPartException.class,
+        AsyncRequestTimeoutException.class
+    })
+    public R<Void> handleException(HttpServletRequest request, Exception e) {
+        return handleServletException(e);
     }
 }

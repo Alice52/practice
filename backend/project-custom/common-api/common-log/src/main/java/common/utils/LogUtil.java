@@ -4,8 +4,8 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.Method;
 import cn.hutool.json.JSON;
 import cn.hutool.json.JSONUtil;
-import common.core.util.RequestUtil;
 import common.core.util.UserUtil;
+import common.core.util.WebUtil;
 import common.model.vo.LogVO;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -30,11 +30,6 @@ public class LogUtil {
 
     private static String requestIdKey;
 
-    @Value("${common.core.global.request-id.key:req-id}")
-    public void setRequestIdKey(String requestIdKey) {
-        LogUtil.requestIdKey = requestIdKey;
-    }
-
     public static LogVO doBefore(JoinPoint joinPoint) {
         try {
             long beginTime = System.currentTimeMillis();
@@ -46,7 +41,7 @@ public class LogUtil {
             String beanName = joinPoint.getSignature().getDeclaringTypeName();
             String methodName = joinPoint.getSignature().getName();
             String uri = request.getRequestURI();
-            String remoteAddr = RequestUtil.getIpAddr(request);
+            String remoteAddr = WebUtil.getIpAddr(request);
             String sessionId = request.getSession().getId();
             String username = UserUtil.getCurrentMemberId();
             String method = request.getMethod();
@@ -126,5 +121,10 @@ public class LogUtil {
             }
         }
         return params.toString().trim();
+    }
+
+    @Value("${common.core.global.request-id.key:req-id}")
+    public void setRequestIdKey(String requestIdKey) {
+        LogUtil.requestIdKey = requestIdKey;
     }
 }

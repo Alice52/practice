@@ -38,6 +38,13 @@ public @interface LocalLimitRequest {
     long time() default 0;
 
     /**
+     * time() 的单位
+     *
+     * @return
+     */
+    TimeUnit timeUnit() default TimeUnit.SECONDS;
+
+    /**
      * 请求等待时间
      *
      * @return

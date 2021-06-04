@@ -9,6 +9,7 @@ import java.util.Set;
  * @create 2021-06-01<br>
  * @project common-core <br>
  */
+@Deprecated
 public class ListValidException extends RuntimeException {
 
     private Map<Integer, Set<ConstraintViolation<Object>>> errors;

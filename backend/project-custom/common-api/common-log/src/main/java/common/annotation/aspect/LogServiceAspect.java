@@ -39,8 +39,7 @@ public class LogServiceAspect {
         try {
             if (log.isDebugEnabled()) {
                 LogVO logVO = LogUtil.doBefore(joinPoint);
-                AppContextHolder.upsertByKey(
-                        ASPECT_PREFIX, CommonConstants.APP_CONTEXT_LOG, logVO);
+                AppContextHolder.upsertByKey(ASPECT_PREFIX, CommonConstants.APP_CONTEXT_LOG, logVO);
             }
         } catch (Exception e) {
             log.error("***Operation request logging failed  doBefore()***", e);
@@ -52,8 +51,7 @@ public class LogServiceAspect {
         try {
             if (log.isDebugEnabled()) {
                 LogVO optLogVO =
-                        AppContextHolder.getByKey(
-                                ASPECT_PREFIX, CommonConstants.APP_CONTEXT_LOG);
+                        AppContextHolder.getByKey(ASPECT_PREFIX, CommonConstants.APP_CONTEXT_LOG);
                 LogUtil.doAfterReturning(optLogVO, result);
             }
         } catch (Exception e) {

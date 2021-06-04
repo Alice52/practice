@@ -29,7 +29,7 @@ public class R<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int code = CommonConstants.SUCCESS;
-    private String msg = "success";
+    private String msg = CommonConstants.SUCCESS_MSG;
     private T data;
 
     public R() {
@@ -93,12 +93,12 @@ public class R<T> implements Serializable {
     @NotNull
     public static <T> R<T> success(@Nullable T data) {
 
-        return R.<T>builder().data(data).build();
+        return R.<T>builder().msg(CommonConstants.SUCCESS_MSG).data(data).build();
     }
 
     @NotNull
     public static <T> R<T> success() {
 
-        return R.<T>builder().build();
+        return R.<T>builder().msg(CommonConstants.SUCCESS_MSG).build();
     }
 }

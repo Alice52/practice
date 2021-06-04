@@ -2,7 +2,7 @@ package common.core.aspect;
 
 import cn.hutool.core.util.StrUtil;
 import common.core.annotation.LocalIdempotentRequest;
-import common.core.util.RequestUtil;
+import common.core.util.WebUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.jodah.expiringmap.ExpirationPolicy;
@@ -41,11 +41,11 @@ public class IdempotentRequestAspect {
     public void pointCut(LocalIdempotentRequest localIdempotentRequest) {}
 
     @Around("pointCut(localIdempotentRequest)")
-    public Object doPoint(ProceedingJoinPoint point, LocalIdempotentRequest idempotentRequest)
+    public Object doPoint(ProceedingJoinPoint point, LocalIdempotentRequest localIdempotentRequest)
             throws Throwable {
 
-        HttpServletRequest request = RequestUtil.getCurrentRequest();
-        String token = RequestUtil.getCurrentToken();
+        HttpServletRequest request = WebUtil.getCurrentRequest();
+        String token = WebUtil.getCurrentToken();
         // if token is null, will not do any limit.
         if (StrUtil.isEmpty(token)) {
             return point.proceed();
@@ -67,8 +67,8 @@ public class IdempotentRequestAspect {
                 token,
                 1,
                 ExpirationPolicy.CREATED,
-                idempotentRequest.time(),
-                idempotentRequest.timeUnit());
+                localIdempotentRequest.time(),
+                localIdempotentRequest.timeUnit());
         map.put(request.getRequestURI(), em);
 
         return point.proceed();
