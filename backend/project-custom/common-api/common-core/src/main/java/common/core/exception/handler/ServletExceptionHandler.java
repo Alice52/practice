@@ -1,7 +1,9 @@
 package common.core.exception.handler;
 
+import common.core.constant.enums.CommonResponseEnum;
+import common.core.constant.enums.ServletResponseEnum;
+import common.core.exception.assertion.IBaseErrorResponse;
 import common.core.util.R;
-import common.core.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
@@ -55,7 +57,30 @@ public class ServletExceptionHandler {
         MissingServletRequestPartException.class,
         AsyncRequestTimeoutException.class
     })
-    public R handleException(HttpServletRequest request, Exception e) {
-        return RequestUtil.handleServletException(e);
+    public R<Void> handleException(HttpServletRequest request, Exception e) {
+        return handleServletException(e);
+    }
+
+    protected static R<Void> handleServletException(Exception e) {
+        log.error(e.getMessage(), e);
+
+        IBaseErrorResponse response = CommonResponseEnum.INTERNAL_ERROR;
+        try {
+            response = ServletResponseEnum.valueOf(e.getClass().getSimpleName());
+        } catch (IllegalArgumentException e1) {
+            log.error(
+                    "class [{}] not defined in enum {}",
+                    e.getClass().getName(),
+                    ServletResponseEnum.class.getName());
+        }
+
+        // if (ENV_PROD.equals(profile)) {
+        //     // 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
+        //     code = CommonResponseEnum.SERVER_ERROR.getCode();
+        //     BaseException baseException = new BaseException(CommonResponseEnum.SERVER_ERROR);
+        //     String message = getMessage(baseException);
+        //     return new ErrorResponse(code, message);
+        // }
+        return R.<Void>error(response);
     }
 }

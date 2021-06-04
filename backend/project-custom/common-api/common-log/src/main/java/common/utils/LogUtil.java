@@ -4,6 +4,8 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.Method;
 import cn.hutool.json.JSON;
 import cn.hutool.json.JSONUtil;
+import common.core.util.RequestUtil;
+import common.core.util.UserUtil;
 import common.model.vo.LogVO;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -28,6 +30,11 @@ public class LogUtil {
 
     private static String requestIdKey;
 
+    @Value("${common.core.global.request-id.key:req-id}")
+    public void setRequestIdKey(String requestIdKey) {
+        LogUtil.requestIdKey = requestIdKey;
+    }
+
     public static LogVO doBefore(JoinPoint joinPoint) {
         try {
             long beginTime = System.currentTimeMillis();
@@ -39,9 +46,9 @@ public class LogUtil {
             String beanName = joinPoint.getSignature().getDeclaringTypeName();
             String methodName = joinPoint.getSignature().getName();
             String uri = request.getRequestURI();
-            String remoteAddr = getIpAddr(request);
+            String remoteAddr = RequestUtil.getIpAddr(request);
             String sessionId = request.getSession().getId();
-            // String username = appUtil.getUserInSecurityContext().getUsername();
+            String username = UserUtil.getCurrentMemberId();
             String method = request.getMethod();
             StringBuilder params = new StringBuilder();
             if (Method.POST.name().equalsIgnoreCase(method)) {
@@ -66,9 +73,9 @@ public class LogUtil {
             LogVO optLog = new LogVO();
             optLog.setReqId(MDC.get(requestIdKey));
             optLog.setBeanName(beanName);
-            // optLog.setUser(username);
+            optLog.setUser(username);
             optLog.setMethodName(methodName);
-            optLog.setParams(params != null ? params.toString().toString() : "");
+            optLog.setParams(params.toString());
             optLog.setRemoteAddr(remoteAddr);
             optLog.setSessionId(sessionId);
             optLog.setUri(uri);
@@ -105,26 +112,6 @@ public class LogUtil {
     }
 
     /**
-     * Gets the IP address of the login user's remote host
-     *
-     * @param request
-     * @return
-     */
-    private static String getIpAddr(HttpServletRequest request) {
-        String ip = request.getHeader("x-forwarded-for");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
-
-    /**
      * Request parameter assembly
      *
      * @param paramsArray
@@ -139,10 +126,5 @@ public class LogUtil {
             }
         }
         return params.toString().trim();
-    }
-
-    @Value("${common.core.global.request-id.key:req-id}")
-    public void setRequestIdKey(String requestIdKey) {
-        LogUtil.requestIdKey = requestIdKey;
     }
 }

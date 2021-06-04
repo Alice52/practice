@@ -1,6 +1,7 @@
 package common.configuration;
 
 import common.annotation.aspect.LogAnnoAspect;
+import common.annotation.aspect.LogServiceAspect;
 import common.annotation.aspect.WebRequestLogAspect;
 import common.event.SysLogListener;
 import lombok.AllArgsConstructor;
@@ -23,9 +24,14 @@ public class LogAutoConfiguration {
         return new SysLogListener();
     }
 
-    @Bean
+    // @Bean
     public WebRequestLogAspect webRequestLogAspect() {
         return new WebRequestLogAspect();
+    }
+
+    // @Bean
+    public LogServiceAspect logServiceAspect() {
+        return new LogServiceAspect();
     }
 
     @Bean

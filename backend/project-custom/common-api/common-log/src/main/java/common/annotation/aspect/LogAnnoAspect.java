@@ -28,7 +28,7 @@ public class LogAnnoAspect {
         Object result = point.proceed();
         LogUtil.doAfterReturning(vo, result);
 
-        SpringContextHolder.publishEvent(new SysLogEvent(new Object()));
+        SpringContextHolder.publishEvent(new SysLogEvent(logAnno));
 
         return result;
     }

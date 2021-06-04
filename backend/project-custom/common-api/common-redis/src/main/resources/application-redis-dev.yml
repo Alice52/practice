@@ -6,3 +6,8 @@ spring:
     database: 13
     enable: true
     redisson: classpath:redisson-dev.yml
+
+common:
+  core:
+    redis:
+      module: common

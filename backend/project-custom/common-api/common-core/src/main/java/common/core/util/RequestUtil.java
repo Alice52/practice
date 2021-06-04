@@ -1,12 +1,14 @@
 package common.core.util;
 
 import common.core.configuration.SnowflakeConfig;
-import common.core.constant.enums.CommonResponseEnum;
-import common.core.constant.enums.ServletResponseEnum;
-import common.core.exception.assertion.IBaseErrorResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,29 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class RequestUtil {
     @Resource private SnowflakeConfig snowflake;
-
-    public static R handleServletException(Exception e) {
-        log.error(e.getMessage(), e);
-
-        IBaseErrorResponse response = CommonResponseEnum.INTERNAL_ERROR;
-        try {
-            response = ServletResponseEnum.valueOf(e.getClass().getSimpleName());
-        } catch (IllegalArgumentException e1) {
-            log.error(
-                    "class [{}] not defined in enum {}",
-                    e.getClass().getName(),
-                    ServletResponseEnum.class.getName());
-        }
-
-        // if (ENV_PROD.equals(profile)) {
-        //     // 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
-        //     code = CommonResponseEnum.SERVER_ERROR.getCode();
-        //     BaseException baseException = new BaseException(CommonResponseEnum.SERVER_ERROR);
-        //     String message = getMessage(baseException);
-        //     return new ErrorResponse(code, message);
-        // }
-        return R.error(response, e);
-    }
+    private static final String BEARER_ = "Bearer ";
 
     public String getRequestId(HttpServletRequest request, String requestIdKey) {
         String requestId;
@@ -53,5 +33,43 @@ public class RequestUtil {
             requestId = parameterRequestId != null ? parameterRequestId : headerRequestId;
         }
         return requestId;
+    }
+
+    public static HttpServletRequest getCurrentRequest() {
+        // 获得request对象
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        return sra.getRequest();
+    }
+
+    @Nullable
+    public static String getCurrentToken() {
+        HttpServletRequest request = getCurrentRequest();
+        String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (header == null || !header.startsWith(BEARER_)) {
+            return null;
+        }
+
+        return header.replace(BEARER_, "");
+    }
+
+    /**
+     * Gets the IP address of the login user's remote host
+     *
+     * @param request
+     * @return
+     */
+    public static String getIpAddr(HttpServletRequest request) {
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        return ip;
     }
 }

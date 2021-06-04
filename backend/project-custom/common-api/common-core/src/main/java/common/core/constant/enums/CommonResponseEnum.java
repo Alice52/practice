@@ -17,6 +17,7 @@ public enum CommonResponseEnum implements IBaseExceptionAssert {
     INTERNAL_ERROR(500_000_000, "Internal Error"),
     SERVER_BUSY(500_000_001, "Network Error"),
     BEAN_VALIDATION(400_000_000, "Invalid Parameter"),
+    REQUEST_LIMIT_ERROR(400_000_000, "Too Many Request"),
     ;
 
     private Integer errorCode;
