@@ -1,10 +1,13 @@
 spring:
   config:
     name: custom-test
+  # this will overwrite redis database config,
+  # and it is relative of including profile sequence
+  redis:
+    database: 8
 
 mybatis-plus:
   typeEnumsPackage: custom.constants.enums
-
 
 logging:
   config: classpath:logback-spring.xml
