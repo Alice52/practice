@@ -1,0 +1,14 @@
+version: '3.0'
+services:
+  project-xx:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/project-xxx:20201110.58d25e7
+    restart: 'on-failure:3'
+    container_name: project-xxx
+    ports:
+      - "9001:8080"
+    volumes:
+      # this is for nginx look up
+      - /root/project-xxx/log:/log
+    environment:
+      - spring.profiles.active=prod
+      - TZ=Asia/Shanghai
