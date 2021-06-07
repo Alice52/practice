@@ -1,0 +1,7 @@
+{
+"patronId": "232355210",
+"planArriveDate": 1572311156220,
+"planLeaveDate": 1573520756220,
+"companyCode": "Augmentum",
+"propertyCode": "GuoShouJing 17#"
+}
