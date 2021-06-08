@@ -70,7 +70,7 @@ public class SampleController {
 
     @LocalIdempotentRequest(time = 1, timeUnit = TimeUnit.MINUTES)
     @PutMapping("/local-idempotent")
-    @ApiOperation("@LocalIdempotentRequest Sample")
+    @ApiOperation("@LocalIdempotentRequest Sample & this will log @Lxx")
     public @NotNull R<Void> localIdempotentRequest() {
 
         return R.success();

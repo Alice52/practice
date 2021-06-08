@@ -1,14 +1,22 @@
 version: '3.0'
 services:
-  project-xx:
-    image: registry.cn-shanghai.aliyuncs.com/alice52/project-xxx:20201110.58d25e7
+  actuator-server:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-actuator-server:20210608.09ec081
     restart: 'on-failure:3'
-    container_name: project-xxx
+    container_name: dev-actuator-server
     ports:
-      - "9001:8080"
-    volumes:
-      # this is for nginx look up
-      - /root/project-xxx/log:/log
+      - 8010:8010
     environment:
-      - spring.profiles.active=prod
+      TZ: Asia/Shanghai
+
+  project-worklow:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-custom-test:20210608.09ec081
+    restart: 'on-failure:3'
+    container_name: dev-project-worklow
+    volumes:
+      - /root/project-name/logs:/log
+    ports:
+      - 8010:8080
+    environment:
       - TZ=Asia/Shanghai
+      - spring.profiles.active=cloud
