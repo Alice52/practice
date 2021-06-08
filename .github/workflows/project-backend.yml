@@ -44,3 +44,9 @@ jobs:
           PROJECT_NAME=project-custom
           cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
           mvn clean package -DskipTests=true
+
+      - name: Build project-cloud-custom module
+        run: |
+          PROJECT_NAME=project-cloud-custom
+          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
+          mvn clean package -DskipTests=true
