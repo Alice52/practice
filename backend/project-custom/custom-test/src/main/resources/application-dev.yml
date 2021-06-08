@@ -1,7 +1,7 @@
 spring:
   profiles:
     # this sequence is master
-    include: common-dev,database-dev,redis-dev,common
+    include: common-dev,database-dev,redis-dev,actuator-dev,common
 
 swagger:
   enabled: true

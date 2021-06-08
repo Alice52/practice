@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: common-cloud,common,database-cloud,redis-cloud
+    include: common-cloud,common,database-cloud,actuator-dev,redis-cloud
 
 swagger:
   enabled: true
