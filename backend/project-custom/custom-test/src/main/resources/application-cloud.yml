@@ -1,23 +1,8 @@
 spring:
   profiles:
-    include: common-cloud,common,database-cloud,actuator-dev,redis-cloud
+    include: common-cloud,database-cloud,redis-cloud,actuator-cloud,common
 
-swagger:
-  enabled: true
-  # host: mc-gateway:9999
-  title: 'Custom Test Service API'
-  description: 'Custom 接口文档'
-  version: '1.0.0'
-  authorization:
-    name: OAuth Server
-    auth-regex: ^.*$
-    authorization-scope-list:
-      - scope: server
-        description: server all
-    token-url-list:
-      - http://oauth-server:port/auth/oauth/token
-  base-path: /**
-  path-mapping: /
-  exclude-path:
-    - /actuator/**
-    - /error
+common:
+  core:
+    redis:
+      module: common
