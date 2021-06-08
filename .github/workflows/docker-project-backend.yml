@@ -56,3 +56,14 @@ jobs:
           docker tag $image $ALI_DOCKER_REGISTRY/alice52/$image
           docker push $ALI_DOCKER_REGISTRY/alice52/$image
           echo "image:" ${image}
+      - name: Push actuator-server Image
+        run: |
+          PROJECT_NAME=project-custom
+          MODULE_NAME=actuator-server
+          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME/$MODULE_NAME/
+          image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
+          docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
+          docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD $ALI_DOCKER_REGISTRY
+          docker tag $image $ALI_DOCKER_REGISTRY/alice52/$image
+          docker push $ALI_DOCKER_REGISTRY/alice52/$image
+          echo "image:" ${image}

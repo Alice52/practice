@@ -1,0 +1,24 @@
+spring:
+  security:
+    user:
+      name: zack
+      password: ${JASYPT_ENCRYPTOR_PASSWORD}
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8010/"
+        instance:
+        metadata:
+        user.name: ${spring.security.user.name}
+        user.password: ${spring.security.user.password}
+
+management:
+  endpoint:
+    health:
+      # 端点健康情况，默认值"never"
+      # 设置为"always"可以显示硬盘使用情况和线程情况
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -12,6 +12,7 @@
     <modules>
         <module>common-api</module>
         <module>custom-test</module>
+        <module>actuator-server</module>
     </modules>
 
     <properties>
