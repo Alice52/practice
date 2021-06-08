@@ -57,6 +57,24 @@ public class RedisUtil {
         return RedisKeyUtil.buildDeleteKey(module, prefix, keys);
     }
 
+    /**
+     * 原子的设置一个值.
+     *
+     * @param prefix
+     * @param key
+     * @param value
+     * @param time
+     * @param timeUnit
+     * @return
+     */
+    public Boolean setIfAbsent(
+            KeyPrefix prefix, Object value, long time, TimeUnit timeUnit, String... key) {
+
+        return redisTemplate
+                .opsForValue()
+                .setIfAbsent(buildKey(prefix, key), value, time, timeUnit);
+    }
+
     @Value("${common.core.redis.module:common}")
     public void setModule(String module) {
         RedisUtil.module = module;
@@ -101,6 +119,7 @@ public class RedisUtil {
      * @param keys
      * @return
      */
+    @Deprecated
     public long increment(
             KeyPrefix prefix, long delta, final long seconds, final TimeUnit unit, String... keys) {
 

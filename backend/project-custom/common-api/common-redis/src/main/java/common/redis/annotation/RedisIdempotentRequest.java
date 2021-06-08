@@ -4,6 +4,8 @@ import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 规定时间内同样的参数调用接口两次才会出现幂等问题
+ *
  * @author zack <br>
  * @create 2021-06-04 16:20 <br>
  * @project common-redis <br>
@@ -27,4 +29,11 @@ public @interface RedisIdempotentRequest {
      * @return
      */
     TimeUnit timeUnit() default TimeUnit.MICROSECONDS;
+
+    /**
+     * 计算请求MD5时忽略的参数
+     *
+     * @return
+     */
+    String[] ignoreParams() default {};
 }

@@ -1,6 +1,6 @@
 package common.core.util;
 
-import cn.hutool.core.util.StrUtil;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author zack <br>
@@ -8,7 +8,13 @@ import cn.hutool.core.util.StrUtil;
  * @project custom-test <br>
  */
 public final class UserUtil {
+
+    /**
+     * 获取当前用户的标识
+     *
+     * @return
+     */
     public static String getCurrentMemberId() {
-        return StrUtil.EMPTY;
+        return String.valueOf(ThreadLocalRandom.current().nextInt(3));
     }
 }

@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,7 +53,7 @@ public class SampleController {
     }
 
     @LocalLimitRequest(count = 10, time = 1, timeUnit = TimeUnit.MINUTES)
-    @GetMapping("/local-limit")
+    @PutMapping("/local-limit")
     @ApiOperation("@LocalLimitRequest Sample")
     public @NotNull R<Void> localLimitRequest() {
 
@@ -60,7 +61,7 @@ public class SampleController {
     }
 
     @RedisLimitRequest(count = 10, time = 1, timeUnit = TimeUnit.MINUTES)
-    @GetMapping("/redis-limit")
+    @PutMapping("/redis-limit")
     @ApiOperation("@RedisLimitRequest Sample")
     public @NotNull R<Void> redisLimitRequest() {
 
@@ -68,7 +69,7 @@ public class SampleController {
     }
 
     @LocalIdempotentRequest(time = 1, timeUnit = TimeUnit.MINUTES)
-    @GetMapping("/local-idempotent")
+    @PutMapping("/local-idempotent")
     @ApiOperation("@LocalIdempotentRequest Sample")
     public @NotNull R<Void> localIdempotentRequest() {
 
@@ -76,7 +77,7 @@ public class SampleController {
     }
 
     @RedisIdempotentRequest(time = 1, timeUnit = TimeUnit.MINUTES)
-    @GetMapping("/redis-idempotent")
+    @PutMapping("/redis-idempotent")
     @ApiOperation("@RedisIdempotentRequest Sample")
     public @NotNull R<Void> redisIdempotentRequest() {
 

@@ -1,7 +1,9 @@
 package common.core.aspect;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.Method;
 import common.core.annotation.LocalIdempotentRequest;
+import common.core.util.ReqDeDupUtil;
 import common.core.util.WebUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +44,54 @@ public class IdempotentRequestAspect {
 
     @Around("pointCut(localIdempotentRequest)")
     public Object doPoint(ProceedingJoinPoint point, LocalIdempotentRequest localIdempotentRequest)
+            throws Throwable {
+
+        HttpServletRequest request = WebUtil.getCurrentRequest();
+        String token = WebUtil.getCurrentToken();
+        // if token is null, will not do any limit.
+        if (Method.GET.name().equalsIgnoreCase(request.getMethod()) || StrUtil.isEmpty(token)) {
+            return point.proceed();
+        }
+
+        String md5 = ReqDeDupUtil.deDupParamMD5(request, localIdempotentRequest.ignoreParams());
+        ExpiringMap<String, Integer> em =
+                map.getOrDefault(
+                        request.getRequestURI(),
+                        ExpiringMap.builder().variableExpiration().build());
+        Integer count = em.getOrDefault(md5, 0);
+
+        // 超过次数，不执行目标方法
+        // 可以直接返回, 也可以抛异常
+        if (count >= 1) {
+            log.error(
+                    "接口请求太过频繁, PATH: {}, IP: {}",
+                    request.getRequestURI(),
+                    WebUtil.getIpAddr(request));
+            return null;
+        }
+
+        em.put(
+                md5,
+                1,
+                ExpirationPolicy.CREATED,
+                localIdempotentRequest.time(),
+                localIdempotentRequest.timeUnit());
+        map.put(request.getRequestURI(), em);
+
+        return point.proceed();
+    }
+
+    /**
+     * Deprecated Version
+     *
+     * @param point
+     * @param localIdempotentRequest
+     * @return
+     * @throws Throwable
+     */
+    @Deprecated
+    public Object doPointV0(
+            ProceedingJoinPoint point, LocalIdempotentRequest localIdempotentRequest)
             throws Throwable {
 
         HttpServletRequest request = WebUtil.getCurrentRequest();

@@ -27,4 +27,11 @@ public @interface LocalIdempotentRequest {
      * @return
      */
     TimeUnit timeUnit() default TimeUnit.MICROSECONDS;
+
+    /**
+     * 计算请求MD5时忽略的参数
+     *
+     * @return
+     */
+    String[] ignoreParams() default {};
 }
