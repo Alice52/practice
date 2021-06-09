@@ -6,10 +6,10 @@ spring:
   boot:
     admin:
       client:
-        url: "http://localhost:8010/"
+        url: 'http://localhost:8010/'
         instance:
           prefer-ip: true
-          service-base-url: http://localhost:${server.port}
+          service-base-url: 'http://localhost:8080'
         metadata:
         user.name: ${spring.security.user.name}
         user.password: ${spring.security.user.password}
@@ -23,4 +23,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: '*'
