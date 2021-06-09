@@ -15,6 +15,7 @@
     <modules>
         <module>database-mybatis-plus</module>
         <module>database-mybatis</module>
+        <module>database-common</module>
     </modules>
 
     <dependencies>

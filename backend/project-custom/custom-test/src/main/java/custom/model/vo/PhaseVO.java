@@ -1,6 +1,8 @@
 package custom.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import common.core.annotation.DeSensitive;
+import common.core.annotation.discriptor.SensitiveStrategy;
 import custom.constants.enums.PhaseStatusEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +25,7 @@ public class PhaseVO implements Serializable {
     @ApiModelProperty("阶段 Code")
     private String phaseCode;
 
+    @DeSensitive(strategy = SensitiveStrategy.USERNAME)
     @ApiModelProperty("阶段名称")
     private String phaseName;
 
