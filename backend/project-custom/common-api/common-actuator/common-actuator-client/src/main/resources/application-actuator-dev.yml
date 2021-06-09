@@ -8,6 +8,8 @@ spring:
       client:
         url: "http://localhost:8010/"
         instance:
+          prefer-ip: true
+          service-base-url: http://localhost:${server.port}
         metadata:
         user.name: ${spring.security.user.name}
         user.password: ${spring.security.user.password}
