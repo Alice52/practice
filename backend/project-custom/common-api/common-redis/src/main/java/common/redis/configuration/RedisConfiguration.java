@@ -8,27 +8,66 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import common.core.jackson.JavaTimeModule;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.redis.serializer.*;
 import org.springframework.scripting.support.ResourceScriptSource;
+
+import javax.annotation.PostConstruct;
+import java.time.Duration;
 
 /**
  * @author zack <br>
  * @create 2021-06-03 13:18 <br>
  * @project custom-test <br>
  */
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+@AutoConfigureAfter({RedisAutoConfiguration.class})
 @Configuration
 public class RedisConfiguration {
+    StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+    /** handle value serialization */
+    private Jackson2JsonRedisSerializer<Object> j2jrs =
+            new Jackson2JsonRedisSerializer<>(Object.class);
+
+    @PostConstruct
+    public void initJ2jrs() {
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        om.registerModule(new JavaTimeModule());
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        j2jrs.setObjectMapper(om);
+    }
+
+    /**
+     * Notice: if donnot config redis as CacheManager, it will use memory as CacheManager.
+     *
+     * @param factory
+     * @return
+     */
+    @Bean
+    public CacheManager cacheManager(RedisConnectionFactory factory) {
+
+        RedisCacheConfiguration config =
+                RedisCacheConfiguration.defaultCacheConfig()
+                        .entryTtl(Duration.ZERO)
+                        .serializeKeysWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(
+                                        stringRedisSerializer))
+                        .serializeValuesWith(
+                                RedisSerializationContext.SerializationPair.fromSerializer(j2jrs))
+                        .disableCachingNullValues();
+
+        return RedisCacheManager.builder(factory).cacheDefaults(config).build();
+    }
 
     @Bean("springSessionDefaultRedisSerializer")
     public RedisSerializer<Object> setSerializer() {
@@ -47,18 +86,10 @@ public class RedisConfiguration {
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
         // handle key serialization
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(stringRedisSerializer);
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
 
         // handle value serialization
-        Jackson2JsonRedisSerializer<Object> j2jrs = new Jackson2JsonRedisSerializer<>(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        om.registerModule(new JavaTimeModule());
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        j2jrs.setObjectMapper(om);
         redisTemplate.setValueSerializer(j2jrs);
         redisTemplate.setHashValueSerializer(j2jrs);
 

@@ -1,5 +1,6 @@
 package custom.controler;
 
+import common.core.util.R;
 import custom.model.vo.ActivityVO;
 import custom.service.ActivityService;
 import io.swagger.annotations.Api;
@@ -25,8 +26,8 @@ public class ActivityController {
     @Resource private ActivityService activityService;
 
     @GetMapping("/activities")
-    public List<ActivityVO> list(@RequestParam(value = "id") List<Long> ids) {
+    public R<List<ActivityVO>> list(@RequestParam(value = "id") List<Long> ids) {
 
-        return activityService.queryByPhaseIds(ids);
+        return R.success(activityService.queryByPhaseIds(ids));
     }
 }
