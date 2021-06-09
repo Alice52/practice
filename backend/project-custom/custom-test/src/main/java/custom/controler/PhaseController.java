@@ -1,11 +1,13 @@
 package custom.controler;
 
+import common.core.util.R;
 import common.core.util.ValidatorGroupUtil;
 import common.redis.constants.CommonCacheConstants;
 import custom.model.dto.PhaseDTO;
 import custom.model.vo.PhaseVO;
 import custom.service.PhaseService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -35,22 +37,23 @@ public class PhaseController {
             value = CommonCacheConstants.MODULE_PHASE_KEY,
             key = "'list'",
             unless = "#result.data.size() == 0")
-    public List<PhaseVO> list(
+    public R<List<PhaseVO>> list(
             @RequestParam(value = "type", required = false) @ApiParam(value = "活动标识") String type) {
 
-        return phaseService.listPhases(type);
+        return R.success(phaseService.listPhases(type));
     }
 
+    @ApiOperation("data de-sensitive")
     @GetMapping("/phase/{id}")
     @Cacheable(
             value = CommonCacheConstants.MODULE_PHASE_KEY,
             key = "#id",
             unless = "#result.data.id == null")
-    public PhaseVO get(
+    public R<PhaseVO> get(
             @PathVariable("id") Long id,
             @RequestParam(value = "type", required = false) @ApiParam(value = "活动标识") String type) {
 
-        return phaseService.getPhase(id, type);
+        return R.success(phaseService.getPhase(id, type));
     }
 
     @PutMapping("/phase/{id}")
@@ -59,9 +62,9 @@ public class PhaseController {
                 @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
                 @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
             })
-    public Boolean update(@PathVariable("id") Long id, @RequestBody PhaseDTO phase) {
+    public R<Boolean> update(@PathVariable("id") Long id, @RequestBody PhaseDTO phase) {
         phase.setId(id);
-        return phaseService.updatePhase(phase);
+        return R.success(phaseService.updatePhase(phase));
     }
 
     @DeleteMapping("/phase/{id}")
@@ -70,14 +73,14 @@ public class PhaseController {
                 @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
                 @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
             })
-    public Boolean delete(@PathVariable("id") Long id) {
-        return phaseService.deletePhase(id);
+    public R<Boolean> delete(@PathVariable("id") Long id) {
+        return R.success(phaseService.deletePhase(id));
     }
 
     @PostMapping("/phase")
     @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
-    public Boolean create(
+    public R<Boolean> create(
             @RequestBody @Validated({ValidatorGroupUtil.Add.class, Default.class}) PhaseDTO phase) {
-        return phaseService.createPhase(phase);
+        return R.success(phaseService.createPhase(phase));
     }
 }

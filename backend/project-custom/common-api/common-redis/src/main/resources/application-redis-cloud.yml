@@ -6,3 +6,12 @@ spring:
     database: 13
     enable: true
     redisson: classpath:redisson-cloud.yml
+#  cache:
+#    # fix error: Cannot find cache named 'xx' for Builder Or Config Redis as cache management
+#    type: simple
+
+common:
+  core:
+    redis:
+      module: common
+      expire-time: 24
