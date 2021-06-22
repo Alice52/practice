@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: common-cloud,database-cloud,redis-cloud,actuator-cloud,common
+    include: common-cloud,database-cloud,redis-cloud,actuator-cloud,oss-cloud,common
 
 common:
   core:

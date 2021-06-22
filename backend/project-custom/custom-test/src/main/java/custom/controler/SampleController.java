@@ -83,4 +83,14 @@ public class SampleController {
 
         return R.success();
     }
+
+    @SneakyThrows
+    @PutMapping("/timeout")
+    @ApiOperation("Timeout Sample")
+    public @NotNull R<Void> timeoutRequest() {
+
+        TimeUnit.SECONDS.sleep(30);
+
+        return R.success();
+    }
 }

@@ -15,7 +15,7 @@
         <!-- common -->
         <dependency>
             <groupId>cn.edu.ntu</groupId>
-            <artifactId>swagger-3</artifactId>
+            <artifactId>swagger-2</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -41,6 +41,11 @@
         <dependency>
             <groupId>cn.edu.ntu</groupId>
             <artifactId>common-actuator-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-oss</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -72,6 +77,23 @@
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

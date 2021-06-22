@@ -18,6 +18,12 @@ public enum CommonResponseEnum implements IBaseExceptionAssert {
     SERVER_BUSY(500_000_001, "Network Error"),
     BEAN_VALIDATION(400_000_000, "Invalid Parameter"),
     REQUEST_LIMIT_ERROR(400_000_000, "Too Many Request"),
+    TIMEOUT_ERROR(600_000_000, "Timeout"),
+    OSS_CONFIGURE_ERROR(700_000_001, "Please Check OSS Type!"),
+    OSS_COS_CREDENTIAL_ERROR(700_000_002, "Obtain COS Credential Error"),
+    OSS_DOWNLOAD_ERROR(700_000_003, "OSS Download Error"),
+    OSS_UPLOAD_ERROR(700_000_004, "OSS Upload Error"),
+    OSS_CUSTOM_ERROR(700_000_005, "OSS Error"),
     ;
 
     private Integer errorCode;

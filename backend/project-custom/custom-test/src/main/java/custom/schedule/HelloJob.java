@@ -19,7 +19,7 @@ import java.util.Date;
 public class HelloJob {
 
     /** 按照标准时间来算，每隔 10s 执行一次 */
-    @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0/10 * 2 * * ?")
     public void job1() {
         log.info("【job1】开始执行：{}", DateUtil.formatDateTime(new Date()));
     }

@@ -1,5 +1,6 @@
 package common.core.exception;
 
+import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.assertion.IBaseErrorResponse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -55,5 +56,10 @@ public class BaseException extends RuntimeException {
         super(message, cause);
         this.responseEnum = responseEnum;
         this.args = args;
+    }
+
+    public BaseException(CommonResponseEnum anEnum, Exception e) {
+        super(e);
+        this.responseEnum = anEnum;
     }
 }

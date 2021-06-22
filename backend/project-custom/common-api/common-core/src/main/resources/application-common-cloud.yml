@@ -12,6 +12,8 @@ server:
 # Spring 相关
 spring:
   mvc:
+    async:
+      request-timeout: 60
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: false
