@@ -11,6 +11,9 @@ mybatis-plus:
 
 logging:
   config: classpath:logback-spring.xml
+  level:
+    orgspringframework.web: TRACE
+    web: TRACE
 
 swagger:
   enabled: true
@@ -40,3 +43,4 @@ common:
       request-id:
         enabled: true
         key: req-id
+

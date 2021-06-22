@@ -6,9 +6,10 @@ spring:
   boot:
     admin:
       client:
-        url: 'http://localhost:8010/'
+        url: ENC(uWIYlmeKoXNaUwSWVsN8F9xYIPfIlUuRu1dCh0m9hH+CViLdwBgEDAjcfUbguOZ4GxBdGkBcuwN1OpdzqIKXYQ==)
         instance:
           prefer-ip: true
+          # 自己的 IP
           service-base-url: 'http://localhost:8080'
         metadata:
         user.name: ${spring.security.user.name}

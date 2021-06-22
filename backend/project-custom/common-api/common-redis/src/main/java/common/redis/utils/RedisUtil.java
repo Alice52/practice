@@ -58,6 +58,19 @@ public class RedisUtil {
     }
 
     /**
+     * 抽奖的实现.
+     *
+     * @param prefix
+     * @param count
+     * @param keys
+     * @return
+     */
+    public Set<Object> randomMembers(KeyPrefix prefix, long count, String... keys) {
+
+        return redisTemplate.opsForSet().distinctRandomMembers(buildKey(prefix, keys), count);
+    }
+
+    /**
      * 原子的设置一个值.
      *
      * @param prefix
