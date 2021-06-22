@@ -22,6 +22,11 @@ import java.util.concurrent.TimeUnit;
  *     3. remove expire from KeyPrefix
  * </pre>
  *
+ * <pre>
+ *      1. list 可以直接修改指定下标的元素: set(K key, long index, V value)
+ *      2. set 不可以修改: UPDATE = SREM + SADD
+ *  </pre>
+ *
  * @author zack <br>
  * @create 2021-06-03 14:26 <br>
  * @project custom-test <br>

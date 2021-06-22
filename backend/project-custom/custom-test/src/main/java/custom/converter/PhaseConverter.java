@@ -9,6 +9,7 @@ import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author zack <br>
@@ -52,4 +53,12 @@ public interface PhaseConverter {
     })
     @Nullable
     PhaseVO po2vo(@Nullable Phase po);
+
+    /**
+     * Convert pos to vos.
+     *
+     * @param pos
+     * @return
+     */
+    List<PhaseVO> pos2vos(List<Phase> pos);
 }

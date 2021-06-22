@@ -1,5 +1,7 @@
 package custom.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import custom.model.dto.PhaseDTO;
 import custom.model.entity.Phase;
@@ -8,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 @Validated
 public interface PhaseService extends IService<Phase> {
@@ -52,4 +55,48 @@ public interface PhaseService extends IService<Phase> {
      * @return
      */
     List<PhaseVO> listPhases(String type);
+
+    /**
+     * Get Phase According By Condition.
+     *
+     * @param dto
+     * @return
+     */
+    default Phase getByCondition(PhaseDTO dto) {
+        LambdaQueryWrapper<Phase> queryWrapper = buildQueryWrapper();
+
+        Optional.ofNullable(dto.getId()).ifPresent(t -> queryWrapper.eq(Phase::getId, dto.getId()));
+        Optional.ofNullable(dto.getType())
+                .ifPresent(t -> queryWrapper.eq(Phase::getType, dto.getType()));
+        Optional.ofNullable(dto.getPhaseCode())
+                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseCode, dto.getPhaseCode()));
+        Optional.ofNullable(dto.getPhaseName())
+                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseName, dto.getPhaseName()));
+
+        queryWrapper.last("LIMIT 1");
+
+        return this.getOne(queryWrapper);
+    }
+
+    /**
+     * Build Query Wrapper.
+     *
+     * @return
+     */
+    default LambdaQueryWrapper<Phase> buildQueryWrapper() {
+        return buildQueryWrapper(null);
+    }
+
+    /**
+     * Build Query One Wrapper.
+     *
+     * @param type
+     * @return
+     */
+    default LambdaQueryWrapper<Phase> buildQueryWrapper(String type) {
+        LambdaQueryWrapper<Phase> queryWrapper = Wrappers.<Phase>query().lambda();
+        Optional.ofNullable(type).ifPresent(t -> queryWrapper.eq(Phase::getType, type));
+
+        return queryWrapper;
+    }
 }

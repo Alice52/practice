@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import custom.constants.enums.ActivityPhaseEnum;
 import custom.converter.PhaseConverter;
@@ -31,17 +30,6 @@ import java.util.stream.Collectors;
 public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements PhaseService {
 
     @Resource private ActivityService activityService;
-
-    private static LambdaQueryWrapper<Phase> buildQueryWrapper() {
-        return buildQueryWrapper(null);
-    }
-
-    private static LambdaQueryWrapper<Phase> buildQueryWrapper(String type) {
-        LambdaQueryWrapper<Phase> queryWrapper = Wrappers.<Phase>query().lambda();
-        Optional.ofNullable(type).ifPresent(t -> queryWrapper.eq(Phase::getType, type));
-
-        return queryWrapper;
-    }
 
     @Override
     public PhaseVO getPhase(Long id, String type) {
@@ -145,21 +133,5 @@ public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements
                 .orElseThrow(() -> new RuntimeException(StrUtil.format("Id 为 {} 的记录不存在", id)));
 
         return phase;
-    }
-
-    private Phase getByCondition(PhaseDTO dto) {
-        LambdaQueryWrapper<Phase> queryWrapper = buildQueryWrapper();
-
-        Optional.ofNullable(dto.getId()).ifPresent(t -> queryWrapper.eq(Phase::getId, dto.getId()));
-        Optional.ofNullable(dto.getType())
-                .ifPresent(t -> queryWrapper.eq(Phase::getType, dto.getType()));
-        Optional.ofNullable(dto.getPhaseCode())
-                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseCode, dto.getPhaseCode()));
-        Optional.ofNullable(dto.getPhaseName())
-                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseName, dto.getPhaseName()));
-
-        queryWrapper.last("LIMIT 1");
-
-        return this.getOne(queryWrapper);
     }
 }
