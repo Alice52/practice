@@ -24,6 +24,8 @@ public enum CommonResponseEnum implements IBaseExceptionAssert {
     OSS_DOWNLOAD_ERROR(700_000_003, "OSS Download Error"),
     OSS_UPLOAD_ERROR(700_000_004, "OSS Upload Error"),
     OSS_CUSTOM_ERROR(700_000_005, "OSS Error"),
+
+    UID_GENERATE_ERROR(800_000_001, "Uid Generate Error"),
     ;
 
     private Integer errorCode;

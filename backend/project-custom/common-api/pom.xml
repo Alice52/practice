@@ -21,6 +21,7 @@
         <module>common-log</module>
         <module>common-actuator</module>
         <module>common-oss</module>
+        <module>common-uid</module>
     </modules>
 
     <properties>

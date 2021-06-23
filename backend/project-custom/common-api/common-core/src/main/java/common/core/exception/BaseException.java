@@ -51,6 +51,11 @@ public class BaseException extends RuntimeException {
         this.args = args;
     }
 
+    public BaseException(IBaseErrorResponse responseEnum, String message) {
+        super(message);
+        this.responseEnum = responseEnum;
+    }
+
     public BaseException(
             IBaseErrorResponse responseEnum, Object[] args, String message, Throwable cause) {
         super(message, cause);
