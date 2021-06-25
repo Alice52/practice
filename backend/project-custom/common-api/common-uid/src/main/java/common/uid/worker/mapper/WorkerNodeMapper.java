@@ -1,5 +1,6 @@
 package common.uid.worker.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import common.uid.worker.entity.WorkerNodeEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +11,7 @@ import org.apache.ibatis.annotations.Param;
  * @project project-custom <br>
  */
 @Mapper
-public interface WorkerNodeMapper {
+public interface WorkerNodeMapper extends BaseMapper<WorkerNodeEntity> {
 
     /**
      * Get {@link WorkerNodeEntity} by node host

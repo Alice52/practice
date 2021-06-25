@@ -15,6 +15,8 @@
  */
 package common.uid.buffer;
 
+import common.uid.handler.RejectedPutBufferHandler;
+import common.uid.handler.RejectedTakeBufferHandler;
 import common.uid.utils.PaddedAtomicLong;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;

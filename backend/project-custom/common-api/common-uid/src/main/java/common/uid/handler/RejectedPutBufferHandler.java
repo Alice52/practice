@@ -13,23 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package common.uid.buffer;
+package common.uid.handler;
 
 /**
- * If cursor catches the tail it means that the ring buffer is empty, any more buffer take request
+ * If tail catches the cursor it means that the ring buffer is full, any more buffer put request
  * will be rejected. Specify the policy to handle the reject. This is a Lambda supported interface
  *
  * @author zack <br>
  * @create 2021-06-23<br>
  * @project project-custom <br>
  */
+import common.uid.buffer.RingBuffer;
+
+/** @author yutianbao */
 @FunctionalInterface
-public interface RejectedTakeBufferHandler {
+public interface RejectedPutBufferHandler {
 
     /**
-     * Reject take buffer request
+     * Reject put buffer request
      *
      * @param ringBuffer
+     * @param uid
      */
-    void rejectTakeBuffer(RingBuffer ringBuffer);
+    void rejectPutBuffer(RingBuffer ringBuffer, long uid);
 }

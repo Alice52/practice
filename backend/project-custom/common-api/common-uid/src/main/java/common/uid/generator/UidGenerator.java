@@ -1,4 +1,4 @@
-package common.uid;
+package common.uid.generator;
 
 import common.core.exception.BaseException;
 

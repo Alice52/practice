@@ -1,8 +1,10 @@
 package custom;
 
 import common.swagger.annotation.EnableSwagger;
+import common.uid.annotation.EnableUID;
 import io.micrometer.core.instrument.util.StringUtils;
 import io.undertow.UndertowOptions;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -15,8 +17,10 @@ import org.springframework.stereotype.Component;
  * @create 2021-06-01 18:21 <br>
  * @project custom-test <br>
  */
+@EnableUID
 @EnableSwagger
 @SpringBootApplication
+@MapperScan("custom.mapper")
 public class CustomApplication {
 
     public static void main(String[] args) {

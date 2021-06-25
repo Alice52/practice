@@ -1,12 +1,13 @@
-package common.uid.impl;
+package common.uid.generator;
 
 import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BaseException;
 import common.uid.BitsAllocator;
 import common.uid.buffer.BufferPaddingExecutor;
-import common.uid.buffer.RejectedPutBufferHandler;
-import common.uid.buffer.RejectedTakeBufferHandler;
 import common.uid.buffer.RingBuffer;
+import common.uid.handler.RejectedPutBufferHandler;
+import common.uid.handler.RejectedTakeBufferHandler;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.util.Assert;
@@ -20,6 +21,7 @@ import java.util.List;
  * @project project-custom <br>
  */
 @Slf4j
+@Data
 public class CachedUidGenerator extends DefaultUidGenerator implements DisposableBean {
     private static final int DEFAULT_BOOST_POWER = 3;
 

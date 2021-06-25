@@ -17,11 +17,11 @@ import javax.validation.constraints.NotNull;
  * @create 2021-06-25 09:57 <br>
  * @project swagger-3 <br>
  */
-@Api(tags = {"Redis Sample Api"})
+@Api(tags = {"Sample Api"})
 @RestController
 @RequestMapping("/redis")
 @Slf4j
-public class RedisController {
+public class SampleRedisController {
 
     @Resource private RedisUtil redisUtil;
 

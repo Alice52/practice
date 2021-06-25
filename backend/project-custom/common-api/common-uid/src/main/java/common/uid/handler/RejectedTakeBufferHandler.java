@@ -13,17 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package common.uid.utils;
+package common.uid.handler;
+
+import common.uid.buffer.RingBuffer;
 
 /**
- * {@code ValuedEnum} defines an enumeration which is bounded to a value, you may implements this
- * interface when you defines such kind of enumeration, that you can use {@link EnumUtils} to
- * simplify parse and valueOf operation.
+ * If cursor catches the tail it means that the ring buffer is empty, any more buffer take request
+ * will be rejected. Specify the policy to handle the reject. This is a Lambda supported interface
  *
  * @author zack <br>
  * @create 2021-06-23<br>
  * @project project-custom <br>
  */
-public interface ValuedEnum<T> {
-    T value();
+@FunctionalInterface
+public interface RejectedTakeBufferHandler {
+
+    /**
+     * Reject take buffer request
+     *
+     * @param ringBuffer
+     */
+    void rejectTakeBuffer(RingBuffer ringBuffer);
 }

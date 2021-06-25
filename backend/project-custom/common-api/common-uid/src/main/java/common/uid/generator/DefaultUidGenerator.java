@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package common.uid.impl;
+package common.uid.generator;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BaseException;
 import common.uid.BitsAllocator;
-import common.uid.UidGenerator;
-import common.uid.worker.WorkerIdAssigner;
+import common.uid.worker.service.IWorkerIdAssigner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
@@ -85,7 +84,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
     protected long lastSecond = -1L;
 
     /** Spring property */
-    protected WorkerIdAssigner workerIdAssigner;
+    protected IWorkerIdAssigner workerIdAssigner;
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -199,7 +198,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
     }
 
     /** Setters for spring property */
-    public void setWorkerIdAssigner(WorkerIdAssigner workerIdAssigner) {
+    public void setWorkerIdAssigner(IWorkerIdAssigner workerIdAssigner) {
         this.workerIdAssigner = workerIdAssigner;
     }
 
@@ -224,7 +223,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
     public void setEpochStr(String epochStr) {
         if (StrUtil.isNotBlank(epochStr)) {
             this.epochStr = epochStr;
-            this.epochSeconds = DateUtil.second(DateUtil.parse(epochStr));
+            this.epochSeconds = DateUtil.parse(epochStr).getTime() / 1000;
         }
     }
 }

@@ -1,17 +1,17 @@
-package common.uid.worker;
+package common.uid.worker.service;
 
 import cn.hutool.core.util.RandomUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import common.uid.utils.DockerUtils;
 import common.uid.utils.NetUtils;
+import common.uid.worker.WorkerNodeType;
 import common.uid.worker.entity.WorkerNodeEntity;
 import common.uid.worker.mapper.WorkerNodeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
-
 /**
- * Represents an implementation of {@link WorkerIdAssigner}, the worker id will be discarded after
+ * Represents an implementation of {@link IWorkerIdAssigner}, the worker id will be discarded after
  * assigned to the UidGenerator
  *
  * @author zack <br>
@@ -19,9 +19,8 @@ import javax.annotation.Resource;
  * @project project-custom <br>
  */
 @Slf4j
-public class DisposableWorkerIdAssigner implements WorkerIdAssigner {
-
-    @Resource private WorkerNodeMapper workerNodeMapper;
+public class DisposableWorkerIdAssigner extends ServiceImpl<WorkerNodeMapper, WorkerNodeEntity>
+        implements IWorkerIdAssigner {
 
     /**
      * Assign worker id base on database.
@@ -39,7 +38,7 @@ public class DisposableWorkerIdAssigner implements WorkerIdAssigner {
         WorkerNodeEntity workerNodeEntity = buildWorkerNode();
 
         // add worker node for new (ignore the same IP + PORT)
-        workerNodeMapper.addWorkerNode(workerNodeEntity);
+        baseMapper.insert(workerNodeEntity);
         log.info("Add worker node:" + workerNodeEntity);
 
         return workerNodeEntity.getId();

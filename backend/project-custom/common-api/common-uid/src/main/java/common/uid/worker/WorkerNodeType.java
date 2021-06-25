@@ -1,7 +1,5 @@
 package common.uid.worker;
 
-import common.uid.utils.ValuedEnum;
-
 /**
  * WorkerNodeType
  * <li>CONTAINER: Such as Docker

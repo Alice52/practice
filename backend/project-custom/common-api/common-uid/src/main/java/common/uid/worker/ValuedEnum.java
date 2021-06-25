@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package common.uid.buffer;
+package common.uid.worker;
+
+import common.uid.utils.EnumUtils;
 
 /**
- * If tail catches the cursor it means that the ring buffer is full, any more buffer put request
- * will be rejected. Specify the policy to handle the reject. This is a Lambda supported interface
+ * {@code ValuedEnum} defines an enumeration which is bounded to a value, you may implements this
+ * interface when you defines such kind of enumeration, that you can use {@link EnumUtils} to
+ * simplify parse and valueOf operation.
  *
  * @author zack <br>
  * @create 2021-06-23<br>
  * @project project-custom <br>
  */
-/** @author yutianbao */
-@FunctionalInterface
-public interface RejectedPutBufferHandler {
-
-    /**
-     * Reject put buffer request
-     *
-     * @param ringBuffer
-     * @param uid
-     */
-    void rejectPutBuffer(RingBuffer ringBuffer, long uid);
+public interface ValuedEnum<T> {
+    T value();
 }

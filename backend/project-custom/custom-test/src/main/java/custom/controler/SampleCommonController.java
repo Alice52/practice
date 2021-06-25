@@ -25,11 +25,11 @@ import java.util.concurrent.TimeUnit;
  * @create 2021-06-03 16:38 <br>
  * @project custom-test <br>
  */
-@Api(tags = {"Sample Usage Api"})
+@Api(tags = {"Sample Api"})
 @RestController
 @RequestMapping("/sample")
 @Slf4j
-public class SampleController {
+public class SampleCommonController {
     @LogAnno
     @GetMapping("/exception")
     @ApiOperation("@LogAnno & Exception Strategy Sample")

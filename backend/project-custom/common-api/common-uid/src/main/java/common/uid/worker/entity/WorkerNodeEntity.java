@@ -1,5 +1,6 @@
 package common.uid.worker.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import common.uid.worker.WorkerNodeType;
 import lombok.Data;
 import lombok.ToString;
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @Data
 @ToString
+@TableName("uid_worker_node")
 public class WorkerNodeEntity {
 
     /** Entity unique id (table unique) */
