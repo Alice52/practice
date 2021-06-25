@@ -3,9 +3,11 @@ package common.oss.context;
 import common.core.constant.enums.CommonResponseEnum;
 import common.oss.annotation.OssType;
 import common.oss.annotation.OssTypeImpl;
+import common.oss.condition.CustomCondition;
 import common.oss.constnats.enums.OssUploadTypeEnum;
 import common.oss.service.OSSHander;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
  * @project swagger-3 <br>
  */
 @Component
+@Conditional(CustomCondition.class)
 public class OssContext {
     private Map<OssType, OSSHander> handlerMap;
 

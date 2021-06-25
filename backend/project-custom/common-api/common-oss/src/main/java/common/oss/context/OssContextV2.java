@@ -7,11 +7,13 @@ import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BaseException;
 import common.oss.annotation.OssType;
 import common.oss.annotation.OssTypeImpl;
+import common.oss.condition.CustomCondition;
 import common.oss.constnats.enums.OssUploadTypeEnum;
 import common.oss.service.OSSHander;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
@@ -26,8 +28,9 @@ import java.util.stream.Collectors;
  * @create 2021-06-22 17:33 <br>
  * @project swagger-3 <br>
  */
-@Component
 @Slf4j
+@Component
+@Conditional(CustomCondition.class)
 public class OssContextV2 {
     private Map<OssType, OSSHander> handlerMap;
 

@@ -1,8 +1,11 @@
 package common.custom.test;
 
+import common.core.util.FileUtil;
 import common.oss.constnats.enums.OssUploadTypeEnum;
-import common.oss.context.OssContextV2;
+import common.oss.context.OssContext;
+import common.oss.service.OSSHander;
 import custom.CustomApplication;
+import lombok.SneakyThrows;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URI;
 
 /**
  * @author zack <br>
@@ -20,13 +25,38 @@ import java.io.FileNotFoundException;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CustomApplication.class)
 public class OssTestV2 {
-    @Resource private OssContextV2 ossContext;
 
+    private String URL_PATH =
+            "https://imgcache.qq.com/open_proj/proj_qcloud_v2/cvm/src/styles/img/sence1.png";
+    @Resource private OssContext ossContext;
+
+    @SneakyThrows
     @Test
-    public void testUpload() throws FileNotFoundException {
+    public void testUploadAliyun() throws FileNotFoundException {
 
-        File tempFile = new File("C:\\Users\\asd\\Desktop\\algorithms\\45.png");
+        URI u = URI.create(URL_PATH);
+        try (InputStream inputStream = u.toURL().openStream()) {
+            File file = new File("45.png");
+            FileUtil.copyInputStreamToFile(inputStream, file);
+            OSSHander handler = ossContext.getHandler(OssUploadTypeEnum.aliyun);
+            handler.upload("45.png", file, null);
 
-        ossContext.upload("45.png", tempFile, null, OssUploadTypeEnum.aliyun);
+            file.delete();
+        }
+    }
+
+    @SneakyThrows
+    @Test
+    public void testUploadTencent() throws FileNotFoundException {
+
+        URI u = URI.create(URL_PATH);
+        try (InputStream inputStream = u.toURL().openStream()) {
+            File file = new File("45.png");
+            FileUtil.copyInputStreamToFile(inputStream, file);
+            OSSHander handler = ossContext.getHandler(OssUploadTypeEnum.tencent);
+            handler.upload("45.png", file, null);
+
+            file.delete();
+        }
     }
 }

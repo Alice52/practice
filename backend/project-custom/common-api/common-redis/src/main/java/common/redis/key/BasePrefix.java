@@ -13,8 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class BasePrefix implements KeyPrefix {
 
-    private String prefix;
-
     @Override
     public String getPrefix() {
         String className = getClass().getSimpleName();

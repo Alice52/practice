@@ -18,6 +18,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+import static common.core.constant.CommonConstants.ZERO;
+
 /**
  * // TODO:
  *
@@ -48,6 +50,28 @@ public class RedisUtil {
     private long defaultExpireTime;
 
     /**
+     * build key by prefix and addition info with modules.
+     *
+     * @param prefix
+     * @param keys
+     * @return
+     */
+    public static String buildKey(KeyPrefix prefix, String... keys) {
+        return RedisKeyUtil.buildKey(module, prefix, keys);
+    }
+
+    /**
+     * build remove key by prefix and addition info with modules.
+     *
+     * @param prefix
+     * @param keys
+     * @return
+     */
+    private static String buildDeleteKey(KeyPrefix prefix, String... keys) {
+        return RedisKeyUtil.buildDeleteKey(module, prefix, keys);
+    }
+
+    /**
      * Batch Delete According To Regex: 只是减小了连接消耗, <br>
      * LUA 叫本事原子性的, 还是会长时间 Block, 因此还是多次连接去删除<br>
      * 问题: 如果能匹配到但是删除不掉则会一直执行
@@ -64,11 +88,11 @@ public class RedisUtil {
                 stringRedisTemplate.execute(
                         batchRegDelete,
                         Collections.emptyList(),
-                        "0",
+                        ZERO,
                         matchKey,
                         String.valueOf(batchCount));
 
-        while (!cursor.equals("0")) {
+        while (ObjectUtil.isNotNull(cursor) && !cursor.equals(ZERO)) {
 
             log.debug("cursor: {}", cursor);
             cursor =
@@ -108,11 +132,11 @@ public class RedisUtil {
                 stringRedisTemplate.execute(
                         batchRegDelete,
                         Collections.emptyList(),
-                        "0",
+                        ZERO,
                         matchKey,
                         String.valueOf(batchCount));
 
-        while (!cursor.equals("0")) {
+        while (ObjectUtil.isNotNull(cursor) && !cursor.equals(ZERO)) {
             cursor =
                     stringRedisTemplate.execute(
                             batchRegDelete,
@@ -123,28 +147,6 @@ public class RedisUtil {
         }
 
         return Boolean.TRUE;
-    }
-
-    /**
-     * build key by prefix and addition info with modules.
-     *
-     * @param prefix
-     * @param keys
-     * @return
-     */
-    public static String buildKey(KeyPrefix prefix, String... keys) {
-        return RedisKeyUtil.buildKey(module, prefix, keys);
-    }
-
-    /**
-     * build remove key by prefix and addition info with modules.
-     *
-     * @param prefix
-     * @param keys
-     * @return
-     */
-    private static String buildDeleteKey(KeyPrefix prefix, String... keys) {
-        return RedisKeyUtil.buildDeleteKey(module, prefix, keys);
     }
 
     /**

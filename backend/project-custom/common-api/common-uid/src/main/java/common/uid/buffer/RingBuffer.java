@@ -15,14 +15,11 @@
  */
 package common.uid.buffer;
 
-import cn.hutool.core.util.StrUtil;
 import common.uid.utils.PaddedAtomicLong;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a ring buffer based on array.<br>
