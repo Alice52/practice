@@ -4,7 +4,7 @@ spring:
   # this will overwrite redis database config,
   # and it is relative of including profile sequence
   redis:
-    database: 8
+    database: 15
 
 mybatis-plus:
   typeEnumsPackage: custom.constants.enums

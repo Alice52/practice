@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import common.core.jackson.JavaTimeModule;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
@@ -29,6 +30,7 @@ import java.time.Duration;
  * @create 2021-06-03 13:18 <br>
  * @project custom-test <br>
  */
+@Slf4j
 @AutoConfigureAfter({RedisAutoConfiguration.class})
 @Configuration
 public class RedisConfiguration {
@@ -103,6 +105,17 @@ public class RedisConfiguration {
         redisScript.setScriptSource(
                 new ResourceScriptSource(new ClassPathResource("scripts/redis/limit.lua")));
         redisScript.setResultType(Long.class);
+        return redisScript;
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisScript<String> batchRegDelete() {
+        DefaultRedisScript<String> redisScript = new DefaultRedisScript<>();
+        redisScript.setScriptSource(
+                new ResourceScriptSource(new ClassPathResource("scripts/redis/reg_batch_del.lua")));
+        redisScript.setResultType(String.class);
+
         return redisScript;
     }
 }

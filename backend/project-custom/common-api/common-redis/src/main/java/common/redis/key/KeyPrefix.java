@@ -15,7 +15,6 @@ public interface KeyPrefix {
      * @return String
      */
     default String getPrefix() {
-        String className = getClass().getSimpleName();
-        return prefix + className;
+        return prefix + getClass().getSimpleName();
     }
 }

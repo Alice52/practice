@@ -11,7 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum RedisKeyCommonEnum implements KeyPrefix {
     VERIFY_CODE("verify_code"),
-    CACHE_LIMIT("request_limit");
+    CACHE_LIMIT("request_limit"),
+    BATCH_DELETE("batch_delete"),
+
+    ;
 
     private String prefix = KeyPrefix.prefix;
 
