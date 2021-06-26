@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>cloud-common</module>
+        <module>common-api</module>
     </modules>
 
     <properties>
