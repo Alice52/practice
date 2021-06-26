@@ -1,0 +1,6 @@
+custom-config:
+  namespace: prod
+
+spring:
+  profiles:
+    include: common
