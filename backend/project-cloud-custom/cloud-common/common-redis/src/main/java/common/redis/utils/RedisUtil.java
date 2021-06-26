@@ -3,15 +3,22 @@ package common.redis.utils;
 import cn.hutool.core.util.ObjectUtil;
 import common.redis.key.KeyPrefix;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.Set;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
+
+import static common.core.constant.CommonConstants.ZERO;
 
 /**
  * // TODO:
@@ -22,6 +29,11 @@ import java.util.concurrent.TimeUnit;
  *     3. remove expire from KeyPrefix
  * </pre>
  *
+ * <pre>
+ *      1. list 可以直接修改指定下标的元素: set(K key, long index, V value)
+ *      2. set 不可以修改: UPDATE = SREM + SADD
+ *  </pre>
+ *
  * @author zack <br>
  * @create 2021-06-03 14:26 <br>
  * @project custom-test <br>
@@ -31,6 +43,8 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
     private static String module;
     @Resource private RedisTemplate<String, Object> redisTemplate;
+    @Resource private RedisScript<String> batchRegDelete;
+    @Resource private StringRedisTemplate stringRedisTemplate;
 
     @Value("${common.core.redis.expire-time:0}")
     private long defaultExpireTime;
@@ -55,6 +69,97 @@ public class RedisUtil {
      */
     private static String buildDeleteKey(KeyPrefix prefix, String... keys) {
         return RedisKeyUtil.buildDeleteKey(module, prefix, keys);
+    }
+
+    /**
+     * Batch Delete According To Regex: 只是减小了连接消耗, <br>
+     * LUA 叫本事原子性的, 还是会长时间 Block, 因此还是多次连接去删除<br>
+     * 问题: 如果能匹配到但是删除不掉则会一直执行
+     *
+     * @param prefix prefix
+     * @param keys
+     * @param batchCount
+     * @return
+     */
+    public Boolean batchDeleteKey(KeyPrefix prefix, int batchCount, String... keys) {
+
+        String matchKey = RedisKeyUtil.buildDeleteKey(module, prefix, keys);
+        String cursor =
+                stringRedisTemplate.execute(
+                        batchRegDelete,
+                        Collections.emptyList(),
+                        ZERO,
+                        matchKey,
+                        String.valueOf(batchCount));
+
+        while (ObjectUtil.isNotNull(cursor) && !cursor.equals(ZERO)) {
+
+            log.debug("cursor: {}", cursor);
+            cursor =
+                    stringRedisTemplate.execute(
+                            batchRegDelete,
+                            Collections.emptyList(),
+                            cursor,
+                            matchKey,
+                            String.valueOf(batchCount));
+        }
+
+        return Boolean.TRUE;
+    }
+
+    @Deprecated
+    public Boolean batchDeleteKeyV0(KeyPrefix prefix, int batchCount, String... keys) {
+
+        DefaultRedisScript<String> batchRegDelete = new DefaultRedisScript<>();
+        String luaScript =
+                "local keys = {};\n"
+                        + "local cursor = \"0\"\n"
+                        + "\n"
+                        + "local result = redis.call(\"SCAN\", ARGV[1], \"match\", ARGV[2], \"count\", ARGV[3])\n"
+                        + "cursor = result[1];\n"
+                        + "keys = result[2];\n"
+                        + "for i, key in ipairs(keys) do\n"
+                        + "    redis.call(\"DEL\", key);\n"
+                        + "end\n"
+                        + "\n"
+                        + "return cursor;";
+
+        batchRegDelete.setScriptText(luaScript);
+        batchRegDelete.setResultType(String.class);
+
+        String matchKey = RedisKeyUtil.buildDeleteKey(module, prefix, keys);
+        String cursor =
+                stringRedisTemplate.execute(
+                        batchRegDelete,
+                        Collections.emptyList(),
+                        ZERO,
+                        matchKey,
+                        String.valueOf(batchCount));
+
+        while (ObjectUtil.isNotNull(cursor) && !cursor.equals(ZERO)) {
+            cursor =
+                    stringRedisTemplate.execute(
+                            batchRegDelete,
+                            Collections.emptyList(),
+                            cursor,
+                            matchKey,
+                            String.valueOf(batchCount));
+        }
+
+        return Boolean.TRUE;
+    }
+
+    /**
+     * 抽奖的实现.
+     *
+     * @param prefix
+     * @param count
+     * @param keys
+     * @return
+     */
+    public Set<Object> randomMembers(KeyPrefix prefix, long count, String... keys) {
+
+        return redisTemplate.opsForSet().distinctRandomMembers(buildKey(prefix, keys), count);
     }
 
     /**
@@ -278,5 +383,30 @@ public class RedisUtil {
     private void remove(KeyPrefix prefix, String x) {
         Set<String> keySet = redisTemplate.keys(buildDeleteKey(prefix, x));
         Optional.ofNullable(keySet).ifPresent(y -> redisTemplate.delete(keySet));
+    }
+
+    public Boolean batchInsert(KeyPrefix prefix, Integer count) {
+
+        int loop = 0;
+        int batchSize = 100000;
+
+        while (count - loop * batchSize >= 0) {
+            val map = new HashMap<String, String>();
+            IntStream.rangeClosed(loop * batchSize, count - loop * batchSize)
+                    .forEach(
+                            i ->
+                                    map.put(
+                                            buildKey(prefix, "mc_fb:user_notice_" + i),
+                                            String.valueOf(i)));
+
+            LocalDateTime startTime = LocalDateTime.now();
+            redisTemplate.opsForValue().multiSet(map);
+            Duration between = Duration.between(startTime, LocalDateTime.now());
+
+            log.info("set 100000 key cost {} ", between);
+            loop++;
+        }
+
+        return Boolean.TRUE;
     }
 }

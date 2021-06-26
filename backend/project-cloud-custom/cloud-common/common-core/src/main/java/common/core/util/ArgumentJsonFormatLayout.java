@@ -2,10 +2,12 @@ package common.core.util;
 
 import ch.qos.logback.classic.pattern.MessageConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.slf4j.helpers.MessageFormatter;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 /**
  * This class is used in logback-spring.xml to log Object property.<br>
@@ -16,15 +18,24 @@ import java.util.stream.Stream;
  */
 @Deprecated
 public class ArgumentJsonFormatLayout extends MessageConverter {
+
     @Override
     public String convert(ILoggingEvent event) {
+        String formattedMessage = event.getFormattedMessage();
         try {
-            return MessageFormatter.arrayFormat(
-                            event.getMessage(),
-                            Stream.of(event.getArgumentArray()).map(JSONUtil::toJsonStr).toArray())
-                    .getMessage();
+            Object[] argumentArray = event.getArgumentArray();
+            if (ObjectUtil.isNull(argumentArray)) {
+                return formattedMessage;
+            }
+
+            if (StrUtil.contains(formattedMessage, "@")) {
+                Object[] objects = Arrays.stream(argumentArray).map(JSONUtil::toJsonStr).toArray();
+                return MessageFormatter.arrayFormat(event.getMessage(), objects).getMessage();
+            }
+
+            return formattedMessage;
         } catch (Exception e) {
-            return event.getMessage();
+            return formattedMessage;
         }
     }
 }

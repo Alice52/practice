@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import common.database.config.handler.DataScopeInterceptor;
+import common.database.plugin.SensitivePlugin;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -57,5 +59,15 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
     @Profile({"dev", "cloud"})
     public PerformanceInterceptor performanceInterceptor() {
         return new PerformanceInterceptor();
+    }
+
+    @Deprecated
+    @ConditionalOnProperty(
+            prefix = "common.global.database",
+            value = {"de-sensitive"},
+            havingValue = "true",
+            matchIfMissing = false)
+    public SensitivePlugin sensitivePlugin() {
+        return new SensitivePlugin();
     }
 }

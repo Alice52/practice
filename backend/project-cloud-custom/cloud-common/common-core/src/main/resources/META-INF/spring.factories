@@ -11,4 +11,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   common.core.aspect.IdempotentRequestAspect,\
   common.core.aspect.LimitRequestAspect,\
   common.core.component.AppContextHolder,\
-  common.core.component.ValidatorContext
+  common.core.component.ValidatorContext,\
+  common.core.filter.TimeoutFilter

@@ -1,6 +1,8 @@
 server:
   undertow:
     io-threads: 2
+    # undertow:   worker(availableProcessors() * 8), queue(N/A)
+    # tomcat:     worker(200), queue[负载高峰(恢复时长)](100)
     worker-threads: 30
     accesslog:
       dir: logs/access/
@@ -24,6 +26,8 @@ management:
 # Spring 相关
 spring:
   mvc:
+    async:
+      request-timeout: 20
     throw-exception-if-no-handler-found: true
   resources:
     add-mappings: false

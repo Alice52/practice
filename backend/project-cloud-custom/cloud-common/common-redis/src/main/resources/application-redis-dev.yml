@@ -6,6 +6,9 @@ spring:
     database: 13
     enable: true
     redisson: classpath:redisson-dev.yml
+#  cache:
+#    # fix error: Cannot find cache named 'xx' for Builder Or Config Redis as cache management
+#    type: simple
 
 common:
   core:

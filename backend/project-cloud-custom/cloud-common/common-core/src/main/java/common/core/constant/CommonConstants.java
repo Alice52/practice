@@ -16,4 +16,6 @@ public interface CommonConstants {
 
     /** log */
     String APP_CONTEXT_LOG = "app_context_log";
+
+    String ZERO = "0";
 }

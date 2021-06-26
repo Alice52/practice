@@ -1,5 +1,6 @@
 package common.core.exception.handler;
 
+import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BusinessException;
 import common.core.util.R;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,12 @@ public class BusinessExceptionHandler {
         return tryConvert2BusinessException(e);
     }
 
+    @ExceptionHandler(InterruptedException.class)
+    public R<Void> handleTimeoutException(InterruptedException ex) {
+        log.error(ex.getMessage(), ex);
+        return R.<Void>error(CommonResponseEnum.TIMEOUT_ERROR);
+    }
+
     private R<Void> tryConvert2ConcurrentException(UndeclaredThrowableException e) {
         if (e.getUndeclaredThrowable() instanceof ExecutionException) {
             return executionException((ExecutionException) e.getUndeclaredThrowable());
@@ -59,6 +66,10 @@ public class BusinessExceptionHandler {
 
         if (e.getUndeclaredThrowable() instanceof CompletionException) {
             return completionException((CompletionException) e.getUndeclaredThrowable());
+        }
+
+        if (e.getUndeclaredThrowable() instanceof InterruptedException) {
+            return handleTimeoutException((InterruptedException) e.getUndeclaredThrowable());
         }
 
         return defaultHandler.handleException(e);

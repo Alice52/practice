@@ -94,7 +94,7 @@ public class LogUtil {
             }
             optLog.setResult(result.toString());
             long beginTime = optLog.getRequestTime();
-            long requestTime = (System.currentTimeMillis() - beginTime) / 1000;
+            long requestTime = System.currentTimeMillis() - beginTime;
             optLog.setRequestTime(requestTime);
             if (result instanceof JSON) {
                 log.info(" response result : {}", JSONUtil.toJsonPrettyStr(result));

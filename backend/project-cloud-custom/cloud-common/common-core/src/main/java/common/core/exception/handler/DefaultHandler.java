@@ -9,6 +9,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.concurrent.TimeoutException;
+
 /**
  * @author zack <br>
  * @create 2021-06-01<br>
@@ -31,7 +33,7 @@ public class DefaultHandler {
         return R.<Void>error(ex.getResponseEnum());
     }
 
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler({Exception.class, TimeoutException.class})
     public R<Void> handleException(Exception ex) {
         log.error(ex.getMessage(), ex);
 
