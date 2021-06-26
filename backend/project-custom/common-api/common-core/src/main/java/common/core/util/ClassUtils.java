@@ -26,7 +26,7 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
     /**
      * 获取方法参数信息
      *
-     * @param constructor 构造器
+     * @param constructor    构造器
      * @param parameterIndex 参数序号
      * @return {MethodParameter}
      */
@@ -40,7 +40,7 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
     /**
      * 获取方法参数信息
      *
-     * @param method 方法
+     * @param method         方法
      * @param parameterIndex 参数序号
      * @return {MethodParameter}
      */
@@ -53,9 +53,9 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
     /**
      * 获取Annotation
      *
-     * @param method Method
+     * @param method         Method
      * @param annotationType 注解类
-     * @param <A> 泛型标记
+     * @param <A>            泛型标记
      * @return {Annotation}
      */
     public <A extends Annotation> A getAnnotation(Method method, Class<A> annotationType) {
@@ -79,9 +79,9 @@ public class ClassUtils extends org.springframework.util.ClassUtils {
     /**
      * 获取Annotation
      *
-     * @param handlerMethod HandlerMethod
+     * @param handlerMethod  HandlerMethod
      * @param annotationType 注解类
-     * @param <A> 泛型标记
+     * @param <A>            泛型标记
      * @return {Annotation}
      */
     public <A extends Annotation> A getAnnotation(

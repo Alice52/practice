@@ -42,13 +42,16 @@ import java.util.stream.Collectors;
 @Deprecated
 public class SwaggerAutoConfiguration implements WebMvcConfigurer {
 
-    /** 默认的排除路径，排除Spring Boot默认的错误处理路径和端点 */
+    /**
+     * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点
+     */
     private static final List<String> DEFAULT_EXCLUDE_PATH =
             Arrays.asList("/error", "/actuator/**");
 
     private static final String BASE_PATH = "/**";
     private static final String LOCALHOST = "localhost";
-    @Resource private SwaggerProperties swaggerProperties;
+    @Resource
+    private SwaggerProperties swaggerProperties;
 
     /**
      * Predicates.and( Predicates.not(Predicates.or(excludePath)), Predicates.or(basePath))

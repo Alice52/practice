@@ -5,6 +5,7 @@ package common.core.annotation;
  * @create 2020-08-01 14:43 <br>
  * @project common-core <br>
  */
+
 import common.core.annotation.discriptor.MobileDescriptor;
 
 import javax.validation.Constraint;

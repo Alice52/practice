@@ -17,6 +17,7 @@ import javax.annotation.Nullable;
 public interface ActivityConverter {
 
     ActivityConverter CONVERTER = Mappers.getMapper(ActivityConverter.class);
+
     /**
      * Convert dto to po.
      *

@@ -28,7 +28,8 @@ public class OssTestV2 {
 
     private String URL_PATH =
             "https://imgcache.qq.com/open_proj/proj_qcloud_v2/cvm/src/styles/img/sence1.png";
-    @Resource private OssContext ossContext;
+    @Resource
+    private OssContext ossContext;
 
     @SneakyThrows
     @Test

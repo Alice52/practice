@@ -30,7 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class IdempotentRequestAspect {
 
-    @Resource private RedisUtil redisUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
     /**
      * 切入去点拦截
@@ -38,7 +39,8 @@ public class IdempotentRequestAspect {
      * @see RedisIdempotentRequest
      */
     @Pointcut("@annotation(redisIdempotentRequest)")
-    public void pointCut(RedisIdempotentRequest redisIdempotentRequest) {}
+    public void pointCut(RedisIdempotentRequest redisIdempotentRequest) {
+    }
 
     @Around("pointCut(redisIdempotentRequest)")
     public Object doPoint(ProceedingJoinPoint point, RedisIdempotentRequest redisIdempotentRequest)

@@ -16,4 +16,5 @@ import java.lang.annotation.*;
 @Inherited
 @Import({SwaggerAutoConfiguration.class})
 @Deprecated
-public @interface EnableSwagger {}
+public @interface EnableSwagger {
+}

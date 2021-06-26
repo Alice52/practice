@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 /**
  * This jus show the usage of aspect, and will not real use.
  *
- * @see WebRequestLogAspect
  * @author zack <br>
  * @create 2021-06-04 16:55 <br>
  * @project custom-test <br>
+ * @see WebRequestLogAspect
  */
 @Deprecated
 @Aspect
@@ -31,7 +31,8 @@ public class LogServiceAspect {
             "execution (* cn.ed--ail.*.*(..)) "
                     + "|| execution (* cn.e--ll.service.*.*(..))"
                     + "|| execution (* cn.ed-ponent.*.*(..))")
-    public void requestLogAspect() {}
+    public void requestLogAspect() {
+    }
 
     @Before("requestLogAspect()")
     public void validateBefore(JoinPoint joinPoint) {

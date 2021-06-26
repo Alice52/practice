@@ -13,18 +13,24 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class DockerUtils {
 
-    /** Environment param keys */
+    /**
+     * Environment param keys
+     */
     private static final String ENV_KEY_HOST = "JPAAS_HOST";
 
     private static final String ENV_KEY_PORT = "JPAAS_HTTP_PORT";
     private static final String ENV_KEY_PORT_ORIGINAL = "JPAAS_HOST_PORT_8080";
 
-    /** Docker host & port */
+    /**
+     * Docker host & port
+     */
     private static String DOCKER_HOST = "";
 
     private static String DOCKER_PORT = "";
 
-    /** Whether is docker */
+    /**
+     * Whether is docker
+     */
     private static boolean IS_DOCKER;
 
     static {
@@ -58,7 +64,9 @@ public abstract class DockerUtils {
         return IS_DOCKER;
     }
 
-    /** Retrieve host & port from environment */
+    /**
+     * Retrieve host & port from environment
+     */
     private static void retrieveFromEnv() {
         // retrieve host & port from environment
         DOCKER_HOST = System.getenv(ENV_KEY_HOST);

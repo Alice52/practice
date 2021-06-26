@@ -15,7 +15,9 @@ import java.util.Enumeration;
  */
 public abstract class NetUtils {
 
-    /** Pre-loaded local address */
+    /**
+     * Pre-loaded local address
+     */
     public static InetAddress localAddress;
 
     static {

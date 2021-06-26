@@ -8,4 +8,5 @@ package common.redis.configuration;
  * @project custom-test <br>
  */
 @Deprecated
-public class RedissonConfiguration {}
+public class RedissonConfiguration {
+}

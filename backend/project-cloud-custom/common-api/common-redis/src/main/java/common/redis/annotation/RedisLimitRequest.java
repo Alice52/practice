@@ -16,15 +16,23 @@ import static java.lang.annotation.ElementType.TYPE;
 @Documented
 @Inherited
 public @interface RedisLimitRequest {
-    /** 可以访问的次数 */
+    /**
+     * 可以访问的次数
+     */
     int count() default 0;
 
-    /** 超时时长，默认1分钟 */
+    /**
+     * 超时时长，默认1分钟
+     */
     long time() default 1;
 
-    /** 超时时间单位，默认 分钟 */
+    /**
+     * 超时时间单位，默认 分钟
+     */
     TimeUnit timeUnit() default TimeUnit.MINUTES;
 
-    /** 错误提示 */
+    /**
+     * 错误提示
+     */
     String message() default "调用频繁";
 }

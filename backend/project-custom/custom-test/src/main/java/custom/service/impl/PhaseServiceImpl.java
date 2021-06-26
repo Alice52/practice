@@ -29,7 +29,8 @@ import java.util.stream.Collectors;
 @Service
 public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements PhaseService {
 
-    @Resource private ActivityService activityService;
+    @Resource
+    private ActivityService activityService;
 
     @Override
     public PhaseVO getPhase(Long id, String type) {

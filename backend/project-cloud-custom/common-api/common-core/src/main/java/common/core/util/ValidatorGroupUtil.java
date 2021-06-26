@@ -8,7 +8,9 @@ package common.core.util;
  * @project project-custom <br>
  */
 public interface ValidatorGroupUtil {
-    interface Add {}
+    interface Add {
+    }
 
-    interface Update {}
+    interface Update {
+    }
 }

@@ -14,8 +14,12 @@ public enum OssUploadTypeEnum {
     aliyun("aliyun-oss", "阿里云oss"),
     tencent("tencent-cos", "腾讯云cos");
 
-    /** 类型 */
+    /**
+     * 类型
+     */
     private final String type;
-    /** 描述 */
+    /**
+     * 描述
+     */
     private final String description;
 }

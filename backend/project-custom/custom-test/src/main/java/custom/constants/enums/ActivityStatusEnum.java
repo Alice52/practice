@@ -18,7 +18,9 @@ public enum ActivityStatusEnum {
     STARTED(3, "已开始"),
     ENDED(4, "已结束");
 
-    @EnumValue @JsonValue private final int code;
+    @EnumValue
+    @JsonValue
+    private final int code;
     private String name;
 
     /**

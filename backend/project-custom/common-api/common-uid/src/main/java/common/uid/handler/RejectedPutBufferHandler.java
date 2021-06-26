@@ -23,9 +23,12 @@ package common.uid.handler;
  * @create 2021-06-23<br>
  * @project project-custom <br>
  */
+
 import common.uid.buffer.RingBuffer;
 
-/** @author yutianbao */
+/**
+ * @author yutianbao
+ */
 @FunctionalInterface
 public interface RejectedPutBufferHandler {
 

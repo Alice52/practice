@@ -27,10 +27,12 @@ import java.util.Optional;
 @Slf4j
 public class RedisLockAspect {
 
-    @Resource private RedissonClient redissonClient;
+    @Resource
+    private RedissonClient redissonClient;
 
     @Pointcut("@annotation(redisLock)")
-    public void redisLockPointCut(RedisLock redisLock) {}
+    public void redisLockPointCut(RedisLock redisLock) {
+    }
 
     @SneakyThrows
     @Around("redisLockPointCut(redisLock)")

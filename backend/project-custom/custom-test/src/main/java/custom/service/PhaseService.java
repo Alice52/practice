@@ -18,7 +18,7 @@ public interface PhaseService extends IService<Phase> {
     /**
      * 获取指定的阶段信息
      *
-     * @param id 指定的阶段标识
+     * @param id   指定的阶段标识
      * @param type 标识具体活动
      * @return
      */

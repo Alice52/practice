@@ -29,7 +29,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class LimitRequestAspect {
 
-    /** 根据请求地址保存不同的令牌桶 */
+    /**
+     * 根据请求地址保存不同的令牌桶
+     */
     private static final Map<String, RateLimiter> map = new ConcurrentHashMap<>(16);
 
     /**
@@ -38,7 +40,8 @@ public class LimitRequestAspect {
      * @see LocalLimitRequest
      */
     @Pointcut("@annotation(localLimitRequest)")
-    public void pointCut(LocalLimitRequest localLimitRequest) {}
+    public void pointCut(LocalLimitRequest localLimitRequest) {
+    }
 
     @Around("pointCut(localLimitRequest)")
     public Object doPoint(ProceedingJoinPoint joinPoint, LocalLimitRequest localLimitRequest)

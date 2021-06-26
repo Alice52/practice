@@ -42,9 +42,12 @@ import static common.core.constant.CommonConstants.ZERO;
 @Slf4j
 public class RedisUtil {
     private static String module;
-    @Resource private RedisTemplate<String, Object> redisTemplate;
-    @Resource private RedisScript<String> batchRegDelete;
-    @Resource private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
+    @Resource
+    private RedisScript<String> batchRegDelete;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @Value("${common.core.redis.expire-time:0}")
     private long defaultExpireTime;
@@ -76,7 +79,7 @@ public class RedisUtil {
      * LUA 叫本事原子性的, 还是会长时间 Block, 因此还是多次连接去删除<br>
      * 问题: 如果能匹配到但是删除不掉则会一直执行
      *
-     * @param prefix prefix
+     * @param prefix     prefix
      * @param keys
      * @param batchCount
      * @return

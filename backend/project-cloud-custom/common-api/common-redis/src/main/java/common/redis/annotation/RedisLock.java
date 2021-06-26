@@ -26,8 +26,8 @@ public @interface RedisLock {
     /**
      * The lock level, default value is GLOBAL.
      *
-     * @see LockLevel
      * @return
+     * @see LockLevel
      */
     LockLevel level() default LockLevel.GLOBAL;
 }

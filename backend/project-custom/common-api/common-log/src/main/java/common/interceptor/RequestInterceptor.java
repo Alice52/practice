@@ -26,9 +26,12 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter implements WebMvcConfigurer {
 
-    @Resource private WebUtil requestUtil;
+    @Resource
+    private WebUtil requestUtil;
 
-    /** if use responseProperties, will throw exception due to responseProperties is null now. */
+    /**
+     * if use responseProperties, will throw exception due to responseProperties is null now.
+     */
     @Value("${common.core.global.request-id.key:req-id}")
     private String requestIdKey;
 

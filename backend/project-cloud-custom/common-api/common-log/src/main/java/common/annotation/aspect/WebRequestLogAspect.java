@@ -11,10 +11,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 /**
- * @see LogServiceAspect
  * @author zack <br>
  * @create 2021-06-02 12:32 <br>
  * @project custom-test <br>
+ * @see LogServiceAspect
  */
 @Slf4j
 @Aspect
@@ -24,7 +24,8 @@ public class WebRequestLogAspect {
     private ThreadLocal<LogVO> tlocal = new ThreadLocal<LogVO>();
 
     @Pointcut("execution(* com.xxx.xxx.controller..*.*(..))")
-    public void webRequestLog() {}
+    public void webRequestLog() {
+    }
 
     @Before("webRequestLog()")
     public void doBefore(JoinPoint joinPoint) {

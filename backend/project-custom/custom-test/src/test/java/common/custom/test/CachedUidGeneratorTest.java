@@ -37,7 +37,8 @@ public class CachedUidGeneratorTest {
     private static final boolean VERBOSE = true;
     private static final int THREADS = Runtime.getRuntime().availableProcessors() << 1;
 
-    @Resource private CachedUidGenerator cachedUidGenerator;
+    @Resource
+    private CachedUidGenerator cachedUidGenerator;
 
     /**
      * Test for serially generate
@@ -89,7 +90,9 @@ public class CachedUidGeneratorTest {
         checkUniqueID(uidSet);
     }
 
-    /** Woker run */
+    /**
+     * Woker run
+     */
     private void workerRun(Set<Long> uidSet, AtomicInteger control) {
         for (; ; ) {
             int myPosition = control.updateAndGet(old -> (old == SIZE ? SIZE : old + 1));
@@ -101,7 +104,9 @@ public class CachedUidGeneratorTest {
         }
     }
 
-    /** Do generating */
+    /**
+     * Do generating
+     */
     private void doGenerate(Set<Long> uidSet, int index) {
         long uid = cachedUidGenerator.getUID();
         String parsedInfo = cachedUidGenerator.parseUID(uid);
@@ -121,7 +126,9 @@ public class CachedUidGeneratorTest {
         }
     }
 
-    /** Check UIDs are all unique */
+    /**
+     * Check UIDs are all unique
+     */
     private void checkUniqueID(Set<Long> uidSet) throws IOException {
         System.out.println(uidSet.size());
         Assert.assertEquals(SIZE, uidSet.size());

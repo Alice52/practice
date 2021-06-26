@@ -64,21 +64,21 @@ public class ServletExceptionHandler {
     }
 
     @ExceptionHandler({
-        NoHandlerFoundException.class,
-        HttpRequestMethodNotSupportedException.class,
-        HttpMediaTypeNotSupportedException.class,
-        HttpMediaTypeNotAcceptableException.class,
-        MissingPathVariableException.class,
-        MissingServletRequestParameterException.class,
-        TypeMismatchException.class,
-        HttpMessageNotReadableException.class,
-        HttpMessageNotWritableException.class,
-        // BindException.class,
-        // MethodArgumentNotValidException.class
-        ServletRequestBindingException.class,
-        ConversionNotSupportedException.class,
-        MissingServletRequestPartException.class,
-        AsyncRequestTimeoutException.class
+            NoHandlerFoundException.class,
+            HttpRequestMethodNotSupportedException.class,
+            HttpMediaTypeNotSupportedException.class,
+            HttpMediaTypeNotAcceptableException.class,
+            MissingPathVariableException.class,
+            MissingServletRequestParameterException.class,
+            TypeMismatchException.class,
+            HttpMessageNotReadableException.class,
+            HttpMessageNotWritableException.class,
+            // BindException.class,
+            // MethodArgumentNotValidException.class
+            ServletRequestBindingException.class,
+            ConversionNotSupportedException.class,
+            MissingServletRequestPartException.class,
+            AsyncRequestTimeoutException.class
     })
     public R<Void> handleException(HttpServletRequest request, Exception e) {
         return handleServletException(e);

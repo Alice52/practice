@@ -15,4 +15,5 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Import({UidConfiguration.class})
-public @interface EnableUID {}
+public @interface EnableUID {
+}

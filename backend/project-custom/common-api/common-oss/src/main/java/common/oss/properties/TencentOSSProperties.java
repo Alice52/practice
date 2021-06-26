@@ -8,4 +8,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @project swagger-3 <br>
  */
 @ConfigurationProperties(prefix = "common.oss.tencent")
-public class TencentOSSProperties extends OssProperties {}
+public class TencentOSSProperties extends OssProperties {
+}

@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 public class SimpleEntity<T extends Model> extends Model<T> implements Serializable {
     protected static final long serialVersionUID = 1L;
 
-    @TableLogic private Boolean isDeleted;
+    @TableLogic
+    private Boolean isDeleted;
 
     @TableField(value = "inserted_time", fill = FieldFill.INSERT)
     private LocalDateTime insertedTime;

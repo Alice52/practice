@@ -10,4 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @project integration <br>
  */
 @Mapper
-public interface ActivityMapper extends BaseMapper<Activity> {}
+public interface ActivityMapper extends BaseMapper<Activity> {
+}

@@ -23,7 +23,8 @@ import javax.validation.constraints.NotNull;
 @Slf4j
 public class SampleRedisController {
 
-    @Resource private RedisUtil redisUtil;
+    @Resource
+    private RedisUtil redisUtil;
 
     @PostMapping
     @ApiOperation("Batch Insert Sample")

@@ -23,7 +23,9 @@ public interface OSSHander {
 
     Logger log = LoggerFactory.getLogger(OSSHander.class);
 
-    /** Init oss client */
+    /**
+     * Init oss client
+     */
     default void init() throws OperationNotSupportedException {
         throw new OperationNotSupportedException();
     }
@@ -56,6 +58,7 @@ public interface OSSHander {
     default Map<String, String> upload(String fileName, File file) {
         return upload(fileName, file, null);
     }
+
     /**
      * download file from specified bucket.
      *

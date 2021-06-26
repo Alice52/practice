@@ -9,11 +9,17 @@ import lombok.Data;
  */
 @Data
 public abstract class OssProperties {
-    /** secretId */
+    /**
+     * secretId
+     */
     private String accessKey;
-    /** secretKey */
+    /**
+     * secretKey
+     */
     private String accessKeySecret;
-    /** region */
+    /**
+     * region
+     */
     private String endpoint;
 
     private String bucket;

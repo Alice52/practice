@@ -36,9 +36,12 @@ public class DefaultUidGeneratorTest {
     private static final boolean VERBOSE = true;
     private static final int THREADS = Runtime.getRuntime().availableProcessors() << 1;
 
-    @Resource private DefaultUidGenerator defaultUidGenerator;
+    @Resource
+    private DefaultUidGenerator defaultUidGenerator;
 
-    /** Test for serially generate */
+    /**
+     * Test for serially generate
+     */
     @Test
     public void testSerialGenerate() {
         // Generate UID serially
@@ -83,7 +86,9 @@ public class DefaultUidGeneratorTest {
         checkUniqueID(uidSet);
     }
 
-    /** Worker run */
+    /**
+     * Worker run
+     */
     private void workerRun(Set<Long> uidSet, AtomicInteger control) {
         for (; ; ) {
             int myPosition = control.updateAndGet(old -> (old == SIZE ? SIZE : old + 1));
@@ -95,7 +100,9 @@ public class DefaultUidGeneratorTest {
         }
     }
 
-    /** Do generating */
+    /**
+     * Do generating
+     */
     private void doGenerate(Set<Long> uidSet, int index) {
         long uid = defaultUidGenerator.getUID();
         String parsedInfo = defaultUidGenerator.parseUID(uid);
@@ -111,7 +118,9 @@ public class DefaultUidGeneratorTest {
         }
     }
 
-    /** Check UIDs are all unique */
+    /**
+     * Check UIDs are all unique
+     */
     private void checkUniqueID(Set<Long> uidSet) {
         System.out.println(uidSet.size());
         Assert.assertEquals(SIZE, uidSet.size());
