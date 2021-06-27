@@ -1,11 +1,10 @@
 package custom.gateway.handler;
 
 /**
- * @author zack <br/>
- * @create 2021-06-26<br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2021-06-26<br>
+ * @project project-cloud-custom <br>
  */
-
 import com.google.code.kaptcha.Producer;
 import common.core.constant.CommonConstants;
 import common.redis.constants.enums.RedisKeyCommonEnum;
@@ -32,26 +31,32 @@ import java.util.concurrent.TimeUnit;
 /**
  * 验证码生成逻辑处理类
  *
+ * @see CaptchaHandler
  * @author zack
  */
 @Slf4j
 @Component
 @AllArgsConstructor
+@Deprecated
 public class ImageCodeHandler implements HandlerFunction<ServerResponse> {
     private final Producer producer;
 
-    @Resource
-    private RedisUtil redisUtils;
+    @Resource private RedisUtil redisUtils;
 
     @Override
     public Mono<ServerResponse> handle(ServerRequest serverRequest) {
-        //生成验证码
+        // 生成验证码
         String text = producer.createText();
         BufferedImage image = producer.createImage(text);
 
-        //保存验证码信息
+        // 保存验证码信息
         String randomStr = serverRequest.queryParam("randomStr").get();
-        redisUtils.set(RedisKeyCommonEnum.VERIFY_CODE, text, 10, TimeUnit.MINUTES, CommonConstants.DEFAULT_CODE_KEY + randomStr);
+        redisUtils.set(
+                RedisKeyCommonEnum.VERIFY_CODE,
+                text,
+                10,
+                TimeUnit.MINUTES,
+                CommonConstants.DEFAULT_CODE_KEY + randomStr);
 
         // 转换流信息写出
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
@@ -62,8 +67,7 @@ public class ImageCodeHandler implements HandlerFunction<ServerResponse> {
             return Mono.error(e);
         }
 
-        return ServerResponse
-                .status(HttpStatus.OK)
+        return ServerResponse.status(HttpStatus.OK)
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(BodyInserters.fromResource(new ByteArrayResource(os.toByteArray())));
     }

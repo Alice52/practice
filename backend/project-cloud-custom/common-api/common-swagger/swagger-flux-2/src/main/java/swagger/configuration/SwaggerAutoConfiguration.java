@@ -1,8 +1,7 @@
-package common.swagger.configuration;
+package swagger.configuration;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import common.swagger.configuration.properties.SwaggerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,6 +9,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.web.reactive.config.ResourceHandlerRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
+import org.springframework.web.reactive.function.server.HandlerFunction;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -18,8 +23,10 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import swagger.configuration.properties.SwaggerProperties;
 
 import javax.annotation.Resource;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -38,19 +45,43 @@ import java.util.stream.Collectors;
 @Profile({"dev", "cloud"})
 @ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(SwaggerProperties.class)
-public class SwaggerAutoConfiguration {
+public class SwaggerAutoConfiguration implements WebFluxConfigurer {
 
-    /**
-     * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点
-     */
+    private static HandlerFunction<ServerResponse> redirectMapping =
+            serverRequest ->
+                    ServerResponse.temporaryRedirect(URI.create("/swagger-ui.html")).build();
+
+    /** 默认的排除路径，排除Spring Boot默认的错误处理路径和端点 */
     private static final List<String> DEFAULT_EXCLUDE_PATH =
             Arrays.asList("/error", "/actuator/**");
 
     private static final String BASE_PATH = "/**";
     private static final String LOCALHOST = "localhost";
-    @Resource
-    private SwaggerProperties swaggerProperties;
+    @Resource private SwaggerProperties swaggerProperties;
 
+    /**
+     * throw-exception-if-no-handler-found: true <br>
+     * will lead to no handler exception for static resources. <br>
+     *
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // release swagger
+        registry.addResourceHandler("/swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        // release relevant js
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> apiRoute() {
+        return RouterFunctions.route()
+                .GET("/swagger-ui", redirectMapping)
+                .GET("/api", redirectMapping)
+                .build();
+    }
 
     @Bean
     public Docket api(SwaggerProperties swaggerProperties) {
@@ -60,7 +91,7 @@ public class SwaggerAutoConfiguration {
         swaggerProperties.getExcludePath().removeAll(DEFAULT_EXCLUDE_PATH);
         swaggerProperties.getExcludePath().addAll(DEFAULT_EXCLUDE_PATH);
 
-        List<Predicate<String>> basePath =
+        List<com.google.common.base.Predicate<String>> basePath =
                 swaggerProperties.getBasePath().stream()
                         .map(PathSelectors::ant)
                         .collect(Collectors.toList());

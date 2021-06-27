@@ -1,9 +1,9 @@
 package custom.gateway.constants;
 
 /**
- * @author zack <br/>
- * @create 2021-06-26<br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2021-06-26<br>
+ * @project project-cloud-custom <br>
  */
 public interface AuthConstants {
 

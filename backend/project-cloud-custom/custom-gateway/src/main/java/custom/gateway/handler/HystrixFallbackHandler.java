@@ -17,9 +17,9 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 /**
  * Hystrix 降级处理
  *
- * @author zack <br/>
- * @create 2021-06-26<br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2021-06-26<br>
+ * @project project-cloud-custom <br>
  */
 @Slf4j
 @Component
@@ -31,6 +31,7 @@ public class HystrixFallbackHandler implements HandlerFunction<ServerResponse> {
         originalUris.ifPresent(originalUri -> log.error("网关执行请求:{}失败,hystrix服务降级处理", originalUri));
 
         return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromObject("服务异常"));
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue("服务异常"));
     }
 }

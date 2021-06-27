@@ -1,6 +1,5 @@
 package custom.gateway.handler;
 
-
 import cn.hutool.core.util.RandomUtil;
 import com.google.code.kaptcha.Producer;
 import common.redis.constants.enums.RedisKeyCommonEnum;
@@ -28,34 +27,39 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author zack <br/>
- * @create 2021-06-26<br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2021-06-26<br>
+ * @project project-cloud-custom <br>
  */
 @Slf4j
 @Component
 public class CaptchaHandler implements HandlerFunction<ServerResponse> {
 
-    @Resource
-    private Producer kaptchaProducer;
+    @Resource private Producer kaptchaProducer;
 
-    @Resource
-    private RedisUtil redisUtils;
+    @Resource private RedisUtil redisUtils;
 
     @Override
     public Mono<ServerResponse> handle(ServerRequest serverRequest) {
-        //生成验证码
+        // 生成验证码
         String text = kaptchaProducer.createText();
         BufferedImage image = kaptchaProducer.createImage(text);
 
         String captchaKeyParamName = AuthConstants.PARAM_CAPTCHA_KEY;
-        String captchaKey = serverRequest.queryParam(captchaKeyParamName).orElse(RandomUtil.randomString(10));
+        String captchaKey =
+                serverRequest.queryParam(captchaKeyParamName).orElse(RandomUtil.randomString(10));
 
         if (StringUtils.isBlank(captchaKey)) {
-            return Mono.error(new MissingServletRequestParameterException(captchaKeyParamName, "String"));
+            return Mono.error(
+                    new MissingServletRequestParameterException(captchaKeyParamName, "String"));
         }
 
-        redisUtils.set(RedisKeyCommonEnum.VERIFY_CODE, text, 10, TimeUnit.MINUTES, CacheKeys.CAPTCHA_CODE_KEY_PREFIX + captchaKey);
+        redisUtils.set(
+                RedisKeyCommonEnum.VERIFY_CODE,
+                text,
+                10,
+                TimeUnit.MINUTES,
+                CacheKeys.CAPTCHA_CODE_KEY_PREFIX + captchaKey);
 
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
         try {
@@ -65,8 +69,7 @@ public class CaptchaHandler implements HandlerFunction<ServerResponse> {
             return Mono.error(e);
         }
 
-        return ServerResponse
-                .status(HttpStatus.OK)
+        return ServerResponse.status(HttpStatus.OK)
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(BodyInserters.fromResource(new ImageResource(os.toByteArray())));
     }

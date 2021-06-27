@@ -1,6 +1,5 @@
 package custom.gateway.filter;
 
-
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,22 +25,18 @@ import reactor.core.publisher.Mono;
 import javax.annotation.Resource;
 
 /**
- * @author zack <br/>
- * @create 2021-06-26<br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2021-06-26<br>
+ * @project project-cloud-custom <br>
  */
-
 @Slf4j
 @Component
 public class CaptchaValidateGatewayFilterFactory extends AbstractGatewayFilterFactory {
-    @Resource
-    private ObjectMapper objectMapper;
+    @Resource private ObjectMapper objectMapper;
 
-    @Resource
-    private SecurityIgnoreProperties securityIgnoreProperties;
+    @Resource private SecurityIgnoreProperties securityIgnoreProperties;
 
-    @Resource
-    private RedisUtil redisUtil;
+    @Resource private RedisUtil redisUtil;
 
     @Override
     public GatewayFilter apply(Object config) {
@@ -49,8 +44,8 @@ public class CaptchaValidateGatewayFilterFactory extends AbstractGatewayFilterFa
             ServerHttpRequest request = exchange.getRequest();
 
             // 不是登录请求，直接向下执行
-            if (!StrUtil.containsAnyIgnoreCase(request.getURI().getPath()
-                    , AuthConstants.URL_OAUTH_TOKEN)) {
+            if (!StrUtil.containsAnyIgnoreCase(
+                    request.getURI().getPath(), AuthConstants.URL_OAUTH_TOKEN)) {
                 return chain.filter(exchange);
             }
 
@@ -62,7 +57,7 @@ public class CaptchaValidateGatewayFilterFactory extends AbstractGatewayFilterFa
             }
 
             try {
-                //校验验证码
+                // 校验验证码
                 checkCode(request);
             } catch (Exception e) {
                 ServerHttpResponse response = exchange.getResponse();
@@ -70,10 +65,10 @@ public class CaptchaValidateGatewayFilterFactory extends AbstractGatewayFilterFa
                 response.getHeaders().setContentType(MediaType.APPLICATION_JSON_UTF8);
                 try {
                     R result = R.builder().code(1).data(e.getMessage()).build();
-                    return response.writeWith(Mono.just(
-                            response.bufferFactory()
-                                    .wrap(objectMapper.writeValueAsBytes(result))
-                    ));
+                    return response.writeWith(
+                            Mono.just(
+                                    response.bufferFactory()
+                                            .wrap(objectMapper.writeValueAsBytes(result))));
                 } catch (JsonProcessingException e1) {
                     log.error("write json exception", e1);
                 }

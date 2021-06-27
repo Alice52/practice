@@ -5,9 +5,9 @@ import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
- * @author zack <br/>
- * @create 2021-06-26<br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2021-06-26<br>
+ * @project project-cloud-custom <br>
  */
 @RefreshScope
 @SpringCloudApplication

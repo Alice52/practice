@@ -24,9 +24,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
- * @author zack <br/>
- * @create 2021-06-26<br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2021-06-26<br>
+ * @project project-cloud-custom <br>
  */
 @Slf4j
 @Component
@@ -35,13 +35,17 @@ public class PasswordDecoderGatewayFilterFactory extends AbstractGatewayFilterFa
     private static final String OAUTH_PARAM_GRANT_TYPE = "grant_type";
 
     private static final String KEY_ALGORITHM = "AES";
+
     @Value("${security.encode.key:1234567812345678}")
     private String encodeKey;
 
     private static String decryptAES(String data, String pass) {
-        AES aes = new AES(Mode.CBC, Padding.NoPadding,
-                new SecretKeySpec(pass.getBytes(), KEY_ALGORITHM),
-                new IvParameterSpec(pass.getBytes()));
+        AES aes =
+                new AES(
+                        Mode.CBC,
+                        Padding.NoPadding,
+                        new SecretKeySpec(pass.getBytes(), KEY_ALGORITHM),
+                        new IvParameterSpec(pass.getBytes()));
         byte[] result = aes.decrypt(Base64.decode(data.getBytes(StandardCharsets.UTF_8)));
         return byteToStr(result);
     }
@@ -63,7 +67,8 @@ public class PasswordDecoderGatewayFilterFactory extends AbstractGatewayFilterFa
             ServerHttpRequest request = exchange.getRequest();
 
             // 不是登录请求，直接向下执行
-            if (!StrUtil.containsAnyIgnoreCase(request.getURI().getPath(), AuthConstants.URL_OAUTH_TOKEN)) {
+            if (!StrUtil.containsAnyIgnoreCase(
+                    request.getURI().getPath(), AuthConstants.URL_OAUTH_TOKEN)) {
                 return chain.filter(exchange);
             }
 
@@ -82,10 +87,11 @@ public class PasswordDecoderGatewayFilterFactory extends AbstractGatewayFilterFa
                 paramMap.put(OAUTH_PARAM_PASSWORD, password);
             }
 
-            URI newUri = UriComponentsBuilder.fromUri(uri)
-                    .replaceQuery(HttpUtil.toParams(paramMap))
-                    .build(true)
-                    .toUri();
+            URI newUri =
+                    UriComponentsBuilder.fromUri(uri)
+                            .replaceQuery(HttpUtil.toParams(paramMap))
+                            .build(true)
+                            .toUri();
 
             ServerHttpRequest newRequest = exchange.getRequest().mutate().uri(newUri).build();
             return chain.filter(exchange.mutate().request(newRequest).build());

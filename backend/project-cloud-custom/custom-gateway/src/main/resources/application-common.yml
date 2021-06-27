@@ -18,13 +18,19 @@ common:
 spring:
   cloud:
     gateway:
+      httpclient:
+        pool:
+          maxIdleTime: 60000
+      locator:
+        enabled: true
+      default-filters:
+        - RemoveRequestHeader=from
+        - StripPrefix=1
       routes:
-        - id: thirdparty_route
-          uri: lb://EC-THIRDPARTY-SERVICE
+        - id: custom_basic
+          uri: lb://CUSTOM-BASIC-SERVICE
           predicates:
-            - Path=/api/thirdparty/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+            - Path=/basic/**
 
 security:
   encode:
@@ -37,4 +43,5 @@ reactor:
     http:
       server:
         accessLogEnabled: true
+
 
