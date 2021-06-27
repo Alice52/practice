@@ -13,7 +13,7 @@
     <artifactId>common-swagger</artifactId>
 
     <modules>
-        <module>swagger-web-2</module>
+        <module>swagger-2</module>
         <module>swagger-3</module>
     </modules>
 </project>

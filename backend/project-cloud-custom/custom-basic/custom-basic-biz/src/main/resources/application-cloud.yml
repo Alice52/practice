@@ -1,9 +1,9 @@
 custom-config:
-  namespace: local
+  namespace: cloud
 
 spring:
   profiles:
-    include: redis-dev,common
+    include: redis-cloud,common
   datasource:
     username: ENC(3+5Pg+H9L0s1ATmg/xTWLbNt9OeMFguochuRyTl9a4BGbD4lL2SLM8351rdHYhC2)
     password: ENC(MkGdNTchUL+OnF+nvm5YSSjWc7XeHLNab+KV9Wr3fqF1fAbEVLB2urZotLn8nAk1)
