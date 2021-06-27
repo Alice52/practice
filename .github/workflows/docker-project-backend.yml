@@ -1,4 +1,4 @@
-name: Build Image Project-Backend
+name: Build Image Project-Custom
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, '[image]')"
     env: # define constant
-      PROJECT_PREFIX: backend
+      PROJECT_PREFIX: backend/project-custom
       IMAGE_PREFIX: practice
 
     steps:
@@ -42,14 +42,12 @@ jobs:
 
       - name: Build project-custom module
         run: |
-          PROJECT_NAME=project-custom
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
+          cd $PROJECT_HOME/$PROJECT_PREFIX
           mvn clean package -DskipTests=true
       - name: Push project-custom Image
         run: |
-          PROJECT_NAME=project-custom
           MODULE_NAME=custom-test
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME/$MODULE_NAME/
+          cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME/
           image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
           docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
           docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD $ALI_DOCKER_REGISTRY
@@ -59,9 +57,8 @@ jobs:
 
       - name: Push actuator-server Image
         run: |
-          PROJECT_NAME=project-custom
           MODULE_NAME=actuator-server
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME/$MODULE_NAME/
+          cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME/
           image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
           docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
           docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD $ALI_DOCKER_REGISTRY

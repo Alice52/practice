@@ -1,4 +1,4 @@
-name: Build Image Project-Backend
+name: Build Image Project-Custom-Cloud
 
 on:
   push:
