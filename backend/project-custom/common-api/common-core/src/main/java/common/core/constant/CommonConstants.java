@@ -24,4 +24,10 @@ public interface CommonConstants {
     String APP_CONTEXT_LOG = "app_context_log";
 
     String ZERO = "0";
+
+
+    /**
+     * 验证码前缀
+     */
+    String DEFAULT_CODE_KEY = "DEFAULT_CODE_KEY_";
 }

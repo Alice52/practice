@@ -1,6 +1,6 @@
 package common.swagger.annotation;
 
-import common.swagger.configuratioon.SwaggerAutoConfiguration;
+import common.swagger.configuration.SwaggerAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

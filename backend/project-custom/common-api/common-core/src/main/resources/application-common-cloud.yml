@@ -1,6 +1,8 @@
 server:
   undertow:
     io-threads: 2
+    # undertow:   worker(availableProcessors() * 8), queue(N/A)
+    # tomcat:     worker(200), queue[负载高峰(恢复时长)](100)
     worker-threads: 30
     accesslog:
       dir: logs/access/
@@ -9,18 +11,6 @@ server:
       # prefix: ${spring.application.name}_access
       suffix: log
       rotate: true
-# Spring 相关
-spring:
-  mvc:
-    async:
-      request-timeout: 60
-    throw-exception-if-no-handler-found: true
-  resources:
-    add-mappings: false
-  main:
-    allow-bean-definition-overriding: true
-  jackson:
-    default-property-inclusion: non_null
 
 # 加解密根密码
 jasypt:
@@ -32,6 +22,19 @@ management:
     web:
       exposure:
         include: '*'
+
+# Spring 相关
+spring:
+  mvc:
+    async:
+      request-timeout: 20
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    default-property-inclusion: non_null
 
 logging:
   level:

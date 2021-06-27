@@ -1,4 +1,4 @@
-package common.swagger.configuratioon.properties;
+package common.swagger.configuration.properties;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

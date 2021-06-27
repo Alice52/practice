@@ -1,8 +1,8 @@
-package common.swagger.configuratioon;
+package common.swagger.configuration;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import common.swagger.configuratioon.properties.SwaggerProperties;
+import common.swagger.configuration.properties.SwaggerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
