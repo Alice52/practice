@@ -34,16 +34,10 @@
                     <artifactId>database-mybatis-plus</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>cn.edu.ntu</groupId>
-                    <artifactId>swagger-web-2</artifactId>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
                 </exclusion>
             </exclusions>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.edu.ntu</groupId>
-            <artifactId>swagger-flux-2</artifactId>
             <version>${project.version}</version>
         </dependency>
 

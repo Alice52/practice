@@ -1,5 +1,5 @@
 custom-config:
-  namespace: local
+  namespace: dev
 
 spring:
   profiles:

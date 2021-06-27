@@ -3,15 +3,15 @@ package custom.gateway.configuration.routes;
 import custom.gateway.configuration.swagger.SwaggerResourceHandler;
 import custom.gateway.configuration.swagger.SwaggerSecurityHandler;
 import custom.gateway.configuration.swagger.SwaggerUiHandler;
-import custom.gateway.handler.*;
+import custom.gateway.handler.CaptchaHandler;
+import custom.gateway.handler.HystrixFallbackHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.server.RequestPredicates;
-import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.*;
 
 import javax.annotation.Resource;
+import java.net.URI;
 
 /**
  * @author zack <br>
@@ -26,6 +26,10 @@ public class RouterConfiguration {
     @Resource private SwaggerResourceHandler swaggerResourceHandler;
     @Resource private SwaggerSecurityHandler swaggerSecurityHandler;
     @Resource private SwaggerUiHandler swaggerUiHandler;
+
+    private static HandlerFunction<ServerResponse> redirectMapping =
+            serverRequest ->
+                    ServerResponse.temporaryRedirect(URI.create("/swagger-ui.html")).build();
 
     @Bean
     public RouterFunction captchaFunction() {
@@ -48,5 +52,13 @@ public class RouterConfiguration {
         routes = routes.andRoute(RequestPredicates.GET(""), swaggerResourceHandler);
 
         return RouterFunctions.nest(RequestPredicates.path("/swagger-resources"), routes);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> apiRoute() {
+        return RouterFunctions.route()
+                .GET("/swagger-ui", redirectMapping)
+                .GET("/api", redirectMapping)
+                .build();
     }
 }

@@ -32,4 +32,9 @@ public class SwaggerConfiguration {
     public SwaggerUiHandler swaggerUiHandler() {
         return new SwaggerUiHandler();
     }
+
+    @Bean
+    public WebFluxConfiguration webFluxConfiguration() {
+        return new WebFluxConfiguration();
+    }
 }

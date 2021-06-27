@@ -1,16 +1,16 @@
-package custom.basic;
+package custom.upms;
 
 import common.cloud.annotation.CustomCloudApplication;
 import org.springframework.boot.SpringApplication;
 
 /**
  * @author zack <br>
- * @create 2021-06-26<br>
+ * @create 2021-06-27<br>
  * @project project-cloud-custom <br>
  */
 @CustomCloudApplication
-public class BasicApplication {
+public class UpmsApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BasicApplication.class, args);
+        SpringApplication.run(UpmsApplication.class, args);
     }
 }

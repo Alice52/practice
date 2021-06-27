@@ -13,6 +13,9 @@ common:
       charSpace: 2
       fontColor: black
       fontSize: 32
+    redis:
+      module: gateway
+      expire-time: 24
 
 # Spring 相关
 spring:
@@ -31,7 +34,10 @@ spring:
           uri: lb://CUSTOM-BASIC-SERVICE
           predicates:
             - Path=/basic/**
-
+        - id: custom_upms
+          uri: lb://CUSTOM-UPMS-SERVICE
+          predicates:
+            - Path=/upms/**
 security:
   encode:
     # 前端密码密钥，必须16位
