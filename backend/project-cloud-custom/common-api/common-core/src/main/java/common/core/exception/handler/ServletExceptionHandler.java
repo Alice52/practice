@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -64,7 +63,7 @@ public class ServletExceptionHandler {
     }
 
     @ExceptionHandler({
-            NoHandlerFoundException.class,
+            // NoHandlerFoundException.class,
             HttpRequestMethodNotSupportedException.class,
             HttpMediaTypeNotSupportedException.class,
             HttpMediaTypeNotAcceptableException.class,

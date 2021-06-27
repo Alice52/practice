@@ -12,10 +12,29 @@
     <artifactId>custom-gateway</artifactId>
 
     <dependencies>
-        <!-- alibaba nacos -->
+        <!-- common -->
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-cloud</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-undertow</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-log</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>database-mybatis-plus</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- gateway -->
@@ -23,17 +42,16 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
-
-        <!-- spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
 
-        <!-- tools -->
+        <!--验证码-->
         <dependency>
-            <groupId>com.github.ulisesbocchio</groupId>
-            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <groupId>com.github.axet</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>${kaptcha.version}</version>
         </dependency>
     </dependencies>
 </project>

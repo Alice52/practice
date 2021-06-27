@@ -16,6 +16,7 @@ import javax.annotation.PostConstruct;
  */
 @Component
 @Slf4j
+@Deprecated
 public class SnowflakeConfig {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     // 为终端ID

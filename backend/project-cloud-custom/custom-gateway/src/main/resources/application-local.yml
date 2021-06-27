@@ -1,8 +1,0 @@
-custom-config:
-  namespace: local
-
-
-spring:
-  profiles:
-    include: common
-

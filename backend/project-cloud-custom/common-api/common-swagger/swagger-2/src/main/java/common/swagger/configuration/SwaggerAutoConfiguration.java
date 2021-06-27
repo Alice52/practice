@@ -1,8 +1,8 @@
-package common.swagger.configuratioon;
+package common.swagger.configuration;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import common.swagger.configuratioon.properties.SwaggerProperties;
+import common.swagger.configuration.properties.SwaggerProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -10,9 +10,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -41,7 +38,7 @@ import java.util.stream.Collectors;
 @Profile({"dev", "cloud"})
 @ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(SwaggerProperties.class)
-public class SwaggerAutoConfiguration implements WebMvcConfigurer {
+public class SwaggerAutoConfiguration {
 
     /**
      * 默认的排除路径，排除Spring Boot默认的错误处理路径和端点
@@ -54,27 +51,6 @@ public class SwaggerAutoConfiguration implements WebMvcConfigurer {
     @Resource
     private SwaggerProperties swaggerProperties;
 
-    /**
-     * throw-exception-if-no-handler-found: true <br>
-     * will lead to no handler exception for static resources. <br>
-     *
-     * @param registry
-     */
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // release swagger
-        registry.addResourceHandler("/swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-        // release relevant js
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/swagger-ui", "/swagger-ui.html");
-        registry.addRedirectViewController("/api", "/swagger-ui.html");
-    }
 
     @Bean
     public Docket api(SwaggerProperties swaggerProperties) {

@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum BusinessResponseEnum implements IBusinessExceptionAssert {
     LOCK_ERROR(600_000_000, "Get Lock Error"),
+
+    VERIFY_CODE_ERROR(400_000_001, "验证码错误"),
+
     ;
 
     private Integer errorCode;

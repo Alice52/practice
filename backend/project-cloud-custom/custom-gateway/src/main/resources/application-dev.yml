@@ -3,4 +3,6 @@ custom-config:
 
 spring:
   profiles:
-    include: common
+    include: common-dev,redis-dev,common
+
+allow-cors-domains: http://127.0.0.1,http://127.0.0.1:80,http://127.0.0.1:8080,*

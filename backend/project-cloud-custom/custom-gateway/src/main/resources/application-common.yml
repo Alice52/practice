@@ -1,29 +1,21 @@
 custom-config:
   server-addr: ENC(e2i3gVIrfKPf7BGc1QY18HQlsyE7JSg/3BRsZ8TwXHewvOw5o1SHUhDbtk1hb+rZfOtzDXZGXGpcz5fiUgBuaw==)
 
-# 加解密根密码
-jasypt:
-  encryptor:
-    password: ${JASYPT_ENCRYPTOR_PASSWORD}
+server:
+  port: 9999
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+common:
+  core:
+    kaptcha:
+      width: 100
+      height: 40
+      charLength: 4
+      charSpace: 2
+      fontColor: black
+      fontSize: 32
 
 # Spring 相关
 spring:
-  mvc:
-    async:
-      request-timeout: 20
-    throw-exception-if-no-handler-found: true
-  resources:
-    add-mappings: false
-  main:
-    allow-bean-definition-overriding: true
-  jackson:
-    default-property-inclusion: non_null
   cloud:
     gateway:
       routes:
@@ -34,36 +26,15 @@ spring:
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
 
-        - id: ware_route
-          uri: lb://EC-WARE-SERVICE
-          predicates:
-            - Path=/api/ware/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+security:
+  encode:
+    # 前端密码密钥，必须16位
+    key: 'cgroup@123456789'
 
-        - id: member_route
-          uri: lb://EC-MEMBER-SERVICE
-          predicates:
-            - Path=/api/member/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
+reactor:
+  netty:
+    ioWorkerCount: 12
+    http:
+      server:
+        accessLogEnabled: true
 
-        - id: product_route
-          uri: lb://EC-PRODUCT-SERVICE
-          predicates:
-            - Path=/api/product/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/$\{segment}
-
-        - id: admin_route
-          uri: lb://EC-ADMIN-SERVICE
-          predicates:
-            - Path=/api/**
-          filters:
-            - RewritePath=/api/(?<segment>.*),/ec-admin/$\{segment}
-
-logging:
-  level:
-    root: debug
-    custom.*: debug
-    common.*: debug
