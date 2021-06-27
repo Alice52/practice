@@ -13,30 +13,22 @@ import org.springframework.util.Assert;
  */
 @Getter
 public class BitsAllocator {
-    /**
-     * Total 64 bits
-     */
+    /** Total 64 bits */
     public static final int TOTAL_BITS = 1 << 6;
 
     private final int timestampBits;
     private final int workerIdBits;
     private final int sequenceBits;
-    /**
-     * Max value for workId & sequence
-     */
+    /** Max value for workId & sequence */
     private final long maxDeltaSeconds;
 
     private final long maxWorkerId;
     private final long maxSequence;
-    /**
-     * Shift for timestamp & workerId
-     */
+    /** Shift for timestamp & workerId */
     private final int timestampShift;
 
     private final int workerIdShift;
-    /**
-     * Bits for [sign-> second-> workId-> sequence]
-     */
+    /** Bits for [sign-> second-> workId-> sequence] */
     private int signBits = 1;
 
     /**

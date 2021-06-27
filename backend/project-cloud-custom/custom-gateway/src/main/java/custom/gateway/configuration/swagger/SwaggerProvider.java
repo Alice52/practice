@@ -27,6 +27,33 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
 
     @Resource private RouteDefinitionLocator routeDefinitionLocator;
 
+    private static boolean ignorePathCase(PredicateDefinition predicateDefinition) {
+
+        return StrUtil.equalsIgnoreCase("Path", predicateDefinition.getName());
+    }
+
+    /**
+     * Get api docs location, such as convert /basic/** to /basic/v2/api-docs
+     *
+     * @param predicateDefinition
+     * @return
+     */
+    private static String getLocation(PredicateDefinition predicateDefinition) {
+
+        return predicateDefinition
+                .getArgs()
+                .get(NameUtils.GENERATED_NAME_PREFIX + "0")
+                .replace("/**", API_URI);
+    }
+
+    private static SwaggerResource newSwaggerResource(String name, String location) {
+        SwaggerResource swaggerResource = new SwaggerResource();
+        swaggerResource.setName(name);
+        swaggerResource.setLocation(location);
+        swaggerResource.setSwaggerVersion("2.0");
+        return swaggerResource;
+    }
+
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
@@ -51,40 +78,8 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
                                                                 routeDefinition.getId(),
                                                                 getLocation(y)))));
 
-        log.info("routes: {}, resource: {}", routes, resources);
-
         return resources.stream()
                 .sorted(Comparator.comparing(SwaggerResource::getName))
                 .collect(Collectors.toList());
-    }
-
-    private static boolean ignorePathCase(PredicateDefinition predicateDefinition) {
-
-        return StrUtil.equalsIgnoreCase("Path", predicateDefinition.getName());
-    }
-
-    /**
-     * Get api docs location, such as convert /basic/** to /basic/v2/api-docs
-     *
-     * @param predicateDefinition
-     * @return
-     */
-    private static String getLocation(PredicateDefinition predicateDefinition) {
-
-        return predicateDefinition
-                .getArgs()
-                .get(NameUtils.GENERATED_NAME_PREFIX + "0")
-                .replace("/**", API_URI);
-    }
-
-    private static SwaggerResource newSwaggerResource(String name, String location) {
-
-        log.info("{} - {}", name, location);
-
-        SwaggerResource swaggerResource = new SwaggerResource();
-        swaggerResource.setName(name);
-        swaggerResource.setLocation(location);
-        swaggerResource.setSwaggerVersion("2.0");
-        return swaggerResource;
     }
 }

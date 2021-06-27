@@ -33,18 +33,13 @@ import java.util.concurrent.TimeUnit;
 @Component
 @AllArgsConstructor
 public class LimitRequestAspect {
-    /**
-     * this will be autowire
-     */
-    @Resource
-    private RedisScript<Long> limitRedisScript;
+    /** this will be autowire */
+    @Resource private RedisScript<Long> limitRedisScript;
 
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
+    @Resource private StringRedisTemplate stringRedisTemplate;
 
     @Pointcut("@annotation(redisLimitRequest)")
-    public void pointCut(RedisLimitRequest redisLimitRequest) {
-    }
+    public void pointCut(RedisLimitRequest redisLimitRequest) {}
 
     /**
      * full class name and method name will become redis limit key.

@@ -36,49 +36,35 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Slf4j
 public class BufferPaddingExecutor {
 
-    /**
-     * Constants
-     */
+    /** Constants */
     private static final String WORKER_NAME = "RingBuffer-Padding-Worker";
 
     private static final String SCHEDULE_NAME = "RingBuffer-Padding-Schedule";
     private static final long DEFAULT_SCHEDULE_INTERVAL = 5 * 60L; // 5 minutes
 
-    /**
-     * Whether buffer padding is running
-     */
+    /** Whether buffer padding is running */
     private final AtomicBoolean running;
 
-    /**
-     * We can borrow UIDs from the future, here store the last second we have consumed
-     */
+    /** We can borrow UIDs from the future, here store the last second we have consumed */
     private final PaddedAtomicLong lastSecond;
 
-    /**
-     * RingBuffer & BufferUidProvider
-     */
+    /** RingBuffer & BufferUidProvider */
     private final RingBuffer ringBuffer;
 
     private final BufferedUidProvider uidProvider;
 
-    /**
-     * Padding immediately by the thread pool
-     */
+    /** Padding immediately by the thread pool */
     private final ExecutorService bufferPadExecutors;
-    /**
-     * Padding schedule thread
-     */
+    /** Padding schedule thread */
     private final ScheduledExecutorService bufferPadSchedule;
 
-    /**
-     * Schedule interval Unit as seconds
-     */
+    /** Schedule interval Unit as seconds */
     private long scheduleInterval = DEFAULT_SCHEDULE_INTERVAL;
 
     /**
      * Constructor with {@link RingBuffer} and {@link BufferedUidProvider}, default use schedule
      *
-     * @param ringBuffer  {@link RingBuffer}
+     * @param ringBuffer {@link RingBuffer}
      * @param uidProvider {@link BufferedUidProvider}
      */
     public BufferPaddingExecutor(RingBuffer ringBuffer, BufferedUidProvider uidProvider) {
@@ -89,8 +75,8 @@ public class BufferPaddingExecutor {
      * Constructor with {@link RingBuffer}, {@link BufferedUidProvider}, and whether use schedule
      * padding
      *
-     * @param ringBuffer    {@link RingBuffer}
-     * @param uidProvider   {@link BufferedUidProvider}
+     * @param ringBuffer {@link RingBuffer}
+     * @param uidProvider {@link BufferedUidProvider}
      * @param usingSchedule
      */
     public BufferPaddingExecutor(
@@ -116,9 +102,7 @@ public class BufferPaddingExecutor {
         }
     }
 
-    /**
-     * Start executors such as schedule
-     */
+    /** Start executors such as schedule */
     public void start() {
         if (bufferPadSchedule != null) {
             bufferPadSchedule.scheduleWithFixedDelay(
@@ -126,9 +110,7 @@ public class BufferPaddingExecutor {
         }
     }
 
-    /**
-     * Shutdown executors
-     */
+    /** Shutdown executors */
     public void shutdown() {
         if (!bufferPadExecutors.isShutdown()) {
             bufferPadExecutors.shutdownNow();
@@ -148,16 +130,12 @@ public class BufferPaddingExecutor {
         return running.get();
     }
 
-    /**
-     * Padding buffer in the thread pool
-     */
+    /** Padding buffer in the thread pool */
     public void asyncPadding() {
         bufferPadExecutors.submit(this::paddingBuffer);
     }
 
-    /**
-     * Padding buffer fill the slots until to catch the cursor
-     */
+    /** Padding buffer fill the slots until to catch the cursor */
     public void paddingBuffer() {
         log.info("Ready to padding buffer lastSecond:{}. {}", lastSecond.get(), ringBuffer);
 
@@ -184,9 +162,7 @@ public class BufferPaddingExecutor {
         log.info("End to padding buffer lastSecond:{}. {}", lastSecond.get(), ringBuffer);
     }
 
-    /**
-     * Setters
-     */
+    /** Setters */
     public void setScheduleInterval(long scheduleInterval) {
         Assert.isTrue(scheduleInterval > 0, "Schedule interval must positive!");
         this.scheduleInterval = scheduleInterval;

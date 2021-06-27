@@ -8,5 +8,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @project swagger-3 <br>
  */
 @ConfigurationProperties(prefix = "common.oss.aliyun")
-public class AliyunOssProperties extends OssProperties {
-}
+public class AliyunOssProperties extends OssProperties {}

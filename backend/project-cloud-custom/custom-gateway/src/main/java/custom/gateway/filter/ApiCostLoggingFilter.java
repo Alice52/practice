@@ -34,7 +34,7 @@ public class ApiCostLoggingFilter implements GlobalFilter, Ordered {
                                         Long startTime = exchange.getAttribute(START_TIME);
                                         if (startTime != null) {
                                             log.info(
-                                                    "API execution time: Method={%s} Path={%s} executeTime={%s}",
+                                                    "API execution time: Method={} Path={} executeTime={}",
                                                     exchange.getRequest().getMethod().name(),
                                                     exchange.getRequest().getURI().getPath(),
                                                     System.currentTimeMillis() - startTime);

@@ -25,21 +25,15 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Deprecated
 public @interface ValidList {
 
-    /**
-     * specify group.
-     */
+    /** specify group. */
     Class<?>[] values() default {Default.class};
 
     boolean quickFail() default false;
 
-    /**
-     * This is also no use, due to we need inner message.
-     */
+    /** This is also no use, due to we need inner message. */
     String message() default "";
 
-    /**
-     * donot use it due to it cannot apply to each list value.
-     */
+    /** donot use it due to it cannot apply to each list value. */
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};

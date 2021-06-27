@@ -21,15 +21,14 @@ import java.net.URI;
 @Slf4j
 @Configuration
 public class RouterConfiguration {
+    private static HandlerFunction<ServerResponse> redirectMapping =
+            serverRequest ->
+                    ServerResponse.temporaryRedirect(URI.create("/swagger-ui.html")).build();
     @Resource private HystrixFallbackHandler hystrixFallbackHandler;
     @Resource private CaptchaHandler captchaHandler;
     @Resource private SwaggerResourceHandler swaggerResourceHandler;
     @Resource private SwaggerSecurityHandler swaggerSecurityHandler;
     @Resource private SwaggerUiHandler swaggerUiHandler;
-
-    private static HandlerFunction<ServerResponse> redirectMapping =
-            serverRequest ->
-                    ServerResponse.temporaryRedirect(URI.create("/swagger-ui.html")).build();
 
     @Bean
     public RouterFunction captchaFunction() {

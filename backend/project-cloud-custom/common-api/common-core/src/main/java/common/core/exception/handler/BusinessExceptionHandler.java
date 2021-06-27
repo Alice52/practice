@@ -29,8 +29,7 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 public class BusinessExceptionHandler {
 
-    @Resource
-    private DefaultHandler defaultHandler;
+    @Resource private DefaultHandler defaultHandler;
 
     @ExceptionHandler(value = {BusinessException.class})
     public R<Void> handleBusinessException(BusinessException ex) {

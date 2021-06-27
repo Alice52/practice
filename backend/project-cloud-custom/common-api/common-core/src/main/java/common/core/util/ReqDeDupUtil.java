@@ -42,8 +42,8 @@ public final class ReqDeDupUtil {
             }
         }
 
-        paramMap.put("username", new String[]{WebUtil.getCurrentToken()});
-        paramMap.put("uri", new String[]{request.getRequestURI()});
+        paramMap.put("username", new String[] {WebUtil.getCurrentToken()});
+        paramMap.put("uri", new String[] {request.getRequestURI()});
         String md5deDupParam = jdkMD5(JSONUtil.toJsonStr(paramMap));
 
         log.debug("md5deDupParam = {}, excludeKeys = {} {}", md5deDupParam, excludeKeys, paramMap);

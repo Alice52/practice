@@ -1,17 +1,17 @@
-//package custom.basic.configuration;
+// package custom.basic.configuration;
 //
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-//import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-//import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+// import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+// import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //
-///**
+/// **
 // * @author zack <br>
 // * @create 2021-06-27<br>
 // * @project project-cloud-custom <br>
 // */
-//@Configuration
-//public class MvcConfiguration implements WebMvcConfigurer {
+// @Configuration
+// public class MvcConfiguration implements WebMvcConfigurer {
 //
 //    /**
 //     * throw-exception-if-no-handler-found: true <br>
@@ -34,4 +34,4 @@
 //        registry.addRedirectViewController("/swagger-ui", "/swagger-ui.html");
 //        registry.addRedirectViewController("/api", "/swagger-ui.html");
 //    }
-//}
+// }

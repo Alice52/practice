@@ -25,9 +25,7 @@ import java.util.List;
 public class CachedUidGenerator extends DefaultUidGenerator implements DisposableBean {
     private static final int DEFAULT_BOOST_POWER = 3;
 
-    /**
-     * Spring properties
-     */
+    /** Spring properties */
     private int boostPower = DEFAULT_BOOST_POWER;
 
     private int paddingFactor = RingBuffer.DEFAULT_PADDING_PERCENT;
@@ -36,9 +34,7 @@ public class CachedUidGenerator extends DefaultUidGenerator implements Disposabl
     private RejectedPutBufferHandler rejectedPutBufferHandler;
     private RejectedTakeBufferHandler rejectedTakeBufferHandler;
 
-    /**
-     * RingBuffer
-     */
+    /** RingBuffer */
     private RingBuffer ringBuffer;
 
     private BufferPaddingExecutor bufferPaddingExecutor;
@@ -93,9 +89,7 @@ public class CachedUidGenerator extends DefaultUidGenerator implements Disposabl
         return uidList;
     }
 
-    /**
-     * Initialize RingBuffer & RingBufferPaddingExecutor
-     */
+    /** Initialize RingBuffer & RingBufferPaddingExecutor */
     private void initRingBuffer() {
         // initialize RingBuffer
         int bufferSize = ((int) bitsAllocator.getMaxSequence() + 1) << boostPower;
@@ -131,9 +125,7 @@ public class CachedUidGenerator extends DefaultUidGenerator implements Disposabl
         bufferPaddingExecutor.start();
     }
 
-    /**
-     * Setters for spring property
-     */
+    /** Setters for spring property */
     public void setBoostPower(int boostPower) {
         Assert.isTrue(boostPower > 0, "Boost power must be positive!");
         this.boostPower = boostPower;

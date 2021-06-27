@@ -44,9 +44,7 @@ public class DisposableWorkerIdAssigner extends ServiceImpl<WorkerNodeMapper, Wo
         return workerNodeEntity.getId();
     }
 
-    /**
-     * Build worker node entity by IP and PORT
-     */
+    /** Build worker node entity by IP and PORT */
     private WorkerNodeEntity buildWorkerNode() {
         WorkerNodeEntity workerNodeEntity = new WorkerNodeEntity();
         if (DockerUtils.isDocker()) {

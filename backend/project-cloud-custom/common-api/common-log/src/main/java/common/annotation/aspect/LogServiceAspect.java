@@ -31,8 +31,7 @@ public class LogServiceAspect {
             "execution (* cn.ed--ail.*.*(..)) "
                     + "|| execution (* cn.e--ll.service.*.*(..))"
                     + "|| execution (* cn.ed-ponent.*.*(..))")
-    public void requestLogAspect() {
-    }
+    public void requestLogAspect() {}
 
     @Before("requestLogAspect()")
     public void validateBefore(JoinPoint joinPoint) {

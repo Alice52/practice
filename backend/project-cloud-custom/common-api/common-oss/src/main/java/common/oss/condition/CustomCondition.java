@@ -28,9 +28,9 @@ public class CustomCondition implements Condition {
     /**
      * At least one of tencent and aliyun is enabled
      *
-     * @param context  the condition context
+     * @param context the condition context
      * @param metadata metadata of the {@link org.springframework.core.type.AnnotationMetadata
-     *                 class}, which is annotation info
+     *     class}, which is annotation info
      */
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {

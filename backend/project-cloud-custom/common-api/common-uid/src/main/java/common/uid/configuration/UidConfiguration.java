@@ -24,8 +24,7 @@ import javax.annotation.Resource;
 @MapperScan("common.uid.worker")
 public class UidConfiguration {
 
-    @Resource
-    private StructConfigProperties configProperties;
+    @Resource private StructConfigProperties configProperties;
 
     @Bean
     public DisposableWorkerIdAssigner disposableWorkerIdAssigner() {

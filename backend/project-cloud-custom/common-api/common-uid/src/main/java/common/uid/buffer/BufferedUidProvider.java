@@ -20,7 +20,6 @@ package common.uid.buffer;
  * @create 2021-06-23<br>
  * @project project-custom <br>
  */
-
 import java.util.List;
 
 /**
