@@ -1,4 +1,8 @@
+custom-config:
+  server-addr: ENC(e2i3gVIrfKPf7BGc1QY18HQlsyE7JSg/3BRsZ8TwXHewvOw5o1SHUhDbtk1hb+rZfOtzDXZGXGpcz5fiUgBuaw==)
+
 server:
+  port: 3333
   undertow:
     io-threads: 2
     # undertow:   worker(availableProcessors() * 8), queue(N/A)
@@ -41,24 +45,15 @@ logging:
     custom.*: debug
     common.*: debug
 
-## 直接放行URL
-#common:
-#  core:
-#    ignore:
-#      ignoreMatchers:
-#        - antPattern: /actuator/**
-#        - antPattern: /v2/api-docs
-#          method: GET
-#        - antPattern: /aug/test/**
-#          method: GET
-#        - antPattern: /aug/inner/**
-#        - antPattern: /mcdonalds/inner/**
-#        - antPattern: /mcdonalds/health/**
-#          method: GET
-#        - antPattern: /mcdonalds/store/**
-#          method: GET
-#    security:
-#      urlRules:
-#        - accessRule: "@pms.isAdmin()"
-#          matchers:
-#            - pattern: /admin/**
+# 直接放行URL
+common:
+  core:
+    ignore:
+      ignoreMatchers:
+        - antPattern: /actuator/**
+        - antPattern: /v2/api-docs
+          method: GET
+        - antPattern: /basic/inner/**
+        - antPattern: /basic/admin/**
+        - antPattern: /basic/health/**
+          method: GET

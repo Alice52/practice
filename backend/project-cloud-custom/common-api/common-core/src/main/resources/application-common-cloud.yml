@@ -41,24 +41,24 @@ logging:
     custom.*: debug
     common.*: debug
 
-# 直接放行URL
-common:
-  core:
-    ignore:
-      ignoreMatchers:
-        - antPattern: /actuator/**
-        - antPattern: /v2/api-docs
-          method: GET
-        - antPattern: /aug/test/**
-          method: GET
-        - antPattern: /aug/inner/**
-        - antPattern: /mcdonalds/inner/**
-        - antPattern: /mcdonalds/health/**
-          method: GET
-        - antPattern: /mcdonalds/store/**
-          method: GET
-    security:
-      urlRules:
-        - accessRule: "@pms.isAdmin()"
-          matchers:
-            - pattern: /admin/**
+## 直接放行URL
+#common:
+#  core:
+#    ignore:
+#      ignoreMatchers:
+#        - antPattern: /actuator/**
+#        - antPattern: /v2/api-docs
+#          method: GET
+#        - antPattern: /aug/test/**
+#          method: GET
+#        - antPattern: /aug/inner/**
+#        - antPattern: /mcdonalds/inner/**
+#        - antPattern: /mcdonalds/health/**
+#          method: GET
+#        - antPattern: /mcdonalds/store/**
+#          method: GET
+#    security:
+#      urlRules:
+#        - accessRule: "@pms.isAdmin()"
+#          matchers:
+#            - pattern: /admin/**
