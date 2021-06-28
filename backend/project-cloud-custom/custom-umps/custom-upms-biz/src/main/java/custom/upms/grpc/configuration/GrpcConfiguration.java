@@ -2,6 +2,7 @@ package custom.upms.grpc.configuration;
 
 import common.cloud.grpc.interceptor.LogInterceptor;
 import net.devh.boot.grpc.client.interceptor.GrpcGlobalClientInterceptor;
+import net.devh.boot.grpc.server.interceptor.GrpcGlobalServerInterceptor;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -20,7 +21,12 @@ public class GrpcConfiguration {
      * @return The newly created bean.
      */
     @GrpcGlobalClientInterceptor
-    public LogInterceptor logClientInterceptor() {
+    public LogInterceptor clientLogClientInterceptor() {
+        return new LogInterceptor();
+    }
+
+    @GrpcGlobalServerInterceptor
+    public LogInterceptor serverLogClientInterceptor() {
         return new LogInterceptor();
     }
 }

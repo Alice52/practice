@@ -1,8 +1,10 @@
 package custom.basic.controller;
 
-import custom.basic.grpc.service.client.UpmsClientService;
+import common.core.util.R;
+import custom.basic.grpc.service.client.IUpmsClientService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +22,10 @@ import javax.annotation.Resource;
 @RequestMapping("/basic/grpc")
 public class GrpcController {
 
-    @Resource private UpmsClientService upmsClientService;
+    @Resource private IUpmsClientService upmsClientService;
 
-    @RequestMapping
-    public String sayHello(@RequestParam(defaultValue = "Zack") final String name) {
-        return upmsClientService.sayHello(name);
+    @GetMapping
+    public R<String> sayHello(@RequestParam(defaultValue = "zack") final String name) {
+        return R.success(upmsClientService.sayHello(name));
     }
 }

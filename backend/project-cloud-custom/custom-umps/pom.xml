@@ -14,7 +14,7 @@
     <modules>
         <module>custom-upms-api</module>
         <module>custom-upms-biz</module>
-        <module>custom-umps-grpc</module>
+        <module>custom-upms-grpc</module>
     </modules>
 
 </project>

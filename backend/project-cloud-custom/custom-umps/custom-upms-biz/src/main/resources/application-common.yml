@@ -58,6 +58,8 @@ common:
         - antPattern: /umps/health/**
           method: GET
 # grpc
-#grpc:
-#  server:
-#    port: 0
+
+grpc:
+  server:
+    # this will auto generate
+    port: 0

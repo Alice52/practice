@@ -4,7 +4,7 @@ spring:
     password: ENC(JIczcGuavcI1nX9NbM0YcDyHiQ834QTPhqmczAw+Qr8Nm6wPeq5p5M076HzPSbFF)
     port: ENC(AcXQfYO9iFqD0RYGjek03cmHP3k9y7fl9HEy41cg/mr0xoT4ApjXUbtlpKNK8OCp)
     database: 13
-    timeout: 6000ms
+    timeout: 6000 #ms
     enable: true
     redisson: classpath:redisson-cloud.yml
 #  cache:

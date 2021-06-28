@@ -61,10 +61,14 @@ common:
 # grpc
 grpc:
   server:
-    port: 5024
+    # this will auto generate
+    port: 0
   client:
-    cloud-grpc-server:
+    # this config can be customize, and used in @GrpcClient
+    upms-service:
+      # if no address config, will use client name
       address: 'discovery:///CUSTOM-UPMS-SERVICE'
       enableKeepAlive: true
       keepAliveWithoutCalls: true
-      negotiationType: plaintext
+      negotiationType: PLAINTEXT
+
