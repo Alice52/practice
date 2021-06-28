@@ -15,7 +15,7 @@
         <!-- common -->
         <dependency>
             <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-cloud</artifactId>
+            <artifactId>common-cloud-api</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -36,6 +36,14 @@
                 <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.devh</groupId>
+                    <artifactId>grpc-client-spring-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.devh</groupId>
+                    <artifactId>grpc-server-spring-boot-starter</artifactId>
                 </exclusion>
             </exclusions>
             <version>${project.version}</version>

@@ -57,3 +57,14 @@ common:
         - antPattern: /basic/admin/**
         - antPattern: /basic/health/**
           method: GET
+
+# grpc
+grpc:
+  server:
+    port: 5024
+  client:
+    cloud-grpc-server:
+      address: 'discovery:///CUSTOM-UPMS-SERVICE'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

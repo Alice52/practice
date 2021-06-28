@@ -15,7 +15,7 @@
         <!-- common -->
         <dependency>
             <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-cloud</artifactId>
+            <artifactId>common-cloud-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -23,6 +23,8 @@
             <artifactId>common-oss</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- module api -->
         <dependency>
             <groupId>cn.edu.ntu</groupId>
             <artifactId>custom-basic-api</artifactId>

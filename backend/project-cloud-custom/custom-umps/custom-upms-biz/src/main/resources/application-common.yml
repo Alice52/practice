@@ -57,3 +57,7 @@ common:
         - antPattern: /umps/admin/**
         - antPattern: /umps/health/**
           method: GET
+# grpc
+#grpc:
+#  server:
+#    port: 0
