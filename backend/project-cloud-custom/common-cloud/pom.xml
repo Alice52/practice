@@ -17,7 +17,7 @@
     </properties>
 
     <modules>
+        <module>common-cloud-biz</module>
         <module>common-cloud-api</module>
-        <module>common-cloud-grpc</module>
     </modules>
 </project>

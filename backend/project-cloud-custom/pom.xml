@@ -48,6 +48,7 @@
         <actuator.admin.version>2.2.4</actuator.admin.version>
         <spring.cloud.version>Hoxton.SR1</spring.cloud.version>
         <cloud.alibaba.version>2.1.0.RELEASE</cloud.alibaba.version>
+        <security.oauth.version>2.3.5.RELEASE</security.oauth.version>
 
         <!-- jackson -->
         <jackson.modules>2.9.8</jackson.modules>
@@ -174,6 +175,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${security.oauth.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${actuator.admin.version}</version>
@@ -219,6 +225,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis.plus.extension}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis.plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.elasticsearch.client</groupId>

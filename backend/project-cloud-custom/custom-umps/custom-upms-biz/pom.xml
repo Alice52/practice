@@ -15,7 +15,7 @@
         <!-- common -->
         <dependency>
             <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-cloud-api</artifactId>
+            <artifactId>common-cloud-biz</artifactId>
             <version>${project.version}</version>
         </dependency>
 

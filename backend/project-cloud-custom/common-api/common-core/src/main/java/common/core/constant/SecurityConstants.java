@@ -1,30 +1,34 @@
 package common.core.constant;
 
 /**
- * @author zack <br>
- * @create 2021-06-26<br>
- * @project project-cloud-custom <br>
+ * @author asd <br>
+ * @create 2021-06-29 3:12 PM <br>
+ * @project custom-upms-grpc <br>
  */
 public interface SecurityConstants {
-    /** 匿名用户 */
-    String ANONYMOUSUSER = "anonymousUser";
-
     /** 角色前缀 */
     String ROLE = "ROLE_";
+
     /** 前缀 */
     String PROJECT_PREFIX = "custom_cloud";
 
-    /** 项目的license */
-    String PROJECT_LICENSE = "made by mc";
+    // oauth
+    String OAUTH_PREFIX = PROJECT_PREFIX + ":oauth:";
+    String OAUTH_ACCESS_KEY_PREFIX = OAUTH_PREFIX + "access:";
 
-    /** 内部 */
+    String FROM = "from";
     String FROM_IN = "Y";
 
-    /** 标志 */
-    String FROM = "from";
+    // oauth 客户端信息
+    String CLIENT_DETAILS_KEY = OAUTH_PREFIX + "client:details";
+
+    // cache
+    String ADMIN_USER_DETAILS_KEY = PROJECT_PREFIX + ":admin:user_details";
 
     /** grant_type */
     String REFRESH_TOKEN = "refresh_token";
+
+    String ANONYMOUSUSER = "anonymousUser";
 
     String GRANT_TYPE_PASSWORD = "password";
 
@@ -37,7 +41,8 @@ public interface SecurityConstants {
                     + "refresh_token_validity, additional_information, autoapprove";
 
     /** JdbcClientDetailsService 查询语句 */
-    String BASE_FIND_STATEMENT = "select " + CLIENT_FIELDS + " from sys_oauth_client_details";
+    String BASE_FIND_STATEMENT =
+            "select " + CLIENT_FIELDS + " from custom_sys_oauth_client_details";
 
     /** 默认的查询语句 */
     String DEFAULT_FIND_STATEMENT = BASE_FIND_STATEMENT + " order by client_id";

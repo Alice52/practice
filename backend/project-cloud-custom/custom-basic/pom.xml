@@ -15,6 +15,5 @@
     <modules>
         <module>custom-basic-api</module>
         <module>custom-basic-biz</module>
-        <module>custom-basic-grpc</module>
     </modules>
 </project>

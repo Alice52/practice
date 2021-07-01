@@ -18,21 +18,13 @@
     <dependencies>
         <dependency>
             <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-core</artifactId>
+            <artifactId>common-cloud-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>cn.edu.ntu</groupId>
-            <artifactId>custom-basic-grpc</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>cn.edu.ntu</groupId>
             <artifactId>custom-upms-api</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-
 </project>
