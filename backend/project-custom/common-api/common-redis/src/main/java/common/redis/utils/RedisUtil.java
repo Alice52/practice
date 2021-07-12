@@ -49,6 +49,7 @@ public class RedisUtil {
 
     @Resource private RedisTemplate<String, Object> redisTemplate;
     @Resource private RedisScript<String> batchRegDelete;
+    @Resource private RedisScript<Boolean> reduceStock;
     @Resource private StringRedisTemplate stringRedisTemplate;
 
     /**
@@ -214,7 +215,6 @@ public class RedisUtil {
     }
 
     /**
-     * set value and default expire in config time.<br>
      * unit is {@link TimeUnit#HOURS}
      *
      * @param prefix
@@ -222,7 +222,6 @@ public class RedisUtil {
      * @param keys
      * @param <E>
      */
-    @Deprecated
     public <E> void set(KeyPrefix prefix, E e, String... keys) {
 
         set(e, buildKey(prefix, keys), -1, TimeUnit.SECONDS);
@@ -422,5 +421,18 @@ public class RedisUtil {
         matchedKeys.forEach(x -> map.put(x, get(x, Object.class)));
 
         return map;
+    }
+
+    public Boolean reduceStock(RedisKeyCommonEnum prefix, String... keys) {
+
+        String matchKey = buildKey(prefix, keys);
+        return stringRedisTemplate.execute(reduceStock, Collections.emptyList(), matchKey);
+    }
+
+    public Boolean reduceStock(RedisKeyCommonEnum prefix, int delta, String... keys) {
+
+        String matchKey = buildKey(prefix, keys);
+        return stringRedisTemplate.execute(
+                reduceStock, Collections.emptyList(), matchKey, String.valueOf(delta));
     }
 }

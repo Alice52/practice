@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Map;
 import java.util.Set;
 
+import static common.redis.constants.enums.RedisKeyCommonEnum.GOODS_STOCK;
 import static common.redis.constants.enums.RedisKeyCommonEnum.SCAN_SEARCH;
 
 /**
@@ -64,5 +65,20 @@ public class SampleRedisController {
         return R.<Map<String, Object>>builder()
                 .data(redisUtil.scanSearchWithValue(SCAN_SEARCH, 1000, key + "*"))
                 .build();
+    }
+
+    @LogAnno
+    @PostMapping("/init-stock")
+    public @NotNull R initStock(@RequestParam("key") String key) {
+        redisUtil.set(GOODS_STOCK, 100, key);
+        return R.success();
+    }
+
+    @LogAnno
+    @PutMapping("/stock")
+    @ApiOperation("Reduce Stock By String")
+    public @NotNull R<Boolean> reduceStock(
+            @RequestParam("key") String key, @RequestParam("delta") Integer delta) {
+        return R.<Boolean>builder().data(redisUtil.reduceStock(GOODS_STOCK, key)).build();
     }
 }

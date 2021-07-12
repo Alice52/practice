@@ -5,12 +5,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.web.embedded.undertow.ConfigurableUndertowWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.stereotype.Component;
 
 /**
  * @author asd <br>
  * @create 2021-06-29 2:27 PM <br>
  * @project custom-upms-grpc <br>
  */
+@Component
 public class UndertowWebServerAccessLogTimingEnabler
         implements WebServerFactoryCustomizer<ConfigurableUndertowWebServerFactory> {
 

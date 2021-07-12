@@ -9,6 +9,7 @@ package common.redis.key;
 public abstract class BasePrefix implements KeyPrefix {
 
     @Override
+    @Deprecated
     public String getPrefix() {
         String className = getClass().getSimpleName();
         return className + ":" + prefix;
