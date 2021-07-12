@@ -10,5 +10,4 @@ import org.apache.ibatis.annotations.Mapper;
  * @project integration <br>
  */
 @Mapper
-public interface PhaseMapper extends BaseMapper<Phase> {
-}
+public interface PhaseMapper extends BaseMapper<Phase> {}

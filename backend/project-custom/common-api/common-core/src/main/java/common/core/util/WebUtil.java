@@ -41,8 +41,7 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
     private static final String BEARER_ = "Bearer ";
     private static final int MAX_LENGTH = 15;
 
-    @Resource
-    private SnowflakeConfig snowflake;
+    @Resource private SnowflakeConfig snowflake;
 
     public static HttpServletRequest getCurrentRequest() {
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
@@ -133,7 +132,7 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
      * 读取cookie
      *
      * @param request HttpServletRequest
-     * @param name    cookie name
+     * @param name cookie name
      * @return cookie value
      */
     public static String getCookieVal(HttpServletRequest request, String name) {
@@ -145,7 +144,7 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
      * 清除 某个指定的cookie
      *
      * @param response HttpServletResponse
-     * @param key      cookie key
+     * @param key cookie key
      */
     public static void removeCookie(HttpServletResponse response, String key) {
         setCookie(response, key, null, 0);
@@ -154,9 +153,9 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
     /**
      * 设置cookie
      *
-     * @param response        HttpServletResponse
-     * @param name            cookie name
-     * @param value           cookie value
+     * @param response HttpServletResponse
+     * @param name cookie name
+     * @param value cookie value
      * @param maxAgeInSeconds maxage
      */
     public static void setCookie(
@@ -172,7 +171,7 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
      * 返回json
      *
      * @param response HttpServletResponse
-     * @param result   结果对象
+     * @param result 结果对象
      */
     public static void renderJson(HttpServletResponse response, Object result) {
         renderJson(response, result, MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -181,8 +180,8 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
     /**
      * 返回json
      *
-     * @param response    HttpServletResponse
-     * @param result      结果对象
+     * @param response HttpServletResponse
+     * @param result 结果对象
      * @param contentType contentType
      */
     public static void renderJson(HttpServletResponse response, Object result, String contentType) {
@@ -223,7 +222,7 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
         if (delim == -1) {
             throw new CheckedException("Invalid basic authentication token");
         }
-        return new String[]{token.substring(0, delim), token.substring(delim + 1)};
+        return new String[] {token.substring(0, delim), token.substring(delim + 1)};
     }
 
     public String getRequestId(HttpServletRequest request, String requestIdKey) {

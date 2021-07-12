@@ -24,8 +24,7 @@ public class WebRequestLogAspect {
     private ThreadLocal<LogVO> tlocal = new ThreadLocal<LogVO>();
 
     @Pointcut("execution(* com.xxx.xxx.controller..*.*(..))")
-    public void webRequestLog() {
-    }
+    public void webRequestLog() {}
 
     @Before("webRequestLog()")
     public void doBefore(JoinPoint joinPoint) {

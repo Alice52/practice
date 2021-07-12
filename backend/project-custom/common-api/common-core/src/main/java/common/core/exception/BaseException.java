@@ -20,11 +20,9 @@ import javax.validation.constraints.NotNull;
 public class BaseException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    @NotNull
-    private IBaseErrorResponse responseEnum;
+    @NotNull private IBaseErrorResponse responseEnum;
 
-    @Nullable
-    private Object[] args;
+    @Nullable private Object[] args;
 
     public BaseException(IBaseErrorResponse responseEnum) {
         super(responseEnum.getErrorMsg());

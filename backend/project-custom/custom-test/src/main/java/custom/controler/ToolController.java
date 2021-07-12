@@ -5,7 +5,6 @@ package custom.controler;
  * @create 2021-06-22 12:58 <br>
  * @project swagger-3 <br>
  */
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,9 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/tool")
 public class ToolController {
-    /**
-     * please remove manually if no use
-     */
+    /** please remove manually if no use */
     public static final ThreadLocal<String> tl = new ThreadLocal<>();
 
     @RequestMapping(

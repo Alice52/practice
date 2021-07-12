@@ -27,7 +27,7 @@ public interface PhaseConverter {
      * @return
      */
     @Mappings({
-            @Mapping(target = "status", ignore = true),
+        @Mapping(target = "status", ignore = true),
     })
     @Nullable
     Phase dto2po(@Nullable PhaseDTO dto);
@@ -48,8 +48,8 @@ public interface PhaseConverter {
      * @return
      */
     @Mappings({
-            @Mapping(target = "status", ignore = true),
-            @Mapping(target = "isDeleted", ignore = true)
+        @Mapping(target = "status", ignore = true),
+        @Mapping(target = "isDeleted", ignore = true)
     })
     @Nullable
     PhaseVO po2vo(@Nullable Phase po);

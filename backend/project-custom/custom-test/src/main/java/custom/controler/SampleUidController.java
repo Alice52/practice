@@ -26,11 +26,9 @@ import java.util.HashMap;
 @Slf4j
 public class SampleUidController {
 
-    @Resource
-    private CachedUidGenerator cachedUidGenerator;
+    @Resource private CachedUidGenerator cachedUidGenerator;
 
-    @Resource
-    private DefaultUidGenerator defaultUidGenerator;
+    @Resource private DefaultUidGenerator defaultUidGenerator;
 
     @LogAnno
     @GetMapping("/cached-generator")

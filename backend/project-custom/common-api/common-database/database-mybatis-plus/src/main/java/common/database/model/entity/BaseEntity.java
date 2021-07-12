@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 public class BaseEntity<T extends Model> extends Model<T> implements Serializable {
     protected static final long serialVersionUID = 1L;
 
-    @TableLogic
-    private Boolean isDeleted;
+    @TableLogic private Boolean isDeleted;
 
     /**
      * FieldFill.INSERT will work in create:

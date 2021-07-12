@@ -27,10 +27,10 @@ import java.util.Properties;
  */
 @Slf4j
 @Intercepts({
-        @Signature(
-                type = StatementHandler.class,
-                method = "prepare",
-                args = {Connection.class, Integer.class})
+    @Signature(
+            type = StatementHandler.class,
+            method = "prepare",
+            args = {Connection.class, Integer.class})
 })
 public class DataScopeInterceptor extends AbstractSqlParserHandler implements Interceptor {
 
@@ -95,8 +95,7 @@ public class DataScopeInterceptor extends AbstractSqlParserHandler implements In
      * @param properties mybatis配置的属性
      */
     @Override
-    public void setProperties(Properties properties) {
-    }
+    public void setProperties(Properties properties) {}
 
     /**
      * 查找参数是否包括DataScope对象

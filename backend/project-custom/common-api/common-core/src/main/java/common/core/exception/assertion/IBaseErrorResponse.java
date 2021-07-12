@@ -25,6 +25,5 @@ public interface IBaseErrorResponse {
      *
      * @param errorMsg
      */
-    default void setErrorMsg(String errorMsg) {
-    }
+    default void setErrorMsg(String errorMsg) {}
 }

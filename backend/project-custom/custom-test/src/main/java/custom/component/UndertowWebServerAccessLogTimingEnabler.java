@@ -8,9 +8,9 @@ import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.stereotype.Component;
 
 /**
- * @author zack <br/>
- * @create 2021-07-12<br/>
- * @project project-custom <br/>
+ * @author zack <br>
+ * @create 2021-07-12<br>
+ * @project project-custom <br>
  */
 @Component
 public class UndertowWebServerAccessLogTimingEnabler

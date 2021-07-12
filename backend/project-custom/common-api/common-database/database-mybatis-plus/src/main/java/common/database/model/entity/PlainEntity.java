@@ -13,8 +13,7 @@ import java.time.LocalDateTime;
 public class PlainEntity<T extends Model> extends Model<T> implements Serializable {
     protected static final long serialVersionUID = 1L;
 
-    @TableLogic
-    private Boolean isDeleted;
+    @TableLogic private Boolean isDeleted;
 
     private LocalDateTime insertedTime;
 

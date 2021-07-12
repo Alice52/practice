@@ -41,8 +41,7 @@ import java.util.Optional;
 @OssType(type = OssUploadTypeEnum.aliyun)
 public class AliyunOssHandler implements OSSHander {
 
-    @Autowired
-    private AliyunOssProperties ossProperties;
+    @Autowired private AliyunOssProperties ossProperties;
     private OSS ossClient;
 
     @Override

@@ -31,8 +31,7 @@ import java.util.stream.Collectors;
 public class PhaseServiceV2Impl extends ServiceImpl<PhaseMapper, Phase> implements PhaseService {
     private static final String CACHE_KEY = "phase-v2-list";
 
-    @Resource
-    private RedisTemplate redisTemplate;
+    @Resource private RedisTemplate redisTemplate;
 
     @Override
     public Boolean createPhase(PhaseDTO dto) {

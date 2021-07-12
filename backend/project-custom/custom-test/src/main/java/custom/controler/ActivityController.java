@@ -23,8 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/custom")
 public class ActivityController {
-    @Resource
-    private ActivityService activityService;
+    @Resource private ActivityService activityService;
 
     @GetMapping("/activities")
     public R<List<ActivityVO>> list(@RequestParam(value = "id") List<Long> ids) {

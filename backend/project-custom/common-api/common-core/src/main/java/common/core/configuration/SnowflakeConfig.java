@@ -18,16 +18,13 @@ import javax.annotation.PostConstruct;
 @Slf4j
 @Deprecated
 public class SnowflakeConfig {
-    /**
-     * 为终端ID
-     */
+    /** 为终端ID */
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private long workerId = 0;
 
-    /**
-     * 数据中心ID
-     */
+    /** 数据中心ID */
     private long dataCenterId = 1;
+
     private Snowflake snowflake = IdUtil.createSnowflake(workerId, dataCenterId);
 
     @PostConstruct

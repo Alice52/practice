@@ -24,8 +24,7 @@ import java.net.URI;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CustomApplication.class)
 public class OssTest {
-    @Resource
-    private OssContextV2 ossContext;
+    @Resource private OssContextV2 ossContext;
 
     private String URL_PATH =
             "https://imgcache.qq.com/open_proj/proj_qcloud_v2/cvm/src/styles/img/sence1.png";

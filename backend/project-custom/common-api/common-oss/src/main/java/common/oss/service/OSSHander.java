@@ -23,9 +23,7 @@ public interface OSSHander {
 
     Logger log = LoggerFactory.getLogger(OSSHander.class);
 
-    /**
-     * Init oss client
-     */
+    /** Init oss client */
     default void init() throws OperationNotSupportedException {
         throw new OperationNotSupportedException();
     }

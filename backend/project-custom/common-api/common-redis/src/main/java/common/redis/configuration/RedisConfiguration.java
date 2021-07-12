@@ -35,9 +35,7 @@ import java.time.Duration;
 @Configuration
 public class RedisConfiguration {
     StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-    /**
-     * handle value serialization
-     */
+    /** handle value serialization */
     private Jackson2JsonRedisSerializer<Object> j2jrs =
             new Jackson2JsonRedisSerializer<>(Object.class);
 

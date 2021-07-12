@@ -30,8 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/custom")
 public class PhaseController {
-    @Resource
-    private PhaseService phaseService;
+    @Resource private PhaseService phaseService;
 
     @GetMapping("/phases")
     @Cacheable(
@@ -60,8 +59,8 @@ public class PhaseController {
     @PutMapping("/phase/{id}")
     @Caching(
             evict = {
-                    @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
-                    @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
             })
     public R<Boolean> update(@PathVariable("id") Long id, @RequestBody PhaseDTO phase) {
         phase.setId(id);
@@ -71,8 +70,8 @@ public class PhaseController {
     @DeleteMapping("/phase/{id}")
     @Caching(
             evict = {
-                    @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
-                    @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "#id"),
+                @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
             })
     public R<Boolean> delete(@PathVariable("id") Long id) {
         return R.success(phaseService.deletePhase(id));

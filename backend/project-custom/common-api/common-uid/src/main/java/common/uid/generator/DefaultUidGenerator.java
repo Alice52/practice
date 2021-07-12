@@ -33,27 +33,27 @@ import java.util.concurrent.TimeUnit;
  * <p>The unique id has 64bits (long), default allocated as blow:<br>
  * <li>sign: The highest bit is 0
  * <li>delta seconds: The next 28 bits, represents delta seconds since a customer epoch(2016-05-20
- * 00:00:00.000). Supports about 8.7 years until to 2024-11-20 21:24:16
+ *     00:00:00.000). Supports about 8.7 years until to 2024-11-20 21:24:16
  * <li>worker id: The next 22 bits, represents the worker's id which assigns based on database, max
- * id is about 420W
+ *     id is about 420W
  * <li>sequence: The next 13 bits, represents a sequence within the same second, max for 8192/s<br>
- * <br>
- * The {@link DefaultUidGenerator#parseUID(long)} is a tool method to parse the bits
+ *     <br>
+ *     The {@link DefaultUidGenerator#parseUID(long)} is a tool method to parse the bits
  *
- * <pre>{@code
+ *     <pre>{@code
  * +------+----------------------+----------------+-----------+
  * | sign |     delta seconds    | worker node id | sequence  |
  * +------+----------------------+----------------+-----------+
  *   1bit          28bits              22bits         13bits
  * }</pre>
- * <p>
- * You can also specified the bits by Spring property setting.
+ *
+ *     <p>You can also specified the bits by Spring property setting.
  * <li>timeBits: default as 28
  * <li>workerBits: default as 22
  * <li>seqBits: default as 13
  * <li>epochStr: Epoch date string format 'yyyy-MM-dd'. Default as '2016-05-20'
  *
- * <p><b>Note that:</b> The total bits must be 64 -1
+ *     <p><b>Note that:</b> The total bits must be 64 -1
  *
  * @author zack <br>
  * @create 2021-06-23<br>
@@ -62,38 +62,28 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class DefaultUidGenerator implements UidGenerator, InitializingBean {
 
-    /**
-     * Bits allocate
-     */
+    /** Bits allocate */
     protected int timeBits = 28;
 
     protected int workerBits = 22;
     protected int seqBits = 13;
 
-    /**
-     * Customer epoch, unit as second. For example 2016-05-20 (ms: 1463673600000)
-     */
+    /** Customer epoch, unit as second. For example 2016-05-20 (ms: 1463673600000) */
     protected String epochStr = "2016-05-20";
 
     protected long epochSeconds = TimeUnit.MILLISECONDS.toSeconds(1463673600000L);
 
-    /**
-     * Stable fields after spring bean initializing
-     */
+    /** Stable fields after spring bean initializing */
     protected BitsAllocator bitsAllocator;
 
     protected long workerId;
 
-    /**
-     * Volatile fields caused by nextId()
-     */
+    /** Volatile fields caused by nextId() */
     protected long sequence = 0L;
 
     protected long lastSecond = -1L;
 
-    /**
-     * Spring property
-     */
+    /** Spring property */
     protected IWorkerIdAssigner workerIdAssigner;
 
     @Override
@@ -185,9 +175,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
         return bitsAllocator.allocate(currentSecond - epochSeconds, workerId, sequence);
     }
 
-    /**
-     * Get next millisecond
-     */
+    /** Get next millisecond */
     private long getNextSecond(long lastTimestamp) {
         long timestamp = getCurrentSecond();
         while (timestamp <= lastTimestamp) {
@@ -197,9 +185,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
         return timestamp;
     }
 
-    /**
-     * Get current second
-     */
+    /** Get current second */
     private long getCurrentSecond() {
         long currentSecond = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
         if (currentSecond - epochSeconds > bitsAllocator.getMaxDeltaSeconds()) {
@@ -211,9 +197,7 @@ public class DefaultUidGenerator implements UidGenerator, InitializingBean {
         return currentSecond;
     }
 
-    /**
-     * Setters for spring property
-     */
+    /** Setters for spring property */
     public void setWorkerIdAssigner(IWorkerIdAssigner workerIdAssigner) {
         this.workerIdAssigner = workerIdAssigner;
     }

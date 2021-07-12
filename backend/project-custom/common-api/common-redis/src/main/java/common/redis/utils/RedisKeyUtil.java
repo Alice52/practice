@@ -14,11 +14,6 @@ import org.springframework.stereotype.Component;
 public class RedisKeyUtil {
     private static String module;
 
-    @Value("${common.core.redis.module:common}")
-    public void setModule(String module) {
-        RedisKeyUtil.module = module;
-    }
-
     /**
      * build key by prefix and addition info with modules.
      *
@@ -41,5 +36,10 @@ public class RedisKeyUtil {
         }
 
         return realKey.toString();
+    }
+
+    @Value("${common.core.redis.module:common}")
+    public void setModule(String module) {
+        RedisKeyUtil.module = module;
     }
 }

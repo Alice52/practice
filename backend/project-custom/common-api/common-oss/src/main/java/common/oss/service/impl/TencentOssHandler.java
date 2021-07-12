@@ -40,8 +40,7 @@ import java.util.TreeMap;
 @OssType(type = OssUploadTypeEnum.tencent)
 public class TencentOssHandler implements OSSHander {
 
-    @Resource
-    private TencentOSSProperties ossProperties;
+    @Resource private TencentOSSProperties ossProperties;
     private COSClient cosClient;
 
     @Override
@@ -78,7 +77,7 @@ public class TencentOssHandler implements OSSHander {
         config.put("allowPrefix", "*");
         // 密钥的权限列表。简单上传、表单上传和分片上传需要以下的权限，其他权限列表请看
         // https://cloud.tencent.com/document/product/436/31923
-        String[] allowActions = new String[]{"name/cos:*"};
+        String[] allowActions = new String[] {"name/cos:*"};
         config.put("allowActions", allowActions);
         try {
             JSONObject credential = CosStsClient.getCredential(config);

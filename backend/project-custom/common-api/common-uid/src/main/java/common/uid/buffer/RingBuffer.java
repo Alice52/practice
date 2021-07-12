@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * <p>A ring buffer is consisted of:
  * <li><b>slots:</b> each element of the array is a slot, which is be set with a UID
  * <li><b>flags:</b> flag array corresponding the same index with the slots, indicates whether can
- * take or put slot
+ *     take or put slot
  * <li><b>tail:</b> a sequence of the max slot position to produce
  * <li><b>cursor:</b> a sequence of the min slot position to consume
  *
@@ -43,47 +43,33 @@ import java.util.concurrent.atomic.AtomicLong;
 public class RingBuffer {
 
     public static final int DEFAULT_PADDING_PERCENT = 50;
-    /**
-     * Constants
-     */
+    /** Constants */
     private static final int START_POINT = -1;
 
     private static final long CAN_PUT_FLAG = 0L;
     private static final long CAN_TAKE_FLAG = 1L;
-    /**
-     * The size of RingBuffer's slots, each slot hold a UID
-     */
+    /** The size of RingBuffer's slots, each slot hold a UID */
     private final int bufferSize;
 
     private final long indexMask;
     private final long[] slots;
     private final PaddedAtomicLong[] flags;
 
-    /**
-     * Tail: last position sequence to produce
-     */
+    /** Tail: last position sequence to produce */
     private final AtomicLong tail = new PaddedAtomicLong(START_POINT);
 
-    /**
-     * Cursor: current position sequence to consume
-     */
+    /** Cursor: current position sequence to consume */
     private final AtomicLong cursor = new PaddedAtomicLong(START_POINT);
 
-    /**
-     * Threshold for trigger padding buffer
-     */
+    /** Threshold for trigger padding buffer */
     private final int paddingThreshold;
 
-    /**
-     * Reject put/take buffer handle policy
-     */
+    /** Reject put/take buffer handle policy */
     private RejectedPutBufferHandler rejectedPutHandler = this::discardPutBuffer;
 
     private RejectedTakeBufferHandler rejectedTakeHandler = this::exceptionRejectedTakeBuffer;
 
-    /**
-     * Executor of padding buffer
-     */
+    /** Executor of padding buffer */
     private BufferPaddingExecutor bufferPaddingExecutor;
 
     /**
@@ -98,11 +84,11 @@ public class RingBuffer {
     /**
      * Constructor with buffer size & padding factor
      *
-     * @param bufferSize    must be positive & a power of 2
+     * @param bufferSize must be positive & a power of 2
      * @param paddingFactor percent in (0 - 100). When the count of rest available UIDs reach the
-     *                      threshold, it will trigger padding buffer<br>
-     *                      Sample: paddingFactor=20, bufferSize=1000 -> threshold=1000 * 20 /100, padding buffer
-     *                      will be triggered when tail-cursor<threshold
+     *     threshold, it will trigger padding buffer<br>
+     *     Sample: paddingFactor=20, bufferSize=1000 -> threshold=1000 * 20 /100, padding buffer
+     *     will be triggered when tail-cursor<threshold
      */
     public RingBuffer(int bufferSize, int paddingFactor) {
         // check buffer size is positive & a power of 2; padding factor in (0, 100)
@@ -214,16 +200,12 @@ public class RingBuffer {
         return uid;
     }
 
-    /**
-     * Calculate slot index with the slot sequence (sequence % bufferSize)
-     */
+    /** Calculate slot index with the slot sequence (sequence % bufferSize) */
     protected int calSlotIndex(long sequence) {
         return (int) (sequence & indexMask);
     }
 
-    /**
-     * Discard policy for {@link RejectedPutBufferHandler}, we just do logging
-     */
+    /** Discard policy for {@link RejectedPutBufferHandler}, we just do logging */
     protected void discardPutBuffer(RingBuffer ringBuffer, long uid) {
         log.warn("Rejected putting buffer for uid:{}. {}", uid, ringBuffer);
     }
@@ -236,9 +218,7 @@ public class RingBuffer {
         throw new RuntimeException("Rejected take buffer. " + ringBuffer);
     }
 
-    /**
-     * Initialize flags as CAN_PUT_FLAG
-     */
+    /** Initialize flags as CAN_PUT_FLAG */
     private PaddedAtomicLong[] initFlags(int bufferSize) {
         PaddedAtomicLong[] flags = new PaddedAtomicLong[bufferSize];
         for (int i = 0; i < bufferSize; i++) {
@@ -248,9 +228,7 @@ public class RingBuffer {
         return flags;
     }
 
-    /**
-     * Getters
-     */
+    /** Getters */
     public long getTail() {
         return tail.get();
     }
@@ -263,9 +241,7 @@ public class RingBuffer {
         return bufferSize;
     }
 
-    /**
-     * Setters
-     */
+    /** Setters */
     public void setBufferPaddingExecutor(BufferPaddingExecutor bufferPaddingExecutor) {
         this.bufferPaddingExecutor = bufferPaddingExecutor;
     }

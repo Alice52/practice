@@ -20,9 +20,7 @@ import org.aspectj.lang.annotation.Aspect;
 @Slf4j
 public class LogAnnoAspect {
 
-    /**
-     * https://www.cnblogs.com/liqbk/p/13497502.html
-     */
+    /** https://www.cnblogs.com/liqbk/p/13497502.html */
     @Around(value = "@annotation(logAnno)")
     @SneakyThrows
     public Object around(ProceedingJoinPoint point, LogAnno logAnno) {

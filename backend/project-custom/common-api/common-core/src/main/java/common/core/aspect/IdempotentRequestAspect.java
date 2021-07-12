@@ -30,9 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class IdempotentRequestAspect {
 
-    /**
-     * <uri, <token, count>>
-     */
+    /** <uri, <token, count>> */
     private static final Map<String, ExpiringMap<String, Integer>> map =
             new ConcurrentHashMap<>(16);
 
@@ -42,8 +40,7 @@ public class IdempotentRequestAspect {
      * @see LocalIdempotentRequest
      */
     @Pointcut("@annotation(localIdempotentRequest)")
-    public void pointCut(LocalIdempotentRequest localIdempotentRequest) {
-    }
+    public void pointCut(LocalIdempotentRequest localIdempotentRequest) {}
 
     @Around("pointCut(localIdempotentRequest)")
     public Object doPoint(ProceedingJoinPoint point, LocalIdempotentRequest localIdempotentRequest)

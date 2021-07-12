@@ -19,26 +19,16 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 public class NamingThreadFactory implements ThreadFactory {
 
-    /**
-     * Sequences for multi thread name prefix
-     */
+    /** Sequences for multi thread name prefix */
     private final ConcurrentHashMap<String, AtomicLong> sequences;
-    /**
-     * Thread name pre
-     */
+    /** Thread name pre */
     private String name;
-    /**
-     * Is daemon thread
-     */
+    /** Is daemon thread */
     private boolean daemon;
-    /**
-     * UncaughtExceptionHandler
-     */
+    /** UncaughtExceptionHandler */
     private Thread.UncaughtExceptionHandler uncaughtExceptionHandler;
 
-    /**
-     * Constructors
-     */
+    /** Constructors */
     public NamingThreadFactory() {
         this(null, false, null);
     }
@@ -122,9 +112,7 @@ public class NamingThreadFactory implements ThreadFactory {
         return r.incrementAndGet();
     }
 
-    /**
-     * Getters & Setters
-     */
+    /** Getters & Setters */
     public String getName() {
         return name;
     }

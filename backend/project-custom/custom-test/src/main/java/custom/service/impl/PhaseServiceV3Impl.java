@@ -33,8 +33,7 @@ import java.util.stream.Collectors;
 public class PhaseServiceV3Impl extends ServiceImpl<PhaseMapper, Phase> implements PhaseService {
     private static final String CACHE_KEY = "phase-v3-hash";
 
-    @Resource
-    private RedisTemplate redisTemplate;
+    @Resource private RedisTemplate redisTemplate;
 
     @Override
     public Boolean createPhase(PhaseDTO dto) {

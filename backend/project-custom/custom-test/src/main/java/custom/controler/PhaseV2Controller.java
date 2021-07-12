@@ -26,8 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/custom/v2")
 public class PhaseV2Controller {
-    @Resource
-    private PhaseServiceV2Impl phaseService;
+    @Resource private PhaseServiceV2Impl phaseService;
 
     @GetMapping("/phases")
     public R<List<PhaseVO>> list(

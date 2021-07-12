@@ -50,8 +50,7 @@ public class SensitivePlugin implements Interceptor {
     }
 
     @Override
-    public void setProperties(Properties properties) {
-    }
+    public void setProperties(Properties properties) {}
 
     private void sensitive(Object source) {
         // 拿到返回值类型
