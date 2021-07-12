@@ -2,17 +2,32 @@ package common.redis.utils;
 
 import cn.hutool.core.util.StrUtil;
 import common.redis.key.KeyPrefix;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @author zack <br>
  * @create 2021-06-03 14:32 <br>
  * @project custom-test <br>
  */
-public final class RedisKeyUtil {
+@Component
+public class RedisKeyUtil {
+    private static String module;
 
-    public static String buildDeleteKey(String module, KeyPrefix prefix, String... params) {
+    @Value("${common.core.redis.module:common}")
+    public void setModule(String module) {
+        RedisKeyUtil.module = module;
+    }
 
-        return buildKey(module, prefix, params);
+    /**
+     * build key by prefix and addition info with modules.
+     *
+     * @param prefix
+     * @param keys
+     * @return
+     */
+    public static String buildKey(KeyPrefix prefix, String... keys) {
+        return buildKey(module, prefix, keys);
     }
 
     protected static String buildKey(String module, KeyPrefix prefix, String... params) {

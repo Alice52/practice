@@ -14,4 +14,4 @@ common:
   core:
     redis:
       module: common
-      expire-time: 24
+      # expire-time: 24

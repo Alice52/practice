@@ -13,6 +13,7 @@ public enum RedisKeyCommonEnum implements KeyPrefix {
     VERIFY_CODE("verify_code"),
     CACHE_LIMIT("request_limit"),
     BATCH_DELETE("batch_delete"),
+    SCAN_SEARCH("search"),
     ;
 
     private String prefix = KeyPrefix.prefix;

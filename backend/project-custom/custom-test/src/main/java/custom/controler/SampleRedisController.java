@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
+import java.util.Set;
+
+import static common.redis.constants.enums.RedisKeyCommonEnum.SCAN_SEARCH;
 
 /**
  * @author zack <br>
@@ -23,8 +27,7 @@ import javax.validation.constraints.NotNull;
 @Slf4j
 public class SampleRedisController {
 
-    @Resource
-    private RedisUtil redisUtil;
+    @Resource private RedisUtil redisUtil;
 
     @PostMapping
     @ApiOperation("Batch Insert Sample")
@@ -42,6 +45,24 @@ public class SampleRedisController {
 
         return R.<Boolean>builder()
                 .data(redisUtil.batchDeleteKey(RedisKeyCommonEnum.BATCH_DELETE, 1000, key + "*"))
+                .build();
+    }
+
+    @LogAnno
+    @GetMapping("/keys")
+    @ApiOperation("Scan Search Sample")
+    public @NotNull R<Set> search(@RequestParam("key") String key) {
+
+        return R.<Set>builder().data(redisUtil.scanSearch(SCAN_SEARCH, 1000, key + "*")).build();
+    }
+
+    @LogAnno
+    @GetMapping("/values")
+    @ApiOperation("Scan Search With Value Sample")
+    public @NotNull R<Map<String, Object>> searchWithValue(@RequestParam("key") String key) {
+
+        return R.<Map<String, Object>>builder()
+                .data(redisUtil.scanSearchWithValue(SCAN_SEARCH, 1000, key + "*"))
                 .build();
     }
 }

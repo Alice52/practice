@@ -5,7 +5,6 @@ import common.core.constant.enums.CommonResponseEnum;
 import common.core.exception.BaseException;
 import common.redis.annotation.RedisLimitRequest;
 import common.redis.constants.enums.RedisKeyCommonEnum;
-import common.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -23,6 +22,8 @@ import java.time.Instant;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+import static common.redis.utils.RedisKeyUtil.buildKey;
+
 /**
  * @author zack <br>
  * @create 2021-04-12 14:47 <br>
@@ -33,18 +34,13 @@ import java.util.concurrent.TimeUnit;
 @Component
 @AllArgsConstructor
 public class LimitRequestAspect {
-    /**
-     * this will be autowire
-     */
-    @Resource
-    private RedisScript<Long> limitRedisScript;
+    /** this will be autowire */
+    @Resource private RedisScript<Long> limitRedisScript;
 
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
+    @Resource private StringRedisTemplate stringRedisTemplate;
 
     @Pointcut("@annotation(redisLimitRequest)")
-    public void pointCut(RedisLimitRequest redisLimitRequest) {
-    }
+    public void pointCut(RedisLimitRequest redisLimitRequest) {}
 
     /**
      * full class name and method name will become redis limit key.
@@ -78,7 +74,7 @@ public class LimitRequestAspect {
             return false;
         }
 
-        key = RedisUtil.buildKey(RedisKeyCommonEnum.CACHE_LIMIT) + StrUtil.COLON + key;
+        key = buildKey(RedisKeyCommonEnum.CACHE_LIMIT) + StrUtil.COLON + key;
 
         // 统一使用单位毫秒, 当前时间毫秒数
         long ttl = timeUnit.toMillis(time);
