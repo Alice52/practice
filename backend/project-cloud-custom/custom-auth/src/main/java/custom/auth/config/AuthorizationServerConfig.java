@@ -75,7 +75,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
-                .tokenStore(tokenStore())
+                .tokenStore(redisTokenStore)
                 .tokenEnhancer(tokenEnhancer())
                 .userDetailsService(userDetailsService())
                 .authenticationManager(authenticationManager)
@@ -93,13 +93,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 new CompositeTokenGranter(
                         Arrays.asList(endpoints.getTokenGranter(), mobileTokenGranter));
         endpoints.tokenGranter(compositeTokenGranter);
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
-        tokenStore.setPrefix(SecurityConstants.OAUTH_PREFIX);
-        return tokenStore;
     }
 
     @Bean
