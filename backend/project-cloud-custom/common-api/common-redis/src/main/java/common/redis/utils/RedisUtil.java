@@ -1,14 +1,18 @@
 package common.redis.utils;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.google.common.collect.Sets;
+import common.redis.constants.enums.RedisKeyCommonEnum;
 import common.redis.key.KeyPrefix;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.ConvertingCursor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 import static common.core.constant.CommonConstants.ZERO;
+import static common.redis.utils.RedisKeyUtil.buildKey;
 
 /**
  * // TODO:
@@ -41,35 +46,11 @@ import static common.core.constant.CommonConstants.ZERO;
 @Component
 @Slf4j
 public class RedisUtil {
-    private static String module;
+
     @Resource private RedisTemplate<String, Object> redisTemplate;
     @Resource private RedisScript<String> batchRegDelete;
+    @Resource private RedisScript<Boolean> reduceStock;
     @Resource private StringRedisTemplate stringRedisTemplate;
-
-    @Value("${common.core.redis.expire-time:0}")
-    private long defaultExpireTime;
-
-    /**
-     * build key by prefix and addition info with modules.
-     *
-     * @param prefix
-     * @param keys
-     * @return
-     */
-    public static String buildKey(KeyPrefix prefix, String... keys) {
-        return RedisKeyUtil.buildKey(module, prefix, keys);
-    }
-
-    /**
-     * build remove key by prefix and addition info with modules.
-     *
-     * @param prefix
-     * @param keys
-     * @return
-     */
-    private static String buildDeleteKey(KeyPrefix prefix, String... keys) {
-        return RedisKeyUtil.buildDeleteKey(module, prefix, keys);
-    }
 
     /**
      * Batch Delete According To Regex: 只是减小了连接消耗, <br>
@@ -83,7 +64,7 @@ public class RedisUtil {
      */
     public Boolean batchDeleteKey(KeyPrefix prefix, int batchCount, String... keys) {
 
-        String matchKey = RedisKeyUtil.buildDeleteKey(module, prefix, keys);
+        String matchKey = buildKey(prefix, keys);
         String cursor =
                 stringRedisTemplate.execute(
                         batchRegDelete,
@@ -127,7 +108,7 @@ public class RedisUtil {
         batchRegDelete.setScriptText(luaScript);
         batchRegDelete.setResultType(String.class);
 
-        String matchKey = RedisKeyUtil.buildDeleteKey(module, prefix, keys);
+        String matchKey = buildKey(prefix, keys);
         String cursor =
                 stringRedisTemplate.execute(
                         batchRegDelete,
@@ -178,11 +159,6 @@ public class RedisUtil {
         return redisTemplate
                 .opsForValue()
                 .setIfAbsent(buildKey(prefix, key), value, time, timeUnit);
-    }
-
-    @Value("${common.core.redis.module:common}")
-    public void setModule(String module) {
-        RedisUtil.module = module;
     }
 
     @Deprecated
@@ -239,7 +215,6 @@ public class RedisUtil {
     }
 
     /**
-     * set value and default expire in config time.<br>
      * unit is {@link TimeUnit#HOURS}
      *
      * @param prefix
@@ -247,10 +222,9 @@ public class RedisUtil {
      * @param keys
      * @param <E>
      */
-    @Deprecated
     public <E> void set(KeyPrefix prefix, E e, String... keys) {
 
-        set(e, buildKey(prefix, keys), defaultExpireTime, TimeUnit.HOURS);
+        set(e, buildKey(prefix, keys), -1, TimeUnit.SECONDS);
     }
 
     /**
@@ -303,7 +277,7 @@ public class RedisUtil {
      * @param prefix
      */
     public void removeAll(KeyPrefix prefix) {
-        Set<String> keys = redisTemplate.keys(buildDeleteKey(prefix, "*"));
+        Set<String> keys = redisTemplate.keys(buildKey(prefix, "*"));
         Optional.ofNullable(keys).ifPresent(x -> redisTemplate.delete(keys));
     }
 
@@ -342,7 +316,7 @@ public class RedisUtil {
         Optional.ofNullable(obj)
                 .ifPresent(
                         x -> {
-                            if (timeout == 0) {
+                            if (timeout == -1) {
                                 redisTemplate.opsForValue().set(realKey, obj);
                             } else {
                                 redisTemplate.opsForValue().set(realKey, obj, timeout, unit);
@@ -380,11 +354,13 @@ public class RedisUtil {
      * @param prefix
      * @param x
      */
+    @Deprecated
     private void remove(KeyPrefix prefix, String x) {
-        Set<String> keySet = redisTemplate.keys(buildDeleteKey(prefix, x));
+        Set<String> keySet = redisTemplate.keys(buildKey(prefix, x));
         Optional.ofNullable(keySet).ifPresent(y -> redisTemplate.delete(keySet));
     }
 
+    @Deprecated
     public Boolean batchInsert(KeyPrefix prefix, Integer count) {
 
         int loop = 0;
@@ -408,5 +384,55 @@ public class RedisUtil {
         }
 
         return Boolean.TRUE;
+    }
+
+    /**
+     * Scan search.
+     *
+     * @param prefix
+     * @param batchCount
+     * @param keys
+     * @return
+     */
+    public Set<String> scanSearch(RedisKeyCommonEnum prefix, int batchCount, String... keys) {
+
+        ScanOptions scanOptions =
+                ScanOptions.scanOptions().match(buildKey(prefix, keys)).count(batchCount).build();
+        ConvertingCursor<byte[], String> cursor =
+                redisTemplate.executeWithStickyConnection(
+                        conn ->
+                                new ConvertingCursor<>(
+                                        conn.scan(scanOptions),
+                                        new StringRedisSerializer()::deserialize));
+
+        if (ObjectUtil.isNotNull(cursor)) {
+            Set<String> set = Sets.newHashSet();
+            cursor.forEachRemaining(set::add);
+            return set;
+        }
+        return Collections.emptySet();
+    }
+
+    public Map<String, Object> scanSearchWithValue(
+            RedisKeyCommonEnum prefix, int batchCount, String... keys) {
+
+        Set<String> matchedKeys = scanSearch(prefix, batchCount, keys);
+        Map<String, Object> map = new HashMap<>();
+        matchedKeys.forEach(x -> map.put(x, get(x, Object.class)));
+
+        return map;
+    }
+
+    public Boolean reduceStock(RedisKeyCommonEnum prefix, String... keys) {
+
+        String matchKey = buildKey(prefix, keys);
+        return stringRedisTemplate.execute(reduceStock, Collections.emptyList(), matchKey);
+    }
+
+    public Boolean reduceStock(RedisKeyCommonEnum prefix, int delta, String... keys) {
+
+        String matchKey = buildKey(prefix, keys);
+        return stringRedisTemplate.execute(
+                reduceStock, Collections.emptyList(), matchKey, String.valueOf(delta));
     }
 }

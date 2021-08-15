@@ -16,12 +16,12 @@ local current = tonumber(redis.call('zcard', key))
 local next = current + 1
 
 if next > max then
-  -- 达到限流大小 返回 0
-  return 0;
+    -- 达到限流大小 返回 0
+    return 0;
 else
-  -- 往 zset 中添加一个值、得分均为当前时间戳的元素，[value,score]
-  redis.call("zadd", key, now, now)
-  -- 每次访问均重新设置 zset 的过期时间，单位毫秒
-  redis.call("pexpire", key, ttl)
-  return next
+    -- 往 zset 中添加一个值、得分均为当前时间戳的元素，[value,score]
+    redis.call("zadd", key, now, now)
+    -- 每次访问均重新设置 zset 的过期时间，单位毫秒
+    redis.call("pexpire", key, ttl)
+    return next
 end

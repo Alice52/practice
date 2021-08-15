@@ -118,4 +118,15 @@ public class RedisConfiguration {
 
         return redisScript;
     }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisScript<Boolean> reduceStock() {
+        DefaultRedisScript<Boolean> redisScript = new DefaultRedisScript<>();
+        redisScript.setScriptSource(
+                new ResourceScriptSource(new ClassPathResource("scripts/redis/reduce_stock.lua")));
+        redisScript.setResultType(Boolean.class);
+
+        return redisScript;
+    }
 }
