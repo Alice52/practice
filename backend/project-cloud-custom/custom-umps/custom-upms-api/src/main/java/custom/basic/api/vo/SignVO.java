@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @JsonIgnoreProperties(
-        value = {"createdDate", "updatedDate", "isDeleted"},
+        value = {"insertedTime", "updatedTime", "isDeleted"},
         allowGetters = true)
 public class SignVO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -27,10 +27,10 @@ public class SignVO implements Serializable {
     private Integer amount;
 
     @ApiModelProperty(hidden = true)
-    private LocalDateTime createdDate;
+    private LocalDateTime insertedTime;
 
     @ApiModelProperty(hidden = true)
-    private LocalDateTime updatedDate;
+    private LocalDateTime updatedTime;
 
     @ApiModelProperty(hidden = true)
     private Boolean isDeleted;

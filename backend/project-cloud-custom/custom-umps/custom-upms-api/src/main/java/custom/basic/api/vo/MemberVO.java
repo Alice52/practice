@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @JsonIgnoreProperties(
-        value = {"createdDate", "updatedDate", "isDeleted"},
+        value = {"insertedTime", "updatedTime"},
         allowGetters = true)
 public class MemberVO implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,11 +31,8 @@ public class MemberVO implements Serializable {
     private Integer isActived;
 
     @ApiModelProperty(hidden = true)
-    private LocalDateTime createdDate;
+    private LocalDateTime insertedTime;
 
     @ApiModelProperty(hidden = true)
-    private LocalDateTime updatedDate;
-
-    @ApiModelProperty(hidden = true)
-    private Boolean isDeleted;
+    private LocalDateTime updatedTime;
 }

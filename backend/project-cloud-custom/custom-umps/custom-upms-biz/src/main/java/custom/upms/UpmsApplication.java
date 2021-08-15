@@ -1,6 +1,7 @@
 package custom.upms;
 
 import common.cloud.annotation.CustomCloudApplication;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
  * @project project-cloud-custom <br>
  */
 @CustomCloudApplication
+@MapperScan("custom.upms.mapper")
 public class UpmsApplication {
     public static void main(String[] args) {
         SpringApplication.run(UpmsApplication.class, args);

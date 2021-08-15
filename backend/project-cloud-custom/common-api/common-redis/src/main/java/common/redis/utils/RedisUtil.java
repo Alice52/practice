@@ -2,14 +2,11 @@ package common.redis.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.google.common.collect.Sets;
-import common.redis.constants.enums.RedisKeyCommonEnum;
 import common.redis.key.KeyPrefix;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.data.redis.core.ConvertingCursor;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ScanOptions;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.connection.BitFieldSubCommands;
+import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -394,7 +391,7 @@ public class RedisUtil {
      * @param keys
      * @return
      */
-    public Set<String> scanSearch(RedisKeyCommonEnum prefix, int batchCount, String... keys) {
+    public Set<String> scanSearch(KeyPrefix prefix, int batchCount, String... keys) {
 
         ScanOptions scanOptions =
                 ScanOptions.scanOptions().match(buildKey(prefix, keys)).count(batchCount).build();
@@ -414,7 +411,7 @@ public class RedisUtil {
     }
 
     public Map<String, Object> scanSearchWithValue(
-            RedisKeyCommonEnum prefix, int batchCount, String... keys) {
+            KeyPrefix prefix, int batchCount, String... keys) {
 
         Set<String> matchedKeys = scanSearch(prefix, batchCount, keys);
         Map<String, Object> map = new HashMap<>();
@@ -423,16 +420,81 @@ public class RedisUtil {
         return map;
     }
 
-    public Boolean reduceStock(RedisKeyCommonEnum prefix, String... keys) {
+    public Boolean reduceStock(KeyPrefix prefix, String... keys) {
 
         String matchKey = buildKey(prefix, keys);
         return stringRedisTemplate.execute(reduceStock, Collections.emptyList(), matchKey);
     }
 
-    public Boolean reduceStock(RedisKeyCommonEnum prefix, int delta, String... keys) {
+    public Boolean reduceStock(KeyPrefix prefix, int delta, String... keys) {
 
         String matchKey = buildKey(prefix, keys);
         return stringRedisTemplate.execute(
                 reduceStock, Collections.emptyList(), matchKey, String.valueOf(delta));
+    }
+
+    /**
+     * 查看是否已签到
+     *
+     * @param prefix
+     * @param offset
+     * @param key
+     * @return
+     */
+    public Boolean getBit(KeyPrefix prefix, int offset, String... key) {
+
+        String buildKey = buildKey(prefix, key);
+        return redisTemplate.opsForValue().getBit(buildKey, offset);
+    }
+
+    /**
+     * 签到
+     *
+     * @param prefix
+     * @param offset
+     * @param key
+     * @return
+     */
+    public Boolean setBit(KeyPrefix prefix, int offset, String... key) {
+
+        Boolean aBoolean = redisTemplate.opsForValue().setBit(buildKey(prefix, key), offset, true);
+
+        return aBoolean;
+    }
+
+    /**
+     * Get sign info of period.
+     *
+     * @param prefix
+     * @param start
+     * @param offset
+     * @param key
+     * @return
+     */
+    public Long bitField(KeyPrefix prefix, int start, int offset, String... key) {
+        // bitfield user:sgin:5:202011 u30 0
+        BitFieldSubCommands bitFieldSubCommands =
+                BitFieldSubCommands.create()
+                        .get(BitFieldSubCommands.BitFieldType.unsigned(offset))
+                        .valueAt(0);
+        List<Long> list =
+                redisTemplate.execute(
+                        (RedisCallback<List<Long>>)
+                                con ->
+                                        con.bitField(
+                                                buildKey(prefix, key).getBytes(),
+                                                bitFieldSubCommands));
+
+        if (list == null || list.isEmpty()) {
+            return 0L;
+        }
+
+        return list.get(0) == null ? 0L : list.get(0);
+    }
+
+    public Long bitCount(KeyPrefix prefix, String key) {
+        // e.g. BITCOUNT user:sign:5:202011
+        return redisTemplate.execute(
+                (RedisCallback<Long>) con -> con.bitCount(buildKey(prefix, key).getBytes()));
     }
 }

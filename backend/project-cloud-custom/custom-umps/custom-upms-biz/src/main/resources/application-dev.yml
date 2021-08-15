@@ -15,7 +15,7 @@ spring:
 
 # mybatis-plus
 mybatis-plus:
-  # typeEnumsPackage: boot.mybatis.common.constants.enums
+  typeEnumsPackage: custom.basic.api.constant.enums
   mapper-locations: classpath:/mapper/*Mapper.xml
   global-config:
     banner: false

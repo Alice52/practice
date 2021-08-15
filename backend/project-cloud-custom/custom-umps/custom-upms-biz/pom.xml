@@ -17,6 +17,12 @@
             <groupId>cn.edu.ntu</groupId>
             <artifactId>common-cloud-biz</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-security</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- module api -->

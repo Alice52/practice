@@ -24,10 +24,12 @@ CREATE TABLE `upms_member` (
     `password` varchar(255) DEFAULT NULL,
     `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像',
     `is_actived` tinyint(1) DEFAULT NULL,
-    `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `inserted_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `inserted_by` bigint(20),
+    `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `updated_by` bigint(20),
     `is_deleted` TINYINT(1) DEFAULT '0',
-    PRIMARY KEY (`id`) PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET = utf8mb4;
 
 --  upms sign
@@ -38,8 +40,10 @@ CREATE TABLE `upms_sign` (
     `member_id` bigINT NOT NULL,
     `sign_date` DATE NOT NULL,
     `amount` INT(4) NOT NULL COMMENT '連續籤到次數',
-    `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `inserted_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `inserted_by` bigint(20),
+    `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `updated_by` bigint(20),
     `is_deleted` TINYINT(1) DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;

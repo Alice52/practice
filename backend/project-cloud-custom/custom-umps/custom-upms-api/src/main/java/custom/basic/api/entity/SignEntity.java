@@ -8,6 +8,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
+
 /**
  * @author zack <br>
  * @create 2021-08-15<br>
@@ -18,7 +20,9 @@ import java.time.LocalDateTime;
 public class SignEntity extends BaseEntity<SignEntity> {
     private static final long serialVersionUID = 1L;
 
-    @TableId private Long id;
+    @TableId(type = AUTO)
+    private Long id;
+
     private Long memberId;
     private LocalDateTime signDate;
     private Integer amount;

@@ -1,6 +1,7 @@
 package custom.upms.controller;
 
 import common.api.utils.PageUtils;
+import common.core.util.R;
 import custom.basic.api.entity.MemberEntity;
 import custom.basic.api.vo.MemberVO;
 import custom.upms.service.MemberService;
@@ -26,40 +27,40 @@ public class MemberController {
     @Resource private MemberService memberService;
 
     @GetMapping("/members")
-    public PageUtils list(@RequestParam Map<String, Object> params) {
+    public R<PageUtils> list(@RequestParam Map<String, Object> params) {
 
-        return memberService.queryPage(params);
+        return R.success(memberService.queryPage(params));
     }
 
     @GetMapping("/member/{id}")
-    public MemberVO detail(@PathVariable("id") Long id) {
+    public R<MemberVO> detail(@PathVariable("id") Long id) {
         MemberEntity po = memberService.getById(id);
 
-        return INSTANCE.po2vo(po);
+        return R.success(INSTANCE.po2vo(po));
     }
 
     @PostMapping(value = {"/member", "/members"})
-    public void save(@RequestBody MemberVO upmsMemberVO) {
+    public R<Boolean> save(@RequestBody MemberVO upmsMemberVO) {
 
-        memberService.save(INSTANCE.vo2po(upmsMemberVO));
+        return R.success(memberService.save(INSTANCE.vo2po(upmsMemberVO)));
     }
 
     @PutMapping("/member/{id}")
-    public void update(@PathVariable("id") Long id, @RequestBody MemberVO upmsMemberVO) {
+    public R<Boolean> update(@PathVariable("id") Long id, @RequestBody MemberVO upmsMemberVO) {
 
         upmsMemberVO.setId(id);
-        memberService.updateById(INSTANCE.vo2po(upmsMemberVO));
+        return R.success(memberService.updateById(INSTANCE.vo2po(upmsMemberVO)));
     }
 
     @DeleteMapping("/members")
-    public void delete(@RequestBody Long[] ids) {
+    public R<Boolean> delete(@RequestBody Long[] ids) {
 
-        memberService.removeByIds(Arrays.asList(ids));
+        return R.success(memberService.removeByIds(Arrays.asList(ids)));
     }
 
     @DeleteMapping("/member/{id}")
-    public void deleteById(@PathVariable("id") Long id) {
+    public R<Boolean> deleteById(@PathVariable("id") Long id) {
 
-        memberService.removeById(id);
+        return R.success(memberService.removeById(id));
     }
 }
