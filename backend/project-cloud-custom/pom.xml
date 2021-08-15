@@ -287,6 +287,11 @@
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.starter}</version>
             </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-common</artifactId>
+                <version>${swagger.starter}</version>
+            </dependency>
 
             <!-- grpc -->
             <dependency>

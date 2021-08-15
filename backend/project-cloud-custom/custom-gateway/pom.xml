@@ -33,9 +33,22 @@
                     <groupId>cn.edu.ntu</groupId>
                     <artifactId>database-mybatis-plus</artifactId>
                 </exclusion>
+
                 <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-webmvc</artifactId>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-oss</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-uid</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>swagger-2</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-security</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>net.devh</groupId>
@@ -64,6 +77,10 @@
             <groupId>com.github.axet</groupId>
             <artifactId>kaptcha</artifactId>
             <version>${kaptcha.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-common</artifactId>
         </dependency>
     </dependencies>
 </project>

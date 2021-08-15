@@ -1,10 +1,7 @@
 package custom.auth;
 
 import common.cloud.annotation.CustomCloudApplication;
-import common.cloud.component.UndertowWebServerAccessLogTimingEnabler;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.context.annotation.Bean;
 
 /**
  * @author asd <br>
