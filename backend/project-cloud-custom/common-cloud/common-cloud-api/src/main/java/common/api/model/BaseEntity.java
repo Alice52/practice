@@ -21,12 +21,16 @@ import java.time.LocalDateTime;
 public class BaseEntity<T extends Model> extends Model<T> implements Serializable {
     protected static final long serialVersionUID = 1L;
     private Boolean isDeleted;
+
     @TableField(value = "inserted_time", fill = FieldFill.INSERT)
     private LocalDateTime insertedTime;
+
     @TableField(value = "updated_time", fill = FieldFill.UPDATE)
     private LocalDateTime updatedTime;
+
     @TableField(value = "inserted_by", fill = FieldFill.INSERT)
     private Long insertedBy;
+
     @TableField(value = "updated_by", fill = FieldFill.UPDATE)
     private Long updatedBy;
 

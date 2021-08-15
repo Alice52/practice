@@ -1,7 +1,6 @@
 package custom.auth.config;
 
 import common.core.constant.SecurityConstants;
-import common.redis.utils.RedisUtil;
 import common.security.component.CustomWebResponseExceptionTranslator;
 import common.security.grant.MobileTokenGranter;
 import common.security.model.CustomUser;
@@ -26,7 +25,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.annotation.Resource;
@@ -48,7 +46,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource private AuthenticationManager authenticationManager;
     @Resource private RemoteSmsCodeService remoteSmsCodeService;
     @Resource private RemoteUserService upmsRemoteUserService;
-    @Resource private RedisUtil redisUtil;
+    @Resource private RedisTokenStore redisTokenStore;
 
     @Bean
     @Qualifier("auth")
