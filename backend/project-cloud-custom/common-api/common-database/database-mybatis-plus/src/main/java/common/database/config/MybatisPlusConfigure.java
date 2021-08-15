@@ -1,15 +1,11 @@
 package common.database.config;
 
-import com.baomidou.mybatisplus.core.injector.ISqlInjector;
-import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import common.database.config.handler.DataScopeInterceptor;
 import common.database.plugin.SensitivePlugin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 /**
  * @author zack <br>
@@ -44,10 +40,12 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
      *
      * @return
      */
+    /*
     @Bean
     public ISqlInjector sqlInjector() {
         return new LogicSqlInjector();
     }
+    */
 
     /**
      * SQL执行效率插件 <br>
@@ -55,11 +53,13 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
      *
      * @return
      */
+    /*
     @Bean
     @Profile({"dev", "cloud"})
     public PerformanceInterceptor performanceInterceptor() {
         return new PerformanceInterceptor();
     }
+     */
 
     @Deprecated
     @ConditionalOnProperty(

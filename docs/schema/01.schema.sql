@@ -12,6 +12,24 @@ CREATE TABLE `uid_worker_node` (
     PRIMARY KEY (`ID`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;
 
+-- upms member
+DROP TABLE IF EXISTS `upms_member`;
+
+CREATE TABLE `upms_member` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `username` varchar(255) DEFAULT NULL,
+    `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
+    `phone` varchar(255) DEFAULT NULL,
+    `email` varchar(255) DEFAULT NULL,
+    `password` varchar(255) DEFAULT NULL,
+    `avatar_url` varchar(255) DEFAULT NULL COMMENT '头像',
+    `is_actived` tinyint(1) DEFAULT NULL,
+    `created_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `is_deleted` TINYINT(1) DEFAULT '0',
+    PRIMARY KEY (`id`) PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET = utf8mb4;
+
 --  upms sign
 DROP TABLE IF EXISTS `upms_sign`;
 

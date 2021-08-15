@@ -1,6 +1,9 @@
 package custom.basic.api.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import common.api.model.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +30,6 @@ public class SysUser extends BaseEntity<SocialAccount> {
     private String username;
 
     /** 系统用户类型 */
-    @TableField(strategy = FieldStrategy.IGNORED)
     private Integer userType;
 
     /** 昵称 */

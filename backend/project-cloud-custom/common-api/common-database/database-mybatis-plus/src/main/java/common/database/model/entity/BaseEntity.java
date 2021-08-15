@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class BaseEntity<T extends Model> extends Model<T> implements Serializable {
+public class BaseEntity<T extends Model> extends Model implements Serializable {
     protected static final long serialVersionUID = 1L;
 
     @TableLogic private Boolean isDeleted;

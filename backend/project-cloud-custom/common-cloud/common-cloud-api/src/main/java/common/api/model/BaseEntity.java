@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @NoArgsConstructor
-public class BaseEntity<T extends Model> extends Model<T> implements Serializable {
+public class BaseEntity<T extends Model> extends Model implements Serializable {
     protected static final long serialVersionUID = 1L;
     private Boolean isDeleted;
 
