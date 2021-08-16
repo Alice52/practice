@@ -2,6 +2,7 @@ package common.redis.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.google.common.collect.Sets;
+import common.core.util.LocalDateTimeUtil;
 import common.redis.constants.enums.RedisKeyCommonEnum;
 import common.redis.key.KeyPrefix;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
@@ -434,5 +437,24 @@ public class RedisUtil {
         String matchKey = buildKey(prefix, keys);
         return stringRedisTemplate.execute(
                 reduceStock, Collections.emptyList(), matchKey, String.valueOf(delta));
+    }
+
+    /**
+     * <code>
+     *     LocalDateTime dateTime = LocalDateTime.of(LocalDate.now().plusDays(1), LocalTime.of(7, 0));
+     * </code>
+     *
+     * @param key
+     * @param dateTime
+     * @return
+     */
+    public boolean expireAt(String key, LocalDateTime dateTime) {
+        try {
+            Date date = LocalDateTimeUtil.localDateTime2Date(dateTime);
+            return redisTemplate.expireAt(key, date);
+        } catch (Exception e) {
+            log.error("expireAt failed: ", e);
+            return false;
+        }
     }
 }
