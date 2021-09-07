@@ -10,7 +10,9 @@ import common.redis.constants.enums.RedisKeyCommonEnum;
 import common.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -70,6 +72,16 @@ public class IdempotentRequestAspect {
                 "接口请求太过频繁, PATH: {}, IP: {}", request.getRequestURI(), WebUtil.getIpAddr(request));
         return null;
     }
+
+    @AfterThrowing(value = "pointCut(redisIdempotentRequest)", throwing = "ex")
+    public void throwingAdvice(JoinPoint joinPoint, Exception ex, RedisIdempotentRequest redisIdempotentRequest) {
+        HttpServletRequest request = WebUtil.getCurrentRequest();
+
+        String md5 = ReqDeDupUtil.deDupParamMD5(request, redisIdempotentRequest.ignoreParams());
+        redisUtil.remove(RedisKeyCommonEnum.CACHE_LIMIT,
+                request.getRequestURI() + StrUtil.COLON + UserUtil.getCurrentMemberId(), md5);
+    }
+
 
     /**
      * Deprecated Version
