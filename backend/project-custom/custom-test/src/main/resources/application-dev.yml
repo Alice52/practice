@@ -1,9 +1,0 @@
-spring:
-  profiles:
-    # this sequence is master
-    include: common-dev,database-dev,redis-dev,actuator-dev,oss-dev,uid-dev,common
-
-common:
-  core:
-    redis:
-      module: common

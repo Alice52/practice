@@ -1,8 +1,0 @@
-custom-config:
-  namespace: cloud
-
-spring:
-  profiles:
-    include: common-cloud,redis-cloud,common
-
-allow-cors-domains: http://127.0.0.1,http://127.0.0.1:80,http://127.0.0.1:8080,*

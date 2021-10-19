@@ -1,5 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  custom.basic.api.feign.fallback.RemoteUserServiceFallbackImpl,\
-  custom.basic.api.feign.fallback.RemoteSmsCodeServiceFallbackImpl,\
-  custom.basic.api.feign.factory.RemoteSmsCodeServiceFallbackFactory,\
-  custom.basic.api.feign.factory.RemoteUserServiceFallbackFactory
