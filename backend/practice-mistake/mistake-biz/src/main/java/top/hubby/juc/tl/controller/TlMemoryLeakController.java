@@ -1,6 +1,7 @@
 package top.hubby.juc.tl.controller;
 
 import common.uid.generator.UidGenerator;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import static java.util.stream.IntStream.rangeClosed;
  */
 @Slf4j
 @RestController
+@Api(tags = "Juc")
 @RequestMapping("/juc/tl-memory-leak")
 public class TlMemoryLeakController {
     private static final ThreadLocal<List<String>> tl = ThreadLocal.withInitial(() -> null);

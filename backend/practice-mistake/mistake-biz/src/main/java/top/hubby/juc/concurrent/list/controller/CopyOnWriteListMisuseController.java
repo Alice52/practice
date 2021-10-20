@@ -1,6 +1,7 @@
 package top.hubby.juc.concurrent.list.controller;
 
 import cn.hutool.core.date.StopWatch;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import static java.util.concurrent.ThreadLocalRandom.current;
  * @create 2021-10-19 5:06 PM <br>
  * @project swagger-3 <br>
  */
+@Api(tags = "Juc")
 @Slf4j
 @RestController
 @RequestMapping("/juc/copy-on-write-list-misuse")

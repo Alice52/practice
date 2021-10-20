@@ -1,5 +1,6 @@
 package top.hubby.juc.tl.controller;
 
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/juc/tl")
+@Api(tags = "Juc")
 public class TlMisuseController {
     private static final ThreadLocal<Integer> currentUser = ThreadLocal.withInitial(() -> null);
 

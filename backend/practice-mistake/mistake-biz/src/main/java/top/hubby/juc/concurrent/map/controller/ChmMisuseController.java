@@ -1,6 +1,7 @@
 package top.hubby.juc.concurrent.map.controller;
 
 import common.uid.generator.UidGenerator;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import java.util.stream.LongStream;
 @RestController
 @RequestMapping("/juc/chm-misuse")
 @Slf4j
+@Api(tags = "Juc")
 public class ChmMisuseController {
 
     private static int THREAD_COUNT = 10;
@@ -60,7 +62,7 @@ public class ChmMisuseController {
         forkJoinPool.awaitTermination(1, TimeUnit.HOURS);
 
         log.info("finish size:{}", concurrentHashMap.size());
-        return "OK";
+        return uidGenerator.parseUID(uidGenerator.getUID());
     }
 
     @GetMapping("/right")
