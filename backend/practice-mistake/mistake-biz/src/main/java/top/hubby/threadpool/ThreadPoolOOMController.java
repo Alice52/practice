@@ -1,4 +1,4 @@
-package top.hubby.pool;
+package top.hubby.threadpool;
 
 import io.swagger.annotations.Api;
 import jodd.util.concurrent.ThreadFactoryBuilder;
