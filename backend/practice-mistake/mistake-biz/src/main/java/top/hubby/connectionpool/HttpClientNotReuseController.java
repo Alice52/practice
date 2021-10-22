@@ -71,7 +71,7 @@ public class HttpClientNotReuseController {
                                 .evictIdleConnections(60, TimeUnit.SECONDS)
                                 .build();
                 CloseableHttpResponse response =
-                        client.execute(new HttpGet("http://127.0.0.1:45678/pool/http/test"))) {
+                        client.execute(new HttpGet("http://127.0.0.1:8080/pool/http/test"))) {
             return EntityUtils.toString(response.getEntity());
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -82,7 +82,7 @@ public class HttpClientNotReuseController {
     @GetMapping("/right")
     public String right() {
         try (CloseableHttpResponse response =
-                httpClient.execute(new HttpGet("http://127.0.0.1:45678/pool/http/test"))) {
+                httpClient.execute(new HttpGet("http://127.0.0.1:8080/pool/http/test"))) {
             return EntityUtils.toString(response.getEntity());
         } catch (Exception ex) {
             ex.printStackTrace();

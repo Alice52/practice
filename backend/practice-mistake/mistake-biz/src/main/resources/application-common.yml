@@ -44,3 +44,15 @@ common:
         enabled: true
         key: req-id
 
+
+SmsClient:
+  ribbon:
+    listOfServers: localhost:8080
+
+TimeoutClient:
+  ribbon:
+    listOfServers: localhost:8080
+
+ribbon:
+  MaxAutoRetriesNextServer: 0
+  MaxAutoRetries: 0
