@@ -30,7 +30,7 @@ jobs:
           echo "ALI_DOCKER_USERNAME=${{ secrets.ALI_DOCKER_REGISTRY_USERNAME }}" >> $GITHUB_ENV
           echo "ALI_DOCKER_PASSWORD=${{ secrets.ALI_DOCKER_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
           echo "JASYPT_ENCRYPTOR_PASSWORD=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}" >> $GITHUB_ENV
-          echo "PROJECT_HOME=$PWD" >> $GITHUB_ENV
+          echo "WRK=$PWD" >> $GITHUB_ENV
           echo "TAG=`echo \`date +%Y%m%d\`.${GITHUB_SHA} | cut -c1-16`" >> $GITHUB_ENV
       - name: Cache Maven packages
         uses: actions/cache@v2
@@ -39,14 +39,8 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build project-custom module
+      - name: Build practice-mistake module
         run: |
-          PROJECT_NAME=project-custom
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
-          mvn clean package -DskipTests=true
-
-      - name: Build project-cloud-custom module
-        run: |
-          PROJECT_NAME=project-cloud-custom
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
+          PROJECT_NAME=practice-mistake
+          cd $WRK/$PROJECT_PREFIX/$PROJECT_NAME
           mvn clean package -DskipTests=true

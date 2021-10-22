@@ -1,11 +1,11 @@
-name: Build Image Project-Custom
+name: Build Image Practice-Mistake
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'backend/project-custom/**'
+      - 'backend/practice-mistake/**'
       - '.github/workflows/docker-project-backend.yml'
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, '[image]')"
     env: # define constant
-      PROJECT_PREFIX: backend/project-custom
+      PROJECT_PREFIX: backend/practice-mistake
       IMAGE_PREFIX: practice
 
     steps:
@@ -40,11 +40,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build project-custom module
+      - name: Build practice-mistake module
         run: |
           cd $PROJECT_HOME/$PROJECT_PREFIX
           mvn clean package -DskipTests=true
-      - name: Push project-custom Image
+      - name: Push practice-mistake Image
         run: |
           MODULE_NAME=custom-test
           cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME/
