@@ -2,7 +2,7 @@ package top.hubby.connectionpool.database.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import top.hubby.connectionpool.database.model.User;
+import top.hubby.model.entity.User;
 
 /**
  * @author asd <br>

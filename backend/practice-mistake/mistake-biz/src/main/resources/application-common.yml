@@ -12,6 +12,7 @@ mybatis-plus:
 logging:
   config: classpath:logback-spring.xml
 #  level:
+#    org.springframework.orm.*: DEBUG
 #    orgspringframework.web: TRACE
 #    web: TRACE
 
@@ -43,6 +44,7 @@ common:
       request-id:
         enabled: true
         key: req-id
+
 
 
 SmsClient:
