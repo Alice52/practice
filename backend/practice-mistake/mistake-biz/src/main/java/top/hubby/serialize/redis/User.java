@@ -8,9 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.Serializable;
 
 /**
- * @author asd <br/>
- * @create 2021-10-29 1:39 PM <br/>
- * @project swagger-3 <br/>
+ * @author asd <br>
+ * @create 2021-10-29 1:39 PM <br>
+ * @project swagger-3 <br>
  */
 @Slf4j
 @Data

@@ -32,6 +32,24 @@ public class RedisTemplateController {
     @Autowired private RedisTemplate<String, User> userRedisTemplate;
     @Autowired private RedisTemplate<String, Long> countRedisTemplate;
 
+    @SneakyThrows
+    public static void main(String[] args) {
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(1, "1-value");
+        map.put(2, "2-value");
+
+        ObjectMapper mapper = new ObjectMapper();
+        byte[] bytes = mapper.writeValueAsBytes(map);
+        Object o = mapper.readValue(bytes, HashMap.class);
+
+        map = (HashMap<Integer, String>) o;
+        log.info("map: {}", map);
+
+        byte[] asBytes = mapper.writeValueAsBytes(new Integer(10));
+        Object obj = mapper.readValue(asBytes, String.class);
+        log.info("Integer: {}", obj);
+    }
+
     @PostConstruct
     public void init() throws IOException {
         redisTemplate.opsForValue().set("redisTemplate", new User("zhuye", 36));
@@ -52,25 +70,6 @@ public class RedisTemplateController {
         // 此时的 map key 会变成 string
         map = (HashMap<Integer, String>) redisTemplate.opsForValue().get("map");
         log.info("map: {}", map);
-    }
-
-    @SneakyThrows
-    public static void main(String[] args) {
-        HashMap<Integer, String> map = new HashMap<>();
-        map.put(1, "1-value");
-        map.put(2, "2-value");
-
-        ObjectMapper mapper = new ObjectMapper();
-        byte[] bytes = mapper.writeValueAsBytes(map);
-        Object o = mapper.readValue(bytes, HashMap.class);
-
-        map = (HashMap<Integer, String>) o;
-        log.info("map: {}", map);
-
-
-        byte[] asBytes = mapper.writeValueAsBytes(new Integer(10));
-        Object obj = mapper.readValue(asBytes, String.class);
-        log.info("Integer: {}", obj);
     }
 
     @GetMapping("/wrong")

@@ -45,18 +45,12 @@ public class IoCloseTests {
         stopWatch.start("read 20 lines");
         log.info(
                 "lines {}",
-                Files.lines(Paths.get("large.txt"))
-                        .limit(20)
-                        .collect(Collectors.toList())
-                        .size());
+                Files.lines(Paths.get("large.txt")).limit(20).collect(Collectors.toList()).size());
         stopWatch.stop();
         stopWatch.start("read 200 lines");
         log.info(
                 "lines {}",
-                Files.lines(Paths.get("large.txt"))
-                        .limit(200)
-                        .collect(Collectors.toList())
-                        .size());
+                Files.lines(Paths.get("large.txt")).limit(200).collect(Collectors.toList()).size());
         stopWatch.stop();
         log.info(stopWatch.prettyPrint());
     }

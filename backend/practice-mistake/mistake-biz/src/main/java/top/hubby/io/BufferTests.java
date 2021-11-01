@@ -48,19 +48,6 @@ public class BufferTests {
         log.info(stopWatch.prettyPrint());
     }
 
-    @Test
-    public void init() throws IOException {
-
-        Files.write(
-                Paths.get("src.txt"),
-                IntStream.rangeClosed(1, 1000000)
-                        .mapToObj(i -> UUID.randomUUID().toString())
-                        .collect(Collectors.toList()),
-                UTF_8,
-                CREATE,
-                TRUNCATE_EXISTING);
-    }
-
     private static void perByteOperation() throws IOException {
         Files.deleteIfExists(Paths.get("dest.txt"));
 
@@ -134,5 +121,20 @@ public class BufferTests {
         FileChannel in = FileChannel.open(Paths.get("src.txt"), StandardOpenOption.READ);
         FileChannel out = FileChannel.open(Paths.get("dest.txt"), CREATE, WRITE);
         in.transferTo(0, in.size(), out);
+    }
+
+    @Test
+    public void init() throws IOException {
+
+        // @formatter:off
+        Files.write(
+                Paths.get("src.txt"),
+                IntStream.rangeClosed(1, 1000000)
+                        .mapToObj(i -> UUID.randomUUID().toString())
+                        .collect(Collectors.toList()),
+                // @formatter:off
+                UTF_8,
+                CREATE,
+                TRUNCATE_EXISTING);
     }
 }

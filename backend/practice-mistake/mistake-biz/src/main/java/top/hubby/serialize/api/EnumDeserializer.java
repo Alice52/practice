@@ -31,8 +31,10 @@ public class EnumDeserializer extends JsonDeserializer<Enum> implements Contextu
     @Override
     public Enum deserialize(JsonParser p, DeserializationContext ctxt) {
         // 找枚举中带有@JsonValue注解的字段，这个字段是我们反序列化的基准字段
-        Optional<Field> valueFieldOpt = Arrays.asList(targetClass.getDeclaredFields()).stream()
-                .filter(m -> m.isAnnotationPresent(JsonValue.class)).findFirst();
+        Optional<Field> valueFieldOpt =
+                Arrays.asList(targetClass.getDeclaredFields()).stream()
+                        .filter(m -> m.isAnnotationPresent(JsonValue.class))
+                        .findFirst();
 
         if (valueFieldOpt.isPresent()) {
             Field valueField = valueFieldOpt.get();
@@ -41,26 +43,38 @@ public class EnumDeserializer extends JsonDeserializer<Enum> implements Contextu
             }
             // 遍历枚举项，查找字段的值等于反序列化的字符串的那个枚举项
             return Arrays.stream(targetClass.getEnumConstants())
-                    .filter(e -> {
+                    .filter(
+                            e -> {
                                 try {
-                                    return valueField.get(e).toString().equals(p.getValueAsString());
+                                    return valueField
+                                            .get(e)
+                                            .toString()
+                                            .equals(p.getValueAsString());
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }
                                 return false;
                             })
                     .findFirst()
-                    .orElseGet(() -> Arrays.stream(targetClass.getEnumConstants())
-                            .filter(e -> {
-                                // 如果找不到，那么就需要寻找默认枚举值来替代，同样遍历所有枚举项，查找@JsonEnumDefaultValue注解标识的枚举项
-                                try {
-                                    return targetClass.getField(e.name()).isAnnotationPresent(JsonEnumDefaultValue.class);
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
-                                }
-                                return false;
-                            })
-                            .findFirst().orElse(null));
+                    .orElseGet(
+                            () ->
+                                    Arrays.stream(targetClass.getEnumConstants())
+                                            .filter(
+                                                    e -> {
+                                                        // 如果找不到，那么就需要寻找默认枚举值来替代，同样遍历所有枚举项，查找@JsonEnumDefaultValue注解标识的枚举项
+                                                        try {
+                                                            return targetClass
+                                                                    .getField(e.name())
+                                                                    .isAnnotationPresent(
+                                                                            JsonEnumDefaultValue
+                                                                                    .class);
+                                                        } catch (Exception ex) {
+                                                            ex.printStackTrace();
+                                                        }
+                                                        return false;
+                                                    })
+                                            .findFirst()
+                                            .orElse(null));
         }
 
         return null;

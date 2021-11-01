@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author asd <br/>
- * @create 2021-10-29 1:33 PM <br/>
- * @project swagger-3 <br/>
+ * @author asd <br>
+ * @create 2021-10-29 1:33 PM <br>
+ * @project swagger-3 <br>
  */
 @Slf4j
 @Data
@@ -16,8 +16,7 @@ public class APIResultRight {
     private boolean success;
     private int code;
 
-    public APIResultRight() {
-    }
+    public APIResultRight() {}
 
     @JsonCreator
     public APIResultRight(@JsonProperty("code") int code) {
