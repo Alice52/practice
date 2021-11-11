@@ -1,3 +1,8 @@
+server:
+  max-http-header-size: 10000000
+  undertow:
+    io-threads: 2
+    worker-threads: 3000
 spring:
   profiles:
     # this sequence is master
