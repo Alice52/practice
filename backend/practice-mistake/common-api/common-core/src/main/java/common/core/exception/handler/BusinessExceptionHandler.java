@@ -33,6 +33,7 @@ public class BusinessExceptionHandler {
 
     @ExceptionHandler(value = {BusinessException.class})
     public R<Void> handleBusinessException(BusinessException ex) {
+        ExceptionHandlerSupport.printContext();
         log.error(ex.getMessage(), ex);
 
         return R.error(ex.getResponseEnum());
@@ -55,6 +56,7 @@ public class BusinessExceptionHandler {
 
     @ExceptionHandler(InterruptedException.class)
     public R<Void> handleTimeoutException(InterruptedException ex) {
+        ExceptionHandlerSupport.printContext();
         log.error(ex.getMessage(), ex);
         return R.<Void>error(CommonResponseEnum.TIMEOUT_ERROR);
     }

@@ -59,6 +59,7 @@ public class ValidationExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public R handleValidationException(ValidationException ex) throws Exception {
+        ExceptionHandlerSupport.printContext();
         log.error(
                 "validation bean error: type {}, params {}, message {}, detail {}",
                 ex.getClass().getTypeName(),
@@ -103,7 +104,7 @@ public class ValidationExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public R handleConstraintViolationException(ConstraintViolationException ex) {
-
+        ExceptionHandlerSupport.printContext();
         Map<String, Object> collect =
                 ex.getConstraintViolations().stream()
                         .parallel()
@@ -135,7 +136,7 @@ public class ValidationExceptionHandler {
     }
 
     private R getErrorResults(BindingResult bindingResult, Exception ex) {
-
+        ExceptionHandlerSupport.printContext();
         log.error(
                 "validation bean error: type {}, params {}, message {}, detail {}",
                 ex.getClass().getTypeName(),

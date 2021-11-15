@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ServletExceptionHandler {
 
     protected static R<Void> handleServletException(Exception e) {
+        ExceptionHandlerSupport.printContext();
         log.error(e.getMessage(), e);
 
         IBaseErrorResponse response = CommonResponseEnum.INTERNAL_ERROR;

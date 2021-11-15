@@ -20,6 +20,8 @@ import java.util.stream.LongStream;
  */
 @Slf4j
 public class WeakHashMapOOMTests {
+    ConcurrentReferenceHashMap<User, UserProfile> map =
+            new ConcurrentReferenceHashMap<>(16, ConcurrentReferenceHashMap.ReferenceType.WEAK);
     private Map<User, UserProfile> cache = new WeakHashMap<>();
     private Map<User, WeakReference<UserProfile>> cache2 = new WeakHashMap<>();
     private ConcurrentReferenceHashMap<User, UserProfile> cache3 =
@@ -68,16 +70,13 @@ public class WeakHashMapOOMTests {
         // {}
         log.info("{}", map);
     }
-    ConcurrentReferenceHashMap<User, UserProfile> map =
-            new ConcurrentReferenceHashMap<>(16, ConcurrentReferenceHashMap.ReferenceType.WEAK);
 
     @Test
     public void testConcurrentReferenceHashMapV2() throws InterruptedException {
 
-
-//        User user = new User("zack");
-//        UserProfile location = new UserProfile(user, "location");
-//        map.put(user, location);
+        //        User user = new User("zack");
+        //        UserProfile location = new UserProfile(user, "location");
+        //        map.put(user, location);
         LongStream.rangeClosed(1, 20000)
                 .forEach(
                         i -> {
@@ -154,16 +153,18 @@ public class WeakHashMapOOMTests {
                 .forEach(
                         i -> {
                             User user = new User(userName + i);
-                            cache.put(user, new UserProfile(new User(user.getName()), "location" + i));
+                            cache.put(
+                                    user,
+                                    new UserProfile(new User(user.getName()), "location" + i));
                         });
     }
 
     @Test
     public void right3() throws InterruptedException {
         // String userName = "zhuye";
-//        val scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-//        scheduledExecutorService.scheduleAtFixedRate(
-//                () -> log.info("cache size:{}", cache3.size()), 1, 1, TimeUnit.SECONDS);
+        //        val scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+        //        scheduledExecutorService.scheduleAtFixedRate(
+        //                () -> log.info("cache size:{}", cache3.size()), 1, 1, TimeUnit.SECONDS);
         LongStream.rangeClosed(1, 20000)
                 .forEach(
                         i -> {
@@ -171,14 +172,11 @@ public class WeakHashMapOOMTests {
                             cache3.put(user, new UserProfile(user, "location" + i));
                         });
 
-
         log.info("map size: {}", cache3.size());
         System.gc();
         Thread.sleep(5000);
 
-
         log.info("map size: {}", cache3.get(1));
-
     }
 
     @Data

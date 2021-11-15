@@ -19,9 +19,7 @@ public abstract class SayService {
 
     public void say() {
         data.add(
-                IntStream.rangeClosed(1, 1000)
-                                .mapToObj(__ -> "a")
-                                .collect(Collectors.joining(""))
+                IntStream.rangeClosed(1, 1000).mapToObj(__ -> "a").collect(Collectors.joining(""))
                         + UUID.randomUUID().toString());
 
         System.out.println(this.toString() + " size: " + data.size());
