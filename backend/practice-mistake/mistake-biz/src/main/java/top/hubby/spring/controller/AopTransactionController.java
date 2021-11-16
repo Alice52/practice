@@ -20,7 +20,7 @@ import top.hubby.spring.annotation.Metrics;
 @Api(tags = "Spring")
 @RestController
 @RequestMapping("/spring/scope")
-@Metrics(logParameters = true, logReturn = true)
+@Metrics(logParameters = true, logReturn = true, ignoreException = true)
 public class AopTransactionController {
     @Autowired private UserService userService;
 

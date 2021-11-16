@@ -27,12 +27,17 @@ public class User {
 
     @TableField private String name;
 
+    public User(String name) {
+        this.name = name;
+    }
+
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public static void main(String[] args) {
         Hashtable objectTreeMap = new Hashtable<>();
         objectTreeMap.put(null, "null");
-    }
-
-    public User(String name) {
-        this.name = name;
     }
 }

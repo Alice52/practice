@@ -6,9 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author asd <br/>
- * @create 2021-11-15 3:04 PM <br/>
- * @project swagger-3 <br/>
+ * @author asd <br>
+ * @create 2021-11-15 3:04 PM <br>
+ * @project swagger-3 <br>
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
