@@ -1,19 +1,19 @@
-name: Build Image Project-Custom
+name: Build Image Project-Custom-Cloud
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'backend/project-custom/**'
-      - '.github/workflows/docker-project-backend.yml'
+      - 'backend/project-cloud-custom/**'
+      - '.github/workflows/docker-project-cloud-backend.yml'
 
 jobs:
   main:
     runs-on: ubuntu-latest
     if: "contains(github.event.head_commit.message, '[image]')"
     env: # define constant
-      PROJECT_PREFIX: backend/project-custom
+      PROJECT_PREFIX: backend/project-cloud-custom
       IMAGE_PREFIX: practice
 
     steps:
@@ -44,9 +44,22 @@ jobs:
         run: |
           cd $PROJECT_HOME/$PROJECT_PREFIX
           mvn clean package -DskipTests=true
-      - name: Push project-custom Image
+
+      - name: Push project-cloud-custom-basic Image
         run: |
-          MODULE_NAME=custom-test
+          MODULE_NAME_PREFIX=custom-basic
+          MODULE_NAME=custom-basic-biz
+          cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/
+          image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
+          docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
+          docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD $ALI_DOCKER_REGISTRY
+          docker tag $image $ALI_DOCKER_REGISTRY/alice52/$image
+          docker push $ALI_DOCKER_REGISTRY/alice52/$image
+          echo "image:" ${image}
+
+      - name: Push project-cloud-custom-gateway Image
+        run: |
+          MODULE_NAME=custom-gateway
           cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME/
           image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
           docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
@@ -55,10 +68,11 @@ jobs:
           docker push $ALI_DOCKER_REGISTRY/alice52/$image
           echo "image:" ${image}
 
-      - name: Push actuator-server Image
+      - name: Push project-cloud-custom-upms Image
         run: |
-          MODULE_NAME=actuator-server
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME/
+          MODULE_NAME_PREFIX=custom-umps
+          MODULE_NAME=custom-upms-biz
+          cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/
           image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
           docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
           docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD $ALI_DOCKER_REGISTRY
