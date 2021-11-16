@@ -1,0 +1,7 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    common.redis.configuration.RedisConfiguration,\
+    common.redis.aspect.RedisLockAspect,\
+    common.redis.aspect.IdempotentRequestAspect,\
+    common.redis.aspect.LimitRequestAspect,\
+    common.redis.utils.RedisUtil,\
+    common.redis.utils.RedisKeyUtil

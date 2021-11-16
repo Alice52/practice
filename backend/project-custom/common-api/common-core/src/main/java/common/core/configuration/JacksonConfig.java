@@ -31,7 +31,8 @@ public class JacksonConfig {
             builder.timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
             builder.simpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
             builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_INDEX);
-            builder.featuresToEnable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
+            builder.featuresToEnable(
+                    DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
             // builder.modules(new JavaTimeModule());
         };
     }

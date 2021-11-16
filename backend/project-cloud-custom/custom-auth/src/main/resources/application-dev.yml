@@ -1,0 +1,36 @@
+custom-config:
+  namespace: dev
+
+spring:
+  profiles:
+    include: redis-dev,common
+  datasource:
+    username: ENC(3+5Pg+H9L0s1ATmg/xTWLbNt9OeMFguochuRyTl9a4BGbD4lL2SLM8351rdHYhC2)
+    password: ENC(MkGdNTchUL+OnF+nvm5YSSjWc7XeHLNab+KV9Wr3fqF1fAbEVLB2urZotLn8nAk1)
+    url: ENC(up/t8eUp45RTTo2CPPNVkgwBFV2Y5ge6c7zxSGdcJMMTqagozKmRxmprrqcelFhQ4Wqm290liyoqlpvdG9lugMupmPMgyjwp8ZIDfYc7w8iOBngg0ctuFfZ7ovRJWN6+NFpOy9Jx4AnG/K887xXEUiy4xg6V9QqhKL9lHJfIWQeFUNRGmimoo7UDK8KZVFyt93qTHxFPLUNbNxISKFluoUWHHeH9YqqbxaD/kEZ6Y2w6Tog7bbVEHwrOdpl3jRrhxCTZR99DA6C8FPnprJfiGrBxysSqNLY/IXZWqpvMJZL1oOy21ZnIbvbWP/vU7RJdMKbapSTdYERKynR7BCHuuXKDAyNzn2E0ZxNz7MuLTb575YRF+bJ4d4cjmFoJaaRHmelO0+HPvpYKZAXgfiW0MGK7ONJiKnZT7bXBo2rR77w=)
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 20
+
+# mybatis-plus
+mybatis-plus:
+  # typeEnumsPackage: boot.mybatis.common.constants.enums
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    banner: false
+    db-config:
+      id-type: AUTO
+      field-strategy: NOT_NULL
+      table-underline: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+common:
+  core:
+    redis:
+      module: auth
+      expire-time: 24

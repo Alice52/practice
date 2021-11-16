@@ -8,7 +8,6 @@ import common.database.plugin.SensitivePlugin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 /**
  * @author zack <br>
@@ -54,11 +53,11 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
      *
      * @return
      */
-//    @Bean
-//    @Profile({"dev", "cloud"})
-//    public PerformanceInterceptor performanceInterceptor() {
-//        return new PerformanceInterceptor();
-//    }
+    //    @Bean
+    //    @Profile({"dev", "cloud"})
+    //    public PerformanceInterceptor performanceInterceptor() {
+    //        return new PerformanceInterceptor();
+    //    }
 
     @Deprecated
     @ConditionalOnProperty(

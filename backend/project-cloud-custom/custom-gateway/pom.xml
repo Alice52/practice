@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>project-cloud-custom</artifactId>
+        <groupId>cn.edu.ntu</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>custom-gateway</artifactId>
+
+    <dependencies>
+        <!-- common -->
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-cloud-biz</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-undertow</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-log</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>database-mybatis-plus</artifactId>
+                </exclusion>
+
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-oss</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-uid</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>swagger-2</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-security</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.devh</groupId>
+                    <artifactId>grpc-client-spring-boot-starter</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>net.devh</groupId>
+                    <artifactId>grpc-server-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- gateway -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+        </dependency>
+
+        <!--验证码-->
+        <dependency>
+            <groupId>com.github.axet</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>${kaptcha.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-common</artifactId>
+            <version>${swagger.starter}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>swagger-2</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+</project>

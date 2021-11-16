@@ -2,12 +2,12 @@
 local key = KEYS[1];
 local threadId = ARGV[1];
 
-if(redis.call("hexists",key, threadId) == 0) then
+if (redis.call("hexists", key, threadId) == 0) then
     return nil;
-end;
+end ;
 
-local count= redis.call("hincrby", key, threadId, -1);
-if(count == 0) then
+local count = redis.call("hincrby", key, threadId, -1);
+if (count == 0) then
     redis.call('DEL', key);
     return nil;
-end;
+end ;
