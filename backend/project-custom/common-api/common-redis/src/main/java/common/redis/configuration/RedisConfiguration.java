@@ -95,6 +95,12 @@ public class RedisConfiguration {
         redisTemplate.setValueSerializer(j2jrs);
         redisTemplate.setHashValueSerializer(j2jrs);
 
+        /*
+        redisTemplate.setKeySerializer(RedisSerializer.string());
+        redisTemplate.setValueSerializer(RedisSerializer.json());
+        redisTemplate.setHashKeySerializer(RedisSerializer.string());
+        redisTemplate.setHashValueSerializer(RedisSerializer.json());
+        */
         return redisTemplate;
     }
 

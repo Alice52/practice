@@ -35,3 +35,7 @@ hs_err_pid*
 **/node_modules/
 
 !gradle-wrapper.jar
+*.txt
+*.hprof
+*.threads
+*.index

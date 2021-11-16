@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("boot_cache_all_star_phase")
-public class Phase extends BaseEntity<Phase> {
+public class Phase extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @TableId(type = IdType.AUTO)

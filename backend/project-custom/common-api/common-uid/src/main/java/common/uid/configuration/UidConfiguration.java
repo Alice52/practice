@@ -9,7 +9,6 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 
 import javax.annotation.Resource;
 
@@ -31,8 +30,8 @@ public class UidConfiguration {
         return new DisposableWorkerIdAssigner();
     }
 
-    @Lazy(value = false)
-    @Bean
+    // @Lazy(value = false)
+    // @Bean
     public DefaultUidGenerator defaultUidGenerator() {
 
         DefaultUidGenerator uidGenerator = new DefaultUidGenerator();

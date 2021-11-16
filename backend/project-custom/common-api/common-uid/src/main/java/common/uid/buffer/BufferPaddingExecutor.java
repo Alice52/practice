@@ -106,7 +106,7 @@ public class BufferPaddingExecutor {
     public void start() {
         if (bufferPadSchedule != null) {
             bufferPadSchedule.scheduleWithFixedDelay(
-                    () -> paddingBuffer(), scheduleInterval, scheduleInterval, TimeUnit.SECONDS);
+                    this::paddingBuffer, scheduleInterval, scheduleInterval, TimeUnit.SECONDS);
         }
     }
 

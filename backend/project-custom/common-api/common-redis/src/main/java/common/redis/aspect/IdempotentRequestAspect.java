@@ -74,14 +74,16 @@ public class IdempotentRequestAspect {
     }
 
     @AfterThrowing(value = "pointCut(redisIdempotentRequest)", throwing = "ex")
-    public void throwingAdvice(JoinPoint joinPoint, Exception ex, RedisIdempotentRequest redisIdempotentRequest) {
+    public void throwingAdvice(
+            JoinPoint joinPoint, Exception ex, RedisIdempotentRequest redisIdempotentRequest) {
         HttpServletRequest request = WebUtil.getCurrentRequest();
 
         String md5 = ReqDeDupUtil.deDupParamMD5(request, redisIdempotentRequest.ignoreParams());
-        redisUtil.remove(RedisKeyCommonEnum.CACHE_LIMIT,
-                request.getRequestURI() + StrUtil.COLON + UserUtil.getCurrentMemberId(), md5);
+        redisUtil.remove(
+                RedisKeyCommonEnum.CACHE_LIMIT,
+                request.getRequestURI() + StrUtil.COLON + UserUtil.getCurrentMemberId(),
+                md5);
     }
-
 
     /**
      * Deprecated Version

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("boot_cache_all_star_activity")
-public class Activity extends BaseEntity<Activity> {
+public class Activity extends BaseEntity {
 
     @TableId(type = IdType.AUTO)
     private Long id;
