@@ -13,10 +13,10 @@ import org.springframework.scheduling.annotation.Async;
 @Slf4j
 public class SysLogListener {
 
-  @Async
-  @Order
-  @EventListener(SysLogEvent.class)
-  public void handleSysLogEvent(SysLogEvent event) {
-    log.info("handle common.event: {}", event);
-  }
+    @Async
+    @Order
+    @EventListener(SysLogEvent.class)
+    public void handleSysLogEvent(SysLogEvent event) {
+        log.info("handle common.event: {}", event);
+    }
 }

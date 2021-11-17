@@ -19,26 +19,26 @@ import java.util.concurrent.TimeoutException;
 @Order
 @RestControllerAdvice
 @ConditionalOnProperty(
-    prefix = "common.core.global.handler",
-    value = {"enabled"},
-    havingValue = "true",
-    matchIfMissing = true)
+        prefix = "common.core.global.handler",
+        value = {"enabled"},
+        havingValue = "true",
+        matchIfMissing = true)
 @Slf4j
 public class DefaultHandler {
 
-  @ExceptionHandler({BaseException.class})
-  public R<Void> handleException(BaseException ex) {
-    ExceptionHandlerSupport.printContext();
-    log.error(ex.getMessage(), ex);
+    @ExceptionHandler({BaseException.class})
+    public R<Void> handleException(BaseException ex) {
+        ExceptionHandlerSupport.printContext();
+        log.error(ex.getMessage(), ex);
 
-    return R.<Void>error(ex.getResponseEnum());
-  }
+        return R.<Void>error(ex.getResponseEnum());
+    }
 
-  @ExceptionHandler({Exception.class, TimeoutException.class})
-  public R<Void> handleException(Exception ex) {
-    ExceptionHandlerSupport.printContext();
-    log.error(ex.getMessage(), ex);
+    @ExceptionHandler({Exception.class, TimeoutException.class})
+    public R<Void> handleException(Exception ex) {
+        ExceptionHandlerSupport.printContext();
+        log.error(ex.getMessage(), ex);
 
-    return R.<Void>error(CommonResponseEnum.INTERNAL_ERROR);
-  }
+        return R.<Void>error(CommonResponseEnum.INTERNAL_ERROR);
+    }
 }

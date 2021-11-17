@@ -12,17 +12,17 @@ import java.util.Set;
 @Deprecated
 public class ListValidException extends RuntimeException {
 
-  private Map<Integer, Set<ConstraintViolation<Object>>> errors;
+    private Map<Integer, Set<ConstraintViolation<Object>>> errors;
 
-  public ListValidException(Map<Integer, Set<ConstraintViolation<Object>>> errors) {
-    this.errors = errors;
-  }
+    public ListValidException(Map<Integer, Set<ConstraintViolation<Object>>> errors) {
+        this.errors = errors;
+    }
 
-  public Map<Integer, Set<ConstraintViolation<Object>>> getErrors() {
-    return errors;
-  }
+    public Map<Integer, Set<ConstraintViolation<Object>>> getErrors() {
+        return errors;
+    }
 
-  public void setErrors(Map<Integer, Set<ConstraintViolation<Object>>> errors) {
-    this.errors = errors;
-  }
+    public void setErrors(Map<Integer, Set<ConstraintViolation<Object>>> errors) {
+        this.errors = errors;
+    }
 }

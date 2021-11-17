@@ -12,21 +12,22 @@ import java.io.InputStream;
  */
 public class FileUtil extends cn.hutool.core.io.FileUtil {
 
-  /**
-   * Convert input stream to file.
-   *
-   * @param inputStream
-   * @param file
-   * @throws IOException
-   */
-  public static void copyInputStreamToFile(InputStream inputStream, File file) throws IOException {
+    /**
+     * Convert input stream to file.
+     *
+     * @param inputStream
+     * @param file
+     * @throws IOException
+     */
+    public static void copyInputStreamToFile(InputStream inputStream, File file)
+            throws IOException {
 
-    try (FileOutputStream outputStream = new FileOutputStream(file)) {
-      int read;
-      byte[] bytes = new byte[1024];
-      while ((read = inputStream.read(bytes)) != -1) {
-        outputStream.write(bytes, 0, read);
-      }
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
+            int read;
+            byte[] bytes = new byte[1024];
+            while ((read = inputStream.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        }
     }
-  }
 }

@@ -9,12 +9,12 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class UserUtil {
 
-  /**
-   * 获取当前用户的标识
-   *
-   * @return
-   */
-  public static String getCurrentMemberId() {
-    return String.valueOf(ThreadLocalRandom.current().nextInt(3));
-  }
+    /**
+     * 获取当前用户的标识
+     *
+     * @return
+     */
+    public static String getCurrentMemberId() {
+        return String.valueOf(ThreadLocalRandom.current().nextInt(3));
+    }
 }

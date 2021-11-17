@@ -20,16 +20,16 @@ import org.aspectj.lang.annotation.Aspect;
 @Slf4j
 public class LogAnnoAspect {
 
-  /** https://www.cnblogs.com/liqbk/p/13497502.html */
-  @Around(value = "@annotation(logAnno)")
-  @SneakyThrows
-  public Object around(ProceedingJoinPoint point, LogAnno logAnno) {
-    LogVO vo = LogUtil.doBefore(point);
-    Object result = point.proceed();
-    LogUtil.doAfterReturning(vo, result);
+    /** https://www.cnblogs.com/liqbk/p/13497502.html */
+    @Around(value = "@annotation(logAnno)")
+    @SneakyThrows
+    public Object around(ProceedingJoinPoint point, LogAnno logAnno) {
+        LogVO vo = LogUtil.doBefore(point);
+        Object result = point.proceed();
+        LogUtil.doAfterReturning(vo, result);
 
-    SpringContextHolder.publishEvent(new SysLogEvent(logAnno));
+        SpringContextHolder.publishEvent(new SysLogEvent(logAnno));
 
-    return result;
-  }
+        return result;
+    }
 }

@@ -12,23 +12,23 @@ import java.text.MessageFormat;
  */
 public interface IBusinessExceptionAssert extends IBaseErrorResponse, IBaseAssert {
 
-  @Override
-  default BaseException newException(Object... args) {
-    String msg = this.getErrorMsg();
-    if (args != null && args.length > 0) {
-      msg = MessageFormat.format(this.getErrorMsg(), args);
+    @Override
+    default BaseException newException(Object... args) {
+        String msg = this.getErrorMsg();
+        if (args != null && args.length > 0) {
+            msg = MessageFormat.format(this.getErrorMsg(), args);
+        }
+
+        return new BusinessException(this, args, msg);
     }
 
-    return new BusinessException(this, args, msg);
-  }
+    @Override
+    default BaseException newException(Throwable t, Object... args) {
+        String msg = this.getErrorMsg();
+        if (args != null && args.length > 0) {
+            msg = MessageFormat.format(this.getErrorMsg(), args);
+        }
 
-  @Override
-  default BaseException newException(Throwable t, Object... args) {
-    String msg = this.getErrorMsg();
-    if (args != null && args.length > 0) {
-      msg = MessageFormat.format(this.getErrorMsg(), args);
+        return new BusinessException(this, args, msg, t);
     }
-
-    return new BusinessException(this, args, msg, t);
-  }
 }

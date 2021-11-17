@@ -12,15 +12,15 @@ import java.util.Optional;
  */
 @Deprecated
 public final class PaginationUtil {
-  public static Pagination buildPagination(Integer total, Integer pageSize, Integer currentPage) {
-    pageSize = Optional.ofNullable(pageSize).orElse(20);
-    currentPage = Optional.ofNullable(currentPage).orElse(1);
-    Integer pageCount = PageUtil.totalPage(total, pageSize);
+    public static Pagination buildPagination(Integer total, Integer pageSize, Integer currentPage) {
+        pageSize = Optional.ofNullable(pageSize).orElse(20);
+        currentPage = Optional.ofNullable(currentPage).orElse(1);
+        Integer pageCount = PageUtil.totalPage(total, pageSize);
 
-    if (currentPage > pageCount) {
-      currentPage = 1;
+        if (currentPage > pageCount) {
+            currentPage = 1;
+        }
+
+        return new Pagination(total, pageCount, currentPage, pageSize);
     }
-
-    return new Pagination(total, pageCount, currentPage, pageSize);
-  }
 }

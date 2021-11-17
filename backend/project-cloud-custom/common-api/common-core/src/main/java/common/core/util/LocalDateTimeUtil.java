@@ -14,13 +14,13 @@ import java.util.Date;
  */
 @UtilityClass
 public class LocalDateTimeUtil {
-  public Date localDateTime2Date(LocalDateTime dateTime) {
-    ZoneId zoneId = ZoneId.systemDefault();
-    ZonedDateTime zdt = dateTime.atZone(zoneId);
-    return Date.from(zdt.toInstant());
-  }
+    public Date localDateTime2Date(LocalDateTime dateTime) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zdt = dateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
+    }
 
-  public LocalDateTime date2LocalDateTime(Date date) {
-    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-  }
+    public LocalDateTime date2LocalDateTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
 }

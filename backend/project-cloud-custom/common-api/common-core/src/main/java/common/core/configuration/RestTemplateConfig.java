@@ -15,20 +15,20 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class RestTemplateConfig {
 
-  /**
-   * This is for redis deserialization enum.
-   *
-   * @param objectMapper
-   * @return
-   */
-  @Bean
-  public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(
-      ObjectMapper objectMapper) {
-    return new MappingJackson2HttpMessageConverter(objectMapper);
-  }
+    /**
+     * This is for redis deserialization enum.
+     *
+     * @param objectMapper
+     * @return
+     */
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(
+            ObjectMapper objectMapper) {
+        return new MappingJackson2HttpMessageConverter(objectMapper);
+    }
 
-  @Bean
-  public RestTemplate restTemplate(MappingJackson2HttpMessageConverter converter) {
-    return new RestTemplateBuilder().additionalMessageConverters(converter).build();
-  }
+    @Bean
+    public RestTemplate restTemplate(MappingJackson2HttpMessageConverter converter) {
+        return new RestTemplateBuilder().additionalMessageConverters(converter).build();
+    }
 }

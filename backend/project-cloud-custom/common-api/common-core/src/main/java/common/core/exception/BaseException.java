@@ -18,53 +18,53 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BaseException extends RuntimeException {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @NotNull private IBaseErrorResponse responseEnum;
+    @NotNull private IBaseErrorResponse responseEnum;
 
-  @Nullable private Object[] args;
+    @Nullable private Object[] args;
 
-  public BaseException(IBaseErrorResponse responseEnum) {
-    super(responseEnum.getErrorMsg());
-    this.responseEnum = responseEnum;
-  }
+    public BaseException(IBaseErrorResponse responseEnum) {
+        super(responseEnum.getErrorMsg());
+        this.responseEnum = responseEnum;
+    }
 
-  public BaseException(int code, String msg) {
-    super(msg);
-    this.responseEnum =
-        new IBaseErrorResponse() {
-          @Override
-          public Integer getErrorCode() {
-            return code;
-          }
+    public BaseException(int code, String msg) {
+        super(msg);
+        this.responseEnum =
+                new IBaseErrorResponse() {
+                    @Override
+                    public Integer getErrorCode() {
+                        return code;
+                    }
 
-          @Override
-          public String getErrorMsg() {
-            return msg;
-          }
-        };
-  }
+                    @Override
+                    public String getErrorMsg() {
+                        return msg;
+                    }
+                };
+    }
 
-  public BaseException(IBaseErrorResponse responseEnum, Object[] args, String message) {
-    super(message);
-    this.responseEnum = responseEnum;
-    this.args = args;
-  }
+    public BaseException(IBaseErrorResponse responseEnum, Object[] args, String message) {
+        super(message);
+        this.responseEnum = responseEnum;
+        this.args = args;
+    }
 
-  public BaseException(IBaseErrorResponse responseEnum, String message) {
-    super(message);
-    this.responseEnum = responseEnum;
-  }
+    public BaseException(IBaseErrorResponse responseEnum, String message) {
+        super(message);
+        this.responseEnum = responseEnum;
+    }
 
-  public BaseException(
-      IBaseErrorResponse responseEnum, Object[] args, String message, Throwable cause) {
-    super(message, cause);
-    this.responseEnum = responseEnum;
-    this.args = args;
-  }
+    public BaseException(
+            IBaseErrorResponse responseEnum, Object[] args, String message, Throwable cause) {
+        super(message, cause);
+        this.responseEnum = responseEnum;
+        this.args = args;
+    }
 
-  public BaseException(CommonResponseEnum anEnum, Exception e) {
-    super(e);
-    this.responseEnum = anEnum;
-  }
+    public BaseException(CommonResponseEnum anEnum, Exception e) {
+        super(e);
+        this.responseEnum = anEnum;
+    }
 }

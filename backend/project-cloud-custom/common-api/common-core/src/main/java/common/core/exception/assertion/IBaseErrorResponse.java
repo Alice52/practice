@@ -6,24 +6,24 @@ package common.core.exception.assertion;
  * @project project-custom <br>
  */
 public interface IBaseErrorResponse {
-  /**
-   * Error Code. And this value cannot changed anyway.
-   *
-   * @return
-   */
-  Integer getErrorCode();
+    /**
+     * Error Code. And this value cannot changed anyway.
+     *
+     * @return
+     */
+    Integer getErrorCode();
 
-  /**
-   * Error message.
-   *
-   * @return
-   */
-  String getErrorMsg();
+    /**
+     * Error message.
+     *
+     * @return
+     */
+    String getErrorMsg();
 
-  /**
-   * Set Error message.
-   *
-   * @param errorMsg
-   */
-  default void setErrorMsg(String errorMsg) {}
+    /**
+     * Set Error message.
+     *
+     * @param errorMsg
+     */
+    default void setErrorMsg(String errorMsg) {}
 }

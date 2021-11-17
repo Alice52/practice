@@ -33,55 +33,55 @@ import javax.servlet.http.HttpServletRequest;
 @Order(100)
 @RestControllerAdvice
 @ConditionalOnProperty(
-    prefix = "common.core.global.handler",
-    value = {"enabled"},
-    havingValue = "true",
-    matchIfMissing = true)
+        prefix = "common.core.global.handler",
+        value = {"enabled"},
+        havingValue = "true",
+        matchIfMissing = true)
 @Slf4j
 public class ServletExceptionHandler {
 
-  protected static R<Void> handleServletException(Exception e) {
-    ExceptionHandlerSupport.printContext();
-    log.error(e.getMessage(), e);
+    protected static R<Void> handleServletException(Exception e) {
+        ExceptionHandlerSupport.printContext();
+        log.error(e.getMessage(), e);
 
-    IBaseErrorResponse response = CommonResponseEnum.INTERNAL_ERROR;
-    try {
-      response = ServletResponseEnum.valueOf(e.getClass().getSimpleName());
-    } catch (IllegalArgumentException e1) {
-      log.error(
-          "class [{}] not defined in enum {}",
-          e.getClass().getName(),
-          ServletResponseEnum.class.getName());
+        IBaseErrorResponse response = CommonResponseEnum.INTERNAL_ERROR;
+        try {
+            response = ServletResponseEnum.valueOf(e.getClass().getSimpleName());
+        } catch (IllegalArgumentException e1) {
+            log.error(
+                    "class [{}] not defined in enum {}",
+                    e.getClass().getName(),
+                    ServletResponseEnum.class.getName());
+        }
+
+        // if (ENV_PROD.equals(profile)) {
+        //     // 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
+        //     code = CommonResponseEnum.SERVER_ERROR.getCode();
+        //     BaseException baseException = new BaseException(CommonResponseEnum.SERVER_ERROR);
+        //     String message = getMessage(baseException);
+        //     return new ErrorResponse(code, message);
+        // }
+        return R.<Void>error(response);
     }
 
-    // if (ENV_PROD.equals(profile)) {
-    //     // 当为生产环境, 不适合把具体的异常信息展示给用户, 比如404.
-    //     code = CommonResponseEnum.SERVER_ERROR.getCode();
-    //     BaseException baseException = new BaseException(CommonResponseEnum.SERVER_ERROR);
-    //     String message = getMessage(baseException);
-    //     return new ErrorResponse(code, message);
-    // }
-    return R.<Void>error(response);
-  }
-
-  @ExceptionHandler({
-    NoHandlerFoundException.class,
-    HttpRequestMethodNotSupportedException.class,
-    HttpMediaTypeNotSupportedException.class,
-    HttpMediaTypeNotAcceptableException.class,
-    MissingPathVariableException.class,
-    MissingServletRequestParameterException.class,
-    TypeMismatchException.class,
-    HttpMessageNotReadableException.class,
-    HttpMessageNotWritableException.class,
-    // BindException.class,
-    // MethodArgumentNotValidException.class
-    ServletRequestBindingException.class,
-    ConversionNotSupportedException.class,
-    MissingServletRequestPartException.class,
-    AsyncRequestTimeoutException.class
-  })
-  public R<Void> handleException(HttpServletRequest request, Exception e) {
-    return handleServletException(e);
-  }
+    @ExceptionHandler({
+        NoHandlerFoundException.class,
+        HttpRequestMethodNotSupportedException.class,
+        HttpMediaTypeNotSupportedException.class,
+        HttpMediaTypeNotAcceptableException.class,
+        MissingPathVariableException.class,
+        MissingServletRequestParameterException.class,
+        TypeMismatchException.class,
+        HttpMessageNotReadableException.class,
+        HttpMessageNotWritableException.class,
+        // BindException.class,
+        // MethodArgumentNotValidException.class
+        ServletRequestBindingException.class,
+        ConversionNotSupportedException.class,
+        MissingServletRequestPartException.class,
+        AsyncRequestTimeoutException.class
+    })
+    public R<Void> handleException(HttpServletRequest request, Exception e) {
+        return handleServletException(e);
+    }
 }

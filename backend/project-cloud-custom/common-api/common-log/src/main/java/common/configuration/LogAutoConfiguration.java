@@ -19,23 +19,23 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnWebApplication
 public class LogAutoConfiguration {
 
-  @Bean
-  public SysLogListener sysLogListener() {
-    return new SysLogListener();
-  }
+    @Bean
+    public SysLogListener sysLogListener() {
+        return new SysLogListener();
+    }
 
-  // @Bean
-  public WebRequestLogAspect webRequestLogAspect() {
-    return new WebRequestLogAspect();
-  }
+    // @Bean
+    public WebRequestLogAspect webRequestLogAspect() {
+        return new WebRequestLogAspect();
+    }
 
-  // @Bean
-  public LogServiceAspect logServiceAspect() {
-    return new LogServiceAspect();
-  }
+    // @Bean
+    public LogServiceAspect logServiceAspect() {
+        return new LogServiceAspect();
+    }
 
-  @Bean
-  public LogAnnoAspect sysLogAspect() {
-    return new LogAnnoAspect();
-  }
+    @Bean
+    public LogAnnoAspect sysLogAspect() {
+        return new LogAnnoAspect();
+    }
 }

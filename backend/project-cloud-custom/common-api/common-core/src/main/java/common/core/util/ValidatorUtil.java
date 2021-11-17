@@ -12,24 +12,24 @@ import java.util.regex.Pattern;
  */
 public final class ValidatorUtil {
 
-  private static final Pattern MOBILE_PATTERN = Pattern.compile("^[1]\\d{10}$");
-  private static final Pattern EMAIL_PATTERN =
-      Pattern.compile("^[_A-Za-z0-9\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
+    private static final Pattern MOBILE_PATTERN = Pattern.compile("^[1]\\d{10}$");
+    private static final Pattern EMAIL_PATTERN =
+            Pattern.compile("^[_A-Za-z0-9\\u4e00-\\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$");
 
-  public static boolean validateMobile(String phoneNumber) {
-    if (StrUtil.isEmpty(phoneNumber)) {
-      return false;
+    public static boolean validateMobile(String phoneNumber) {
+        if (StrUtil.isEmpty(phoneNumber)) {
+            return false;
+        }
+        Matcher m = MOBILE_PATTERN.matcher(phoneNumber);
+        return m.matches();
     }
-    Matcher m = MOBILE_PATTERN.matcher(phoneNumber);
-    return m.matches();
-  }
 
-  public static boolean validateEmail(String email) {
+    public static boolean validateEmail(String email) {
 
-    if (StrUtil.isEmpty(email)) {
-      return false;
+        if (StrUtil.isEmpty(email)) {
+            return false;
+        }
+        Matcher m = EMAIL_PATTERN.matcher(email);
+        return m.matches();
     }
-    Matcher m = EMAIL_PATTERN.matcher(email);
-    return m.matches();
-  }
 }

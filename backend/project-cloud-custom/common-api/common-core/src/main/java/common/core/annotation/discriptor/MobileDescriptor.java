@@ -14,20 +14,20 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class MobileDescriptor implements ConstraintValidator<Mobile, String> {
 
-  private boolean required = false;
+    private boolean required = false;
 
-  @Override
-  public void initialize(Mobile constraint) {
-    this.required = constraint.required();
-  }
-
-  @Override
-  public boolean isValid(String obj, ConstraintValidatorContext context) {
-
-    if (!required && StrUtil.isBlank(obj)) {
-      return true;
+    @Override
+    public void initialize(Mobile constraint) {
+        this.required = constraint.required();
     }
 
-    return ValidatorUtil.validateMobile(obj);
-  }
+    @Override
+    public boolean isValid(String obj, ConstraintValidatorContext context) {
+
+        if (!required && StrUtil.isBlank(obj)) {
+            return true;
+        }
+
+        return ValidatorUtil.validateMobile(obj);
+    }
 }

@@ -18,33 +18,33 @@ import java.util.Objects;
  * @project custom-test <br>
  */
 public class SensitiveJsonSerializer extends JsonSerializer<String>
-    implements ContextualSerializer {
-  private SensitiveStrategy strategy;
+        implements ContextualSerializer {
+    private SensitiveStrategy strategy;
 
-  @Override
-  public void serialize(String value, JsonGenerator gen, SerializerProvider serializers)
-      throws IOException {
-    gen.writeString(strategy.getDeSensitiver().apply(value));
-  }
-
-  /**
-   * 用来获取实体类上的 @DeSensitive 注解并根据条件初始化对应的 JsonSerializer对象
-   *
-   * @param prov
-   * @param property
-   * @return
-   * @throws JsonMappingException
-   */
-  @Override
-  public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property)
-      throws JsonMappingException {
-
-    DeSensitive annotation = property.getAnnotation(DeSensitive.class);
-    if (Objects.nonNull(annotation)
-        && Objects.equals(String.class, property.getType().getRawClass())) {
-      this.strategy = annotation.strategy();
-      return this;
+    @Override
+    public void serialize(String value, JsonGenerator gen, SerializerProvider serializers)
+            throws IOException {
+        gen.writeString(strategy.getDeSensitiver().apply(value));
     }
-    return prov.findValueSerializer(property.getType(), property);
-  }
+
+    /**
+     * 用来获取实体类上的 @DeSensitive 注解并根据条件初始化对应的 JsonSerializer对象
+     *
+     * @param prov
+     * @param property
+     * @return
+     * @throws JsonMappingException
+     */
+    @Override
+    public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property)
+            throws JsonMappingException {
+
+        DeSensitive annotation = property.getAnnotation(DeSensitive.class);
+        if (Objects.nonNull(annotation)
+                && Objects.equals(String.class, property.getType().getRawClass())) {
+            this.strategy = annotation.strategy();
+            return this;
+        }
+        return prov.findValueSerializer(property.getType(), property);
+    }
 }

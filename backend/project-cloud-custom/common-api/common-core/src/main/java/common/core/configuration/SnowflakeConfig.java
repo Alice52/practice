@@ -18,27 +18,27 @@ import javax.annotation.PostConstruct;
 @Slf4j
 @Deprecated
 public class SnowflakeConfig {
-  /** 为终端ID */
-  @JsonFormat(shape = JsonFormat.Shape.STRING)
-  private long workerId = 0;
+    /** 为终端ID */
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private long workerId = 0;
 
-  /** 数据中心ID */
-  private long dataCenterId = 1;
+    /** 数据中心ID */
+    private long dataCenterId = 1;
 
-  private Snowflake snowflake = IdUtil.createSnowflake(workerId, dataCenterId);
+    private Snowflake snowflake = IdUtil.createSnowflake(workerId, dataCenterId);
 
-  @PostConstruct
-  public void init() {
-    workerId = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr());
-    log.info("当前机器的workId:{}", workerId);
-  }
+    @PostConstruct
+    public void init() {
+        workerId = NetUtil.ipv4ToLong(NetUtil.getLocalhostStr());
+        log.info("当前机器的workId:{}", workerId);
+    }
 
-  public synchronized long snowflakeId() {
-    return snowflake.nextId();
-  }
+    public synchronized long snowflakeId() {
+        return snowflake.nextId();
+    }
 
-  public synchronized long snowflakeId(long workerId, long datacenterId) {
-    Snowflake snowflake = IdUtil.createSnowflake(workerId, datacenterId);
-    return snowflake.nextId();
-  }
+    public synchronized long snowflakeId(long workerId, long datacenterId) {
+        Snowflake snowflake = IdUtil.createSnowflake(workerId, datacenterId);
+        return snowflake.nextId();
+    }
 }

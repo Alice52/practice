@@ -30,38 +30,38 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class TimeoutFilter extends OncePerRequestFilter {
 
-  @Value("${spring.mvc.async.request-timeout}")
-  private Long timeout;
+    @Value("${spring.mvc.async.request-timeout}")
+    private Long timeout;
 
-  private ScheduledExecutorService timeoutsPool = Executors.newScheduledThreadPool(10);
+    private ScheduledExecutorService timeoutsPool = Executors.newScheduledThreadPool(10);
 
-  @Override
-  protected void doFilterInternal(
-      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
-    if (ObjectUtil.isNull(timeout)) {
-      filterChain.doFilter(request, response);
-      return;
+        if (ObjectUtil.isNull(timeout)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        val completed = new AtomicBoolean(false);
+        val requestHandlingThread = Thread.currentThread();
+        val timeoutFuture =
+                timeoutsPool.schedule(
+                        () -> {
+                            if (completed.compareAndSet(false, true)) {
+                                requestHandlingThread.interrupt();
+                            }
+                        },
+                        timeout,
+                        TimeUnit.SECONDS);
+
+        try {
+            filterChain.doFilter(request, response);
+            timeoutFuture.cancel(false);
+        } finally {
+            completed.set(true);
+        }
     }
-
-    val completed = new AtomicBoolean(false);
-    val requestHandlingThread = Thread.currentThread();
-    val timeoutFuture =
-        timeoutsPool.schedule(
-            () -> {
-              if (completed.compareAndSet(false, true)) {
-                requestHandlingThread.interrupt();
-              }
-            },
-            timeout,
-            TimeUnit.SECONDS);
-
-    try {
-      filterChain.doFilter(request, response);
-      timeoutFuture.cancel(false);
-    } finally {
-      completed.set(true);
-    }
-  }
 }

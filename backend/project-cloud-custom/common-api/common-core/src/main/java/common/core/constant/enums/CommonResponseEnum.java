@@ -14,20 +14,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public enum CommonResponseEnum implements IBaseExceptionAssert {
-  INTERNAL_ERROR(500_000_000, "Internal Error"),
-  SERVER_BUSY(500_000_001, "Network Error"),
-  BEAN_VALIDATION(400_000_000, "Invalid Parameter"),
-  REQUEST_LIMIT_ERROR(400_000_000, "Too Many Request"),
-  TIMEOUT_ERROR(600_000_000, "Timeout"),
-  OSS_CONFIGURE_ERROR(700_000_001, "Please Check OSS Type!"),
-  OSS_COS_CREDENTIAL_ERROR(700_000_002, "Obtain COS Credential Error"),
-  OSS_DOWNLOAD_ERROR(700_000_003, "OSS Download Error"),
-  OSS_UPLOAD_ERROR(700_000_004, "OSS Upload Error"),
-  OSS_CUSTOM_ERROR(700_000_005, "OSS Error"),
+    INTERNAL_ERROR(500_000_000, "Internal Error"),
+    SERVER_BUSY(500_000_001, "Network Error"),
+    BEAN_VALIDATION(400_000_000, "Invalid Parameter"),
+    REQUEST_LIMIT_ERROR(400_000_000, "Too Many Request"),
+    TIMEOUT_ERROR(600_000_000, "Timeout"),
+    OSS_CONFIGURE_ERROR(700_000_001, "Please Check OSS Type!"),
+    OSS_COS_CREDENTIAL_ERROR(700_000_002, "Obtain COS Credential Error"),
+    OSS_DOWNLOAD_ERROR(700_000_003, "OSS Download Error"),
+    OSS_UPLOAD_ERROR(700_000_004, "OSS Upload Error"),
+    OSS_CUSTOM_ERROR(700_000_005, "OSS Error"),
 
-  UID_GENERATE_ERROR(800_000_001, "Uid Generate Error"),
-  ;
+    UID_GENERATE_ERROR(800_000_001, "Uid Generate Error"),
+    ;
 
-  private Integer errorCode;
-  private String errorMsg;
+    private Integer errorCode;
+    private String errorMsg;
 }

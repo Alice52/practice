@@ -17,24 +17,24 @@ import java.util.Date;
 @TableName("uid_worker_node")
 public class WorkerNodeEntity {
 
-  /** Entity unique id (table unique) */
-  private long id;
+    /** Entity unique id (table unique) */
+    private long id;
 
-  /** Type of CONTAINER: HostName, ACTUAL : IP. */
-  private String hostName;
+    /** Type of CONTAINER: HostName, ACTUAL : IP. */
+    private String hostName;
 
-  /** Type of CONTAINER: Port, ACTUAL : Timestamp + Random(0-10000) */
-  private String port;
+    /** Type of CONTAINER: Port, ACTUAL : Timestamp + Random(0-10000) */
+    private String port;
 
-  /** type of {@link WorkerNodeType} */
-  private int type;
+    /** type of {@link WorkerNodeType} */
+    private int type;
 
-  /** Worker launch date, default now */
-  private Date launchDate = new Date();
+    /** Worker launch date, default now */
+    private Date launchDate = new Date();
 
-  /** Created time */
-  private Date created;
+    /** Created time */
+    private Date created;
 
-  /** Last modified */
-  private Date modified;
+    /** Last modified */
+    private Date modified;
 }

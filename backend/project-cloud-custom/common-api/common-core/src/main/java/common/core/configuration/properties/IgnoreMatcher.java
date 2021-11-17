@@ -10,6 +10,6 @@ import org.springframework.http.HttpMethod;
  */
 @Data
 public class IgnoreMatcher {
-  private HttpMethod method;
-  private String antPattern;
+    private HttpMethod method;
+    private String antPattern;
 }
