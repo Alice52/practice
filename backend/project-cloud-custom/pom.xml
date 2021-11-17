@@ -19,6 +19,7 @@
         <module>custom-umps</module>
         <module>mistake-biz</module>
         <module>custom-test</module>
+        <module>format-coding</module>
     </modules>
 
     <properties>
