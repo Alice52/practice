@@ -39,12 +39,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build project-custom module
-        run: |
-          PROJECT_NAME=project-custom
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
-          mvn clean package -DskipTests=true
-
       - name: Build project-cloud-custom module
         run: |
           PROJECT_NAME=project-cloud-custom
