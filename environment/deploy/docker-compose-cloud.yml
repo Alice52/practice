@@ -1,0 +1,36 @@
+version: '3.0'
+services:
+  # also need mysql and redis
+  custom-gateway:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-custom-gateway:20210627.5b87d25
+    restart: 'on-failure:3'
+    container_name: dev-custom-gateway
+    ports:
+      - 8000:9999
+    volumes:
+      - /root/nginx/www/project-custom-cloud:/logs
+    environment:
+      - spring.profiles.active=cloud
+
+  custom-upms:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-custom-upms-biz:20210627.5b87d25
+    restart: 'on-failure:3'
+    container_name: dev-custom-upms
+    ports:
+      - 8020:8888
+    volumes:
+      - /root/nginx/www/project-custom-cloud:/logs
+    environment:
+      - spring.profiles.active=cloud
+
+
+  custom-basic:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-custom-basic-biz:20210627.5b87d25
+    restart: 'on-failure:3'
+    container_name: dev-custom-basic
+    ports:
+      - 8040:3333
+    volumes:
+      - /root/nginx/www/project-custom-cloud:/logs
+    environment:
+      - spring.profiles.active=cloud

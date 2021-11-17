@@ -1,0 +1,22 @@
+version: '3.0'
+services:
+  actuator-server:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-actuator-server:20210608.09ec081
+    restart: 'on-failure:3'
+    container_name: dev-actuator-server
+    ports:
+      - 8010:8010
+    environment:
+      TZ: Asia/Shanghai
+
+  project-worklow:
+    image: registry.cn-shanghai.aliyuncs.com/alice52/practice-custom-test:20210608.09ec081
+    restart: 'on-failure:3'
+    container_name: dev-project-worklow
+    volumes:
+      - /root/project-name/logs:/log
+    ports:
+      - 8010:8080
+    environment:
+      - TZ=Asia/Shanghai
+      - spring.profiles.active=cloud
