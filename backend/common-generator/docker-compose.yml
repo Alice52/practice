@@ -1,0 +1,8 @@
+version: '2.4'
+services:
+  ec-prodcut:
+    image: xxx
+    ports:
+      - "9020:8020"
+    environment:
+      TZ: Asia/Shanghai

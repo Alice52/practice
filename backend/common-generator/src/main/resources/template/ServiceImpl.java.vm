@@ -1,0 +1,34 @@
+package ${package}.${moduleName}.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import ec.common.utils.CommonQuery;
+import ec.common.utils.PageUtils;
+import ec.common.utils.R;
+
+import ${package}.${moduleName}.repository.${className}Repository;
+import ${package}.${moduleName}.model.entity.${className}Entity;
+import ${package}.${moduleName}.service.${className}Service;
+
+/**
+ * ${comments}
+ *
+ * @author ${author} <br>
+ * @create ${datetime} <br>
+ * @project ${moduleName} <br>
+ */
+@Service("${classname}Service")
+public class ${className}ServiceImpl extends ServiceImpl<${className}Repository, ${className}Entity> implements ${className}Service {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<${className}Entity> page = this.page(new CommonQuery<${className}Entity>().getPage(params), new QueryWrapper<${className}Entity>());
+
+        return new PageUtils(page);
+    }
+}
