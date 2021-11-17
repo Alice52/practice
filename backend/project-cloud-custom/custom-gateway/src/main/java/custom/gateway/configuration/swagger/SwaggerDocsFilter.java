@@ -1,6 +1,6 @@
 package custom.gateway.configuration.swagger;
 
-import org.apache.commons.lang.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -22,7 +22,7 @@ public class SwaggerDocsFilter extends AbstractGatewayFilterFactory {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
             String path = request.getURI().getPath();
-            if (!StringUtils.endsWithIgnoreCase(path, SwaggerProvider.API_URI)) {
+            if (!StrUtil.endWithIgnoreCase(path, SwaggerProvider.API_URI)) {
                 return chain.filter(exchange);
             }
             ServerHttpRequest newRequest = request.mutate().build();

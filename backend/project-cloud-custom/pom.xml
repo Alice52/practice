@@ -28,6 +28,8 @@
         <!-- common -->
         <swagger.fox.version>2.9.2</swagger.fox.version>
         <swagger-bootstrap-ui.version>1.9.3</swagger-bootstrap-ui.version>
+        <swagger2.knife4j>2.0.4</swagger2.knife4j>
+        <swagger.starter>3.0.0</swagger.starter>
         <slf4j.api.version>1.7.25</slf4j.api.version>
         <logback.core.version>1.2.3</logback.core.version>
         <logback.classic.version>1.2.3</logback.classic.version>
@@ -64,9 +66,6 @@
         <!-- others -->
         <junit.version>4.12</junit.version>
         <jquery.version>3.3.1</jquery.version>
-        <swagger2.knife4j>2.0.4</swagger2.knife4j>
-        <swagger.starter>3.0.0</swagger.starter>
-
         <justauth.starter>1.3.5</justauth.starter>
         <grpc_version>1.37.0</grpc_version>
     </properties>

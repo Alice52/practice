@@ -28,6 +28,7 @@ public class DefaultHandler {
 
     @ExceptionHandler({BaseException.class})
     public R<Void> handleException(BaseException ex) {
+        ExceptionHandlerSupport.printContext();
         log.error(ex.getMessage(), ex);
 
         return R.<Void>error(ex.getResponseEnum());
@@ -35,6 +36,7 @@ public class DefaultHandler {
 
     @ExceptionHandler({Exception.class, TimeoutException.class})
     public R<Void> handleException(Exception ex) {
+        ExceptionHandlerSupport.printContext();
         log.error(ex.getMessage(), ex);
 
         return R.<Void>error(CommonResponseEnum.INTERNAL_ERROR);

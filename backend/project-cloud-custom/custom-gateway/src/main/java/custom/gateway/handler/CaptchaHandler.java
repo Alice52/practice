@@ -1,13 +1,13 @@
 package custom.gateway.handler;
 
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 import com.google.code.kaptcha.Producer;
 import common.redis.constants.enums.RedisKeyCommonEnum;
 import common.redis.utils.RedisUtil;
 import custom.gateway.constants.AuthConstants;
 import custom.gateway.constants.CacheKeys;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,7 +49,7 @@ public class CaptchaHandler implements HandlerFunction<ServerResponse> {
         String captchaKey =
                 serverRequest.queryParam(captchaKeyParamName).orElse(RandomUtil.randomString(10));
 
-        if (StringUtils.isBlank(captchaKey)) {
+        if (StrUtil.isBlank(captchaKey)) {
             return Mono.error(
                     new MissingServletRequestParameterException(captchaKeyParamName, "String"));
         }

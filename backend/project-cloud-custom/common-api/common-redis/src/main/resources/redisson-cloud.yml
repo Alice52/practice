@@ -22,7 +22,7 @@ singleServerConfig:
   # 客户端名称
   clientName: null
   #  # 节点地址
-  address: ENC(CEOgeQUQEW9X/XFST7Vre5wG1xlFElsiLUI8Xlugk5KjpCUjhTbbsboQa+OUDCeOL8vZad1TdpEViyPAquU9iA==)
+  address: ENC(PU3OrQsGBV/oAXGg3O8yCikIzyyL9YYuv6oQXsMbeNsImmWQOu9esGs4wmDqntREUCc2c1GNxlzpo6FfEx9tuw==)
   # 发布和订阅连接的最小空闲连接数
   subscriptionConnectionMinimumIdleSize: 1
   # 发布和订阅连接池大小

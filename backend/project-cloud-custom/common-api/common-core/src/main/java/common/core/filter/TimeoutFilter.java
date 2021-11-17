@@ -42,6 +42,7 @@ public class TimeoutFilter extends OncePerRequestFilter {
 
         if (ObjectUtil.isNull(timeout)) {
             filterChain.doFilter(request, response);
+            return;
         }
 
         val completed = new AtomicBoolean(false);

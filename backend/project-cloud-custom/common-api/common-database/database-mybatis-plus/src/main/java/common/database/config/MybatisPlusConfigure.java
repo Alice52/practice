@@ -1,5 +1,7 @@
 package common.database.config;
 
+import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import common.database.config.handler.DataScopeInterceptor;
 import common.database.plugin.SensitivePlugin;
@@ -36,16 +38,14 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
     }
 
     /**
-     * 逻辑删除
+     * 默认逻辑删除
      *
      * @return
      */
-    /*
-    @Bean
+    // @Bean
     public ISqlInjector sqlInjector() {
-        return new LogicSqlInjector();
+        return new DefaultSqlInjector();
     }
-    */
 
     /**
      * SQL执行效率插件 <br>
@@ -53,13 +53,11 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
      *
      * @return
      */
-    /*
-    @Bean
-    @Profile({"dev", "cloud"})
-    public PerformanceInterceptor performanceInterceptor() {
-        return new PerformanceInterceptor();
-    }
-     */
+    //    @Bean
+    //    @Profile({"dev", "cloud"})
+    //    public PerformanceInterceptor performanceInterceptor() {
+    //        return new PerformanceInterceptor();
+    //    }
 
     @Deprecated
     @ConditionalOnProperty(
