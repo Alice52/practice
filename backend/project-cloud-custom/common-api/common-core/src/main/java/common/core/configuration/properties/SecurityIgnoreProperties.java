@@ -18,12 +18,12 @@ import java.util.List;
 @ConditionalOnExpression("!'${common.core.ignore}'.isEmpty()")
 @ConfigurationProperties(prefix = "common.core.ignore")
 public class SecurityIgnoreProperties {
-    /** 放行终端配置，网关不校验此处的终端 */
-    private List<String> clients = new ArrayList<>();
+  /** 放行终端配置，网关不校验此处的终端 */
+  private List<String> clients = new ArrayList<>();
 
-    /** 不聚合swagger的模块 */
-    @Deprecated private List<String> swaggerProviders = new ArrayList<>();
+  /** 不聚合swagger的模块 */
+  @Deprecated private List<String> swaggerProviders = new ArrayList<>();
 
-    /** 放行url列表 */
-    private List<IgnoreMatcher> ignoreMatchers = new ArrayList<>();
+  /** 放行url列表 */
+  private List<IgnoreMatcher> ignoreMatchers = new ArrayList<>();
 }

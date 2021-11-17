@@ -33,132 +33,127 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 @Order(101)
 @ConditionalOnProperty(
-        prefix = "common.core.global.handler",
-        value = {"enabled"},
-        havingValue = "true",
-        matchIfMissing = true)
+    prefix = "common.core.global.handler",
+    value = {"enabled"},
+    havingValue = "true",
+    matchIfMissing = true)
 @Slf4j
 public class ValidationExceptionHandler {
 
-    private static String subAfter(
-            CharSequence string, CharSequence separator, boolean isLastSeparator) {
-        if (StrUtil.isEmpty(string)) {
-            return null == string ? null : string.toString();
-        }
-        if (separator == null) {
-            return "";
-        }
-        final String str = string.toString();
-        final String sep = separator.toString();
-        final int pos = isLastSeparator ? str.lastIndexOf(sep) : str.indexOf(sep);
-        if (-1 == pos || (string.length() - 1) == pos) {
-            return "";
-        }
-        return str.substring(pos + separator.length());
+  private static String subAfter(
+      CharSequence string, CharSequence separator, boolean isLastSeparator) {
+    if (StrUtil.isEmpty(string)) {
+      return null == string ? null : string.toString();
+    }
+    if (separator == null) {
+      return "";
+    }
+    final String str = string.toString();
+    final String sep = separator.toString();
+    final int pos = isLastSeparator ? str.lastIndexOf(sep) : str.indexOf(sep);
+    if (-1 == pos || (string.length() - 1) == pos) {
+      return "";
+    }
+    return str.substring(pos + separator.length());
+  }
+
+  @ExceptionHandler(ValidationException.class)
+  public R handleValidationException(ValidationException ex) throws Exception {
+    ExceptionHandlerSupport.printContext();
+    log.error(
+        "validation bean error: type {}, params {}, message {}, detail {}",
+        ex.getClass().getTypeName(),
+        ex.getClass().getTypeParameters(),
+        ex.getMessage(),
+        ex);
+
+    Throwable cause = ex.getCause();
+    Map<String, Object> collect = new HashMap<>(16);
+
+    if (cause instanceof ListValidException) {
+      Map<Integer, Set<ConstraintViolation<Object>>> errors =
+          ((ListValidException) cause).getErrors();
+
+      errors.forEach(
+          (i, error) -> {
+            error.stream()
+                .parallel()
+                .forEach(
+                    x ->
+                        collect.put(
+                            "[" + i + "]." + x.getPropertyPath().toString(),
+                            new HashMap<String, Object>(2) {
+                              {
+                                put("rejectValue", x.getInvalidValue());
+                                put("message", x.getMessage());
+                              }
+                            }));
+          });
+    } else {
+      collect.put("message", ex.getMessage());
+      collect.put("exception type", ex.getClass().getTypeName());
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public R handleValidationException(ValidationException ex) throws Exception {
-        ExceptionHandlerSupport.printContext();
-        log.error(
-                "validation bean error: type {}, params {}, message {}, detail {}",
-                ex.getClass().getTypeName(),
-                ex.getClass().getTypeParameters(),
-                ex.getMessage(),
-                ex);
+    return R.error(CommonResponseEnum.BEAN_VALIDATION, collect);
+  }
 
-        Throwable cause = ex.getCause();
-        Map<String, Object> collect = new HashMap<>(16);
+  @ExceptionHandler(ConstraintViolationException.class)
+  public R handleConstraintViolationException(ConstraintViolationException ex) {
+    ExceptionHandlerSupport.printContext();
+    Map<String, Object> collect =
+        ex.getConstraintViolations().stream()
+            .parallel()
+            .collect(
+                Collectors.toMap(
+                    x -> subAfter(x.getPropertyPath().toString(), ".", false),
+                    x ->
+                        new HashMap<String, Object>(2) {
+                          {
+                            put("rejectValue", x.getInvalidValue());
+                            put("message", x.getMessage());
+                          }
+                        },
+                    (s, a) -> Arrays.asList(s, a)));
 
-        if (cause instanceof ListValidException) {
-            Map<Integer, Set<ConstraintViolation<Object>>> errors =
-                    ((ListValidException) cause).getErrors();
+    return R.error(CommonResponseEnum.BEAN_VALIDATION, collect);
+  }
 
-            errors.forEach(
-                    (i, error) -> {
-                        error.stream()
-                                .parallel()
-                                .forEach(
-                                        x ->
-                                                collect.put(
-                                                        "["
-                                                                + i
-                                                                + "]."
-                                                                + x.getPropertyPath().toString(),
-                                                        new HashMap<String, Object>(2) {
-                                                            {
-                                                                put(
-                                                                        "rejectValue",
-                                                                        x.getInvalidValue());
-                                                                put("message", x.getMessage());
-                                                            }
-                                                        }));
-                    });
-        } else {
-            collect.put("message", ex.getMessage());
-            collect.put("exception type", ex.getClass().getTypeName());
-        }
+  @ExceptionHandler(BindException.class)
+  public R handleBindException(BindException ex) {
 
-        return R.error(CommonResponseEnum.BEAN_VALIDATION, collect);
-    }
+    return getErrorResults(ex.getBindingResult(), ex);
+  }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public R handleConstraintViolationException(ConstraintViolationException ex) {
-        ExceptionHandlerSupport.printContext();
-        Map<String, Object> collect =
-                ex.getConstraintViolations().stream()
-                        .parallel()
-                        .collect(
-                                Collectors.toMap(
-                                        x -> subAfter(x.getPropertyPath().toString(), ".", false),
-                                        x ->
-                                                new HashMap<String, Object>(2) {
-                                                    {
-                                                        put("rejectValue", x.getInvalidValue());
-                                                        put("message", x.getMessage());
-                                                    }
-                                                },
-                                        (s, a) -> Arrays.asList(s, a)));
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public R handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
 
-        return R.error(CommonResponseEnum.BEAN_VALIDATION, collect);
-    }
+    return getErrorResults(ex.getBindingResult(), ex);
+  }
 
-    @ExceptionHandler(BindException.class)
-    public R handleBindException(BindException ex) {
+  private R getErrorResults(BindingResult bindingResult, Exception ex) {
+    ExceptionHandlerSupport.printContext();
+    log.error(
+        "validation bean error: type {}, params {}, message {}, detail {}",
+        ex.getClass().getTypeName(),
+        ex.getClass().getTypeParameters(),
+        ex.getMessage(),
+        ex);
 
-        return getErrorResults(ex.getBindingResult(), ex);
-    }
+    Map<String, Object> collect =
+        bindingResult.getFieldErrors().stream()
+            .parallel()
+            .collect(
+                Collectors.toMap(
+                    FieldError::getField,
+                    x ->
+                        new HashMap<String, Object>(2) {
+                          {
+                            put("rejectValue", x.getRejectedValue());
+                            put("message", x.getDefaultMessage());
+                          }
+                        },
+                    (s, a) -> Arrays.asList(s, a)));
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public R handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-
-        return getErrorResults(ex.getBindingResult(), ex);
-    }
-
-    private R getErrorResults(BindingResult bindingResult, Exception ex) {
-        ExceptionHandlerSupport.printContext();
-        log.error(
-                "validation bean error: type {}, params {}, message {}, detail {}",
-                ex.getClass().getTypeName(),
-                ex.getClass().getTypeParameters(),
-                ex.getMessage(),
-                ex);
-
-        Map<String, Object> collect =
-                bindingResult.getFieldErrors().stream()
-                        .parallel()
-                        .collect(
-                                Collectors.toMap(
-                                        FieldError::getField,
-                                        x ->
-                                                new HashMap<String, Object>(2) {
-                                                    {
-                                                        put("rejectValue", x.getRejectedValue());
-                                                        put("message", x.getDefaultMessage());
-                                                    }
-                                                },
-                                        (s, a) -> Arrays.asList(s, a)));
-
-        return R.error(CommonResponseEnum.BEAN_VALIDATION, collect);
-    }
+    return R.error(CommonResponseEnum.BEAN_VALIDATION, collect);
+  }
 }

@@ -28,103 +28,103 @@ import java.util.Set;
 @Component
 public class LogUtil {
 
-    private static String requestIdKey;
+  private static String requestIdKey;
 
-    public static LogVO doBefore(JoinPoint joinPoint) {
-        try {
-            long beginTime = System.currentTimeMillis();
-            // 接收到请求，记录请求内容
-            ServletRequestAttributes attributes =
-                    (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            assert attributes != null;
-            HttpServletRequest request = attributes.getRequest();
-            String beanName = joinPoint.getSignature().getDeclaringTypeName();
-            String methodName = joinPoint.getSignature().getName();
-            String uri = request.getRequestURI();
-            String remoteAddr = WebUtil.getIpAddr(request);
-            String sessionId = request.getSession().getId();
-            String username = UserUtil.getCurrentMemberId();
-            String method = request.getMethod();
-            StringBuilder params = new StringBuilder();
-            if (Method.POST.name().equalsIgnoreCase(method)) {
-                Object[] paramsArray = joinPoint.getArgs();
-                params = new StringBuilder(argsArrayToString(paramsArray));
-            } else {
-                Map<String, ?> paramsMap = request.getParameterMap();
+  public static LogVO doBefore(JoinPoint joinPoint) {
+    try {
+      long beginTime = System.currentTimeMillis();
+      // 接收到请求，记录请求内容
+      ServletRequestAttributes attributes =
+          (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+      assert attributes != null;
+      HttpServletRequest request = attributes.getRequest();
+      String beanName = joinPoint.getSignature().getDeclaringTypeName();
+      String methodName = joinPoint.getSignature().getName();
+      String uri = request.getRequestURI();
+      String remoteAddr = WebUtil.getIpAddr(request);
+      String sessionId = request.getSession().getId();
+      String username = UserUtil.getCurrentMemberId();
+      String method = request.getMethod();
+      StringBuilder params = new StringBuilder();
+      if (Method.POST.name().equalsIgnoreCase(method)) {
+        Object[] paramsArray = joinPoint.getArgs();
+        params = new StringBuilder(argsArrayToString(paramsArray));
+      } else {
+        Map<String, ?> paramsMap = request.getParameterMap();
 
-                if (paramsMap != null && !paramsMap.isEmpty()) {
-                    Set<String> keySet = paramsMap.keySet();
-                    params.append("{");
-                    for (String key : keySet) {
-                        String[] values = (String[]) paramsMap.get(key);
-                        for (String value : values) {
-                            params.append(", ").append(key).append("=").append(value);
-                        }
-                    }
-                    params.append("}");
-                }
+        if (paramsMap != null && !paramsMap.isEmpty()) {
+          Set<String> keySet = paramsMap.keySet();
+          params.append("{");
+          for (String key : keySet) {
+            String[] values = (String[]) paramsMap.get(key);
+            for (String value : values) {
+              params.append(", ").append(key).append("=").append(value);
             }
-
-            LogVO optLog = new LogVO();
-            optLog.setReqId(MDC.get(requestIdKey));
-            optLog.setBeanName(beanName);
-            optLog.setUser(username);
-            optLog.setMethodName(methodName);
-            optLog.setParams(params.toString());
-            optLog.setRemoteAddr(remoteAddr);
-            optLog.setSessionId(sessionId);
-            optLog.setUri(uri);
-            optLog.setRequestTime(beginTime);
-
-            log.info("[enter] optLog: {}", optLog);
-
-            return optLog;
-        } catch (Exception e) {
-            log.error("***Operation request logging failed  doBefore()***", e);
+          }
+          params.append("}");
         }
+      }
 
-        return null;
+      LogVO optLog = new LogVO();
+      optLog.setReqId(MDC.get(requestIdKey));
+      optLog.setBeanName(beanName);
+      optLog.setUser(username);
+      optLog.setMethodName(methodName);
+      optLog.setParams(params.toString());
+      optLog.setRemoteAddr(remoteAddr);
+      optLog.setSessionId(sessionId);
+      optLog.setUri(uri);
+      optLog.setRequestTime(beginTime);
+
+      log.info("[enter] optLog: {}", optLog);
+
+      return optLog;
+    } catch (Exception e) {
+      log.error("***Operation request logging failed  doBefore()***", e);
     }
 
-    public static void doAfterReturning(LogVO optLog, Object result) {
-        try {
-            if (ObjectUtil.isEmpty(result)) {
-                log.info(" response result is null");
-                return;
-            }
-            optLog.setResult(result.toString());
-            long beginTime = optLog.getRequestTime();
-            long requestTime = System.currentTimeMillis() - beginTime;
-            optLog.setRequestTime(requestTime);
-            if (result instanceof JSON) {
-                log.info(" response result : {}", JSONUtil.toJsonPrettyStr(result));
-            }
+    return null;
+  }
 
-            log.info("[exit] optLog: {}", optLog);
-        } catch (Exception e) {
-            log.error("***Operation request logging failed doAfterReturning()***", e);
-        }
-    }
+  public static void doAfterReturning(LogVO optLog, Object result) {
+    try {
+      if (ObjectUtil.isEmpty(result)) {
+        log.info(" response result is null");
+        return;
+      }
+      optLog.setResult(result.toString());
+      long beginTime = optLog.getRequestTime();
+      long requestTime = System.currentTimeMillis() - beginTime;
+      optLog.setRequestTime(requestTime);
+      if (result instanceof JSON) {
+        log.info(" response result : {}", JSONUtil.toJsonPrettyStr(result));
+      }
 
-    /**
-     * Request parameter assembly
-     *
-     * @param paramsArray
-     * @return
-     */
-    private static String argsArrayToString(Object[] paramsArray) {
-        StringBuilder params = new StringBuilder();
-        if (paramsArray != null && paramsArray.length > 0) {
-            for (Object o : paramsArray) {
-                Object jsonObj = JSONUtil.toJsonStr(o);
-                params.append(jsonObj.toString()).append(" ");
-            }
-        }
-        return params.toString().trim();
+      log.info("[exit] optLog: {}", optLog);
+    } catch (Exception e) {
+      log.error("***Operation request logging failed doAfterReturning()***", e);
     }
+  }
 
-    @Value("${common.core.global.request-id.key:req-id}")
-    public void setRequestIdKey(String requestIdKey) {
-        LogUtil.requestIdKey = requestIdKey;
+  /**
+   * Request parameter assembly
+   *
+   * @param paramsArray
+   * @return
+   */
+  private static String argsArrayToString(Object[] paramsArray) {
+    StringBuilder params = new StringBuilder();
+    if (paramsArray != null && paramsArray.length > 0) {
+      for (Object o : paramsArray) {
+        Object jsonObj = JSONUtil.toJsonStr(o);
+        params.append(jsonObj.toString()).append(" ");
+      }
     }
+    return params.toString().trim();
+  }
+
+  @Value("${common.core.global.request-id.key:req-id}")
+  public void setRequestIdKey(String requestIdKey) {
+    LogUtil.requestIdKey = requestIdKey;
+  }
 }

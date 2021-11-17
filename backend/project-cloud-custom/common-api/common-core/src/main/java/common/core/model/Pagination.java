@@ -15,8 +15,8 @@ import lombok.*;
 @Deprecated
 public class Pagination {
 
-    private Integer total;
-    private Integer pageCount;
-    private Integer currentPage;
-    private Integer pageSize;
+  private Integer total;
+  private Integer pageCount;
+  private Integer currentPage;
+  private Integer pageSize;
 }

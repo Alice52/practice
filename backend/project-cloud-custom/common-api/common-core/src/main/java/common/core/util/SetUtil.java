@@ -13,11 +13,11 @@ import java.util.Set;
  */
 public final class SetUtil {
 
-    @NotNull
-    public final <T> Set<T> newHashSet(T... ts) {
-        if (ts.length > 0) {
-            return new LinkedHashSet<>(Arrays.asList(ts));
-        }
-        return new HashSet<>();
+  @NotNull
+  public final <T> Set<T> newHashSet(T... ts) {
+    if (ts.length > 0) {
+      return new LinkedHashSet<>(Arrays.asList(ts));
     }
+    return new HashSet<>();
+  }
 }

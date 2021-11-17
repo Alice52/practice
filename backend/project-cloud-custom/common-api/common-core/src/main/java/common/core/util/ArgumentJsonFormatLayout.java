@@ -19,23 +19,23 @@ import java.util.Arrays;
 @Deprecated
 public class ArgumentJsonFormatLayout extends MessageConverter {
 
-    @Override
-    public String convert(ILoggingEvent event) {
-        String formattedMessage = event.getFormattedMessage();
-        try {
-            Object[] argumentArray = event.getArgumentArray();
-            if (ObjectUtil.isNull(argumentArray)) {
-                return formattedMessage;
-            }
+  @Override
+  public String convert(ILoggingEvent event) {
+    String formattedMessage = event.getFormattedMessage();
+    try {
+      Object[] argumentArray = event.getArgumentArray();
+      if (ObjectUtil.isNull(argumentArray)) {
+        return formattedMessage;
+      }
 
-            if (StrUtil.contains(formattedMessage, "@")) {
-                Object[] objects = Arrays.stream(argumentArray).map(JSONUtil::toJsonStr).toArray();
-                return MessageFormatter.arrayFormat(event.getMessage(), objects).getMessage();
-            }
+      if (StrUtil.contains(formattedMessage, "@")) {
+        Object[] objects = Arrays.stream(argumentArray).map(JSONUtil::toJsonStr).toArray();
+        return MessageFormatter.arrayFormat(event.getMessage(), objects).getMessage();
+      }
 
-            return formattedMessage;
-        } catch (Exception e) {
-            return formattedMessage;
-        }
+      return formattedMessage;
+    } catch (Exception e) {
+      return formattedMessage;
     }
+  }
 }

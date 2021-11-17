@@ -11,11 +11,11 @@ import common.core.exception.assertion.IBaseAssert;
  */
 public class WrapMessageException extends RuntimeException {
 
-    public WrapMessageException(String message) {
-        super(message);
-    }
+  public WrapMessageException(String message) {
+    super(message);
+  }
 
-    public WrapMessageException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public WrapMessageException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

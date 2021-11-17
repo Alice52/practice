@@ -24,16 +24,15 @@ import java.util.TimeZone;
 @ConditionalOnClass(ObjectMapper.class)
 @AutoConfigureBefore(JacksonAutoConfiguration.class)
 public class JacksonConfig {
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer customizer() {
-        return builder -> {
-            builder.locale(Locale.CHINA);
-            builder.timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
-            builder.simpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
-            builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_INDEX);
-            builder.featuresToEnable(
-                    DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
-            // builder.modules(new JavaTimeModule());
-        };
-    }
+  @Bean
+  public Jackson2ObjectMapperBuilderCustomizer customizer() {
+    return builder -> {
+      builder.locale(Locale.CHINA);
+      builder.timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
+      builder.simpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
+      builder.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_INDEX);
+      builder.featuresToEnable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
+      // builder.modules(new JavaTimeModule());
+    };
+  }
 }

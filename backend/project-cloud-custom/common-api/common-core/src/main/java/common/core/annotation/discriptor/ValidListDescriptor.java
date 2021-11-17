@@ -20,36 +20,36 @@ import java.util.Set;
  * @project custom-test <br>
  */
 public class ValidListDescriptor implements ConstraintValidator<ValidList, List> {
-    Class<?>[] groups = null;
-    boolean quickFail = false;
+  Class<?>[] groups = null;
+  boolean quickFail = false;
 
-    @Override
-    public void initialize(ValidList constraintAnnotation) {
-        groups = constraintAnnotation.values();
-        quickFail = constraintAnnotation.quickFail();
+  @Override
+  public void initialize(ValidList constraintAnnotation) {
+    groups = constraintAnnotation.values();
+    quickFail = constraintAnnotation.quickFail();
+  }
+
+  @Override
+  public boolean isValid(List values, ConstraintValidatorContext context) {
+
+    Validator validator = ValidatorContext.getValidator();
+
+    Map<Integer, Set<ConstraintViolation<Object>>> errors = new HashMap<>();
+    int size = values.size();
+    for (int i = 0; i < size; i++) {
+      Set<ConstraintViolation<Object>> violations = validator.validate(values.get(i), groups);
+      if (CollUtil.isNotEmpty(violations)) {
+        errors.put(i, violations);
+        if (quickFail) {
+          throw new ListValidException(errors);
+        }
+      }
     }
 
-    @Override
-    public boolean isValid(List values, ConstraintValidatorContext context) {
-
-        Validator validator = ValidatorContext.getValidator();
-
-        Map<Integer, Set<ConstraintViolation<Object>>> errors = new HashMap<>();
-        int size = values.size();
-        for (int i = 0; i < size; i++) {
-            Set<ConstraintViolation<Object>> violations = validator.validate(values.get(i), groups);
-            if (CollUtil.isNotEmpty(violations)) {
-                errors.put(i, violations);
-                if (quickFail) {
-                    throw new ListValidException(errors);
-                }
-            }
-        }
-
-        if (errors.size() > 0) {
-            throw new ListValidException(errors);
-        }
-
-        return true;
+    if (errors.size() > 0) {
+      throw new ListValidException(errors);
     }
+
+    return true;
+  }
 }

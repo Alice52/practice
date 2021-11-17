@@ -6,9 +6,9 @@ package common.core.constant;
  * @project custom-upms-grpc <br>
  */
 public interface ServiceNameConstants {
-    String AUTH_SERVICE = "CUSTOM-AUTH-SERVICE";
+  String AUTH_SERVICE = "CUSTOM-AUTH-SERVICE";
 
-    String UMPS_SERVICE = "CUSTOM-UPMS-SERVICE";
+  String UMPS_SERVICE = "CUSTOM-UPMS-SERVICE";
 
-    String BASIC_SERVICE = "CUSTOM-BASIC-SERVICE";
+  String BASIC_SERVICE = "CUSTOM-BASIC-SERVICE";
 }

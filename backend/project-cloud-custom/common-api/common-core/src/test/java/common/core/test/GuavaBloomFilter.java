@@ -18,43 +18,43 @@ import java.util.function.Function;
  * @project custom-test <br>
  */
 public class GuavaBloomFilter {
-    private static final int expectedInsertions = 1000000;
+  private static final int expectedInsertions = 1000000;
 
-    @Test
-    public void testSort() {
+  @Test
+  public void testSort() {
 
-        List<LocalDateTime> times = new ArrayList<>();
+    List<LocalDateTime> times = new ArrayList<>();
 
-        times.add(LocalDateTime.now());
-        times.add(LocalDateTime.MIN);
-        times.add(LocalDateTime.MAX);
+    times.add(LocalDateTime.now());
+    times.add(LocalDateTime.MIN);
+    times.add(LocalDateTime.MAX);
 
-        times.sort(Comparator.comparing(Function.identity()));
+    times.sort(Comparator.comparing(Function.identity()));
 
-        System.out.println(times.get(0));
+    System.out.println(times.get(0));
+  }
+
+  @Test
+  public void testBloomFilter() {
+    BloomFilter<String> bloomFilter =
+        BloomFilter.create(Funnels.stringFunnel(Charsets.UTF_8), expectedInsertions);
+
+    List<String> list = new ArrayList<>(expectedInsertions);
+
+    for (int i = 0; i < expectedInsertions; i++) {
+      String uuid = UUID.randomUUID().toString();
+      bloomFilter.put(uuid);
+      list.add(uuid);
     }
 
-    @Test
-    public void testBloomFilter() {
-        BloomFilter<String> bloomFilter =
-                BloomFilter.create(Funnels.stringFunnel(Charsets.UTF_8), expectedInsertions);
-
-        List<String> list = new ArrayList<>(expectedInsertions);
-
-        for (int i = 0; i < expectedInsertions; i++) {
-            String uuid = UUID.randomUUID().toString();
-            bloomFilter.put(uuid);
-            list.add(uuid);
-        }
-
-        int mightContainNum1 = 0;
-        for (int i = 0; i < 500; i++) {
-            String key = list.get(i);
-            if (bloomFilter.mightContain(key)) {
-                mightContainNum1++;
-            }
-        }
-        System.out.println("【key真实存在的情况】布隆过滤器认为存在的key值数：" + mightContainNum1);
-        System.out.println("-----------------------分割线---------------------------------");
+    int mightContainNum1 = 0;
+    for (int i = 0; i < 500; i++) {
+      String key = list.get(i);
+      if (bloomFilter.mightContain(key)) {
+        mightContainNum1++;
+      }
     }
+    System.out.println("【key真实存在的情况】布隆过滤器认为存在的key值数：" + mightContainNum1);
+    System.out.println("-----------------------分割线---------------------------------");
+  }
 }

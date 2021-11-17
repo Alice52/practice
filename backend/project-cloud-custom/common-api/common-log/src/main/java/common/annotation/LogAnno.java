@@ -12,10 +12,10 @@ import java.lang.annotation.*;
 @Documented
 public @interface LogAnno {
 
-    /**
-     * description
-     *
-     * @return
-     */
-    String value() default "";
+  /**
+   * description
+   *
+   * @return
+   */
+  String value() default "";
 }

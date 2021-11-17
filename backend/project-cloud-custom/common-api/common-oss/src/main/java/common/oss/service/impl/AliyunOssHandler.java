@@ -41,78 +41,77 @@ import java.util.Optional;
 @OssType(type = OssUploadTypeEnum.aliyun)
 public class AliyunOssHandler implements OSSHander {
 
-    @Autowired private AliyunOssProperties ossProperties;
-    private OSS ossClient;
+  @Autowired private AliyunOssProperties ossProperties;
+  private OSS ossClient;
 
-    @Override
-    @PostConstruct
-    public void init() {
-        ossClient =
-                new OSSClientBuilder()
-                        .build(
-                                ossProperties.getEndpoint(),
-                                ossProperties.getAccessKey(),
-                                ossProperties.getAccessKeySecret());
+  @Override
+  @PostConstruct
+  public void init() {
+    ossClient =
+        new OSSClientBuilder()
+            .build(
+                ossProperties.getEndpoint(),
+                ossProperties.getAccessKey(),
+                ossProperties.getAccessKeySecret());
+  }
+
+  @Override
+  public String getExportPath() {
+    return Optional.ofNullable(ossProperties.getExportPath()).orElse("file/download/export/");
+  }
+
+  @Override
+  public Map<String, String> upload(String fileName, File file, Map<String, String> headers) {
+    Map<String, String> uploadResult = new HashMap<>();
+
+    PutObjectResult result;
+    try {
+      ObjectMetadata meta = new ObjectMetadata();
+      meta.setContentLength(file.length());
+      if (headers != null) {
+        headers.forEach(meta::setHeader);
+      }
+      PutObjectRequest request = new PutObjectRequest(ossProperties.getBucket(), fileName, file);
+      request.setMetadata(meta);
+      result = ossClient.putObject(request);
+      log.debug("OSS上传成功：{}", result);
+    } catch (Exception e) {
+      throw new BaseException(CommonResponseEnum.OSS_UPLOAD_ERROR, e);
     }
 
-    @Override
-    public String getExportPath() {
-        return Optional.ofNullable(ossProperties.getExportPath()).orElse("file/download/export/");
-    }
+    String host =
+        StrUtil.isBlank(ossProperties.getCdnHost())
+            ? ossProperties.getHost()
+            : ossProperties.getCdnHost();
+    uploadResult.put("host", host);
+    return uploadResult;
+  }
 
-    @Override
-    public Map<String, String> upload(String fileName, File file, Map<String, String> headers) {
-        Map<String, String> uploadResult = new HashMap<>();
+  @Override
+  public JSONObject signature() throws UnsupportedEncodingException {
+    String host =
+        "https://" + ossProperties.getBucket() + StrUtil.DOT + ossProperties.getEndpoint();
+    String dir = new SimpleDateFormat(DatePattern.NORM_DATE_PATTERN).format(new Date());
 
-        PutObjectResult result;
-        try {
-            ObjectMetadata meta = new ObjectMetadata();
-            meta.setContentLength(file.length());
-            if (headers != null) {
-                headers.forEach(meta::setHeader);
-            }
-            PutObjectRequest request =
-                    new PutObjectRequest(ossProperties.getBucket(), fileName, file);
-            request.setMetadata(meta);
-            result = ossClient.putObject(request);
-            log.debug("OSS上传成功：{}", result);
-        } catch (Exception e) {
-            throw new BaseException(CommonResponseEnum.OSS_UPLOAD_ERROR, e);
-        }
+    long expireEndTime = System.currentTimeMillis() + 30 * 1000;
+    Date expiration = new Date(expireEndTime);
+    PolicyConditions policyConds = new PolicyConditions();
+    policyConds.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
+    policyConds.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
 
-        String host =
-                StrUtil.isBlank(ossProperties.getCdnHost())
-                        ? ossProperties.getHost()
-                        : ossProperties.getCdnHost();
-        uploadResult.put("host", host);
-        return uploadResult;
-    }
+    String postPolicy = ossClient.generatePostPolicy(expiration, policyConds);
+    byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
+    String encodedPolicy = BinaryUtil.toBase64String(binaryData);
+    String postSignature = ossClient.calculatePostSignature(postPolicy);
 
-    @Override
-    public JSONObject signature() throws UnsupportedEncodingException {
-        String host =
-                "https://" + ossProperties.getBucket() + StrUtil.DOT + ossProperties.getEndpoint();
-        String dir = new SimpleDateFormat(DatePattern.NORM_DATE_PATTERN).format(new Date());
+    JSONObject respMap = new JSONObject();
+    respMap.put("accessid", ossProperties.getAccessKey());
+    respMap.put("policy", encodedPolicy);
+    respMap.put("signature", postSignature);
+    respMap.put("dir", dir);
+    respMap.put("host", host);
+    respMap.put("expire", String.valueOf(expireEndTime / 1000));
 
-        long expireEndTime = System.currentTimeMillis() + 30 * 1000;
-        Date expiration = new Date(expireEndTime);
-        PolicyConditions policyConds = new PolicyConditions();
-        policyConds.addConditionItem(PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
-        policyConds.addConditionItem(MatchMode.StartWith, PolicyConditions.COND_KEY, dir);
-
-        String postPolicy = ossClient.generatePostPolicy(expiration, policyConds);
-        byte[] binaryData = postPolicy.getBytes(StandardCharsets.UTF_8);
-        String encodedPolicy = BinaryUtil.toBase64String(binaryData);
-        String postSignature = ossClient.calculatePostSignature(postPolicy);
-
-        JSONObject respMap = new JSONObject();
-        respMap.put("accessid", ossProperties.getAccessKey());
-        respMap.put("policy", encodedPolicy);
-        respMap.put("signature", postSignature);
-        respMap.put("dir", dir);
-        respMap.put("host", host);
-        respMap.put("expire", String.valueOf(expireEndTime / 1000));
-
-        return respMap;
-    }
+    return respMap;
+  }
 }

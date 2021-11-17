@@ -19,60 +19,56 @@ import javax.servlet.http.HttpServletResponse;
  * @project custom-test <br>
  */
 @ConditionalOnProperty(
-        prefix = "common.core.global.request-id",
-        value = {"enabled"},
-        havingValue = "true",
-        matchIfMissing = true)
+    prefix = "common.core.global.request-id",
+    value = {"enabled"},
+    havingValue = "true",
+    matchIfMissing = true)
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter implements WebMvcConfigurer {
 
-    @Resource private WebUtil requestUtil;
+  @Resource private WebUtil requestUtil;
 
-    /** if use responseProperties, will throw exception due to responseProperties is null now. */
-    @Value("${common.core.global.request-id.key:req-id}")
-    private String requestIdKey;
+  /** if use responseProperties, will throw exception due to responseProperties is null now. */
+  @Value("${common.core.global.request-id.key:req-id}")
+  private String requestIdKey;
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(this).order(1);
-    }
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(this).order(1);
+  }
 
-    @Override
-    public boolean preHandle(
-            HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
-        String requestId = requestUtil.getRequestId(request, requestIdKey);
-        MDC.put(requestIdKey, requestId);
-        response.addHeader(requestIdKey, requestId);
+  @Override
+  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+      throws Exception {
+    String requestId = requestUtil.getRequestId(request, requestIdKey);
+    MDC.put(requestIdKey, requestId);
+    response.addHeader(requestIdKey, requestId);
 
-        return super.preHandle(request, response, handler);
-    }
+    return super.preHandle(request, response, handler);
+  }
 
-    /**
-     * link:
-     * https://stackoverflow.com/questions/48823794/spring-interceptor-doesnt-add-header-to-restcontroller-services
-     *
-     * <p>This addHeader will not work due to annotation of @RestController. <br>
-     * But it can work by using @Controller<br>
-     *
-     * <p>HandlerInterceptorAdapters can not working with @ResponseBody and ResponseEntity methods,
-     * <br>
-     * because those are handled by HttpMessageConverter which writes to response <br>
-     * before postHandle is called which makes it difficult to change the response.<br>
-     *
-     * <p>@RestController can use ResponseBodyAdvice to make addHeader worked.
-     *
-     * @param request
-     * @param response
-     * @param handler
-     * @param ex
-     */
-    @Override
-    public void afterCompletion(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Object handler,
-            Exception ex) {
-        MDC.remove(requestIdKey);
-    }
+  /**
+   * link:
+   * https://stackoverflow.com/questions/48823794/spring-interceptor-doesnt-add-header-to-restcontroller-services
+   *
+   * <p>This addHeader will not work due to annotation of @RestController. <br>
+   * But it can work by using @Controller<br>
+   *
+   * <p>HandlerInterceptorAdapters can not working with @ResponseBody and ResponseEntity methods,
+   * <br>
+   * because those are handled by HttpMessageConverter which writes to response <br>
+   * before postHandle is called which makes it difficult to change the response.<br>
+   *
+   * <p>@RestController can use ResponseBodyAdvice to make addHeader worked.
+   *
+   * @param request
+   * @param response
+   * @param handler
+   * @param ex
+   */
+  @Override
+  public void afterCompletion(
+      HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    MDC.remove(requestIdKey);
+  }
 }

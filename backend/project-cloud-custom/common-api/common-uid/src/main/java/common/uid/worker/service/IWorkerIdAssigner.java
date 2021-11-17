@@ -13,10 +13,10 @@ import common.uid.worker.entity.WorkerNodeEntity;
  */
 public interface IWorkerIdAssigner extends IService<WorkerNodeEntity> {
 
-    /**
-     * Assign worker id for {@link DefaultUidGenerator}
-     *
-     * @return assigned worker id
-     */
-    long assignWorkerId();
+  /**
+   * Assign worker id for {@link DefaultUidGenerator}
+   *
+   * @return assigned worker id
+   */
+  long assignWorkerId();
 }

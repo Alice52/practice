@@ -11,35 +11,35 @@ import java.lang.annotation.Annotation;
  */
 public class OssTypeImpl implements OssType {
 
-    private OssUploadTypeEnum type;
+  private OssUploadTypeEnum type;
 
-    public OssTypeImpl(OssUploadTypeEnum type) {
-        this.type = type;
-    }
+  public OssTypeImpl(OssUploadTypeEnum type) {
+    this.type = type;
+  }
 
-    @Override
-    public OssUploadTypeEnum type() {
-        return type;
-    }
+  @Override
+  public OssUploadTypeEnum type() {
+    return type;
+  }
 
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return OssType.class;
-    }
+  @Override
+  public Class<? extends Annotation> annotationType() {
+    return OssType.class;
+  }
 
-    @Override
-    public int hashCode() {
-        int hashCode = 0;
-        hashCode += (127 * "type".hashCode()) ^ type.hashCode();
-        return hashCode;
-    }
+  @Override
+  public int hashCode() {
+    int hashCode = 0;
+    hashCode += (127 * "type".hashCode()) ^ type.hashCode();
+    return hashCode;
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof OssType)) {
-            return false;
-        }
-        OssType other = (OssType) obj;
-        return type.name().equals(other.type().name());
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof OssType)) {
+      return false;
     }
+    OssType other = (OssType) obj;
+    return type.name().equals(other.type().name());
+  }
 }

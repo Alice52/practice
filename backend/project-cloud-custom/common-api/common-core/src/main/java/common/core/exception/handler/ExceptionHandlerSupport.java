@@ -23,34 +23,33 @@ import java.util.Map;
 @Slf4j
 public final class ExceptionHandlerSupport {
 
-    public static void printContext() {
-        // 对于 Web 项目我们可以从上下文中获取到额外的一些信息来丰富我们的日志
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (ObjectUtil.isNotNull(requestAttributes)) {
-            HttpServletRequest request =
-                    ((ServletRequestAttributes) requestAttributes).getRequest();
+  public static void printContext() {
+    // 对于 Web 项目我们可以从上下文中获取到额外的一些信息来丰富我们的日志
+    RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+    if (ObjectUtil.isNotNull(requestAttributes)) {
+      HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 
-            Map<String, String> headerMap = new HashMap<>();
-            Enumeration<String> headerNames = request.getHeaderNames();
-            if (headerNames.hasMoreElements()) {
-                String name = headerNames.nextElement();
-                String value = request.getHeader(name);
-                headerMap.put(name, value);
-            }
+      Map<String, String> headerMap = new HashMap<>();
+      Enumeration<String> headerNames = request.getHeaderNames();
+      if (headerNames.hasMoreElements()) {
+        String name = headerNames.nextElement();
+        String value = request.getHeader(name);
+        headerMap.put(name, value);
+      }
 
-            BasicUserInfo userInfo = BasicUserInfo.builder().memberId(1L).build();
-            RequestContext context =
-                    RequestContext.builder()
-                            .userInfo(userInfo)
-                            .url(request.getRequestURL().toString())
-                            .parameterMap(request.getParameterMap())
-                            .method(request.getMethod())
-                            .headerMap(headerMap)
-                            .build();
+      BasicUserInfo userInfo = BasicUserInfo.builder().memberId(1L).build();
+      RequestContext context =
+          RequestContext.builder()
+              .userInfo(userInfo)
+              .url(request.getRequestURL().toString())
+              .parameterMap(request.getParameterMap())
+              .method(request.getMethod())
+              .headerMap(headerMap)
+              .build();
 
-            log.error("exception context: {}", context);
-        }
+      log.error("exception context: {}", context);
     }
+  }
 }
 
 @Data
@@ -58,13 +57,13 @@ public final class ExceptionHandlerSupport {
 @AllArgsConstructor
 @Builder
 class RequestContext {
-    private String url;
-    /** user info. */
-    private BasicUserInfo userInfo;
+  private String url;
+  /** user info. */
+  private BasicUserInfo userInfo;
 
-    private Map<String, String[]> parameterMap;
-    private String method;
-    private Map<String, String> headerMap;
+  private Map<String, String[]> parameterMap;
+  private String method;
+  private Map<String, String> headerMap;
 }
 
 @Builder
@@ -72,6 +71,6 @@ class RequestContext {
 @NoArgsConstructor
 @AllArgsConstructor
 class BasicUserInfo {
-    String name;
-    Long memberId;
+  String name;
+  Long memberId;
 }

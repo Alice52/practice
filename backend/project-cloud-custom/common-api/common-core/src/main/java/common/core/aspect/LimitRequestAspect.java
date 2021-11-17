@@ -29,53 +29,52 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class LimitRequestAspect {
 
-    /** 根据请求地址保存不同的令牌桶 */
-    private static final Map<String, RateLimiter> map = new ConcurrentHashMap<>(16);
+  /** 根据请求地址保存不同的令牌桶 */
+  private static final Map<String, RateLimiter> map = new ConcurrentHashMap<>(16);
 
-    /**
-     * 切入去点拦截
-     *
-     * @see LocalLimitRequest
-     */
-    @Pointcut("@annotation(localLimitRequest)")
-    public void pointCut(LocalLimitRequest localLimitRequest) {}
+  /**
+   * 切入去点拦截
+   *
+   * @see LocalLimitRequest
+   */
+  @Pointcut("@annotation(localLimitRequest)")
+  public void pointCut(LocalLimitRequest localLimitRequest) {}
 
-    @Around("pointCut(localLimitRequest)")
-    public Object doPoint(ProceedingJoinPoint joinPoint, LocalLimitRequest localLimitRequest)
-            throws Throwable {
+  @Around("pointCut(localLimitRequest)")
+  public Object doPoint(ProceedingJoinPoint joinPoint, LocalLimitRequest localLimitRequest)
+      throws Throwable {
 
-        int count = localLimitRequest.count();
-        long time = localLimitRequest.time();
+    int count = localLimitRequest.count();
+    long time = localLimitRequest.time();
 
-        if (count == 0 || time == 0) {
-            return joinPoint.proceed();
-        }
-
-        // 获取 request
-        HttpServletRequest request = WebUtil.getCurrentRequest();
-        // 获取请求 uri
-        String uri = request.getRequestURI();
-        if (!map.containsKey(uri)) {
-            // 为当前请求创建令牌桶
-            double per = NumberUtil.div(count, localLimitRequest.timeUnit().toSeconds(time));
-            map.put(uri, RateLimiter.create(per));
-        }
-        // 根据请求 uri 获取令牌桶
-        RateLimiter rateLimiter = map.get(uri);
-        if (localLimitRequest.acquireTokenTimeout() <= 0) {
-            double acquire = rateLimiter.acquire();
-            return joinPoint.proceed();
-        }
-
-        boolean acquire =
-                rateLimiter.tryAcquire(
-                        localLimitRequest.acquireTokenTimeout(),
-                        localLimitRequest.acquireTokenTimeUnit());
-        if (acquire) {
-            // 调用目标方法
-            return joinPoint.proceed();
-        }
-        // 获取不到令牌抛出异常
-        throw new BaseException(CommonResponseEnum.REQUEST_LIMIT_ERROR);
+    if (count == 0 || time == 0) {
+      return joinPoint.proceed();
     }
+
+    // 获取 request
+    HttpServletRequest request = WebUtil.getCurrentRequest();
+    // 获取请求 uri
+    String uri = request.getRequestURI();
+    if (!map.containsKey(uri)) {
+      // 为当前请求创建令牌桶
+      double per = NumberUtil.div(count, localLimitRequest.timeUnit().toSeconds(time));
+      map.put(uri, RateLimiter.create(per));
+    }
+    // 根据请求 uri 获取令牌桶
+    RateLimiter rateLimiter = map.get(uri);
+    if (localLimitRequest.acquireTokenTimeout() <= 0) {
+      double acquire = rateLimiter.acquire();
+      return joinPoint.proceed();
+    }
+
+    boolean acquire =
+        rateLimiter.tryAcquire(
+            localLimitRequest.acquireTokenTimeout(), localLimitRequest.acquireTokenTimeUnit());
+    if (acquire) {
+      // 调用目标方法
+      return joinPoint.proceed();
+    }
+    // 获取不到令牌抛出异常
+    throw new BaseException(CommonResponseEnum.REQUEST_LIMIT_ERROR);
+  }
 }

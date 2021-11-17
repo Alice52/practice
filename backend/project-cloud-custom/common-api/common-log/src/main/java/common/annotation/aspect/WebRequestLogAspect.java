@@ -21,29 +21,29 @@ import org.springframework.stereotype.Component;
 @Component
 @Deprecated
 public class WebRequestLogAspect {
-    private ThreadLocal<LogVO> tlocal = new ThreadLocal<LogVO>();
+  private ThreadLocal<LogVO> tlocal = new ThreadLocal<LogVO>();
 
-    @Pointcut("execution(* com.xxx.xxx.controller..*.*(..))")
-    public void webRequestLog() {}
+  @Pointcut("execution(* com.xxx.xxx.controller..*.*(..))")
+  public void webRequestLog() {}
 
-    @Before("webRequestLog()")
-    public void doBefore(JoinPoint joinPoint) {
-        try {
-            LogVO logVO = LogUtil.doBefore(joinPoint);
-            tlocal.set(logVO);
-        } catch (Exception e) {
-            log.error("***Operation request logging failed  doBefore()***", e);
-        }
+  @Before("webRequestLog()")
+  public void doBefore(JoinPoint joinPoint) {
+    try {
+      LogVO logVO = LogUtil.doBefore(joinPoint);
+      tlocal.set(logVO);
+    } catch (Exception e) {
+      log.error("***Operation request logging failed  doBefore()***", e);
     }
+  }
 
-    @AfterReturning(returning = "result", pointcut = "webRequestLog()")
-    public void doAfterReturning(Object result) {
-        try {
-            LogVO optLog = tlocal.get();
-            LogUtil.doAfterReturning(optLog, result);
-            tlocal.remove();
-        } catch (Exception e) {
-            log.error("***Operation request logging failed doAfterReturning()***", e);
-        }
+  @AfterReturning(returning = "result", pointcut = "webRequestLog()")
+  public void doAfterReturning(Object result) {
+    try {
+      LogVO optLog = tlocal.get();
+      LogUtil.doAfterReturning(optLog, result);
+      tlocal.remove();
+    } catch (Exception e) {
+      log.error("***Operation request logging failed doAfterReturning()***", e);
     }
+  }
 }

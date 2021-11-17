@@ -28,10 +28,10 @@ import common.uid.buffer.RingBuffer;
 @FunctionalInterface
 public interface RejectedTakeBufferHandler {
 
-    /**
-     * Reject take buffer request
-     *
-     * @param ringBuffer
-     */
-    void rejectTakeBuffer(RingBuffer ringBuffer);
+  /**
+   * Reject take buffer request
+   *
+   * @param ringBuffer
+   */
+  void rejectTakeBuffer(RingBuffer ringBuffer);
 }

@@ -21,66 +21,66 @@ import java.util.Map;
  */
 public interface OSSHander {
 
-    Logger log = LoggerFactory.getLogger(OSSHander.class);
+  Logger log = LoggerFactory.getLogger(OSSHander.class);
 
-    /** Init oss client */
-    default void init() throws OperationNotSupportedException {
-        throw new OperationNotSupportedException();
+  /** Init oss client */
+  default void init() throws OperationNotSupportedException {
+    throw new OperationNotSupportedException();
+  }
+
+  /**
+   * Get policy and signature info, then send post request to host with signature info, <br>
+   * it will put object to oss.
+   *
+   * @return Map contains signature info for front end upload.
+   */
+  JSONObject signature() throws UnsupportedEncodingException;
+
+  /**
+   * update file directly
+   *
+   * @param fileName
+   * @param file
+   * @param headers
+   * @return
+   */
+  Map<String, String> upload(String fileName, File file, Map<String, String> headers);
+
+  /**
+   * update file directly
+   *
+   * @param fileName
+   * @param file
+   * @return
+   */
+  default Map<String, String> upload(String fileName, File file) {
+    return upload(fileName, file, null);
+  }
+
+  /**
+   * download file from specified bucket.
+   *
+   * @param client
+   * @param bucket
+   * @param fileKey
+   * @return
+   */
+  default OSSObject downLoad(OSS client, String bucket, String fileKey) {
+    OSSObject ossObject;
+    try {
+      ossObject = client.getObject(bucket, fileKey);
+      log.debug("OSS下载成功：{}", JSONUtil.toJsonStr(ossObject));
+    } catch (Exception e) {
+      throw new BaseException(CommonResponseEnum.OSS_DOWNLOAD_ERROR, e);
     }
 
-    /**
-     * Get policy and signature info, then send post request to host with signature info, <br>
-     * it will put object to oss.
-     *
-     * @return Map contains signature info for front end upload.
-     */
-    JSONObject signature() throws UnsupportedEncodingException;
+    return ossObject;
+  }
 
-    /**
-     * update file directly
-     *
-     * @param fileName
-     * @param file
-     * @param headers
-     * @return
-     */
-    Map<String, String> upload(String fileName, File file, Map<String, String> headers);
-
-    /**
-     * update file directly
-     *
-     * @param fileName
-     * @param file
-     * @return
-     */
-    default Map<String, String> upload(String fileName, File file) {
-        return upload(fileName, file, null);
-    }
-
-    /**
-     * download file from specified bucket.
-     *
-     * @param client
-     * @param bucket
-     * @param fileKey
-     * @return
-     */
-    default OSSObject downLoad(OSS client, String bucket, String fileKey) {
-        OSSObject ossObject;
-        try {
-            ossObject = client.getObject(bucket, fileKey);
-            log.debug("OSS下载成功：{}", JSONUtil.toJsonStr(ossObject));
-        } catch (Exception e) {
-            throw new BaseException(CommonResponseEnum.OSS_DOWNLOAD_ERROR, e);
-        }
-
-        return ossObject;
-    }
-
-    /**
-     * 获取配置文件的导出路径
-     *
-     * @return
-     */
-    String getExportPath();
+  /**
+   * 获取配置文件的导出路径
+   *
+   * @return
+   */
+  String getExportPath();
 }

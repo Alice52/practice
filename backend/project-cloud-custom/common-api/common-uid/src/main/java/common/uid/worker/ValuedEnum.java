@@ -27,5 +27,5 @@ import common.uid.utils.EnumUtils;
  * @project project-custom <br>
  */
 public interface ValuedEnum<T> {
-    T value();
+  T value();
 }

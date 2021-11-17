@@ -13,20 +13,19 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface WorkerNodeMapper extends BaseMapper<WorkerNodeEntity> {
 
-    /**
-     * Get {@link WorkerNodeEntity} by node host
-     *
-     * @param host
-     * @param port
-     * @return
-     */
-    WorkerNodeEntity getWorkerNodeByHostPort(
-            @Param("host") String host, @Param("port") String port);
+  /**
+   * Get {@link WorkerNodeEntity} by node host
+   *
+   * @param host
+   * @param port
+   * @return
+   */
+  WorkerNodeEntity getWorkerNodeByHostPort(@Param("host") String host, @Param("port") String port);
 
-    /**
-     * Add {@link WorkerNodeEntity}
-     *
-     * @param workerNodeEntity
-     */
-    void addWorkerNode(WorkerNodeEntity workerNodeEntity);
+  /**
+   * Add {@link WorkerNodeEntity}
+   *
+   * @param workerNodeEntity
+   */
+  void addWorkerNode(WorkerNodeEntity workerNodeEntity);
 }

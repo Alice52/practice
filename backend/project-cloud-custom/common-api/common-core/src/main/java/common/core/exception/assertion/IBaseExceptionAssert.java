@@ -12,35 +12,35 @@ import java.text.MessageFormat;
  */
 public interface IBaseExceptionAssert extends IBaseErrorResponse, IBaseAssert {
 
-    /**
-     * Create BaseException by args[caller].
-     *
-     * @param args
-     * @return
-     */
-    @Override
-    default BaseException newException(Object... args) {
-        String msg = MessageFormat.format(this.getErrorMsg(), args);
+  /**
+   * Create BaseException by args[caller].
+   *
+   * @param args
+   * @return
+   */
+  @Override
+  default BaseException newException(Object... args) {
+    String msg = MessageFormat.format(this.getErrorMsg(), args);
 
-        return new BaseException(this, args, msg);
+    return new BaseException(this, args, msg);
+  }
+
+  /**
+   * Create BaseException by args[caller] and Throwable.
+   *
+   * @param t
+   * @param args
+   * @return
+   */
+  @Override
+  default BaseException newException(Throwable t, Object... args) {
+    // This override method will lead assert message to replace response message, <br/>
+    // and assert message will just in exception log default.
+    if (t instanceof WrapMessageException) {
+      this.setErrorMsg(t.getMessage());
     }
 
-    /**
-     * Create BaseException by args[caller] and Throwable.
-     *
-     * @param t
-     * @param args
-     * @return
-     */
-    @Override
-    default BaseException newException(Throwable t, Object... args) {
-        // This override method will lead assert message to replace response message, <br/>
-        // and assert message will just in exception log default.
-        if (t instanceof WrapMessageException) {
-            this.setErrorMsg(t.getMessage());
-        }
-
-        String msg = MessageFormat.format(this.getErrorMsg(), args);
-        return new BaseException(this, args, msg, t);
-    }
+    String msg = MessageFormat.format(this.getErrorMsg(), args);
+    return new BaseException(this, args, msg, t);
+  }
 }
