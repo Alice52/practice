@@ -20,6 +20,7 @@
         <module>mistake-biz</module>
         <module>custom-test</module>
         <module>format-coding</module>
+        <module>job-delay</module>
     </modules>
 
     <properties>

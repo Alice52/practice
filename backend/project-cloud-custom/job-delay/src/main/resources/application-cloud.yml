@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    include: common-cloud,database-cloud,redis-cloud,actuator-cloud,oss-cloud,uid-cloud,common
+
+common:
+  core:
+    redis:
+      module: common
+
+rocketmq:
+  name-server: ENC(ABk7EmbQ2PVetLJXsGWapYFsM90R1nJy66g2h9LJH8QJ52QC1ZrVGBO9K094a9RH0eFguN1JRuLG6UM796o09Q==)
+  producer:
+    group: delay-task-demo
