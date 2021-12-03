@@ -2,7 +2,6 @@ package top.hubby.job.delay.domain.order.service.delay.v5.dcpmq;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
 import top.hubby.job.delay.domain.order.event.OrderInfoCreateEvent;
 
@@ -11,9 +10,9 @@ import top.hubby.job.delay.domain.order.event.OrderInfoCreateEvent;
  * @create 2021-11-26 5:01 PM <br>
  * @project project-cloud-custom <br>
  */
-@Service
+// @Service
 @Slf4j
-public class AnnotationBasedDeleyStrategy {
+public class AnnotationBasedDelayStrategy {
     @Autowired private RocketMQBasedDelayService delayService;
 
     @TransactionalEventListener

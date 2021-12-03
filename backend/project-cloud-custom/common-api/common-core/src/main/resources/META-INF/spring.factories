@@ -14,4 +14,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   common.core.component.ValidatorContext,\
   common.core.filter.TimeoutFilter,\
   common.core.configuration.properties.SecurityIgnoreProperties,\
-  common.core.util.BeanContextUtil
+  common.core.util.BeanContextUtil,\
+  common.core.util.EnvUtil
