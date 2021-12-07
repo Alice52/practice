@@ -53,7 +53,11 @@
             <artifactId>common-uid</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-http</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

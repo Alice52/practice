@@ -23,6 +23,7 @@
         <module>common-oss</module>
         <module>common-uid</module>
         <module>common-api-inject</module>
+        <module>common-http</module>
     </modules>
 
     <properties>
