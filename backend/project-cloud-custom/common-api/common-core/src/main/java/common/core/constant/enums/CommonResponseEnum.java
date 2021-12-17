@@ -26,6 +26,9 @@ public enum CommonResponseEnum implements IBaseExceptionAssert {
     OSS_CUSTOM_ERROR(700_000_005, "OSS Error"),
 
     UID_GENERATE_ERROR(800_000_001, "Uid Generate Error"),
+
+    ENCODING_ERROR(500_001_000, "Data Encoding Error"),
+    DECODING_ERROR(500_001_000, "Data Decoding Error"),
     ;
 
     private Integer errorCode;

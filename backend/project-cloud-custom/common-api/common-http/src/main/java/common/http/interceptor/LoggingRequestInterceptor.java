@@ -30,7 +30,7 @@ public class LoggingRequestInterceptor implements Interceptor {
             if (!ObjectUtil.isNull(responseBody)) {
                 BufferedSource source = responseBody.source();
                 source.request(Long.MAX_VALUE);
-                Buffer buffer = source.getBuffer();
+                Buffer buffer = source.buffer();
                 return buffer.clone().readString(UTF_8);
             }
         } catch (Throwable e) {
