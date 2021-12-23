@@ -7,7 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import common.core.jackson.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.redisson.spring.starter.RedissonAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +32,7 @@ import java.time.Duration;
  * @project custom-test <br>
  */
 @Slf4j
-@AutoConfigureAfter({RedisAutoConfiguration.class})
+@AutoConfigureBefore({RedisAutoConfiguration.class, RedissonAutoConfiguration.class})
 @Configuration
 public class RedisConfiguration {
     StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();

@@ -9,6 +9,8 @@
    - custom-basic
    - custom-gateway
    - custom-umps
-3. standalone module
    - custom-test
-   - mistake-biz
+3. standalone module
+   - practice-coding
+   - practice-job
+   - practice-mistake
