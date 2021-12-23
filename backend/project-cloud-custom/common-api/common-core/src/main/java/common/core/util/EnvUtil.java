@@ -1,7 +1,7 @@
 package common.core.util;
 
 import common.core.constant.enums.EnvEnums;
-import lombok.Data;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -13,17 +13,17 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@Data
+@Getter
 public class EnvUtil {
 
     private static EnvEnums env;
 
+    public static EnvEnums getEnv() {
+        return env;
+    }
+
     @Value("${spring.profiles.active:}")
     public void setEnv(String env) {
         EnvUtil.env = EnvEnums.getByName(env);
-    }
-
-    public static EnvEnums getEnv() {
-        return env;
     }
 }

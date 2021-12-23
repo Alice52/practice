@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>top.hubby</groupId>
-    <artifactId>format-coding</artifactId>
+    <artifactId>practice-coding</artifactId>
 
     <properties>
         <spring-boot.repackage.skip>true</spring-boot.repackage.skip>

@@ -1,12 +1,12 @@
 package top.hubby.job.delay.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.hubby.job.delay.domain.order.service.OrderInfoService;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 
 /**
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/job/delay/order")
 public class OrderController {
-    @Autowired private OrderInfoService orderInfoService;
+    @Resource private OrderInfoService orderInfoService;
 
     /** 生成新的订单，主要用于测试 */
     @PostMapping("insertTestData")

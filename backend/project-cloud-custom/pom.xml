@@ -10,17 +10,19 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>common-api</module>
         <module>actuator-server</module>
+
+        <module>common-api</module>
+        <module>common-cloud</module>
         <module>custom-gateway</module>
         <module>custom-basic</module>
-        <module>common-cloud</module>
         <module>custom-auth</module>
         <module>custom-umps</module>
-        <module>mistake-biz</module>
         <module>custom-test</module>
-        <module>format-coding</module>
-        <module>job-delay</module>
+
+        <module>practice-mistake</module>
+        <module>practice-coding</module>
+        <module>practice-job</module>
     </modules>
 
     <properties>
