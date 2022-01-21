@@ -11,8 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
     #end
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import com.mc4cloud.mc.common.core.entity.BaseEntity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * ${comments}
@@ -23,15 +25,21 @@ import lombok.Data;
  */
 @Data
 @TableName("${tableName}")
-public class ${className}Entity implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class ${className}Entity extends BaseEntity<${className}Entity> {
     private static final long serialVersionUID = 1L;
 
     #foreach ($column in $columns)
+        /**
+        * $column.comments
+        */
         #if($column.columnName == $pk.columnName)
         @TableId
         #elseif ($column.columnName =="is_deleted")
         @TableLogic
         #end
+
     private $column.attrType $column.attrname;
+
     #end
 }

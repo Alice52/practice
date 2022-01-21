@@ -40,16 +40,17 @@ public class GenUtils {
   public static List<String> getTemplates() {
     List<String> templates = new ArrayList<>();
     templates.add("template/Entity.java.vm");
-    templates.add("template/Repository.xml.vm");
+    templates.add("template/Mapper.xml.vm");
 
     templates.add("template/menu.sql.vm");
 
     templates.add("template/Converter.java.vm");
     templates.add("template/VO.java.vm");
+    templates.add("template/DTO.java.vm");
     templates.add("template/Service.java.vm");
     templates.add("template/ServiceImpl.java.vm");
     templates.add("template/Controller.java.vm");
-    templates.add("template/Repository.java.vm");
+    templates.add("template/Mapper.java.vm");
 
     templates.add("template/index.vue.vm");
     templates.add("template/add-or-update.vue.vm");
@@ -340,12 +341,16 @@ public class GenUtils {
       return packagePath + "model" + File.separator + "vo" + File.separator + className + "VO.java";
     }
 
+    if (template.contains("DTO.java.vm")) {
+      return packagePath + "model" + File.separator + "dto" + File.separator + className + "DTO.java";
+    }
+
     if (template.contains("Converter.java.vm")) {
       return packagePath + "converter" + File.separator + className + "Converter.java";
     }
 
-    if (template.contains("Repository.java.vm")) {
-      return packagePath + "repository" + File.separator + className + "Repository.java";
+    if (template.contains("Mapper.java.vm")) {
+      return packagePath + "mapper" + File.separator + className + "Mapper.java";
     }
 
     if (template.contains("Service.java.vm")) {
@@ -366,7 +371,7 @@ public class GenUtils {
       return packagePath + "controller" + File.separator + className + "Controller.java";
     }
 
-    if (template.contains("Repository.xml.vm")) {
+    if (template.contains("Mapper.xml.vm")) {
       return "main"
           + File.separator
           + "resources"
@@ -376,7 +381,7 @@ public class GenUtils {
           + moduleName
           + File.separator
           + className
-          + "Repository.xml";
+          + "Mapper.xml";
     }
 
     if (template.contains("menu.sql.vm")) {

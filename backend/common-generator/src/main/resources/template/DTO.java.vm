@@ -1,4 +1,4 @@
-package ${package}.${moduleName}.model.vo;
+package ${package}.${moduleName}.model.dto;
 
     #if(${hasBigDecimal})
     import java.math.BigDecimal;
@@ -19,7 +19,7 @@ import lombok.Data;
  * @project ${moduleName} <br>
  */
 @Data
-public class ${className}VO implements Serializable {
+public class ${className}DTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     #foreach ($column in $columns)
@@ -34,7 +34,6 @@ public class ${className}VO implements Serializable {
         #end
 
     private $column.attrType $column.attrname;
-
 
     #end
 }

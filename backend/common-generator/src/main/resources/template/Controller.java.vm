@@ -10,7 +10,9 @@ import javax.annotation.Resource;
 import ${package}.${moduleName}.model.entity.${className}Entity;
 import ${package}.${moduleName}.model.vo.${className}VO;
 import ${package}.${moduleName}.service.${className}Service;
-import ec.common.utils.PageUtils;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.mc4cloud.mc.common.core.util.R;
 
 import static ${package}.${moduleName}.converter.${className}Converter.INSTANCE;
 
@@ -28,9 +30,9 @@ public class ${className}Controller {
     private ${className}Service ${classname}Service;
 
     @GetMapping("/${pathName}s")
-    public PageUtils list(@RequestParam Map<String, Object> params) {
+    public R<IPage<${className}VO>> list(@RequestParam Map<String, Object> params) {
 
-        return ${classname}Service.queryPage(params);
+        return new R<>(${classname}Service.queryPage(params));
     }
 
     @GetMapping("/${pathName}/{${pk.attrname}}")

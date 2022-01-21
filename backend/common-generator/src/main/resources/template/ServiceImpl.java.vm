@@ -7,12 +7,11 @@ import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import ec.common.utils.CommonQuery;
-import ec.common.utils.PageUtils;
-import ec.common.utils.R;
 
-import ${package}.${moduleName}.repository.${className}Repository;
+
+import ${package}.${moduleName}.mapper.${className}Mapper;
 import ${package}.${moduleName}.model.entity.${className}Entity;
+import ${package}.${moduleName}.model.vo.${className}VO;
 import ${package}.${moduleName}.service.${className}Service;
 
 /**
@@ -23,12 +22,11 @@ import ${package}.${moduleName}.service.${className}Service;
  * @project ${moduleName} <br>
  */
 @Service("${classname}Service")
-public class ${className}ServiceImpl extends ServiceImpl<${className}Repository, ${className}Entity> implements ${className}Service {
+public class ${className}ServiceImpl extends ServiceImpl<${className}Mapper, ${className}Entity> implements ${className}Service {
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        IPage<${className}Entity> page = this.page(new CommonQuery<${className}Entity>().getPage(params), new QueryWrapper<${className}Entity>());
+    public IPage<${className}VO> queryPage(Map<String, Object> params) {
 
-        return new PageUtils(page);
+        return null;
     }
 }

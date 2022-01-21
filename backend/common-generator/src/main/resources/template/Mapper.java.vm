@@ -15,5 +15,5 @@ import java.util.List;
  * @project ${moduleName} <br>
  */
 @Mapper
-public interface ${className}Repository extends BaseMapper<${className}Entity> {
+public interface ${className}Mapper extends BaseMapper<${className}Entity> {
 }
