@@ -15,3 +15,8 @@ common:
     redis:
       module: common
       # expire-time: 24
+
+zk:
+  url: ENC(H/C9p7xqZLZYlBUKynSGsbRaYwnVIF3u9oCR0JE8zVrc9wPSV5WuK4MjEjh+FzAY+35kOiridZemdqK/yYpDug==)
+  timeout: 1000
+  retry: 3

@@ -45,6 +45,7 @@ public class RedisLockAspect {
         }
 
         Object object = null;
+        // thread block and lock() method will retry to get lock in while(true)
         RLock lock = redissonClient.getLock(key);
         try {
             if (redisLock.timeOut() > 0) {
