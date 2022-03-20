@@ -52,7 +52,9 @@ public class RingBuffer {
     private final int bufferSize;
 
     private final long indexMask;
+    /** RingBuffer of uid */
     private final long[] slots;
+    /** RingBuffer of flag */
     private final PaddedAtomicLong[] flags;
 
     /** Tail: last position sequence to produce */
