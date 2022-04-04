@@ -6,9 +6,9 @@
 2. MDC 是 log4j 和 logback 提供的一种方便在多线程条件下记录日志的功能
 3. MDC 可以看成是一个与当前线程绑定的哈希表, 可以往其中添加键值对
 4. MDC 的使用方法
-   - 向 MDC 中设置值：MDC.put(key, value);
-   - 从 MDC 中取值：MDC.get(key);
-   - 将 MDC 中内容打印到日志中：%X{key}
+    - 向 MDC 中设置值：MDC.put(key, value);
+    - 从 MDC 中取值：MDC.get(key);
+    - 将 MDC 中内容打印到日志中：%X{key}
 
 ### usage
 

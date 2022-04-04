@@ -1,7 +1,6 @@
 package custom.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import custom.converter.PhaseConverter;
@@ -62,7 +61,9 @@ public class PhaseServiceV3Impl extends ServiceImpl<PhaseMapper, Phase> implemen
     @Override
     public PhaseVO getPhase(Long id, String type) {
 
-        return PhaseConverter.CONVERTER.po2vo(getEntity(id));
+        Phase entity = Phase.builder().id(id).type(type).build();
+
+        return PhaseConverter.CONVERTER.po2vo(getEntity(entity));
     }
 
     @Override
@@ -77,8 +78,8 @@ public class PhaseServiceV3Impl extends ServiceImpl<PhaseMapper, Phase> implemen
 
     @Override
     public Boolean deletePhase(Long id) {
-
-        Phase phase = getEntity(id);
+        Phase entity = Phase.builder().id(id).build();
+        Phase phase = getEntity(entity);
         redisTemplate.opsForHash().delete(CACHE_KEY, id.toString());
 
         phase.setIsDeleted(true);
@@ -113,15 +114,15 @@ public class PhaseServiceV3Impl extends ServiceImpl<PhaseMapper, Phase> implemen
         return phases.stream().map(PhaseConverter.CONVERTER::po2vo).collect(Collectors.toList());
     }
 
-    private Phase getEntity(Long id) {
+    private Phase getEntity(Phase dto) {
 
-        Object o = redisTemplate.opsForHash().get(CACHE_KEY, id.toString());
+        // Object o = redisTemplate.opsForHash().get(CACHE_KEY, id.toString());
+        //
+        //        if (ObjectUtil.isNotNull(o) && o instanceof Phase) {
+        //            return (Phase) o;
+        //        }
 
-        if (ObjectUtil.isNotNull(o) && o instanceof Phase) {
-            return (Phase) o;
-        }
-
-        Phase phase = getByCondition(new PhaseDTO(id));
+        Phase phase = getByCondition(dto);
         Optional.ofNullable(phase)
                 .ifPresent(x -> redisTemplate.opsForHash().put(CACHE_KEY, x.getId().toString(), x));
         return phase;

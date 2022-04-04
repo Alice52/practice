@@ -13,6 +13,7 @@ import custom.model.entity.Phase;
 import custom.model.vo.PhaseVO;
 import custom.service.ActivityService;
 import custom.service.PhaseService;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,7 +35,8 @@ public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements
     @Override
     public PhaseVO getPhase(Long id, String type) {
 
-        Phase phase = getByCondition(new PhaseDTO(id, type));
+        val entity = Phase.builder().id(id).type(type).build();
+        Phase phase = getByCondition(entity);
 
         return PhaseConverter.CONVERTER.po2vo(phase);
     }
@@ -127,8 +129,8 @@ public class PhaseServiceImpl extends ServiceImpl<PhaseMapper, Phase> implements
      * @return
      */
     private Phase validateThenGet(Long id, String type) {
-
-        Phase phase = getByCondition(new PhaseDTO(id, type));
+        val entity = Phase.builder().id(id).type(type).build();
+        Phase phase = getByCondition(entity);
         Optional.ofNullable(phase)
                 .orElseThrow(() -> new RuntimeException(StrUtil.format("Id 为 {} 的记录不存在", id)));
 

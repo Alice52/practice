@@ -45,10 +45,10 @@ public class PhaseController {
 
     @ApiOperation("data de-sensitive")
     @GetMapping("/phase/{id}")
-    @Cacheable(
-            value = CommonCacheConstants.MODULE_PHASE_KEY,
-            key = "#id",
-            unless = "#result.data.id == null")
+    //    @Cacheable(
+    //            value = CommonCacheConstants.MODULE_PHASE_KEY,
+    //            key = "#id",
+    //            unless = "#result.data.id == null")
     public R<PhaseVO> get(
             @PathVariable("id") Long id,
             @RequestParam(value = "type", required = false) @ApiParam(value = "活动标识") String type) {

@@ -3,17 +3,17 @@
     ```shell
     -Dsun.misc.ProxyGenerator.saveGeneratedFiles=true
     ```   
-   
+
 2. cglib所生成的代理类
 
     ```java
     System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "PATH");
     ```   
-   
+
 3. core thinking
 
-    - map 构建时的 Key 的选择: HandlerType 注解的实现类[jdk生成的], 
-    
+    - map 构建时的 Key 的选择: HandlerType 注解的实现类[jdk生成的],
+
     ```java
     // 获取注解实现类  
     AnnotationUtils.findAnnotation(orderHandler.getClass(), HandlerType.class)

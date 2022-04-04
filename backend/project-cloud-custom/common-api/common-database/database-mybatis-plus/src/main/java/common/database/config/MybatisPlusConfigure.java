@@ -1,9 +1,14 @@
 package common.database.config;
 
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import common.database.config.handler.DataScopeInterceptor;
+import common.database.config.handler.MybatisMetaHandler;
+import common.database.interceptor.DataScopeInterceptor;
+import common.database.interceptor.DeSensitiveFieldInterceptor;
+import common.database.interceptor.QuerySensitiveInterceptor;
+import common.database.interceptor.SensitiveFieldInterceptor;
 import common.database.plugin.SensitivePlugin;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +21,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MybatisPlusConfigure extends BaseMybatisConfig {
+
+    @Bean
+    @Override
+    public GlobalConfig globalConfig() {
+        GlobalConfig globalConfig = new GlobalConfig();
+        globalConfig.setMetaObjectHandler(new MybatisMetaHandler());
+        return globalConfig;
+    }
 
     /**
      * 分页插件
@@ -59,13 +72,44 @@ public class MybatisPlusConfigure extends BaseMybatisConfig {
     //        return new PerformanceInterceptor();
     //    }
 
+    @Bean
     @Deprecated
     @ConditionalOnProperty(
             prefix = "common.global.database",
-            value = {"de-sensitive"},
+            value = {"deprecated-sensitive"},
             havingValue = "true",
             matchIfMissing = false)
     public SensitivePlugin sensitivePlugin() {
         return new SensitivePlugin();
+    }
+
+    @Bean
+    @ConditionalOnProperty(
+            prefix = "common.global.database",
+            value = {"sensitive"},
+            havingValue = "true",
+            matchIfMissing = true)
+    public SensitiveFieldInterceptor sensitiveFieldInterceptor() {
+        return new SensitiveFieldInterceptor();
+    }
+
+    @Bean
+    @ConditionalOnProperty(
+            prefix = "common.global.database",
+            value = {"sensitive"},
+            havingValue = "true",
+            matchIfMissing = true)
+    public DeSensitiveFieldInterceptor deSensitiveFieldInterceptor() {
+        return new DeSensitiveFieldInterceptor();
+    }
+
+    @Bean
+    @ConditionalOnProperty(
+            prefix = "common.global.database",
+            value = {"sensitive"},
+            havingValue = "true",
+            matchIfMissing = true)
+    public QuerySensitiveInterceptor querySensitiveInterceptor() {
+        return new QuerySensitiveInterceptor();
     }
 }

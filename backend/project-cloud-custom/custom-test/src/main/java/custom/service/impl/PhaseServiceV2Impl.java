@@ -10,6 +10,7 @@ import custom.model.entity.Phase;
 import custom.model.vo.PhaseVO;
 import custom.service.PhaseService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -124,7 +125,8 @@ public class PhaseServiceV2Impl extends ServiceImpl<PhaseMapper, Phase> implemen
         if (object instanceof Phase) {
             phase = (Phase) object;
         } else {
-            phase = getByCondition(new PhaseDTO(id));
+            val entity = Phase.builder().id(id).build();
+            phase = getByCondition(entity);
             Optional.ofNullable(phase)
                     .ifPresent(x -> redisTemplate.opsForList().set(CACHE_KEY, x.getId(), x));
         }

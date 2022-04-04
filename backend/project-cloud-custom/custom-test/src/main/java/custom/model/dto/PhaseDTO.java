@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import common.core.util.ValidatorGroupUtil;
 import custom.constants.enums.PhaseStatusEnum;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,7 +19,9 @@ import java.time.LocalDateTime;
  * @project integration <br>
  */
 @Data
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class PhaseDTO implements Serializable {
 
     @ApiModelProperty(hidden = true)

@@ -1,4 +1,4 @@
-package common.database.config.handler;
+package common.database.interceptor;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;

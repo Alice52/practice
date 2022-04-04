@@ -59,19 +59,20 @@ public interface PhaseService extends IService<Phase> {
     /**
      * Get Phase According By Condition.
      *
-     * @param dto
+     * @param entity
      * @return
      */
-    default Phase getByCondition(PhaseDTO dto) {
+    default Phase getByCondition(Phase entity) {
         LambdaQueryWrapper<Phase> queryWrapper = buildQueryWrapper();
 
-        Optional.ofNullable(dto.getId()).ifPresent(t -> queryWrapper.eq(Phase::getId, dto.getId()));
-        Optional.ofNullable(dto.getType())
-                .ifPresent(t -> queryWrapper.eq(Phase::getType, dto.getType()));
-        Optional.ofNullable(dto.getPhaseCode())
-                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseCode, dto.getPhaseCode()));
-        Optional.ofNullable(dto.getPhaseName())
-                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseName, dto.getPhaseName()));
+        Optional.ofNullable(entity.getId())
+                .ifPresent(t -> queryWrapper.eq(Phase::getId, entity.getId()));
+        Optional.ofNullable(entity.getType())
+                .ifPresent(t -> queryWrapper.eq(Phase::getType, entity.getType()));
+        Optional.ofNullable(entity.getPhaseCode())
+                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseCode, entity.getPhaseCode()));
+        Optional.ofNullable(entity.getPhaseName())
+                .ifPresent(t -> queryWrapper.eq(Phase::getPhaseName, entity.getPhaseName()));
 
         queryWrapper.last("LIMIT 1");
 

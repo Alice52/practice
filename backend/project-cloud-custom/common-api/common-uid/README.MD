@@ -14,7 +14,8 @@
 3. workId 的生成
 
     - 默认提供的策略: 应用启动时由数据库分配
-    - 应用在启动时会往数据库表(uid-generator 需要新增一个 WORKER_NODE 表)中去插入一条数据, 数据插入成功后返回的该数据对应的自增唯一 id 就是该机器的 workId, 而数据由 host, port 组成
+    - 应用在启动时会往数据库表(uid-generator 需要新增一个 WORKER_NODE 表)中去插入一条数据, 数据插入成功后返回的该数据对应的自增唯一 id 就是该机器的 workId, 而数据由 host, port
+      组成
 
 4. 简介
 
@@ -37,9 +38,9 @@
       // uuid + 多线程填充[次数不多, 所以没有解决伪共享问题]
       private final long[] slots;
 
-     // uuid flag and FalseSharing
-     //  The CPU cache line commonly be 64 bytes, here is a sample of cache line after padding:
-     //     64 bytes = 8 bytes (object reference) + 6 * 8 bytes (padded long) + 8 bytes (a long value)
+   // uuid flag and FalseSharing // The CPU cache line commonly be 64 bytes, here is a sample of cache line after
+   padding:
+   // 64 bytes = 8 bytes (object reference) + 6 * 8 bytes (padded long) + 8 bytes (a long value)
       ```
 
 6. RingBuffer 填充时机

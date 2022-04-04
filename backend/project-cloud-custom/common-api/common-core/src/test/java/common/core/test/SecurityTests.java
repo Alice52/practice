@@ -29,7 +29,7 @@ public class SecurityTests {
         log.info(original);
         String enString = AESUtil.encrypt(original, cKey);
         log.info("加密后的字串是：" + enString);
-        String DeString = AESUtil.decrypt(enString, cKey);
+        String DeString = AESUtil.decryptOrNull(enString, cKey);
         log.info("解密后的字串是：" + DeString);
     }
 

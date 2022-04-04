@@ -1,6 +1,10 @@
 package common.core.util;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.json.JSONUtil;
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.Cipher;
@@ -17,10 +21,21 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @project project-cloud-custom <br>
  */
 @Slf4j
+@UtilityClass
 public class AESUtil {
 
     private static final String AES = "AES";
     private static final String DEFAULT_ALG = "AES/ECB/PKCS5PADDING";
+    private static final String DEFAULT_SECRET = "f6631853b09511ecbedf00163e10bd4c";
+
+    public static String encrypt(Object data) {
+
+        if (ObjectUtil.isBasicType(data)) {
+            return encrypt(data.toString(), DEFAULT_SECRET, DEFAULT_ALG);
+        }
+
+        return encrypt(JSONUtil.toJsonStr(data), DEFAULT_SECRET, DEFAULT_ALG);
+    }
 
     public static String encrypt(String data, String secret) {
         return encrypt(data, secret, DEFAULT_ALG);
@@ -46,9 +61,23 @@ public class AESUtil {
         return null;
     }
 
-    public static String decrypt(String data, String secret) {
-        return decrypt(data, secret, DEFAULT_ALG);
+    public static String decryptOrNull(String data) {
+        return decryptOrNull(data, DEFAULT_SECRET, DEFAULT_ALG);
     }
+
+    public static String decryptOrNull(String data, String secret) {
+        return decryptOrNull(data, secret, DEFAULT_ALG);
+    }
+
+    public static <T> T decryptOrNull(String data, Class<T> type) {
+        String decryptStr = decryptOrNull(data, DEFAULT_SECRET, DEFAULT_ALG);
+        if (JSONUtil.isJson(decryptStr)) {
+            return JSONUtil.toBean(decryptStr, type);
+        }
+
+        return Convert.convert(type, decryptStr);
+    }
+
     /**
      * @param data
      * @param secret
@@ -56,7 +85,7 @@ public class AESUtil {
      * @return
      * @throws Exception
      */
-    public static String decrypt(String data, String secret, String alg) {
+    public static String decryptOrNull(String data, String secret, String alg) {
 
         Assert.notEmpty(secret, "Decrypt Key is Empty");
         String decryptAlgorithm = Optional.ofNullable(alg).orElse(DEFAULT_ALG);

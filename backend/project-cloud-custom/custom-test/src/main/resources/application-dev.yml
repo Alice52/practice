@@ -15,3 +15,6 @@ common:
     decryptClientSecret: xx
     maxRetryTimes: 10
     retrySleep: 100
+  global:
+    database:
+      sensitive: true

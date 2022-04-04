@@ -1,7 +1,7 @@
 ## core thinking
 
 1. code
-    
+
     ```java
     private Map<String, Function<?, ?>> checkResultDispatcher = new HashMap<>();
     ```
