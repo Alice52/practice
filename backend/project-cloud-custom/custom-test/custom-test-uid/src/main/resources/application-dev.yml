@@ -1,3 +1,8 @@
+spring:
+  profiles:
+    # this sequence is master
+    include: common-dev,database-dev,redis-dev
+
 common:
   uid:
     enabled: true

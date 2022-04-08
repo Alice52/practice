@@ -1,4 +1,4 @@
-package common.custom.test;
+package top.hubby.test.custom.uid;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,7 +14,6 @@ import io.micrometer.core.instrument.util.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import top.hubby.test.custom.CustomApplication;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -32,7 +31,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @project project-custom <br>
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = CustomApplication.class)
+@SpringBootTest(classes = UidApplication.class)
 public class DefaultUidGeneratorTest {
     private static final int SIZE = 100000; // 10w
     private static final boolean VERBOSE = true;
