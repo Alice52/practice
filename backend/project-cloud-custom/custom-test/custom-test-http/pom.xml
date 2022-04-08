@@ -11,4 +11,11 @@
 
     <artifactId>custom-test-http</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>custom-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,8 +1,0 @@
-spring:
-  profiles:
-    include: common-cloud,database-cloud,redis-cloud,actuator-cloud,oss-cloud,uid-cloud,common
-
-common:
-  core:
-    redis:
-      module: common

@@ -11,10 +11,11 @@ import static common.database.sensitive.SensitiveStrategy.USERNAME;
 
 /**
  * store sensitive data. <br>
- * this can impl by type handler of @TableField
+ * this can impl by type handler of @TableField. <br>
+ * // TODO: but it's just work for insert and query.
  *
- * @see common.core.annotation.DeSensitive
- * @see common.core.util.SensitiveJsonSerializer
+ * @see DeSensitive
+ * @see SensitiveJsonSerializer
  * @author zack <br>
  * @create 2021-06-09 09:14 <br>
  * @project custom-test <br>

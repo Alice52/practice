@@ -14,10 +14,13 @@
 
     <modules>
         <module>custom-test-openapi</module>
-        <module>custom-test-all</module>
         <module>custom-test-http</module>
         <module>custom-test-uid</module>
-        <module>custom-database</module>
+        <module>custom-test-database</module>
+        <module>custom-common</module>
+        <module>custom-test-redis</module>
+        <module>custom-syntax</module>
+        <module>custom-oss</module>
     </modules>
 
     <dependencies>

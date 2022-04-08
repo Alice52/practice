@@ -10,6 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,10 @@ public class AESUtil {
     private static final String DEFAULT_SECRET = "f6631853b09511ecbedf00163e10bd4c";
 
     public static String encrypt(Object data) {
+
+        if (ObjectUtil.isNull(data)) {
+            return StrUtil.EMPTY;
+        }
 
         if (ObjectUtil.isBasicType(data)) {
             return encrypt(data.toString(), DEFAULT_SECRET, DEFAULT_ALG);
