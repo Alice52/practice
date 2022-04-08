@@ -12,6 +12,14 @@
     <artifactId>common-api-inject</artifactId>
 
     <dependencies>
+        <!--
+            <dependency>
+                <groupId>cn.edu.ntu</groupId>
+                <artifactId>common-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            -->
+
         <dependency>
             <groupId>cn.edu.ntu</groupId>
             <artifactId>common-core</artifactId>
@@ -49,7 +57,12 @@
         </dependency>
         <dependency>
             <groupId>cn.edu.ntu</groupId>
-            <artifactId>common-security</artifactId>
+            <artifactId>common-openapi</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-http</artifactId>
             <version>${project.version}</version>
         </dependency>
 

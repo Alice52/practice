@@ -1,5 +1,7 @@
 package common.core.util;
 
+import lombok.experimental.UtilityClass;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,7 +12,8 @@ import java.io.InputStream;
  * @create 2021-06-25<br>
  * @project project-custom <br>
  */
-public class FileUtil extends cn.hutool.core.io.FileUtil {
+@UtilityClass
+public final class FileUtil extends cn.hutool.core.io.FileUtil {
 
     /**
      * Convert input stream to file.

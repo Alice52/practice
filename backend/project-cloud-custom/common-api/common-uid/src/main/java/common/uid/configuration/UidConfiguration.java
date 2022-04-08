@@ -6,6 +6,7 @@ import common.uid.generator.DefaultUidGenerator;
 import common.uid.worker.service.DisposableWorkerIdAssigner;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Configuration
+@ConditionalOnProperty(name = "common.uid.enabled", matchIfMissing = true)
 @EnableConfigurationProperties(StructConfigProperties.class)
 @MapperScan("common.uid.worker")
 public class UidConfiguration {

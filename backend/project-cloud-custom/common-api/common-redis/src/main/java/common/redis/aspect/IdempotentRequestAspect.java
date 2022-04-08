@@ -2,7 +2,6 @@ package common.redis.aspect;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Method;
-import common.core.util.ReqDeDupUtil;
 import common.core.util.UserUtil;
 import common.core.util.WebUtil;
 import common.redis.annotation.RedisIdempotentRequest;
@@ -54,7 +53,7 @@ public class IdempotentRequestAspect {
         }
 
         // handle two request param is different.
-        String md5 = ReqDeDupUtil.deDupParamMD5(request, redisIdempotentRequest.ignoreParams());
+        String md5 = WebUtil.deDupParamMD5(request, redisIdempotentRequest.ignoreParams());
         Boolean firstSet =
                 redisUtil.setIfAbsent(
                         RedisKeyCommonEnum.CACHE_LIMIT,
@@ -78,7 +77,7 @@ public class IdempotentRequestAspect {
             JoinPoint joinPoint, Exception ex, RedisIdempotentRequest redisIdempotentRequest) {
         HttpServletRequest request = WebUtil.getCurrentRequest();
 
-        String md5 = ReqDeDupUtil.deDupParamMD5(request, redisIdempotentRequest.ignoreParams());
+        String md5 = WebUtil.deDupParamMD5(request, redisIdempotentRequest.ignoreParams());
         redisUtil.remove(
                 RedisKeyCommonEnum.CACHE_LIMIT,
                 request.getRequestURI() + StrUtil.COLON + UserUtil.getCurrentMemberId(),

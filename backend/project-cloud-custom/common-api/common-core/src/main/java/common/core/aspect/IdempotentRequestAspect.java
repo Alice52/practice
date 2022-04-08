@@ -3,7 +3,6 @@ package common.core.aspect;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.Method;
 import common.core.annotation.LocalIdempotentRequest;
-import common.core.util.ReqDeDupUtil;
 import common.core.util.WebUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +52,7 @@ public class IdempotentRequestAspect {
             return point.proceed();
         }
 
-        String md5 = ReqDeDupUtil.deDupParamMD5(request, localIdempotentRequest.ignoreParams());
+        String md5 = WebUtil.deDupParamMD5(request, localIdempotentRequest.ignoreParams());
         ExpiringMap<String, Integer> em =
                 map.getOrDefault(
                         request.getRequestURI(),

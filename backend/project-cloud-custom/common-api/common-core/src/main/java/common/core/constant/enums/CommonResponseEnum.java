@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public enum CommonResponseEnum implements IBaseExceptionAssert {
+    OPENAPI_SIGNATURE_ERROR(400_000_001, "Signature Invalid Error"),
     INTERNAL_ERROR(500_000_000, "Internal Error"),
     SERVER_BUSY(500_000_001, "Network Error"),
     BEAN_VALIDATION(400_000_000, "Invalid Parameter"),

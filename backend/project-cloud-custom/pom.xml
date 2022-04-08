@@ -23,6 +23,7 @@
         <module>practice-mistake</module>
         <module>practice-coding</module>
         <module>practice-job</module>
+        <module>practice-dtx</module>
     </modules>
 
     <properties>

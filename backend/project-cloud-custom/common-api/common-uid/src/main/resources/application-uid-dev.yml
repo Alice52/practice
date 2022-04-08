@@ -3,6 +3,7 @@ common:
     database:
       de-sensitive: false
   uid:
+    enabled: true
     time-bit: 29
     work-bit: 21
     seq-bit: 13

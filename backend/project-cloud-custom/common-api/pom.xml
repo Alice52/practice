@@ -24,6 +24,7 @@
         <module>common-uid</module>
         <module>common-api-inject</module>
         <module>common-http</module>
+        <module>common-openapi</module>
     </modules>
 
     <properties>

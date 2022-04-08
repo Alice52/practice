@@ -16,7 +16,6 @@ import java.util.Arrays;
  * @create 2021-06-02 14:44 <br>
  * @project custom-test <br>
  */
-@Deprecated
 public class ArgumentJsonFormatLayout extends MessageConverter {
 
     @Override

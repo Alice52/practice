@@ -2,7 +2,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   common.core.configuration.JacksonConfig,\
   common.core.configuration.RestTemplateConfig,\
   common.core.configuration.SnowflakeConfig,\
-  common.core.util.WebUtil,\
   common.core.component.SpringContextHolder,\
   common.core.exception.handler.DefaultHandler,\
   common.core.exception.handler.ServletExceptionHandler,\
@@ -14,5 +13,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   common.core.component.ValidatorContext,\
   common.core.filter.TimeoutFilter,\
   common.core.configuration.properties.SecurityIgnoreProperties,\
-  common.core.util.BeanContextUtil,\
-  common.core.util.EnvUtil
+  common.core.component.BeanContextUtil,\
+  common.core.component.EnvUtil

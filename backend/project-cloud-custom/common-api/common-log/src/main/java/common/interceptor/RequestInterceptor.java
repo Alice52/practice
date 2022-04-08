@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,8 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class RequestInterceptor extends HandlerInterceptorAdapter implements WebMvcConfigurer {
 
-    @Resource private WebUtil requestUtil;
-
     /** if use responseProperties, will throw exception due to responseProperties is null now. */
     @Value("${common.core.global.request-id.key:req-id}")
     private String requestIdKey;
@@ -41,7 +38,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter implements Web
     public boolean preHandle(
             HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        String requestId = requestUtil.getRequestId(request, requestIdKey);
+        String requestId = WebUtil.getRequestId(request, requestIdKey);
         MDC.put(requestIdKey, requestId);
         response.addHeader(requestIdKey, requestId);
 

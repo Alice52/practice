@@ -3,7 +3,7 @@ package common.core.annotation;
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import common.core.annotation.discriptor.SensitiveStrategy;
-import common.core.util.SensitiveJsonSerializer;
+import common.core.jackson.SensitiveJsonSerializer;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
