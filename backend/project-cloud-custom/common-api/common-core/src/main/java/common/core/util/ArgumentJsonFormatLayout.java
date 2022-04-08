@@ -1,13 +1,13 @@
 package common.core.util;
 
+import java.util.Arrays;
+
 import ch.qos.logback.classic.pattern.MessageConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import org.slf4j.helpers.MessageFormatter;
-
-import java.util.Arrays;
 
 /**
  * This class is used in logback-spring.xml to log Object property.<br>

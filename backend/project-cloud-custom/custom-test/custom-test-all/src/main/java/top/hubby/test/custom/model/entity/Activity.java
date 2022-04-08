@@ -1,13 +1,13 @@
 package top.hubby.test.custom.model.entity;
 
+import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import common.database.model.entity.BaseEntity;
-import top.hubby.test.custom.constants.enums.ActivityStatusEnum;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import top.hubby.test.custom.constants.enums.ActivityStatusEnum;
 
 /**
  * @author zack <br>

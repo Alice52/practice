@@ -1,11 +1,11 @@
 package custom.basic.api.vo;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @author zack <br>

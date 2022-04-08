@@ -1,12 +1,12 @@
 package top.hubby.coding.elseif.strategy2;
 
-import cn.hutool.core.util.StrUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import cn.hutool.core.util.StrUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author zack <br>

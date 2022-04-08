@@ -12,6 +12,7 @@ import lombok.ToString;
 @Data
 @ToString
 @EqualsAndHashCode
+@Deprecated
 public class LogVO {
     private String reqId;
     private String url;

@@ -1,21 +1,23 @@
 package common.custom.test;
 
-import common.core.util.FileUtil;
-import common.oss.constnats.enums.OssUploadTypeEnum;
-import common.oss.context.OssContext;
-import common.oss.service.OSSHander;
-import top.hubby.test.custom.CustomApplication;
-import lombok.SneakyThrows;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URI;
+
+import javax.annotation.Resource;
+
+import common.core.util.FileUtil;
+import common.oss.constnats.enums.OssUploadTypeEnum;
+import common.oss.context.OssContext;
+import common.oss.service.OSSHander;
+import lombok.SneakyThrows;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import top.hubby.test.custom.CustomApplication;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * @author zack <br>

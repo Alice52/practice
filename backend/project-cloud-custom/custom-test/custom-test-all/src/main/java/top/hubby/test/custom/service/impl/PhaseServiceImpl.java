@@ -1,10 +1,18 @@
 package top.hubby.test.custom.service.impl;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.val;
 import top.hubby.test.custom.constants.enums.ActivityPhaseEnum;
 import top.hubby.test.custom.converter.PhaseConverter;
 import top.hubby.test.custom.mapper.PhaseMapper;
@@ -13,14 +21,8 @@ import top.hubby.test.custom.model.entity.Phase;
 import top.hubby.test.custom.model.vo.PhaseVO;
 import top.hubby.test.custom.service.ActivityService;
 import top.hubby.test.custom.service.PhaseService;
-import lombok.val;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 /**
  * @author zack <br>

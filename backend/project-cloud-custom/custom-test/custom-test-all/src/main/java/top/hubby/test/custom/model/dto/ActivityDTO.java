@@ -1,12 +1,12 @@
 package top.hubby.test.custom.model.dto;
 
-import top.hubby.test.custom.constants.enums.ActivityStatusEnum;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import top.hubby.test.custom.constants.enums.ActivityStatusEnum;
 
 /**
  * @author zack <br>

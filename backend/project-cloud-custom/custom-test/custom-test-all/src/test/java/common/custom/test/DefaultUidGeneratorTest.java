@@ -1,21 +1,23 @@
 package common.custom.test;
 
-import common.uid.generator.DefaultUidGenerator;
-import top.hubby.test.custom.CustomApplication;
-import io.micrometer.core.instrument.util.StringUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.annotation.Resource;
+
+import common.uid.generator.DefaultUidGenerator;
+import io.micrometer.core.instrument.util.StringUtils;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import top.hubby.test.custom.CustomApplication;
+
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * 去除输出语句吞吐量

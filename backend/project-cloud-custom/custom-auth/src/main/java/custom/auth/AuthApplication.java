@@ -1,6 +1,7 @@
 package custom.auth;
 
 import common.cloud.annotation.CustomCloudApplication;
+
 import org.springframework.boot.SpringApplication;
 
 /**

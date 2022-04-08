@@ -1,5 +1,7 @@
 package top.hubby.model.entity;
 
+import java.util.Hashtable;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,8 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Hashtable;
 
 /**
  * @author asd <br>

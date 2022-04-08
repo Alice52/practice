@@ -1,9 +1,22 @@
 package top.hubby.test.custom.openapi.controller;
 
+import common.core.util.R;
+import common.redis.annotation.RedisLimitRequest;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import top.hubby.openapi.annotation.OpenApiLog;
+import top.hubby.openapi.annotation.OpenApiSignature;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
- * @author zack <br/>
- * @create 2022-04-08 20:39 <br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2022-04-08 20:39 <br>
+ * @project project-cloud-custom <br>
  */
 @RestController
 @Slf4j
@@ -13,18 +26,11 @@ public class OpenApiTestController {
 
     @OpenApiLog
     @OpenApiSignature
-    @LimitRequest(count = 200)
+    @RedisLimitRequest(count = 200)
     @ApiOperation(value = "新增帖子/文章")
-    @PostMapping("/posts")
-    public R<PostVO> save(
-            @RequestBody @Valid OpenApiPostDTO dto, @RequestHeader(value = APPID) String appId) {
+    @PostMapping("/test")
+    public R<String> save(@RequestBody String body) {
 
-        dto.setAppId(appId);
-        Post postModel = openApiPostService.post(dto);
-
-        PostVO postVo = new PostVO();
-        postVo.setId(postModel.getId());
-        postVo.setPublishStatus(postModel.getPublishStatus());
-        return new R<>(postVo);
+        return new R<>("success");
     }
 }

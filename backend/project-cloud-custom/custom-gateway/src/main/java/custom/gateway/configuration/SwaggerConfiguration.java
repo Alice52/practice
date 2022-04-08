@@ -1,9 +1,14 @@
 package custom.gateway.configuration;
 
-import custom.gateway.configuration.swagger.*;
+import custom.gateway.configuration.swagger.SwaggerProvider;
+import custom.gateway.configuration.swagger.SwaggerResourceHandler;
+import custom.gateway.configuration.swagger.SwaggerSecurityHandler;
+import custom.gateway.configuration.swagger.SwaggerUiHandler;
+import custom.gateway.configuration.swagger.WebFluxConfiguration;
+import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
 /**
  * @author zack <br>

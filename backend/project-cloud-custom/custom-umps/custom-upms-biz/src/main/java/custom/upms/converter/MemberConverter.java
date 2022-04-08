@@ -1,13 +1,13 @@
 package custom.upms.converter;
 
+import java.util.List;
+
 import custom.basic.api.entity.MemberEntity;
 import custom.basic.api.vo.MemberVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 /**
  * @author zack <br>

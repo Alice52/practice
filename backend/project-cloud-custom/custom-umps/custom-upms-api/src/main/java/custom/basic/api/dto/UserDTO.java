@@ -1,9 +1,9 @@
 package custom.basic.api.dto;
 
+import java.io.Serializable;
+
 import custom.basic.api.entity.SysUser;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * @author asd <br>

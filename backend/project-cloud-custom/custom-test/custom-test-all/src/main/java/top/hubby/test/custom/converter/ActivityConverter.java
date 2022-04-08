@@ -1,12 +1,12 @@
 package top.hubby.test.custom.converter;
 
+import javax.annotation.Nullable;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import top.hubby.test.custom.model.dto.ActivityDTO;
 import top.hubby.test.custom.model.entity.Activity;
 import top.hubby.test.custom.model.vo.ActivityVO;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
-
-import javax.annotation.Nullable;
 
 /**
  * @author zack <br>

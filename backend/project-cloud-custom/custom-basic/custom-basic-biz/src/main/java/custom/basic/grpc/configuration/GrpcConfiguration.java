@@ -3,6 +3,7 @@ package custom.basic.grpc.configuration;
 import common.cloud.grpc.interceptor.LogInterceptor;
 import net.devh.boot.grpc.client.interceptor.GrpcGlobalClientInterceptor;
 import net.devh.boot.grpc.server.interceptor.GrpcGlobalServerInterceptor;
+
 import org.springframework.context.annotation.Configuration;
 
 /**

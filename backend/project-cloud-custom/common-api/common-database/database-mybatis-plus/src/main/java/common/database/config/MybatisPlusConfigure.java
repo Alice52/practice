@@ -10,6 +10,7 @@ import common.database.interceptor.DeSensitiveFieldInterceptor;
 import common.database.interceptor.QuerySensitiveInterceptor;
 import common.database.interceptor.SensitiveFieldInterceptor;
 import common.database.plugin.SensitivePlugin;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

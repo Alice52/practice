@@ -1,10 +1,10 @@
 package top.hubby.connectionpool.database.mapper;
 
+import java.util.Collection;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import top.hubby.model.entity.User;
-
-import java.util.Collection;
 
 /**
  * @author asd <br>

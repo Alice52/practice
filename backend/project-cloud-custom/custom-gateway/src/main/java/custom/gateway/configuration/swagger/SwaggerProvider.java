@@ -1,20 +1,22 @@
 package custom.gateway.configuration.swagger;
 
-import cn.hutool.core.util.StrUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
-import org.springframework.cloud.gateway.route.RouteDefinition;
-import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
-import org.springframework.cloud.gateway.support.NameUtils;
-import springfox.documentation.swagger.web.SwaggerResource;
-import springfox.documentation.swagger.web.SwaggerResourcesProvider;
-
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+
+import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
+import springfox.documentation.swagger.web.SwaggerResource;
+import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+
+import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
+import org.springframework.cloud.gateway.route.RouteDefinition;
+import org.springframework.cloud.gateway.route.RouteDefinitionLocator;
+import org.springframework.cloud.gateway.support.NameUtils;
 
 /**
  * @author zack <br>

@@ -1,10 +1,5 @@
 package top.hubby.oom;
 
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.springframework.util.ConcurrentReferenceHashMap;
-
 import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -12,6 +7,16 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.LongStream;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.junit.Test;
+
+import org.springframework.util.ConcurrentReferenceHashMap;
 
 /**
  * @author asd <br>

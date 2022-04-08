@@ -1,13 +1,20 @@
 package top.hubby.openapi.annotation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import top.hubby.openapi.aspect.OpenApiSignatureAspect;
+import top.hubby.openapi.filter.OpenApiHttpServletFilter;
 
 /**
  * please notice if use this api, the OpenApiHttpServletFilter should be injected for read request
  * body.
  *
- * @see com.mc4cloud.mc.common.core.component.OpenApiHttpServletFilter
- * @see com.mc4cloud.mc.common.log.aspect.OpenApiLogAspect
+ * @see OpenApiHttpServletFilter
+ * @see OpenApiSignatureAspect
  * @author zack <br>
  * @create 2022-04-07 17:40 <br>
  * @project mc-platform <br>

@@ -3,6 +3,7 @@ package custom.basic.api.feign.factory;
 import custom.basic.api.feign.RemoteUserService;
 import custom.basic.api.feign.fallback.RemoteUserServiceFallbackImpl;
 import feign.hystrix.FallbackFactory;
+
 import org.springframework.stereotype.Component;
 
 /**

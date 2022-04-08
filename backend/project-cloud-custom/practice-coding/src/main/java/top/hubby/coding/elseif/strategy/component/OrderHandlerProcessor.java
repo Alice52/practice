@@ -1,15 +1,16 @@
 package top.hubby.coding.elseif.strategy.component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.hutool.core.lang.ClassScanner;
+import top.hubby.coding.elseif.strategy.annotation.HandlerType;
+import top.hubby.coding.elseif.strategy.context.OrderHandlerContext;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
-import top.hubby.coding.elseif.strategy.annotation.HandlerType;
-import top.hubby.coding.elseif.strategy.context.OrderHandlerContext;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * core thinking: get map, which key is handler-type and value is XxOrderHandler.<br>

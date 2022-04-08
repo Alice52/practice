@@ -2,6 +2,7 @@ package custom.upms;
 
 import common.cloud.annotation.CustomCloudApplication;
 import org.mybatis.spring.annotation.MapperScan;
+
 import org.springframework.boot.SpringApplication;
 
 /**

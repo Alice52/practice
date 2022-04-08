@@ -1,8 +1,8 @@
 package top.hubby.test.custom.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import top.hubby.test.custom.model.entity.Activity;
 import org.apache.ibatis.annotations.Mapper;
+import top.hubby.test.custom.model.entity.Activity;
 
 /**
  * @author zack <br>

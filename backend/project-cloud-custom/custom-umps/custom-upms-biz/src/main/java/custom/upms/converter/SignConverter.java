@@ -1,11 +1,11 @@
 package custom.upms.converter;
 
+import java.util.List;
+
 import custom.basic.api.entity.SignEntity;
 import custom.basic.api.vo.SignVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 /**
  * @author zack <br>

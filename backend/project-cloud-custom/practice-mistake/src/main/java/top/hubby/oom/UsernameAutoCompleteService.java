@@ -1,12 +1,5 @@
 package top.hubby.oom;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +8,13 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 /**
  * @author asd <br>

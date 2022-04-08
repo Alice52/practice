@@ -1,11 +1,12 @@
 package top.hubby.coding.common.component;
 
+import javax.annotation.Resource;
+
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import common.uid.generator.UidGenerator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import org.springframework.stereotype.Component;
 
 /**
  * @author asd <br>

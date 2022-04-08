@@ -16,6 +16,7 @@ import org.aspectj.lang.annotation.Aspect;
  * @create 2021-06-02 10:35 <br>
  * @project custom-test <br>
  */
+@Deprecated
 @Aspect
 @Slf4j
 public class LogAnnoAspect {

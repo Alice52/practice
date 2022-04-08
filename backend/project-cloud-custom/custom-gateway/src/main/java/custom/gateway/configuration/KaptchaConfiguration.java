@@ -5,15 +5,16 @@ package custom.gateway.configuration;
  * @create 2021-06-26<br>
  * @project project-cloud-custom <br>
  */
+import java.util.Properties;
+
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import lombok.Setter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Properties;
 
 @Configuration
 @ConfigurationProperties(prefix = "common.core.kaptcha")

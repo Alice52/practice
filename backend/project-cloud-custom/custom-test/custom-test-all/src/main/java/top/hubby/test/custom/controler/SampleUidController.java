@@ -1,5 +1,10 @@
 package top.hubby.test.custom.controler;
 
+import java.util.HashMap;
+
+import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
+
 import common.annotation.LogAnno;
 import common.core.util.R;
 import common.uid.generator.CachedUidGenerator;
@@ -7,13 +12,10 @@ import common.uid.generator.DefaultUidGenerator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-import javax.validation.constraints.NotNull;
-import java.util.HashMap;
 
 /**
  * @author zack <br>

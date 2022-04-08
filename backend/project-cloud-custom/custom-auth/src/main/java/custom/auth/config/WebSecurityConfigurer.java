@@ -2,6 +2,7 @@ package custom.auth.config;
 
 import common.security.service.AuthAdminDetailsService;
 import lombok.SneakyThrows;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;

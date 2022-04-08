@@ -1,11 +1,11 @@
 package top.hubby.test.custom.model.vo;
 
-import top.hubby.test.custom.constants.enums.ActivityStatusEnum;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import top.hubby.test.custom.constants.enums.ActivityStatusEnum;
 
 /**
  * @author zack <br>

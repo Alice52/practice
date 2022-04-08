@@ -1,10 +1,5 @@
 package top.hubby.io;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.Charsets;
-import org.apache.commons.codec.binary.Hex;
-import org.junit.Test;
-
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +7,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.Charsets;
+import org.apache.commons.codec.binary.Hex;
+import org.junit.Test;
 
 /**
  * @author asd <br>

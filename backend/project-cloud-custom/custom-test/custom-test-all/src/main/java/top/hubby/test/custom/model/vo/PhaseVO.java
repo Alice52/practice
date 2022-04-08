@@ -1,16 +1,16 @@
 package top.hubby.test.custom.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import common.core.annotation.DeSensitive;
-import common.core.annotation.discriptor.SensitiveStrategy;
-import top.hubby.test.custom.constants.enums.PhaseStatusEnum;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import common.core.annotation.DeSensitive;
+import common.core.annotation.discriptor.SensitiveStrategy;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import top.hubby.test.custom.constants.enums.PhaseStatusEnum;
 
 /**
  * @author zack <br>

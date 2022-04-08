@@ -1,5 +1,12 @@
 package custom.auth.config;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 import common.core.constant.SecurityConstants;
 import common.security.component.CustomWebResponseExceptionTranslator;
 import common.security.grant.MobileTokenGranter;
@@ -9,6 +16,7 @@ import common.security.service.CustomJdbcClientDetailsService;
 import custom.basic.api.feign.RemoteSmsCodeService;
 import custom.basic.api.feign.RemoteUserService;
 import lombok.SneakyThrows;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,12 +34,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author asd <br>

@@ -1,5 +1,8 @@
 package top.hubby.connectionpool;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -8,12 +11,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author asd <br>
@@ -27,25 +28,6 @@ import java.util.concurrent.TimeUnit;
 public class HttpClientNotReuseController {
 
     private static CloseableHttpClient httpClient = null;
-
-    static {
-        httpClient =
-                HttpClients.custom()
-                        .setMaxConnPerRoute(1)
-                        .setMaxConnTotal(1)
-                        .evictIdleConnections(60, TimeUnit.SECONDS)
-                        .build();
-
-        Thread thread =
-                new Thread(
-                        () -> {
-                            try {
-                                httpClient.close();
-                            } catch (IOException ignored) {
-                            }
-                        });
-        Runtime.getRuntime().addShutdownHook(thread);
-    }
 
     @GetMapping("/wrong1")
     public String wrong1() {
@@ -93,5 +75,24 @@ public class HttpClientNotReuseController {
     @GetMapping("/test")
     public String test() {
         return "OK";
+    }
+
+    static {
+        httpClient =
+                HttpClients.custom()
+                        .setMaxConnPerRoute(1)
+                        .setMaxConnTotal(1)
+                        .evictIdleConnections(60, TimeUnit.SECONDS)
+                        .build();
+
+        Thread thread =
+                new Thread(
+                        () -> {
+                            try {
+                                httpClient.close();
+                            } catch (IOException ignored) {
+                            }
+                        });
+        Runtime.getRuntime().addShutdownHook(thread);
     }
 }

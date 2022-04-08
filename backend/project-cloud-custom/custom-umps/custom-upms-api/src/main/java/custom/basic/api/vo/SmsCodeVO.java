@@ -1,8 +1,8 @@
 package custom.basic.api.vo;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * @author asd <br>

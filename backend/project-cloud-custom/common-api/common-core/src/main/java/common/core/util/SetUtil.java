@@ -1,10 +1,11 @@
 package common.core.util;
 
-import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author zack <br>

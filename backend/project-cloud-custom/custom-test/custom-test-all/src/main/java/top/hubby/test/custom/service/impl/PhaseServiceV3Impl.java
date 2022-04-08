@@ -1,23 +1,29 @@
 package top.hubby.test.custom.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import top.hubby.test.custom.converter.PhaseConverter;
 import top.hubby.test.custom.mapper.PhaseMapper;
 import top.hubby.test.custom.model.dto.PhaseDTO;
 import top.hubby.test.custom.model.entity.Phase;
 import top.hubby.test.custom.model.vo.PhaseVO;
 import top.hubby.test.custom.service.PhaseService;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * 缓存失效模式: 失效和双写

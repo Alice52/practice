@@ -1,15 +1,16 @@
 package top.hubby.spring.controller;
 
+import java.util.List;
+
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
+import top.hubby.spring.service.SayService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.hubby.spring.service.SayService;
-
-import java.util.List;
 
 /**
  * @author asd <br>

@@ -1,12 +1,12 @@
 package top.hubby.spring.service;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author asd <br>

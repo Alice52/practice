@@ -1,11 +1,11 @@
 package custom.basic.api.dto;
 
+import java.io.Serializable;
+
 import custom.basic.api.constant.enums.ShortMessageTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
 
 /**
  * @author asd <br>

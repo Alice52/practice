@@ -1,9 +1,8 @@
 package top.hubby.openapi.filter;
 
-import common.core.filter.RepeatReadHttpServletFilter;
-import org.springframework.stereotype.Component;
-
 import javax.servlet.annotation.WebFilter;
+
+import common.core.filter.RepeatReadHttpServletFilter;
 
 /**
  * @author zack <br>
