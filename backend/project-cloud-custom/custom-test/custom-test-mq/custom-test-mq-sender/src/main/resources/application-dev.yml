@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    # this sequence is master
+    include: common-dev
+  rabbitmq:
+    host: 192.168.1.16
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    publisher-returns: true
+    # Mandatory为true时, 消息通过交换器无法匹配到队列会返回给生产者 并触发MessageReturn 为false时,匹配不到会直接被丢弃
+    template:
+      mandatory: true
+    # publisher-confirm-type: correlated
+    # 手动提交消息
+    listener:
+      simple:
+        acknowledge-mode: manual
+      direct:
+        acknowledge-mode: manual
+
+common:
+  mq:
+    queue-type: direct  # direct/fanout/topic
+    exchange: custom-test-mq-sender-exchange
+    queue: custom-test-mq-sender-queue
+    routing-key: routing-key
+    dead-letter-queue: common-mq-sender-dl-queue
+    dead-letter-exchange: common-mq-sender-dl-exchange
+    dead-letter-routing-key: common-mq-sender-dl-routing-key

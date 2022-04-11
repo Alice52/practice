@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnWebApplication
 @Configuration
 @EnableAutoConfiguration
-@ConditionalOnProperty(name = "openapi.enabled", matchIfMissing = true)
+@ConditionalOnProperty(name = "common.openapi.enabled", matchIfMissing = true)
 public class OpenApiConfiguration {
 
     @Bean

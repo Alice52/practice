@@ -12,4 +12,11 @@
 
     <artifactId>practice-dtx</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.edu.ntu</groupId>
+            <artifactId>common-api-inject</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>
