@@ -19,6 +19,7 @@ import top.hubby.mq.sender.annotation.EnableMQSender;
 @EnableMQSender
 @EnableSwagger
 @Import(ExcludeRedisConfig.class)
+@SpringBootApplication
 public class MQSenderApplication {
     public static void main(String[] args) {
         SpringApplication.run(MQSenderApplication.class, args);

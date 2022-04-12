@@ -15,4 +15,5 @@ public interface DtxEventService extends IService<DtxEvent> {
 
      boolean updateEventStatus(Long id, EventStatus status);
 
+     void createEvent(long uid, String type, String content, EventStatus status);
 }

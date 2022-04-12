@@ -22,4 +22,10 @@ public class DtxEventServiceImpl extends ServiceImpl<DtxEventMapper, DtxEvent>
                 .eq(DtxEvent::getId, id)
                 .update();
     }
+
+    @Override
+    public void createEvent(long uid, String type, String content, EventStatus status) {
+
+
+    }
 }
