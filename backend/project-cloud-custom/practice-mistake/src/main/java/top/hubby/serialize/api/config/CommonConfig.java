@@ -6,10 +6,9 @@ import common.core.configuration.JacksonConfig;
 import common.core.configuration.RestTemplateConfig;
 import common.core.jackson.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
-import top.hubby.serialize.api.EnumDeserializer;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import top.hubby.serialize.api.EnumDeserializer;
 
 /**
  * @author asd <br>

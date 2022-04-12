@@ -1,5 +1,9 @@
 package top.hubby.exception.pool;
 
+import jodd.util.concurrent.ThreadFactoryBuilder;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -7,10 +11,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import jodd.util.concurrent.ThreadFactoryBuilder;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 /**
  * @author asd <br>
@@ -21,6 +21,10 @@ import org.junit.Test;
 public class PoolExceptionTests {
     static Thread.UncaughtExceptionHandler func0 =
             (thread, throwable) -> log.error("ThreadPool {} got exception", thread, throwable);
+
+    static {
+        Thread.setDefaultUncaughtExceptionHandler(func0);
+    }
 
     @Test
     public void execute() throws InterruptedException {
@@ -102,9 +106,5 @@ public class PoolExceptionTests {
                 });
         threadPool.shutdown();
         threadPool.awaitTermination(1, TimeUnit.HOURS);
-    }
-
-    static {
-        Thread.setDefaultUncaughtExceptionHandler(func0);
     }
 }

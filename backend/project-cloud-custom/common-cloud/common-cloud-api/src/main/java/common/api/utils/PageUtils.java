@@ -1,11 +1,11 @@
 package common.api.utils;
 
-import java.io.Serializable;
-import java.util.List;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.Data;
 import lombok.ToString;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author zack <br>

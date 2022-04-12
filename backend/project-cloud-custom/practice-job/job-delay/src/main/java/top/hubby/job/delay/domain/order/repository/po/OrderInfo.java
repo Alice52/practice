@@ -1,13 +1,12 @@
 package top.hubby.job.delay.domain.order.repository.po;
 
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import top.hubby.job.delay.domain.order.entity.valueobject.OrderInfoStatus;
 
-import org.springframework.data.annotation.Id;
+import java.time.LocalDateTime;
 
 /**
  * @author asd <br>

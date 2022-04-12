@@ -1,16 +1,15 @@
 package custom.gateway.configuration.swagger;
 
-import javax.annotation.Resource;
-
-import reactor.core.publisher.Mono;
-import springfox.documentation.swagger.web.SwaggerResourcesProvider;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.HandlerFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+
+import javax.annotation.Resource;
 
 /**
  * @author zack <br>

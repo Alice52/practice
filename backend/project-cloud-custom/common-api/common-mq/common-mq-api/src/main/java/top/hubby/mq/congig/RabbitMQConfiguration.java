@@ -1,7 +1,8 @@
 package top.hubby.mq.congig;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -16,9 +17,10 @@ import static org.springframework.amqp.support.converter.Jackson2JavaTypeMapper.
  * @create 2022-04-11 19:46 <br>
  * @project project-cloud-custom <br>
  */
-@Slf4j
 @Getter
-public class RabbitMQConfiguration {
+public abstract class RabbitMQConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(RabbitMQConfiguration.class);
     private RabbitTemplate rabbitTemplate;
 
     @Bean
@@ -39,35 +41,14 @@ public class RabbitMQConfiguration {
 
         rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(converter);
-        initRabbitmqCallback();
+        // important
+        rabbitTemplate.setMandatory(true);
+        initRabbitTemplate();
 
         return rabbitTemplate;
     }
 
-    private void initRabbitmqCallback() {
+    protected abstract void initRabbitTemplate();
 
-        // important
-        rabbitTemplate.setMandatory(true);
-        rabbitTemplate.setConfirmCallback(
-                // ack: 这个表示是否成功发送到 broker
-                (correlationData, ack, cause) -> {
-                    log.info(
-                            "ConfirmCallback: correlationData: {} ack: {} cause:{}",
-                            correlationData,
-                            ack,
-                            cause);
-                });
 
-        rabbitTemplate.setReturnCallback(
-                // 消息没有被发送到 queue 才会调用
-                (message, replyCode, replyText, exchange, routingKey) -> {
-                    log.info(
-                            "ReturnCallback: Fail message: {} replyCode: {} replyText:{} exchange: {} routingKey: {}",
-                            message,
-                            replyCode,
-                            replyText,
-                            exchange,
-                            routingKey);
-                });
-    }
 }

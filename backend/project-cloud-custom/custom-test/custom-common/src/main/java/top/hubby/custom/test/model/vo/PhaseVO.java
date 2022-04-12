@@ -1,14 +1,14 @@
 package top.hubby.custom.test.model.vo;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import common.core.annotation.DeSensitive;
 import common.core.annotation.discriptor.SensitiveStrategy;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.hubby.custom.test.constants.enums.PhaseStatusEnum;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author zack <br>

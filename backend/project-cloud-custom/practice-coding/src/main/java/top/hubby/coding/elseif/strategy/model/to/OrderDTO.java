@@ -1,8 +1,8 @@
 package top.hubby.coding.elseif.strategy.model.to;
 
-import java.math.BigDecimal;
-
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 /**
  * @author zack <br>

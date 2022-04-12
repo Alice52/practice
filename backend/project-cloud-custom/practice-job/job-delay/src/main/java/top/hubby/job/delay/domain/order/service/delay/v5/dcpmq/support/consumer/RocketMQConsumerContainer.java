@@ -1,9 +1,5 @@
 package top.hubby.job.delay.domain.order.service.delay.v5.dcpmq.support.consumer;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Map;
-
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -12,10 +8,13 @@ import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
-import top.hubby.job.delay.domain.order.service.delay.v5.dcpmq.support.util.SerializeUtil;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.SmartLifecycle;
+import top.hubby.job.delay.domain.order.service.delay.v5.dcpmq.support.util.SerializeUtil;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Consumer 容器，用于对 DefaultMQPushConsumer 的封装

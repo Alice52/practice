@@ -1,26 +1,16 @@
 package custom.upms.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import common.api.utils.PageUtils;
 import common.core.util.R;
 import custom.basic.api.entity.MemberEntity;
 import custom.basic.api.vo.MemberVO;
 import custom.upms.service.MemberService;
 import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Map;
 
 import static custom.upms.converter.MemberConverter.INSTANCE;
 

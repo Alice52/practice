@@ -1,18 +1,12 @@
 package top.hubby.test.custom.redis.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.annotation.Resource;
-
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 import top.hubby.custom.test.converter.PhaseConverter;
 import top.hubby.custom.test.model.dto.PhaseDTO;
 import top.hubby.custom.test.model.entity.Phase;
@@ -20,8 +14,12 @@ import top.hubby.custom.test.model.vo.PhaseVO;
 import top.hubby.test.custom.redis.mapper.PhaseMapper;
 import top.hubby.test.custom.redis.service.PhaseService;
 
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * use list to cache phase.

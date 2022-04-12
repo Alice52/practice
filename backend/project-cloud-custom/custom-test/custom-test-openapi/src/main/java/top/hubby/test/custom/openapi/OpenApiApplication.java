@@ -2,10 +2,9 @@ package top.hubby.test.custom.openapi;
 
 import common.swagger.annotation.EnableSwagger;
 import common.uid.annotation.EnableUID;
-import top.hubby.openapi.annotation.EnableOpenApi;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import top.hubby.openapi.annotation.EnableOpenApi;
 
 /**
  * @author zack <br>

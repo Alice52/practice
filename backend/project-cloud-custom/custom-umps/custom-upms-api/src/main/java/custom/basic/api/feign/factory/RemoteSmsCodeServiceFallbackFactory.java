@@ -3,7 +3,6 @@ package custom.basic.api.feign.factory;
 import custom.basic.api.feign.RemoteSmsCodeService;
 import custom.basic.api.feign.fallback.RemoteSmsCodeServiceFallbackImpl;
 import feign.hystrix.FallbackFactory;
-
 import org.springframework.stereotype.Component;
 
 /**

@@ -1,10 +1,5 @@
 package top.hubby.custom.test.model.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import common.core.util.ValidatorGroupUtil;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,6 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.hubby.custom.test.constants.enums.PhaseStatusEnum;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author zack <br>

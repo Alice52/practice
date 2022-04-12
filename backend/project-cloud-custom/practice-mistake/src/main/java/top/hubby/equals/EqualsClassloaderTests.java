@@ -1,9 +1,9 @@
 package top.hubby.equals;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.io.InputStream;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author asd <br>

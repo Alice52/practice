@@ -1,13 +1,20 @@
 package top.hubby.mq.sender.service;
 
 import cn.hutool.core.util.IdUtil;
+import common.core.util.R;
+import lombok.Getter;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.hubby.mq.sender.configuration.props.MQProps;
 
 import javax.annotation.Resource;
+
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static top.hubby.mq.sender.configuration.RabbitMQAutoConfiguration.mqSender;
 
@@ -25,12 +32,13 @@ public class SenderService {
 
     @Resource private MQProps props;
 
-    public void convertAndSend(final Object message) throws AmqpException {
+    public  void convertAndSend(final Object message) throws AmqpException {
 
         convertAndSend(message, IdUtil.fastUUID());
     }
 
-    public void convertAndSend(final Object message, String uid) throws AmqpException {
+    @Transactional(rollbackFor = Exception.class)
+    public  void convertAndSend(final Object message, String uid) throws AmqpException {
 
         mqSender.convertAndSend(
                 props.getExchange(),

@@ -5,10 +5,11 @@ package common.api.utils.xss;
  * @create 2021-08-15<br>
  * @project project-cloud-custom <br>
  */
-import java.util.Arrays;
 
 import cn.hutool.core.util.StrUtil;
 import common.api.exception.CloudException;
+
+import java.util.Arrays;
 
 /**
  * filter sql str due to inject.

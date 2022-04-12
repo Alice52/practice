@@ -1,7 +1,6 @@
 package top.hubby.test.custom.uid;
 
 import common.uid.annotation.EnableUID;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

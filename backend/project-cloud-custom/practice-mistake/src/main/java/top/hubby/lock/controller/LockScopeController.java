@@ -1,16 +1,15 @@
 package top.hubby.lock.controller;
 
-import java.util.stream.IntStream;
-
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import top.hubby.lock.model.Data;
-import top.hubby.lock.model.Interesting;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import top.hubby.lock.model.Data;
+import top.hubby.lock.model.Interesting;
+
+import java.util.stream.IntStream;
 
 /**
  * @author asd <br>

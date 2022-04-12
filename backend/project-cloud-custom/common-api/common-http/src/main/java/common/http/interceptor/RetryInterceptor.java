@@ -1,9 +1,5 @@
 package common.http.interceptor;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-
 import cn.hutool.core.util.NumberUtil;
 import common.http.exception.DecryptException;
 import common.http.exception.RetryException;
@@ -13,8 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author asd <br>

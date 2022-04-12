@@ -5,12 +5,6 @@ package custom.gateway.handler;
  * @create 2021-06-26<br>
  * @project project-cloud-custom <br>
  */
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 
 import com.google.code.kaptcha.Producer;
 import common.core.constant.CommonConstants;
@@ -18,8 +12,6 @@ import common.redis.constants.enums.RedisKeyCommonEnum;
 import common.redis.utils.RedisUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
-
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +21,13 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.HandlerFunction;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 验证码生成逻辑处理类

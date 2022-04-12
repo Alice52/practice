@@ -2,7 +2,6 @@ package custom.upms.controller.admin;
 
 import common.core.annotation.Inner;
 import common.core.util.R;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

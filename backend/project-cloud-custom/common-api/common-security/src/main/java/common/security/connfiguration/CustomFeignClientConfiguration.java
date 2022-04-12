@@ -3,7 +3,6 @@ package common.security.connfiguration;
 import common.security.component.FeignClientInterceptor;
 import feign.RequestInterceptor;
 import lombok.AllArgsConstructor;
-
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.security.oauth2.client.AccessTokenContextRelay;
 import org.springframework.context.annotation.Bean;

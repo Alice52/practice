@@ -1,7 +1,6 @@
 package top.hubby.test.custom.oss;
 
 import common.swagger.annotation.EnableSwagger;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;

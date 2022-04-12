@@ -1,7 +1,5 @@
 package custom.basic.api.entity;
 
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -9,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import common.api.model.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * @author asd <br>

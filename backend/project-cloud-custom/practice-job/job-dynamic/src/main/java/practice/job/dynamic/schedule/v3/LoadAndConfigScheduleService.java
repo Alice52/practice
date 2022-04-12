@@ -1,23 +1,21 @@
 package practice.job.dynamic.schedule.v3;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-
-import javax.annotation.Resource;
-
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import practice.job.dynamic.constants.enums.TaskStatus;
 import practice.job.dynamic.model.TaskDefinition;
 import practice.job.dynamic.service.TaskDefinitionService;
 import practice.job.dynamic.service.TaskService;
 import practice.job.dynamic.task.Task;
 
-import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * 当配置发送变化时, 配置中心会主动将配置推送到 应用程序, 应用程序在接收到变化通知时, 动态的增加或取消调度任务

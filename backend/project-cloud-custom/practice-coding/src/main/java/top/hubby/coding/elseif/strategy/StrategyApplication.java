@@ -2,7 +2,6 @@ package top.hubby.coding.elseif.strategy;
 
 import common.swagger.annotation.EnableSwagger;
 import common.uid.annotation.EnableUID;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

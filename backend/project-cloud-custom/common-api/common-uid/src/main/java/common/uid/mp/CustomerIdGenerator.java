@@ -1,9 +1,9 @@
 package common.uid.mp;
 
-import javax.annotation.Resource;
-
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import common.uid.generator.UidGenerator;
+
+import javax.annotation.Resource;
 
 /**
  * @author asd <br>

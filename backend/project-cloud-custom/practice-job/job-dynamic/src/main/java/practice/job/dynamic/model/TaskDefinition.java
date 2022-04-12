@@ -1,15 +1,11 @@
 package practice.job.dynamic.model;
 
-import java.time.LocalDateTime;
-
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import practice.job.dynamic.constants.enums.TaskStatus;
+
+import java.time.LocalDateTime;
 
 /**
  * @author asd <br>

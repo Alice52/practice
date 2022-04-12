@@ -1,10 +1,9 @@
 package practice.job.dynamic.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 import practice.job.dynamic.service.TaskService;
 import practice.job.dynamic.task.Task;
-
-import org.springframework.stereotype.Service;
 
 /**
  * @author asd <br>

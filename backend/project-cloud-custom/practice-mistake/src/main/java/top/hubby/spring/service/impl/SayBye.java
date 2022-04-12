@@ -1,11 +1,10 @@
 package top.hubby.spring.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import top.hubby.spring.service.SayService;
-
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import top.hubby.spring.service.SayService;
 
 /**
  * @author asd <br>

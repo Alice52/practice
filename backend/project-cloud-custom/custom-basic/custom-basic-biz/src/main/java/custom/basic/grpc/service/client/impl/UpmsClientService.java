@@ -6,7 +6,6 @@ import custom.upms.api.grpc.HelloRequest;
 import custom.upms.api.grpc.HelloResponse;
 import custom.upms.api.grpc.SimpleGrpc;
 import net.devh.boot.grpc.client.inject.GrpcClient;
-
 import org.springframework.stereotype.Service;
 
 /**

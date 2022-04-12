@@ -1,11 +1,5 @@
 package top.hubby.test.custom.http.service;
 
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-import javax.naming.OperationNotSupportedException;
-
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
@@ -17,16 +11,15 @@ import common.http.support.HttpSupport;
 import common.redis.utils.RedisUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import static common.http.constant.Constants.API_AUTH_FLAG;
-import static common.http.constant.Constants.CLIENT_CREDENTIALS;
-import static common.http.constant.Constants.CLIENT_ID;
-import static common.http.constant.Constants.CLIENT_SECRET;
-import static common.http.constant.Constants.GRANT_TYPE;
-import static common.http.constant.Constants.URL_ACCESS_TOKEN;
+import javax.annotation.Resource;
+import javax.naming.OperationNotSupportedException;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import static common.http.constant.Constants.*;
 
 /**
  * @author asd <br>

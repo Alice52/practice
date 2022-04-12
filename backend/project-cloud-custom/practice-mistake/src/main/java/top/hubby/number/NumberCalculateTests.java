@@ -1,5 +1,8 @@
 package top.hubby.number;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -8,9 +11,6 @@ import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 /**
  * @author asd <br>

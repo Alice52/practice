@@ -1,11 +1,11 @@
 package top.hubby.job.delay.domain.order.service.delay.v4.rocketmq;
 
-import javax.annotation.Resource;
-
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import top.hubby.job.delay.domain.order.service.OrderInfoService;
+
+import javax.annotation.Resource;
 
 /**
  * @author asd <br>

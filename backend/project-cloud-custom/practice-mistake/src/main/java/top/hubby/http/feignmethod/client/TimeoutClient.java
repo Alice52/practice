@@ -1,7 +1,6 @@
 package top.hubby.http.feignmethod.client;
 
 import feign.Request;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 

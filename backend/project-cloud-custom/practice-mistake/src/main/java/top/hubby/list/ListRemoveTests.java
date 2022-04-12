@@ -1,13 +1,13 @@
 package top.hubby.list;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
 
 /**
  * @author asd <br>

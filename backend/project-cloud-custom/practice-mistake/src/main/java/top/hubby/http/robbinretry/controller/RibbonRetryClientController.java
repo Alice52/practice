@@ -1,15 +1,14 @@
 package top.hubby.http.robbinretry.controller;
 
-import java.util.UUID;
-
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import top.hubby.http.robbinretry.feign.SmsClient;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.hubby.http.robbinretry.feign.SmsClient;
+
+import java.util.UUID;
 
 /**
  * @author asd <br>

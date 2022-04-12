@@ -1,9 +1,9 @@
 package top.hubby.serialize.version;
 
-import java.io.Serializable;
-
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+
+import java.io.Serializable;
 
 /**
  * @author asd <br>

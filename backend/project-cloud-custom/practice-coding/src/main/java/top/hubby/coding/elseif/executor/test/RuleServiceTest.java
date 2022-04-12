@@ -1,12 +1,12 @@
 package top.hubby.coding.elseif.executor.test;
 
-import java.util.Collections;
-import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import top.hubby.coding.elseif.executor.rule.BaseRule;
 import top.hubby.coding.elseif.executor.service.RuleService;
+
+import java.util.Collections;
+import java.util.List;
 
 import static top.hubby.coding.elseif.executor.RuleConstant.MATCH_NATIONALITY_START;
 

@@ -1,10 +1,9 @@
 package top.hubby.openapi.component;
 
-import java.util.HashMap;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Value;
+import java.util.HashMap;
 
 /**
  * @author zack <br>

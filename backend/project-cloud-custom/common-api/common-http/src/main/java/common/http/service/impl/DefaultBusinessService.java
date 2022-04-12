@@ -1,13 +1,12 @@
 package common.http.service.impl;
 
-import javax.naming.OperationNotSupportedException;
-
 import common.http.model.TokenVO;
 import common.http.service.BusinessService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.stereotype.Component;
+
+import javax.naming.OperationNotSupportedException;
 
 /**
  * @author asd <br>

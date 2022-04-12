@@ -1,23 +1,17 @@
 package custom.gateway.configuration.routes;
 
-import java.net.URI;
-
-import javax.annotation.Resource;
-
 import custom.gateway.configuration.swagger.SwaggerResourceHandler;
 import custom.gateway.configuration.swagger.SwaggerSecurityHandler;
 import custom.gateway.configuration.swagger.SwaggerUiHandler;
 import custom.gateway.handler.CaptchaHandler;
 import custom.gateway.handler.HystrixFallbackHandler;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.server.HandlerFunction;
-import org.springframework.web.reactive.function.server.RequestPredicates;
-import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.RouterFunctions;
-import org.springframework.web.reactive.function.server.ServerResponse;
+import org.springframework.web.reactive.function.server.*;
+
+import javax.annotation.Resource;
+import java.net.URI;
 
 /**
  * @author zack <br>

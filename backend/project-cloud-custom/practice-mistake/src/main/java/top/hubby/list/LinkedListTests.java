@@ -1,15 +1,14 @@
 package top.hubby.list;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StopWatch;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.util.StopWatch;
 
 /**
  * @author asd <br>

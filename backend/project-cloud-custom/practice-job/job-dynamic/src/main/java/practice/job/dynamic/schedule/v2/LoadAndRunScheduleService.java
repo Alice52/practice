@@ -1,21 +1,19 @@
 package practice.job.dynamic.schedule.v2;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 import practice.job.dynamic.constants.enums.TaskStatus;
 import practice.job.dynamic.model.TaskDefinition;
 import practice.job.dynamic.service.TaskDefinitionService;
 import practice.job.dynamic.service.TaskService;
 import practice.job.dynamic.task.Task;
 
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 同步的会有延迟等问题

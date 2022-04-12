@@ -1,10 +1,9 @@
 package top.hubby.coding.elseif.strategy1.handler;
 
+import org.springframework.stereotype.Component;
 import top.hubby.coding.elseif.strategy.constants.OrderConstants;
 import top.hubby.coding.elseif.strategy.model.to.OrderDTO;
 import top.hubby.coding.elseif.strategy1.annotation.HandlerType;
-
-import org.springframework.stereotype.Component;
 
 /**
  * @author zack <br>

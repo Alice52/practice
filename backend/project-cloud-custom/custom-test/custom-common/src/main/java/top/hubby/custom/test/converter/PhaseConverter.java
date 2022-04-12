@@ -1,9 +1,5 @@
 package top.hubby.custom.test.converter;
 
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -11,6 +7,9 @@ import org.mapstruct.factory.Mappers;
 import top.hubby.custom.test.model.dto.PhaseDTO;
 import top.hubby.custom.test.model.entity.Phase;
 import top.hubby.custom.test.model.vo.PhaseVO;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author zack <br>

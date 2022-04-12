@@ -1,12 +1,6 @@
 package top.hubby.job.delay.domain.order.service.delay.v5.dcpmq.support.consumer;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.apache.commons.lang3.reflect.MethodUtils;
-import top.hubby.job.delay.domain.order.service.delay.v5.dcpmq.support.annotation.RocketMQBasedDelay;
-
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
@@ -14,6 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.support.GenericApplicationContext;
+import top.hubby.job.delay.domain.order.service.delay.v5.dcpmq.support.annotation.RocketMQBasedDelay;
+
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 基于 BeanPostProcessor#postProcessAfterInitialization 对每个 bean 进行处理 <br>

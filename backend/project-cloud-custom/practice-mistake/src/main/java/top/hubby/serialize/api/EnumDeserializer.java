@@ -1,9 +1,5 @@
 package top.hubby.serialize.api;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Optional;
-
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonParser;
@@ -15,6 +11,10 @@ import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * @author asd <br>

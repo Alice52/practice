@@ -1,16 +1,15 @@
 package top.hubby.http.feignmethod.controller;
 
-import java.util.concurrent.TimeUnit;
-
 import feign.Request;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import top.hubby.http.feignmethod.client.TimeoutClient;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.hubby.http.feignmethod.client.TimeoutClient;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author asd <br>

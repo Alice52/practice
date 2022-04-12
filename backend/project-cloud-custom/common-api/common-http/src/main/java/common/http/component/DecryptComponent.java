@@ -1,17 +1,15 @@
 package common.http.component;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.util.Base64;
+import common.http.service.BusinessService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-
-import common.http.service.BusinessService;
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.stereotype.Component;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Base64;
 
 /**
  * @author asd <br>

@@ -1,11 +1,11 @@
 package top.hubby.coding.elseif.factory;
 
-import java.util.HashMap;
-
 import top.hubby.coding.elseif.factory.impls.Address;
 import top.hubby.coding.elseif.factory.impls.Age;
 import top.hubby.coding.elseif.factory.impls.Name;
 import top.hubby.coding.elseif.interfaces.IType;
+
+import java.util.HashMap;
 
 /**
  * @author zack <br>

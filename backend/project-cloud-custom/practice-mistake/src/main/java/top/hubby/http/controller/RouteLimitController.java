@@ -1,13 +1,5 @@
 package top.hubby.http.controller;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
-import java.util.stream.IntStream;
-
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -15,11 +7,18 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 import static java.lang.Integer.parseInt;
 import static org.apache.http.impl.client.HttpClients.custom;
@@ -36,6 +35,23 @@ import static org.apache.http.impl.client.HttpClients.custom;
 public class RouteLimitController {
     static CloseableHttpClient httpClient1;
     static CloseableHttpClient httpClient2;
+
+    static {
+        // default setMaxConnPerRoute=2
+        httpClient1 =
+                custom().setConnectionManager(new PoolingHttpClientConnectionManager()).build();
+        httpClient2 = custom().setMaxConnPerRoute(10).setMaxConnTotal(20).build();
+
+        Runnable voidFunc0 =
+                () -> {
+                    try {
+                        httpClient1.close();
+                        httpClient2.close();
+                    } catch (IOException ex) {
+                    }
+                };
+        Runtime.getRuntime().addShutdownHook(new Thread(voidFunc0));
+    }
 
     private int sendRequest(int count, Supplier<CloseableHttpClient> client)
             throws InterruptedException {
@@ -80,22 +96,5 @@ public class RouteLimitController {
     public int server() throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
         return 1;
-    }
-
-    static {
-        // default setMaxConnPerRoute=2
-        httpClient1 =
-                custom().setConnectionManager(new PoolingHttpClientConnectionManager()).build();
-        httpClient2 = custom().setMaxConnPerRoute(10).setMaxConnTotal(20).build();
-
-        Runnable voidFunc0 =
-                () -> {
-                    try {
-                        httpClient1.close();
-                        httpClient2.close();
-                    } catch (IOException ex) {
-                    }
-                };
-        Runtime.getRuntime().addShutdownHook(new Thread(voidFunc0));
     }
 }

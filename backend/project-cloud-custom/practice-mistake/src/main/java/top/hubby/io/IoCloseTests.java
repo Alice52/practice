@@ -1,5 +1,9 @@
 package top.hubby.io;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.springframework.util.StopWatch;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,11 +13,6 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-
-import org.springframework.util.StopWatch;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.APPEND;

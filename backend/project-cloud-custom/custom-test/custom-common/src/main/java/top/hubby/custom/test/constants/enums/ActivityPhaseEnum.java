@@ -1,10 +1,10 @@
 package top.hubby.custom.test.constants.enums;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * @author zack <br>
