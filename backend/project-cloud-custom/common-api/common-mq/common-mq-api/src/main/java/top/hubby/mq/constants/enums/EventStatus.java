@@ -2,17 +2,14 @@ package top.hubby.mq.constants.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * @author zack <br/>
- * @create 2022-04-12 11:51 <br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2022-04-12 11:51 <br>
+ * @project project-cloud-custom <br>
  */
 @AllArgsConstructor
 public enum EventStatus {
-
     NEW("new", 1),
     PULISHED("pulished", 2),
     RECEIVED("received", 3),
@@ -21,6 +18,5 @@ public enum EventStatus {
 
     private String status;
 
-    @EnumValue
-    private int code;
+    @EnumValue private int code;
 }

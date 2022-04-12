@@ -3,6 +3,7 @@ package top.hubby.mq.congig;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -39,6 +40,8 @@ public abstract class RabbitMQConfiguration {
         connectionFactory.setPublisherConfirms(true);
         connectionFactory.setPublisherReturns(true);
 
+        connectionFactory.setPublisherChannelFactory(MQPublisherCallbackChannelImpl.factory());
+
         rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(converter);
         // important
@@ -49,6 +52,4 @@ public abstract class RabbitMQConfiguration {
     }
 
     protected abstract void initRabbitTemplate();
-
-
 }

@@ -9,27 +9,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.hubby.mq.constants.enums.EventStatus;
 
-import static com.baomidou.mybatisplus.annotation.IdType.AUTO;
+import static com.baomidou.mybatisplus.annotation.IdType.INPUT;
 
 /**
- * @author zack <br/>
- * @create 2022-04-12 11:59 <br/>
- * @project project-cloud-custom <br/>
+ * @author zack <br>
+ * @create 2022-04-12 11:59 <br>
+ * @project project-cloud-custom <br>
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("tx_event")
-public class DtxEvent  extends SimpleEntity {
-        private static final long serialVersionUID = 1L;
+public class DtxEvent extends SimpleEntity {
+    private static final long serialVersionUID = 1L;
 
-        @TableId(type = AUTO)
-        private Long id;
+    @TableId(type = INPUT)
+    private Long id;
 
-        private String eventType;
+    private String eventType;
 
-        private EventStatus status;
+    private EventStatus status;
 
-        private String content;
+    private String content;
 }

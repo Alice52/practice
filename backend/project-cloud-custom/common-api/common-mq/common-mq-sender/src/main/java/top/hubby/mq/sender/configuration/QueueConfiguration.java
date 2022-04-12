@@ -1,14 +1,20 @@
 package top.hubby.mq.sender.configuration;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 import com.google.common.collect.ImmutableMap;
-import org.springframework.amqp.core.*;
+import top.hubby.mq.sender.configuration.props.MQProps;
+
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import top.hubby.mq.sender.configuration.props.MQProps;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * spel: https://roytuts.com/spring-conditionalonexpression-example/
