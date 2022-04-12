@@ -13,8 +13,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import top.hubby.mq.congig.RabbitMQConfiguration;
 import top.hubby.mq.constants.enums.EventStatus;
-import top.hubby.mq.sender.service.SenderService;
-import top.hubby.mq.sender.service.DtxEventService;
+import top.hubby.mq.sender.SenderService;
+import top.hubby.mq.service.DtxEventService;
+import top.hubby.mq.service.impl.DtxEventServiceImpl;
 
 import javax.annotation.Resource;
 
@@ -28,7 +29,7 @@ import javax.annotation.Resource;
 @Configuration
 @ConditionalOnProperty(name = "common.mq.enable", matchIfMissing = true)
 @ImportAutoConfiguration({DefaultQueueConfig.class, SenderService.class, QueueConfiguration.class, DtxEventServiceImpl.class})
-@MapperScan("top.hubby.mq.sender.mapper")
+@MapperScan("top.hubby.mq.mapper")
 public class RabbitMQAutoConfiguration extends RabbitMQConfiguration
         implements SmartInitializingSingleton {
     public static RabbitTemplate mqSender;

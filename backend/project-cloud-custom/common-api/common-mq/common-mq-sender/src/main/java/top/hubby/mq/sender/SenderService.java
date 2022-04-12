@@ -1,4 +1,4 @@
-package top.hubby.mq.sender.service;
+package top.hubby.mq.sender;
 
 import cn.hutool.core.util.IdUtil;
 import common.core.util.R;

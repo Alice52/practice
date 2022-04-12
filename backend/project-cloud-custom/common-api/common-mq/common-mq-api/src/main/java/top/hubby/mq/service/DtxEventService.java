@@ -1,4 +1,4 @@
-package top.hubby.mq.sender.service;
+package top.hubby.mq.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import top.hubby.mq.constants.enums.EventStatus;

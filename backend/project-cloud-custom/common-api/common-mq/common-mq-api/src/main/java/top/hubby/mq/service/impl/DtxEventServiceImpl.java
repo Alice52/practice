@@ -1,8 +1,10 @@
-package top.hubby.mq.sender.service.impl;
+package top.hubby.mq.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import top.hubby.mq.constants.enums.EventStatus;
 import top.hubby.mq.model.entity.DtxEvent;
-import top.hubby.mq.sender.service.DtxEventService;
+import top.hubby.mq.mapper.DtxEventMapper;
+import top.hubby.mq.service.DtxEventService;
 
 /**
  * @author zack <br/>
