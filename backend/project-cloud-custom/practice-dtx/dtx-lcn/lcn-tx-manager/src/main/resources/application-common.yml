@@ -1,0 +1,19 @@
+spring:
+  config:
+    name: custom-test
+  # this will overwrite redis database config,
+  # and it is relative of including profile sequence
+  redis:
+    database: 7
+
+logging:
+  config: classpath:logback-spring.xml
+tx-lcn:
+  manager:
+    admin-key: msb
+  logger:
+    enabled: true
+    username: ENC(3+5Pg+H9L0s1ATmg/xTWLbNt9OeMFguochuRyTl9a4BGbD4lL2SLM8351rdHYhC2)
+    password: ENC(MkGdNTchUL+OnF+nvm5YSSjWc7XeHLNab+KV9Wr3fqF1fAbEVLB2urZotLn8nAk1)
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    jdbc-url: ENC(0v+NkGIx3AZzSh9buMDveJVdOwce6hQBoDxMo5bOnJhYyN01d6Gdmb9DcxOKlpzxCUP+PVLfZx46zfA0Qk49j899H/o6/Sfcmn+HQGKcrDdQji5C/R2PvyNvjw3tNuePNEN9NCLBzfH9M5XNk3MW67dztd4c7VQrISeY45yctuult/+YRb6Uy5oQZscMeLumvp3ADuTLP0A/HgOWQxv50WOLjEOOK2HKHmJjTvrgYkIpmnPbDXDG/NxI2Ckg/nklL11rw0JoEJkGcgk0jilmu4N1l9G8KpfoK36wc0xZi13IP81UMNhO9/iUQtX19GtSxc+VEuKuLg6onHHnacYVQa/yAqdhImEdHy5+/VVH64+x/lfoT39gfoOg1307qERNWXP11a9SQNkrqr4IPn7+B9AdOi6bOpmXnnNFO6LJn/OYT2GsgeSK5m0SgIW3AgWD)

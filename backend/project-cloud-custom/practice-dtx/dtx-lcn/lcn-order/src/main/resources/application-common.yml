@@ -1,0 +1,14 @@
+spring:
+  config:
+    name: custom-test
+  # this will overwrite redis database config,
+  # and it is relative of including profile sequence
+  redis:
+    database: 7
+
+logging:
+  config: classpath:logback-spring.xml
+
+tx-lcn:
+  client:
+    manager-address: 127.0.0.1:8070
