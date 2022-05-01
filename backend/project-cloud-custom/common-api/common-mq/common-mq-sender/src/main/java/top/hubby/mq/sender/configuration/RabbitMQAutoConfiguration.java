@@ -54,7 +54,8 @@ public class RabbitMQAutoConfiguration extends RabbitMQConfiguration
     @Override
     protected void initRabbitTemplate() {
         /**
-         * ConfirmCallback 异步执行的
+         * ConfirmCallback 异步执行的: 最少成功发送一次{消息存在重复的可能+业务唯一标识是很需要的}<br>
+         *  这一步是不能保证一定成功的, 即使不更新数据库, 也可能存在超时, 此时消息还是需要重发<br>
          *
          * <pre>
          *    1. 对于可路由消息回调时且ack为true: 持久化到磁盘 + 对于镜像队列[所有镜像都已接受该消息]
