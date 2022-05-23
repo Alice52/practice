@@ -16,6 +16,12 @@
             <groupId>cn.edu.ntu</groupId>
             <artifactId>custom-common</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>cn.edu.ntu</groupId>
+                    <artifactId>common-mq-sender</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 </project>

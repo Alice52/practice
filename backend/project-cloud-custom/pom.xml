@@ -83,6 +83,19 @@
         <curator.zk.version>4.1.0</curator.zk.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <dependencies>
+                <!-- aliyun logback-->
+                <dependency>
+                    <groupId>com.aliyun.openservices</groupId>
+                    <artifactId>aliyun-log-logback-appender</artifactId>
+                    <version>0.1.16</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>

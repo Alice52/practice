@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
 public class LeakBucketComponent {
 
     private static final int QPS = 1000;
-    private static long latestPassedTime = 0;
     private static final TimeUnit UNIT = TimeUnit.SECONDS;
+    private static long latestPassedTime = 0;
 
     /**
      * 这里实现不能以桶的角度思考

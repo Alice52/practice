@@ -1,4 +1,4 @@
-package commom.redis.map;
+package common.redis.map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
