@@ -22,9 +22,25 @@ public class RepeatReadHttpServletFilter extends OncePerRequestFilter {
             HttpServletResponse httpServletResponse,
             FilterChain filterChain)
             throws ServletException, IOException {
+
         RepeatedlyReadRequestWrapper requestWrapper =
                 new RepeatedlyReadRequestWrapper(httpServletRequest);
         filterChain.doFilter(requestWrapper, httpServletResponse);
+
+        // write guideline here, such as @WebFilter
+        /*
+            if (httpServletRequest.getRequestURI().contains("/openapi")) {
+                RepeatedlyReadRequestWrapper requestWrapper =
+                        new RepeatedlyReadRequestWrapper(httpServletRequest);
+                filterChain.doFilter(requestWrapper, httpServletResponse);
+                return;
+            }
+        */
+
+        // get target method:
+
+        // then get decorated annotations
+
     }
 
     @Override

@@ -5,6 +5,8 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.Method;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import common.core.exception.CheckedException;
 import lombok.SneakyThrows;
@@ -31,6 +33,10 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
+
+import static cn.hutool.json.JSONUtil.isJson;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.util.StringUtils.startsWithIgnoreCase;
 
 /**
  * @author zack <br>
@@ -265,6 +271,58 @@ public class WebUtil extends org.springframework.web.util.WebUtils {
 
         paramMap.put("username", new String[] {WebUtil.getCurrentToken()});
         paramMap.put("uri", new String[] {request.getRequestURI()});
+        String md5deDupParam = jdkMD5(JSONUtil.toJsonStr(paramMap));
+
+        log.debug("md5deDupParam = {}, excludeKeys = {} {}", md5deDupParam, excludeKeys, paramMap);
+
+        return md5deDupParam;
+    }
+
+    /**
+     * todo: this method is complexed
+     *
+     * <pre>
+     *     1. WebUtil.getBody(request): this is need repeatable request.
+     *     2. excludeKeys need build method by self.
+     * </pre>
+     *
+     * @param request
+     * @param excludeKeys
+     * @return
+     */
+    public String deDupParamMD5_V2(HttpServletRequest request, String... excludeKeys) {
+        Map<String, String[]> paramMap = new HashMap<>();
+        paramMap.put("username", new String[] {WebUtil.getCurrentToken()});
+        paramMap.put("uri", new String[] {request.getRequestURI()});
+        if (request.getMethod().equals(Method.GET.name())) {
+            paramMap.putAll(request.getParameterMap());
+        } else {
+            String body = WebUtil.getBody(request);
+            if (isJson(body)
+                    && startsWithIgnoreCase(request.getContentType(), APPLICATION_JSON_VALUE)) {
+                JSONObject jsonObject = JSONUtil.parseObj(body);
+                if (excludeKeys != null) {
+                    List<String> dedupExcludeKeys = Arrays.asList(excludeKeys);
+                    if (!dedupExcludeKeys.isEmpty()) {
+                        for (String dedupExcludeKey : dedupExcludeKeys) {
+                            jsonObject.remove(dedupExcludeKey);
+                        }
+                    }
+                }
+            } else {
+                paramMap.put("body", new String[] {body});
+            }
+        }
+
+        if (excludeKeys != null) {
+            List<String> dedupExcludeKeys = Arrays.asList(excludeKeys);
+            if (!dedupExcludeKeys.isEmpty()) {
+                for (String dedupExcludeKey : dedupExcludeKeys) {
+                    paramMap.remove(dedupExcludeKey);
+                }
+            }
+        }
+
         String md5deDupParam = jdkMD5(JSONUtil.toJsonStr(paramMap));
 
         log.debug("md5deDupParam = {}, excludeKeys = {} {}", md5deDupParam, excludeKeys, paramMap);
