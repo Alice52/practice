@@ -1,3 +1,0 @@
-[submodule "backend/project-cloud-custom/common-api"]
-	path = backend/project-cloud-custom/common-api
-	url = https://github.com/Alice52/common-api.git
