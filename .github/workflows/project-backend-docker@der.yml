@@ -25,6 +25,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Export Global Var
+        run: |
+          echo "ALI_DOCKER_REGISTRY=${{ secrets.ALI_DOCKER_HUB_REGISTRY }}" >> $GITHUB_ENV
+          echo "ALI_DOCKER_USERNAME=${{ secrets.ALI_DOCKER_REGISTRY_USERNAME }}" >> $GITHUB_ENV
+          echo "ALI_DOCKER_PASSWORD=${{ secrets.ALI_DOCKER_REGISTRY_PASSWORD }}" >> $GITHUB_ENV
+          echo "JASYPT_ENCRYPTOR_PASSWORD=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}" >> $GITHUB_ENV
+          echo "PROJECT_HOME=$PWD" >> $GITHUB_ENV
+          echo "TAG=`echo \`date +%Y%m%d\`.${GITHUB_SHA} | cut -c1-16`" >> $GITHUB_ENV
+
       - name: Download math result for job 1
         uses: actions/download-artifact@v3
         with:
@@ -34,8 +43,9 @@ jobs:
         run: |
           MODULE_NAME_PREFIX=custom-basic
           MODULE_NAME=custom-basic-biz
+          ls -la
           mkdir -p $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/target
-          mv custom-basic.jar $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/target
+          mv $PROJECT_HOME/custom-basic.jar $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/target
           cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/
           image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
           docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
