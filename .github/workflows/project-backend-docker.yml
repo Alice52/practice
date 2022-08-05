@@ -1,21 +1,21 @@
-name: Build Project-Backend
+name: Build Image Project-Custom-Cloud
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'backend/**'
-      - '.github/workflows/project-backend.yml'
+      - 'backend/project-cloud-custom/**'
+      - '.github/workflows/docker-project-cloud-backend.yml'
   pull_request:
-  workflow_call:
 
 jobs:
-  reusable_build_job:
+  push-image:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, '[image]')"
+    if: "contains(github.event.head_commit.message, '[image]')"
     env: # define constant
-      PROJECT_PREFIX: backend
+      PROJECT_PREFIX: backend/project-cloud-custom
+      IMAGE_PREFIX: practice
 
     steps:
       - name: Checkout Code
@@ -38,6 +38,7 @@ jobs:
           echo "JASYPT_ENCRYPTOR_PASSWORD=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}" >> $GITHUB_ENV
           echo "PROJECT_HOME=$PWD" >> $GITHUB_ENV
           echo "TAG=`echo \`date +%Y%m%d\`.${GITHUB_SHA} | cut -c1-16`" >> $GITHUB_ENV
+
       - name: Cache Maven packages
         uses: actions/cache@v2
         with:
@@ -47,17 +48,22 @@ jobs:
 
       - name: Build project-cloud-custom module
         run: |
-
           PROJECT_NAME=project-cloud-custom
           cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
           rm ./common-api/pom.xml
           mv ./common-api/pom.xml.dev ./common-api/pom.xml
           mvn clean package -DskipTests=true
 
-      - name: Upload Custom Basic Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: custom-basic.jar
-          path: ${{ github.workspace }}/**/custom-basic-*.jar
-          retention-days: 1
-
+      - name: Push project-cloud-custom-basic Image
+        run: |
+          MODULE_NAME_PREFIX=custom-basic
+          MODULE_NAME=custom-basic-biz
+          mkdir -p $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/target
+          mv custom-basic.jar $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/target
+          cd $PROJECT_HOME/$PROJECT_PREFIX/$MODULE_NAME_PREFIX/$MODULE_NAME/
+          image=$IMAGE_PREFIX-$MODULE_NAME:${TAG}
+          docker build -f Dockerfile --build-arg MODULE_NAME=$MODULE_NAME --build-arg JASYPT_ENCRYPTOR_PASSWORD=$JASYPT_ENCRYPTOR_PASSWORD -t ${image} .
+          docker login --username=$ALI_DOCKER_USERNAME --password=$ALI_DOCKER_PASSWORD $ALI_DOCKER_REGISTRY
+          docker tag $image $ALI_DOCKER_REGISTRY/alice52/$image
+          docker push $ALI_DOCKER_REGISTRY/alice52/$image
+          echo "image:" ${image}
