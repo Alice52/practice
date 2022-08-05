@@ -7,17 +7,24 @@ on:
     paths:
       - 'backend/**'
       - '.github/workflows/project-backend.yml'
+  pull_request:
+  workflow_call:
 
 jobs:
-  main:
+  reusable_build_job:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, '[image]')"
+    # if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, '[image]')"
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
     env: # define constant
       PROJECT_PREFIX: backend
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          submodules: true
+
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
@@ -41,12 +48,17 @@ jobs:
 
       - name: Build project-cloud-custom module
         run: |
+
           PROJECT_NAME=project-cloud-custom
           cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
+          rm ./common-api/pom.xml
+          mv ./common-api/pom.xml.dev ./common-api/pom.xml
           mvn clean package -DskipTests=true
 
-      - name: Build common-generator
-        run: |
-          PROJECT_NAME=project-cloud-custom
-          cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
-          mvn clean package -DskipTests=true
+      - name: Upload Custom Basic Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: custom-basic.jar
+          path: ${{ github.workspace }}/**/custom-basic-.*?.jar
+          retention-days: 1
+
