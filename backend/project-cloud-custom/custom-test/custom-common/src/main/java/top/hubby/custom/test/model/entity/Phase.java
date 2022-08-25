@@ -37,8 +37,6 @@ public class Phase extends BaseEntity {
 
     private LocalDateTime endTime;
 
-    @TableField
-
     @SensitiveField @TableField private String type;
 
     private String status;
