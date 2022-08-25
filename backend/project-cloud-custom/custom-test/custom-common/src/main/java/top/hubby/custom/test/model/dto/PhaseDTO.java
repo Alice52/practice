@@ -1,7 +1,7 @@
 package top.hubby.custom.test.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import common.core.util.ValidatorGroupUtil;
+import common.core.util.valid.Add;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,27 +29,27 @@ public class PhaseDTO implements Serializable {
 
     @ApiModelProperty("阶段Code")
     @NotNull(
-            groups = {ValidatorGroupUtil.Add.class},
+            groups = {Add.class},
             message = "phaseCode 不能为空")
     private String phaseCode;
 
     @ApiModelProperty("阶段名称")
     @NotNull(
-            groups = {ValidatorGroupUtil.Add.class},
+            groups = {Add.class},
             message = "phaseName 不能为空")
     private String phaseName;
 
     @ApiModelProperty("阶段开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(
-            groups = {ValidatorGroupUtil.Add.class},
+            groups = {Add.class},
             message = "startTime 不能为空")
     private LocalDateTime startTime;
 
     @ApiModelProperty("阶段结束时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(
-            groups = {ValidatorGroupUtil.Add.class},
+            groups = {Add.class},
             message = "endTime 不能为空")
     private LocalDateTime endTime;
 

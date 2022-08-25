@@ -1,6 +1,6 @@
 package top.hubby.custom.test.oss;
 
-import common.core.util.FileUtil;
+import common.core.util.se.FileUtil;
 import common.oss.constnats.enums.OssUploadTypeEnum;
 import common.oss.context.OssContextV2;
 import lombok.SneakyThrows;

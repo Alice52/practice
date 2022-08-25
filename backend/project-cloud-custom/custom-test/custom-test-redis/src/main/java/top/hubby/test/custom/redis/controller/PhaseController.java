@@ -1,7 +1,7 @@
 package top.hubby.test.custom.redis.controller;
 
 import common.core.util.R;
-import common.core.util.ValidatorGroupUtil;
+import common.core.util.valid.Add;
 import common.redis.constants.CommonCacheConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -82,7 +82,7 @@ public class PhaseController {
     @PostMapping("/phase")
     @CacheEvict(value = CommonCacheConstants.MODULE_PHASE_KEY, key = "'list'")
     public R<Boolean> create(
-            @RequestBody @Validated({ValidatorGroupUtil.Add.class, Default.class}) PhaseDTO phase) {
+            @RequestBody @Validated({Add.class, Default.class}) PhaseDTO phase) {
         return R.success(phaseService.createPhase(phase));
     }
 }

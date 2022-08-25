@@ -1,7 +1,7 @@
 package top.hubby.test.custom.db.controller;
 
 import common.core.util.R;
-import common.core.util.ValidatorGroupUtil;
+import common.core.util.valid.Add;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -57,7 +57,7 @@ public class PhaseController {
 
     @PostMapping("/phase")
     public R<Boolean> create(
-            @RequestBody @Validated({ValidatorGroupUtil.Add.class, Default.class}) PhaseDTO phase) {
+            @RequestBody @Validated({Add.class, Default.class}) PhaseDTO phase) {
         return R.success(phaseService.createPhase(phase));
     }
 }
