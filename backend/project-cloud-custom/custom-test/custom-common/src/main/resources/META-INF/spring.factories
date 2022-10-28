@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    top.hubby.custom.test.component.ContainerConfiguration,\
-  top.hubby.custom.test.component.UndertowWebServerAccessLogTimingEnabler

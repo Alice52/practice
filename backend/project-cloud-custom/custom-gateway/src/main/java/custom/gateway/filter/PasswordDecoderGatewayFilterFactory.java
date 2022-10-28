@@ -1,7 +1,13 @@
 package custom.gateway.filter;
 
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
+
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import cn.hutool.core.codec.Base64;
-import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.Mode;
 import cn.hutool.crypto.Padding;
@@ -9,19 +15,16 @@ import cn.hutool.crypto.symmetric.AES;
 import cn.hutool.http.HttpUtil;
 import custom.gateway.constants.AuthConstants;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Mono;
 
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.util.Map;
+import static cn.hutool.core.util.CharsetUtil.CHARSET_UTF_8;
 
 /**
  * @author zack <br>
@@ -74,7 +77,7 @@ public class PasswordDecoderGatewayFilterFactory extends AbstractGatewayFilterFa
 
             URI uri = exchange.getRequest().getURI();
             String queryParam = uri.getRawQuery();
-            Map<String, String> paramMap = HttpUtil.decodeParamMap(queryParam, CharsetUtil.UTF_8);
+            Map<String, String> paramMap = HttpUtil.decodeParamMap(queryParam, CHARSET_UTF_8);
 
             String password = paramMap.get(OAUTH_PARAM_PASSWORD);
             if (StrUtil.isNotBlank(password)) {
