@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.alice52</groupId>
@@ -49,24 +50,27 @@
         <slf4j.api.version>1.7.36</slf4j.api.version>
         <logback.core.version>1.2.9</logback.core.version>
         <logback.classic.version>1.2.3</logback.classic.version>
+        <aliyun.logback.version>0.1.18</aliyun.logback.version>
+        <janino.version>3.1.9</janino.version>
 
         <!-- tool -->
         <jodah.expiringmap.version>0.5.10</jodah.expiringmap.version>
         <lombok.version>1.18.24</lombok.version>
         <hutool.all.version>5.8.9</hutool.all.version>
         <jasypt.encrtpy.version>3.0.4</jasypt.encrtpy.version>
-        <mapstruct.version>1.5.2.Final</mapstruct.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
         <guava.version>31.1-jre</guava.version>
         <validation.api.version>2.0.1.Final</validation.api.version>
         <kaptcha.version>0.0.9</kaptcha.version>
 
         <!-- spring -->
-        <spring.boot.version>2.2.2.RELEASE</spring.boot.version>
-        <actuator.admin.version>2.7.6</actuator.admin.version>
+        <spring.boot.version>2.7.5</spring.boot.version>
+        <actuator.admin.version>2.7.7</actuator.admin.version>
         <spring.cloud.version>2021.0.4</spring.cloud.version>
         <cloud.alibaba.version>2021.1</cloud.alibaba.version>
         <security.oauth.version>2.5.2.RELEASE</security.oauth.version>
-        <feign.core.version>11.9.1</feign.core.version>
+        <feign.core.version>11.10</feign.core.version>
+        <spring.boot.maven.version>2.2.6.RELEASE</spring.boot.maven.version>
 
         <!-- jackson -->
         <jackson.modules>2.13.4</jackson.modules>
@@ -75,10 +79,9 @@
         <mysql.version>5.1.49</mysql.version>
         <druid.version>1.2.14</druid.version>
         <mybatis.plus.version>3.5.2</mybatis.plus.version>
-        <mybatis.plus.extension>3.3.1</mybatis.plus.extension>
         <mybatis.spring.boot.version>2.2.2</mybatis.spring.boot.version>
-        <elasticsearch.version>7.17.5</elasticsearch.version>
-        <redisson.version>3.17.6</redisson.version>
+        <elasticsearch.version>7.17.7</elasticsearch.version>
+        <redisson.version>3.17.7</redisson.version>
 
         <!-- mq -->
         <rabbitmq.client.version>5.16.0</rabbitmq.client.version>
@@ -88,7 +91,8 @@
         <jquery.version>3.3.1</jquery.version>
         <justauth.starter>1.4.0</justauth.starter>
         <grpc_version>1.50.2</grpc_version>
-        <curator.zk.version>5.3.0</curator.zk.version>
+        <curator.zk.version>5.4.0</curator.zk.version>
+        <qcloud.version>5.6.109</qcloud.version>
         <!--  #region  ====================== common version =====================    -->
     </properties>
 
@@ -106,9 +110,10 @@
         </profile>
     </profiles>
 
+
     <dependencyManagement>
         <dependencies>
-            <!-- cloud -->
+            <!-- colud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -117,23 +122,17 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-security</artifactId>
-                <version>${spring.cloud.security}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                <version>${spring.cloud.netflix}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${cloud.alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-core</artifactId>
+                <version>${feign.core.version}</version>
+            </dependency>
             <!-- logger -->
             <dependency>
                 <artifactId>slf4j-api</artifactId>
@@ -149,6 +148,16 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.classic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.janino</groupId>
+                <artifactId>janino</artifactId>
+                <version>${janino.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.openservices</groupId>
+                <artifactId>aliyun-log-logback-appender</artifactId>
+                <version>${aliyun.logback.version}</version>
             </dependency>
 
             <!-- tool -->
@@ -218,6 +227,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.security.oauth</groupId>
                 <artifactId>spring-security-oauth2</artifactId>
                 <version>${security.oauth.version}</version>
@@ -267,7 +281,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
-                <version>${mybatis.plus.extension}</version>
+                <version>${mybatis.plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -354,8 +368,15 @@
                 <artifactId>amqp-client</artifactId>
                 <version>${rabbitmq.client.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>cos_api</artifactId>
+                <version>${qcloud.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
 
     <build>
         <plugins>
