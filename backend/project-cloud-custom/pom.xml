@@ -16,7 +16,9 @@
         <module>common-cloud</module>
         <module>custom-gateway</module>
         <module>custom-basic</module>
-        <module>custom-auth</module>
+        <!--
+            <module>custom-auth</module>
+        -->
         <module>custom-umps</module>
 
         <module>practice-mistake</module>

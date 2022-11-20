@@ -1,6 +1,6 @@
 package common.cloud.annotation;
 
-import common.security.annotation.EnableResource;
+// import common.security.annotation.EnableResource;
 import common.swagger.annotation.EnableSwagger;
 import common.uid.annotation.EnableUID;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,6 +24,6 @@ import java.lang.annotation.*;
 @EnableCircuitBreaker
 @EnableSwagger
 @EnableUID
-@EnableResource
+// @EnableResource
 @RefreshScope
 public @interface CustomCloudApplication {}

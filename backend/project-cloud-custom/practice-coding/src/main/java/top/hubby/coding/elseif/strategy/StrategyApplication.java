@@ -4,7 +4,7 @@ import common.swagger.annotation.EnableSwagger;
 import common.uid.annotation.EnableUID;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 
 /**
  * @author zack <br>
@@ -13,8 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @EnableUID
 @EnableSwagger
-@SpringBootApplication
-@ComponentScan({"top.hubby.coding.common", "top.hubby.coding.elseif.strategy"})
+@SpringBootApplication(exclude = RabbitAutoConfiguration.class)
 public class StrategyApplication {
     public static void main(String[] args) {
         SpringApplication.run(StrategyApplication.class, args);

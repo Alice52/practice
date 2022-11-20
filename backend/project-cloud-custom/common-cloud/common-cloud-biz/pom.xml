@@ -15,44 +15,10 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>io.github.alice52</groupId>
-            <artifactId>common-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.alice52</groupId>
-            <artifactId>database-mybatis-plus</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.alice52</groupId>
-            <artifactId>common-redis</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.alice52</groupId>
-            <artifactId>common-log</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.alice52</groupId>
-            <artifactId>common-oss</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.alice52</groupId>
-            <artifactId>common-uid</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.alice52</groupId>
-            <artifactId>swagger-2</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.alice52</groupId>
-            <artifactId>common-security</artifactId>
+            <artifactId>common-api-inject</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -62,25 +28,6 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
-        <!-- spring -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                    <groupId>org.springframework.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
         <!-- alibaba sentinel -->
         <dependency>
             <groupId>com.alibaba.csp</groupId>
@@ -98,6 +45,11 @@
         </dependency>
 
         <!-- grpc -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.21.9</version>
+        </dependency>
         <dependency>
             <groupId>net.devh</groupId>
             <artifactId>grpc-client-spring-boot-starter</artifactId>

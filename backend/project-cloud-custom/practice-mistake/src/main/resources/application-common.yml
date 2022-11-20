@@ -45,8 +45,6 @@ common:
         enabled: true
         key: req-id
 
-
-
 SmsClient:
   ribbon:
     listOfServers: localhost:8080

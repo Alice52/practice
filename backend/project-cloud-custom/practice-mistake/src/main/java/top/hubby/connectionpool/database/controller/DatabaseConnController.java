@@ -23,7 +23,6 @@ public class DatabaseConnController {
 
     @GetMapping("/test")
     public User test() {
-        User register = userService.register();
-        return register;
+        return userService.register();
     }
 }

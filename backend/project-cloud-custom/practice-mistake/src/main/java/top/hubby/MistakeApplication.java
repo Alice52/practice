@@ -5,6 +5,7 @@ import common.uid.annotation.EnableUID;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 
 /**
  * @author asd <br>
@@ -13,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @EnableUID
 @EnableSwagger
-@SpringBootApplication
+@SpringBootApplication(exclude = RabbitAutoConfiguration.class)
 @MapperScan("top.hubby.connectionpool.database.mapper")
 public class MistakeApplication {
     public static void main(String[] args) {

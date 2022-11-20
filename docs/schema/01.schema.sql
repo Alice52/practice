@@ -1,17 +1,3 @@
--- common uid
-DROP TABLE IF EXISTS `uid_worker_node`;
-
-CREATE TABLE `uid_worker_node` (
-    `ID` bigint(20) NOT NULL AUTO_INCREMENT,
-    `HOST_NAME` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-    `PORT` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-    `TYPE` int(11) NOT NULL,
-    `LAUNCH_DATE` date NOT NULL,
-    `MODIFIED` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `CREATED` datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    PRIMARY KEY (`ID`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;
-
 -- upms member
 DROP TABLE IF EXISTS `upms_member`;
 
@@ -47,3 +33,26 @@ CREATE TABLE `upms_sign` (
     `is_deleted` TINYINT(1) DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_bin;
+
+-- practice-job#job-dynamic
+CREATE TABLE IF NOT EXISTS `practice_job_task_definition` (
+    id bigint (20) primary key auto_increment,
+    status varchar (10) null,
+    name nvarchar (64) null,
+    delay int (8),
+    next_run_at datetime (3) default current_timestamp (3),
+    data nvarchar (256)
+) ENGINE = InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET = utf8mb4 COMMENT = '任务定义表';
+
+-- practice-job#job-delay
+CREATE TABLE IF NOT EXISTS `practice_order_info` (
+    id bigint (20) primary key auto_increment,
+    status varchar (10) not null default 'CREATED',
+    create_time datetime (3) not null default current_timestamp (3)
+) ENGINE = InnoDB AUTO_INCREMENT = 1000 DEFAULT CHARSET = utf8mb4 COMMENT = 'order 延迟任务表';
+
+-- practice-mistake
+create table practice_user (
+    id bigint not null primary key,
+    name varchar(50) charset utf8 null
+);

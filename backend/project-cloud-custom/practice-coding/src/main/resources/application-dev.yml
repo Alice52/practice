@@ -10,11 +10,11 @@ spring:
   datasource:
     username: ENC(3+5Pg+H9L0s1ATmg/xTWLbNt9OeMFguochuRyTl9a4BGbD4lL2SLM8351rdHYhC2)
     password: ENC(MkGdNTchUL+OnF+nvm5YSSjWc7XeHLNab+KV9Wr3fqF1fAbEVLB2urZotLn8nAk1)
-    url: ENC(an2Bl+bjDWa0hEzzLDW2tZ/FGK5Czk4pHDAeaeFLMbxTMjj32UBSNj6Nc0013ImpyuMRvFGHsMLKQY/iuqXzuraoYQwLsZ6/hx5/h7XMMxMN5On2zxT8EEPiEtBnA1eqIPSy0Oj8RuBzpyRrQF/CMFwF4b/cgkjVO1Q08mT29vGhLOFF36bc6YjeWlgUPuMsQu9jsuwvHTCABcVEPOrqpzm8z2Xqzxw3BUzwhgyAfUCm+lAYgHIAvCwhXmjHG4N8Ki1C4MBexGdOulpLTB6KW1u9MDg+74IF0gAmGa4IvQLncrEUU/ZKlA0AgfEsiK9ctDHJ/HvaJqjJL2X6z4IfA0JBng+XLLGcrJt7/zp5X8vYXMr0EZpeQpoekkrHNdYPGJbRe4mgf4BQMNZg9wYCAtJ4IlhHFlsA4xCRE12BF+kC+SvQmwiLjrf9idJLONuW)
+    url: ENC(qbj/Kz3NAgO/X+Io/J9k5cg0WF2+fqivAydurvnZ/ovVQCOvQzg6Qf2iLw2zpioe+pbQciIos/uOTfzi4/OTJPm61LU/4yuerNrE8hBrjbgOL9LAGKqQupNeaNonbXhRX2jW8p/xqLqE1NviEMixbmag0fGRKeaLXnk50Y5ukDltmMZzWvE0RraHlPBTojuZPrZsK+Y9gIifhDQqBi4JRvHRdmpu7YZGVeTZ93MKP91uK86gOQdT9F48Pvpmw4hdNLv4v4gO/jtMcmdlDL89gl7fA9jZpXEexebvHDQ89Qzy2WQoo/jy+cx7bV4iaufhgJDA9PNAYBU/4KkjsLkquXNniamCBlRnBcQEPgkMqsk6SQoTLuKQa9YaKSMrrLsyl3iTxegFR3uyHqV5bz5r1LmBmvnfk9xeOrXm/i0RLv+trJP+Q1qWCXhgbGZBj0q8)
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
-      maximum-pool-size: 10
+      maximum-pool-size: 20
       register-mbeans: true
 common:
   core:

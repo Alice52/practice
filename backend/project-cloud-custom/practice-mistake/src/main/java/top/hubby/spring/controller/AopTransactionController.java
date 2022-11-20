@@ -25,7 +25,7 @@ public class AopTransactionController {
     @Autowired private UserService userService;
 
     @GetMapping("/transaction")
-    public int transaction(@RequestParam("name") String name) {
+    public Long transaction(@RequestParam("name") String name) {
         userService.createUser(new User(name));
         return userService.getUserCount(name);
     }

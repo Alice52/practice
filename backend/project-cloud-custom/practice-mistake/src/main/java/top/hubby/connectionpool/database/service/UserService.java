@@ -2,12 +2,12 @@ package top.hubby.connectionpool.database.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.hubby.connectionpool.database.mapper.UserMapper;
 import top.hubby.model.entity.User;
 
+import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class UserService {
-    @Autowired private UserMapper userMapper;
+    @Resource private UserMapper userMapper;
 
     @Transactional
     public User register() {
@@ -40,7 +40,7 @@ public class UserService {
         }
     }
 
-    public int getUserCount(String name) {
+    public Long getUserCount(String name) {
 
         LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery().eq(User::getName, name);
 
