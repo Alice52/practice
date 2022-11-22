@@ -21,10 +21,14 @@
         -->
         <module>custom-umps</module>
 
-        <module>practice-mistake</module>
+        <module>practice-optimize</module>
         <module>practice-coding</module>
         <module>practice-job</module>
         <module>practice-dtx</module>
+        <module>practice-dp</module>
+        <module>practice-program</module>
+        <module>practice-test</module>
+        <module>practice-dpp</module>
     </modules>
 
     <properties>

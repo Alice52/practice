@@ -5,7 +5,7 @@
     - actuator-server
 2. cloud module
     - common-cloud
-    - custom-auth
+    - ~~custom-auth~~
     - custom-basic
     - custom-gateway
     - custom-umps
@@ -14,4 +14,5 @@
     - practice-dp
     - practice-dtx
     - practice-job
-    - practice-mistake
+    - practice-mistake 
+    - practice-dp
