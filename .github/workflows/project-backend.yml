@@ -50,8 +50,7 @@ jobs:
 
           PROJECT_NAME=project-cloud-custom
           cd $PROJECT_HOME/$PROJECT_PREFIX/$PROJECT_NAME
-          rm ./common-api/pom.xml
-          mv ./common-api/pom.xml.dev ./common-api/pom.xml
+          cd common-api/ && ./reparent.sh && cd ../
           mvn clean package -DskipTests=true
 
       - name: Upload Custom Basic Artifact
