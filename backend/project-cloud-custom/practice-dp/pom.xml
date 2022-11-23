@@ -21,6 +21,7 @@
         <module>dp-builder</module>
         <module>dp-singleton</module>
         <module>dp-factory</module>
+        <module>dp-state</module>
     </modules>
 
 </project>
