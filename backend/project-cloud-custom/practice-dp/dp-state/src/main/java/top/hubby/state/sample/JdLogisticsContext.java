@@ -1,4 +1,4 @@
-package top.hubby.state;
+package top.hubby.state.sample;
 
 import lombok.Data;
 
