@@ -1,4 +1,4 @@
-package top.hubby.state.deprecate;
+package top.hubby.state.transfer.instateimpl;
 
 /**
  * @author zack <br>

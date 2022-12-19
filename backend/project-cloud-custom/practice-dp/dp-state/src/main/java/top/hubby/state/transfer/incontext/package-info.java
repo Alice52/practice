@@ -29,4 +29,4 @@
  *     - 没有 state 流转的情况下, state 就是简易版 strategy: 条件就是 status + 没有映射关系
  * </pre>
  */
-package top.hubby.state.sample;
+package top.hubby.state.transfer.incontext;

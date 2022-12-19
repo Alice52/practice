@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TestClient {
 
     public static void main(String[] args) {
-        NewStateMachine machine = new NewStateMachine();
+        StateMachine machine = new StateMachine();
 
         State next = machine.getNext(State.LEDER_CHCK, Event.PASS);
         log.info("State.LEDER_CHCKED and Event.PASS next is: {}", next);

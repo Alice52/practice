@@ -9,12 +9,6 @@ import java.util.List;
 @Data
 public abstract class AbstractStateMachine {
 
-    @Data
-    static class Exec {
-        private State nextState;
-        private IStateHandle handle;
-    }
-
     // 如果此处自己封装<k, k, v, v> 的map 就不需要 Exec 对象
     private HashBasedTable<State, Event, Exec> map = HashBasedTable.create();
 
@@ -39,9 +33,15 @@ public abstract class AbstractStateMachine {
     public IStateHandle getHandle(State state, Event event) {
         return map.get(state, event).getHandle();
     }
+
+    @Data
+    static class Exec {
+        private State nextState;
+        private IStateHandle handle;
+    }
 }
 
-class NewStateMachine extends AbstractStateMachine {
+class StateMachine extends AbstractStateMachine {
 
     @Override
     List<MachinePoint> init() {

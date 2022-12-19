@@ -6,17 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class MachinePoint {
-    private State from;
-    private State to;
-    private Event event;
-    private IStateHandle handle;
-}
-
 enum State {
     REJECT,
     FINISH,
@@ -35,6 +24,17 @@ enum Event {
 
 interface IStateHandle {
     void handle();
+}
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MachinePoint {
+    private State from;
+    private State to;
+    private Event event;
+    private IStateHandle handle;
 }
 
 @Slf4j
