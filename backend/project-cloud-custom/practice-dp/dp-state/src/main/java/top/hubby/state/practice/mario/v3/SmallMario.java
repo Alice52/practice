@@ -1,12 +1,12 @@
 package top.hubby.state.practice.mario.v3;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import top.hubby.state.practice.mario.IMario;
 import top.hubby.state.practice.mario.State;
 
+@Slf4j
 @NoArgsConstructor
-@AllArgsConstructor
 public class SmallMario extends IMario {
     @Override
     public State getName() {

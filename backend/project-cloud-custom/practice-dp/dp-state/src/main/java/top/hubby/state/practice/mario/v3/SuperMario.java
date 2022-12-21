@@ -1,12 +1,10 @@
 package top.hubby.state.practice.mario.v3;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import top.hubby.state.practice.mario.IMario;
 import top.hubby.state.practice.mario.State;
 
 @NoArgsConstructor
-@AllArgsConstructor
 public class SuperMario extends IMario {
 
     @Override

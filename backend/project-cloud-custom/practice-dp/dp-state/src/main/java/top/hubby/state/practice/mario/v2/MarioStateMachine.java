@@ -7,7 +7,7 @@ import top.hubby.state.practice.mario.State;
 import static top.hubby.state.practice.mario.State.*;
 
 @Getter
-public class MarioStateMachine implements IMario {
+public class MarioStateMachine extends IMario {
     private static final State[][] transitionTable = {
         {SUPER, CAPE, FIRE, SMALL},
         {SUPER, CAPE, FIRE, SMALL},

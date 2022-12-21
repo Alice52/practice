@@ -5,7 +5,7 @@ import top.hubby.state.practice.mario.IMario;
 import top.hubby.state.practice.mario.State;
 
 @Data
-public class MarioStateMachine implements IMario {
+public class MarioStateMachine extends IMario {
     private int score;
     private State currentState;
 
