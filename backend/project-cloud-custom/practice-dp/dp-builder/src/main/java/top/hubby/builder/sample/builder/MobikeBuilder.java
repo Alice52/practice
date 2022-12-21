@@ -22,6 +22,10 @@ public class MobikeBuilder extends Builder {
 
     @Override
     public Bike build() {
+
+        assert mBike.getFrame() != null;
+        assert mBike.getSeat() != null;
+
         return mBike;
     }
 }

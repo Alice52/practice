@@ -1,7 +1,8 @@
-package top.hubby.builder.sample.pool.after;
+package top.hubby.builder.practice.v2;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -32,6 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Getter
+@NoArgsConstructor
 public class ResourcePoolConfig {
     private String name;
     private int maxTotal;

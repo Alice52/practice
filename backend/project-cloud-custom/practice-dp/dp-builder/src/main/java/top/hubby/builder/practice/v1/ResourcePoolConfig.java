@@ -1,4 +1,4 @@
-package top.hubby.builder.sample.pool.before;
+package top.hubby.builder.practice.v1;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;
@@ -20,7 +20,6 @@ import lombok.extern.slf4j.Slf4j;
  * @project pattern <br>
  */
 @Slf4j
-@Data
 public class ResourcePoolConfig {
     private static final int DEFAULT_MAX_TOTAL = 8;
     private static final int DEFAULT_MAX_IDLE = 8;
@@ -31,7 +30,7 @@ public class ResourcePoolConfig {
     private int maxIdle = DEFAULT_MAX_IDLE;
     private int minIdle = DEFAULT_MIN_IDLE;
 
-    public ResourcePoolConfig(String name, Integer maxTotal, Integer maxIdle, Integer minIdle) {
+    public ResourcePoolConfig(String name) {
         if (StrUtil.isBlank(name)) {
             throw new IllegalArgumentException("name should not be empty.");
         }
