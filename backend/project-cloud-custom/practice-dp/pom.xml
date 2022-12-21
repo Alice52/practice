@@ -22,6 +22,7 @@
         <module>dp-singleton</module>
         <module>dp-factory</module>
         <module>dp-state</module>
+        <module>dp-prototype</module>
     </modules>
 
 </project>
