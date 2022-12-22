@@ -18,14 +18,15 @@ public class CitationClient {
         c1.setAward(award);
 
         Citation c2 = c1.clone();
-        c2.setName("李四");
 
         c1.setAge(17);
         award.setPrice(19);
 
-        log.info("c1.getName().equals(c2.getName()): {}", c1.getName().equals(c2.getName()));
+        // string is ref type and this equals is true due to string-constant-pool
+        log.info("c1.getName()= c2.getName(): {}", c1.getName() == c2.getName());
         log.info("c1.getAge() != c2.getAge(): {}", c1.getAge() != c2.getAge());
-        log.info("c1.getAward().equal(c2.getAward()): {}", c1.getAward().canEqual(c2.getAward()));
+        // this equals is true due tu award is ref type
+        log.info("c1.getAward() = c2.getAward(): {}", c1.getAward() == c2.getAward());
         log.info("c1's award[{}], c2's award[{}]", c1.getAward().price, c2.getAward().price);
     }
 }
