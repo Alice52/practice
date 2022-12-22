@@ -25,7 +25,7 @@ public class Citation implements Cloneable {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-  public static class Award {
+    public static class Award {
         int price;
     }
 }
