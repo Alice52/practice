@@ -1,8 +1,8 @@
 package top.hubby.threadpool;
 
-import common.core.util.tpool.PoolMonitorUtil;
-import common.core.util.tpool.RadicalBlockingQueue;
-import common.core.util.tpool.reject.CallerBlocksPolicy;
+import common.core.util.pool.PoolMonitorUtil;
+import common.core.executor.RadicalBlockingQueue;
+import common.core.executor.reject.CallerBlocksPolicy;
 import io.swagger.annotations.Api;
 import jodd.util.concurrent.ThreadFactoryBuilder;
 import lombok.SneakyThrows;

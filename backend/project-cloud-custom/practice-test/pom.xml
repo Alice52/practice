@@ -11,10 +11,6 @@
 
     <artifactId>practice-test</artifactId>
 
-    <properties>
-        <spring-boot.repackage.skip>true</spring-boot.repackage.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.github.alice52</groupId>
