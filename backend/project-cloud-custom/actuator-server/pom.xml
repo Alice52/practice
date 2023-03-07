@@ -10,6 +10,16 @@
 
     <artifactId>actuator-server</artifactId>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.alice52</groupId>
+                <artifactId>common-api-bom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>de.codecentric</groupId>

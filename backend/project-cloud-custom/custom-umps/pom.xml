@@ -14,4 +14,15 @@
         <module>custom-upms-api</module>
         <module>custom-upms-biz</module>
     </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.alice52</groupId>
+                <artifactId>common-api-bom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

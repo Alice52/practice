@@ -15,4 +15,15 @@
         <module>custom-basic-api</module>
         <module>custom-basic-biz</module>
     </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.alice52</groupId>
+                <artifactId>common-api-bom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

@@ -11,6 +11,16 @@
     <artifactId>custom-gateway</artifactId>
     <description>排除 spring-webmvc, tomcat/undertow等容器, 只需要 gateway 和 cloud 相关</description>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.alice52</groupId>
+                <artifactId>common-api-bom</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <!-- common -->
         <dependency>
