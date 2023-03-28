@@ -1,8 +1,7 @@
 package top.hubby.threadpool;
 
+import common.core.executor.RadicalThreadPoolExecutor;
 import common.core.util.pool.PoolMonitorUtil;
-import common.core.executor.RadicalBlockingQueue;
-import common.core.executor.reject.CallerBlocksPolicy;
 import io.swagger.annotations.Api;
 import jodd.util.concurrent.ThreadFactoryBuilder;
 import lombok.SneakyThrows;
@@ -94,10 +93,11 @@ public class ThreadPoolOOMController {
     @GetMapping("/better")
     public int better() throws InterruptedException {
         // 这里开始是激进线程池的实现
-        BlockingQueue<Runnable> queue = new RadicalBlockingQueue<>(10);
+        // BlockingQueue<Runnable> queue = new RadicalBlockingQueue<>(10);
+        // ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
+        //             2, 5, 5, TimeUnit.SECONDS, queue, factory, new CallerBlocksPolicy());
         ThreadPoolExecutor threadPool =
-                new ThreadPoolExecutor(
-                        2, 5, 5, TimeUnit.SECONDS, queue, factory, new CallerBlocksPolicy());
+                RadicalThreadPoolExecutor.newRadicalThreadPoolExecutor(2, 5, 5);
 
         threadPool.allowCoreThreadTimeOut(true);
         threadPool.prestartAllCoreThreads();
