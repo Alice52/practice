@@ -1,6 +1,5 @@
 package top.hubby.list;
 
-import jdk.nashorn.internal.ir.debug.ObjectSizeCalculator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,14 +31,14 @@ public class ListMapTests {
 
         stopWatch.start("listSearch");
         Object list = listSearch(elementCount, loopCount);
-        log.info("{}", ObjectSizeCalculator.getObjectSize(list));
+        // log.info("{}", jdk.nashorn.internal.ir.debug.ObjectSizeCalculator.getObjectSize(list));
         stopWatch.stop();
 
         stopWatch.start("mapSearch");
         Object map = mapSearch(elementCount, loopCount);
         stopWatch.stop();
 
-        log.info("{}", ObjectSizeCalculator.getObjectSize(map));
+        // log.info("{}", jdk.nashorn.internal.ir.debug.ObjectSizeCalculator.getObjectSize(map));
         log.info("{}", stopWatch.prettyPrint());
         TimeUnit.HOURS.sleep(1);
     }
