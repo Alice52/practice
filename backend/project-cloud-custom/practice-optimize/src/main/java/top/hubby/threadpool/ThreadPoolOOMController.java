@@ -1,7 +1,7 @@
 package top.hubby.threadpool;
 
 import common.core.executor.RadicalThreadPoolExecutor;
-import common.core.util.pool.PoolMonitorUtil;
+import common.core.util.pool.PoolUtil;
 import io.swagger.annotations.Api;
 import jodd.util.concurrent.ThreadFactoryBuilder;
 import lombok.SneakyThrows;
@@ -35,7 +35,7 @@ public class ThreadPoolOOMController {
     public void oom1() throws InterruptedException {
 
         ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newFixedThreadPool(1);
-        PoolMonitorUtil.printStatsFixedRate(threadPool, 1);
+        PoolUtil.printStatsFixedRate(threadPool, 1);
         for (int i = 0; i < 10000; i++) {
             threadPool.execute(
                     () -> {
@@ -55,7 +55,7 @@ public class ThreadPoolOOMController {
     public void oom2() throws InterruptedException {
 
         ThreadPoolExecutor threadPool = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-        PoolMonitorUtil.printStatsFixedRate(threadPool, 1);
+        PoolUtil.printStatsFixedRate(threadPool, 1);
         for (int i = 0; i < 100000000; i++) {
             threadPool.execute(
                     () -> {
@@ -81,7 +81,7 @@ public class ThreadPoolOOMController {
                         factory,
                         new ThreadPoolExecutor.AbortPolicy());
 
-        ScheduledFuture<?> scheduledFuture = PoolMonitorUtil.printStatsFixedRate(threadPool, 1);
+        ScheduledFuture<?> scheduledFuture = PoolUtil.printStatsFixedRate(threadPool, 1);
 
         submitTask(threadPool, atomicInteger);
 
@@ -102,7 +102,7 @@ public class ThreadPoolOOMController {
         threadPool.allowCoreThreadTimeOut(true);
         threadPool.prestartAllCoreThreads();
 
-        ScheduledFuture<?> scheduledFuture = PoolMonitorUtil.printStatsFixedRate(threadPool, 1);
+        ScheduledFuture<?> scheduledFuture = PoolUtil.printStatsFixedRate(threadPool, 1);
         // 每秒提交一个任务，每个任务耗时10秒执行完成，一共提交20个任务
 
         // 任务编号计数器
